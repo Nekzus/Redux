@@ -1,13 +1,14 @@
-local name = "serverinfo"
-local desc = "${returnsServerInfo}"
-local usage = ""
-local aliases = {"svinfo", "sinfo", "ginfo", "guildinfo"}
+local _config = {
+	name = "serverinfo",
+	desc = "${returnsServerInfo}",
+	usage = "",
+	aliases = {"svinfo", "sinfo", "ginfo", "guildinfo"},
+	cooldown = 10,
+	level = 0,
+	direct = false,
+}
 
-local cd = 10
-local level = 0
-local allowDm = false
-
-local func = function(data)
+local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
@@ -27,7 +28,7 @@ local func = function(data)
 	end
 
 	local embed = replyEmbed(text, data.message, "info")
-	local screenLink = apis.misc:screenShare(data.guild.id, voice.id)
+	local screenLink = screenShareApi(data.guild.id, voice.id)
 
 	local embed = newEmbed()
 
@@ -43,12 +44,4 @@ local func = function(data)
 	return true
 end
 
--- Command constructor
-commands:create({
-	name = name,
-	desc = desc,
-	usage = usage,
-	allowDm = allowDm,
-	cd = cd,
-	func = func,
-}):accept(#aliases > 0 and unpack(aliases))
+return {config = _config, func = _function}

@@ -168,4 +168,4 @@ local _function = function(data)
 	end
 end
 
-return _config, _function
+return {config = _config, func = _function}

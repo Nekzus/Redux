@@ -100,4 +100,4 @@ local _function = function(data)
 	return true
 end
 
-return _config, _function
+return {config = _config, func = _function}

@@ -1,13 +1,14 @@
-local name = "userinfo"
-local desc = "${returnsUserInfo}"
-local usage = "${userKey}"
-local aliases = {"whois"}
+local _config = {
+	name = "userinfo",
+	desc = "${returnsUserInfo}",
+	usage = "${userKey}",
+	aliases = {"whois", "wis", "info"},
+	cooldown = 10,
+	level = 0,
+	direct = false,
+}
 
-local cd = 10
-local level = 0
-local allowDm = false
-
-local func = function(data)
+local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
@@ -43,12 +44,4 @@ local func = function(data)
 	return true
 end
 
--- Command constructor
-commands:create({
-	name = name,
-	desc = desc,
-	usage = usage,
-	allowDm = allowDm,
-	cd = cd,
-	func = func,
-}):accept(#aliases > 0 and unpack(aliases))
+return {config = _config, func = _function}
