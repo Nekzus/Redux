@@ -3,7 +3,7 @@ local _config = {
 	desc = "${setsCashAmount}",
 	usage = "${userKey} ${numKey}",
 	aliases = {"scash", "sc"},
-	cooldown = 0,
+	cooldown = 2,
 	level = 3,
 	direct = false,
 }

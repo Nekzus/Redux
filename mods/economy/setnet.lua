@@ -1,10 +1,10 @@
 local _config = {
-	name = "setbank",
-	desc = "${setsBankAmount}",
+	name = "setnet",
+	desc = "${setsNetAmount}",
 	usage = "${userKey} ${numKey}",
-	aliases = {"sbank", "sb"},
+	aliases = {"snet", "sn"},
 	cooldown = 2,
-	level = 2,
+	level = 3,
 	direct = false,
 }
 
@@ -71,10 +71,11 @@ local _function = function(data)
 	local value = realNum(data.args[3])
 
 	if value then
-		local text = parseFormat("${bankSetSuccessful}", langList, member.tag, format("%s %s", symbol, affixNum(value)))
+		local text = parseFormat("${netSetSuccessful}", langList, member.tag, format("%s %s", symbol, affixNum(value)))
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
+		memberEconomy:set("cash", 0)
 		memberEconomy:set("bank", value)
 
 		return true
