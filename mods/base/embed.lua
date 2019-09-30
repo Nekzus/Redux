@@ -8,7 +8,7 @@ local _config = {
 	direct = false,
 }
 
-local embedTempData = {}
+local
 
 local _function = function(data)
 	local private = data.member == nil
@@ -16,6 +16,8 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local langList = langs[guildLang]
 	local args = data.args
+
+	embedTempData = embedTempData or {}
 
 	local sentence = data.content:sub(#args[1] + 2)
 	local activeEdit = embedTempData[data.user.id]
