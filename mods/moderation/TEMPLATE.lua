@@ -1,4 +1,4 @@
---[[local _config = {
+local _config = {
 	name = "",
 	desc = "",
 	usage = "",
