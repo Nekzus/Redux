@@ -170,5 +170,3 @@ https://www.ranker.com/list/crimes-youd-commit-if-you-could-get-away-with-it/dan
 -- player - missões secundarias (que podem conter drops)
 -- braresa - facções com sistema similar a werewolf online (adicionar top 3 pra ter chat)
 -- maquina de dinheiro
-
-]]

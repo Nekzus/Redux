@@ -14,7 +14,7 @@ local function isFile(path)
 end
 
 function main.load(filePath)
-	filePath = assert(filePath and format("./saves/%s.txt", filePath), "[1] Invalid file path for .load()")
+	filePath = assert(filePath and format("./data/%s.txt", filePath), "[1] Invalid file path for .load()")
 	assert(isFile(filePath), "[2] Invalid file path for .load()")
 
 	local result
@@ -29,7 +29,7 @@ end
 
 function main.save(data, filePath)
 	assert(data and type(data) == "table", "Data must be a table in .load()")
-	filePath = assert(filePath and format("./saves/%s.txt", filePath), "[1] Invalid file path for .load()")
+	filePath = assert(filePath and format("./data/%s.txt", filePath), "[1] Invalid file path for .load()")
 	assert(isFile(filePath), "[2] Invalid file path for .load()")
 
 	local result
