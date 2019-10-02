@@ -1,4 +1,4 @@
-local serializer = serializer or require("./core/serpent.lua")
+local serializer = serializer or require("./core/libs/serpent.lua")
 
 local main = {}
 

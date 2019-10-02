@@ -119,8 +119,15 @@ function loadBot()
 	client:removeAllListeners()
 	loadFile("./config.lua")
 
-	-- Loads the core functionalities
-	for _, folder in next, {"core", "langs", "events"} do
+	for _, folder in next, {"libs", "utils"} do
+		for file, type in fs.scandirSync(format("./core/%s/", folder)) do
+			if type == "file" then
+				loadFile(format("./core/%s/%s", folder, file))
+			end
+		end
+	end
+
+	for _, folder in next, {"langs", "events"} do
 		for file, type in fs.scandirSync(format("./%s/", folder)) do
 			if type == "file" then
 				loadFile(format("./%s/%s", folder, file))
@@ -128,7 +135,6 @@ function loadBot()
 		end
 	end
 
-	-- Loads in the mods
 	for _, folder in next, {"base", "economy", "entertainment", "moderation"} do
 		for file, type in fs.scandirSync(format("./mods/%s/", folder)) do
 			if type == "file" then
@@ -139,7 +145,7 @@ function loadBot()
 					mod.config.func = mod.func
 					commands:create(mod.config):accept(unpack(mod.config.aliases))
 				else
-					printf("Failed to load command %s of category %s", file, folder)
+					printf("Failed to load %s of category %s", file, folder)
 				end
 			end
 		end
