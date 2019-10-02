@@ -8,8 +8,6 @@ local _config = {
 	direct = false,
 }
 
-local
-
 local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData

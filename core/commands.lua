@@ -16,7 +16,7 @@ function commands:accept(...)
 
 	if #list > 0 then
 		for _, n in next, list do
-			assert(type(n) == "string", "Invalid name variation at commands:also(...)")
+			assert(type(n) == "string", "Invalid name variation at commands:accept(...)")
 			if self.list[n] then
 				printf("Alias '%s' is already defined for '%s'", n, self.name)
 			else

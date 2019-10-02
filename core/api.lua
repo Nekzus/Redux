@@ -25,7 +25,7 @@ local apis = {
 	},
 }
 
-local apisConfig = {
+local _config = {
 	youtube = {
 		key = "AIzaSyApllT_5QSRx-JnNJF8TNcDZRSSKm3cBCE",
 	},
@@ -98,9 +98,9 @@ function truthApi(text)
 	or text:find("-m") and "maybe"
 
 	if choice then
-		data, request = apis:get("yesno", "force", {choice})
+		data, request = httpGet("yesno", "force", {choice})
 	else
-		data, request = apis:get("yesno", "main")
+		data, request = httpGet("yesno", "main")
 	end
 
 	local decode = json.decode(request)
@@ -123,17 +123,17 @@ function googleSearchApi(text)
 		result = format("%s%s", result, word)
 	end
 
-	local key = apisConfig.googleSearch.key
-	local cx = apisConfig.googleSearch.cx
-	local data, request = apis:get("google", "search", {key, cx, text})
+	local key = _config.googleSearch.key
+	local cx = _config.googleSearch.cx
+	local data, request = httpGet("google", "search", {key, cx, text})
 	local decoded = json.decode(request)
 
 	return decoded
 end
 
 function youtubeApi(text)
-	local key = apisConfig.youtube.key
-	local data, request = apis:get("youtube", "search", {key, text})
+	local key = _config.youtube.key
+	local data, request = httpGet("youtube", "search", {key, text})
 	local decoded = json.decode(request)
 
 	if not decoded then

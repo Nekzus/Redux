@@ -15,7 +15,7 @@ local _function = function(data)
 	local langList = langs[guildLang]
 	local args = data.args
 
-	local result, err = apis.misc:cat()
+	local result, err = catApi()
 	local embed = newEmbed()
 
 	signFooter(embed, data.author, guildLang)

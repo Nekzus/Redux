@@ -36,6 +36,7 @@ local _function = function(data)
 			bird:post(nil, embed:raw(), data.channel)
 
 			return true
+
 		elseif inList(args[2], config.terms.done) then
 			local missingValues = ""
 
@@ -224,91 +225,93 @@ local _function = function(data)
 		local guildStore = guildEconomy:get("store", {})
 
 		local success, err = pcall(function()
-			for _, text in next, sentence:split("&&") do
-			local k, v = match(text, config.patterns.keyValue.capture)
+			for _, text in next, sentence:split("&&")
+			do
+				local k, v = match(text, config.patterns.keyValue.capture)
 
-			k = k:lower()
+				k = k:lower()
 
-			if inList(k, {"name", "n", "title", "t"}) then
-				for itemGuid, item in next, guildStore:raw() do
-					if item.name == v then
-						local text = parseFormat("${itemNameSpecifiedExists}", langList)
-						local embed = replyEmbed(text, data.message, "warn")
+				if inList(k, {"name", "n", "title", "t"}) then
+					for itemGuid, item in next, guildStore:raw() do
+						if item.name == v then
+							local text = parseFormat("${itemNameSpecifiedExists}", langList)
+							local embed = replyEmbed(text, data.message, "warn")
+
+							bird:post(nil, embed:raw(), data.channel)
+
+							return false
+						end
+					end
+
+					info.name = v
+					order.name.chosen = true
+				elseif inList(k, {"description", "desc", "d"}) then
+					info.desc = v
+					order.desc.chosen = true
+				elseif inList(k, {"price", "p", "value", "v"}) then
+					local n = tonumber(v)
+
+					if not n then
+						local text = parseFormat("${missingArg}", langList)
+						local embed = replyEmbed(text, data.message, "error")
 
 						bird:post(nil, embed:raw(), data.channel)
 
 						return false
 					end
+
+					info.price = math.max(0, n)
+					order.price.chosen = true
+				elseif inList(k, {"stock", "stck", "stk", "st", "s"}) then
+					local n = tonumber(v)
+
+					if not n then
+						local text = parseFormat("${missingArg}", langList)
+						local embed = replyEmbed(text, data.message, "error")
+
+						bird:post(nil, embed:raw(), data.channel)
+
+						return false
+					end
+
+					info.stock = math.max(0, n)
+					order.stock.chosen = true
+				elseif inList(k, {"role", "rol", "rl", "r"}) then
+					local role = getRole(v, "name", lastData.guild)
+
+					if not role then
+						local text = parseFormat("${missingArg}", langList)
+						local embed = replyEmbed(text, data.message, "error")
+
+						bird:post(nil, embed:raw(), data.channel)
+
+						return false
+					end
+
+					info.role = role.id
+					order.role.chosen = true
 				end
-
-				info.name = v
-				order.name.chosen = true
-			elseif inList(k, {"description", "desc", "d"}) then
-				info.desc = v
-				order.desc.chosen = true
-			elseif inList(k, {"price", "p", "value", "v"}) then
-				local n = tonumber(v)
-
-				if not n then
-					local text = parseFormat("${missingArg}", langList)
-					local embed = replyEmbed(text, data.message, "error")
-
-					bird:post(nil, embed:raw(), data.channel)
-
-					return false
-				end
-
-				info.price = math.max(0, n)
-				order.price.chosen = true
-			elseif inList(k, {"stock", "stck", "stk", "st", "s"}) then
-				local n = tonumber(v)
-
-				if not n then
-					local text = parseFormat("${missingArg}", langList)
-					local embed = replyEmbed(text, data.message, "error")
-
-					bird:post(nil, embed:raw(), data.channel)
-
-					return false
-				end
-
-				info.stock = math.max(0, n)
-				order.stock.chosen = true
-			elseif inList(k, {"role", "rol", "rl", "r"}) then
-				local role = getRole(v, "name", lastData.guild)
-
-				if not role then
-					local text = parseFormat("${missingArg}", langList)
-					local embed = replyEmbed(text, data.message, "error")
-
-					bird:post(nil, embed:raw(), data.channel)
-
-					return false
-				end
-
-				info.role = role.id
-				order.role.chosen = true
 			end
-		end
-	end)
+		end)
 
-	if not success then
-		if err and type(err) == "string" then
-			local errPath, errFileLine = err:match("(%a*)/(%a*.lua%p%d*)")
+		if not success then
+			if err and type(err) == "string" then
+				local errPath, errFileLine = err:match("(%a*)/(%a*.lua%p%d*)")
 
-			err = gsub(err, "%a%:%/", "")
-			err = gsub(err, "%a+%/", "")
+				err = gsub(err, "%a%:%/", "")
+				err = gsub(err, "%a+%/", "")
 
-			if errPath and errFileLine then
-				err = gsub(err, errFileLine, format("..%s/%s", errPath, errFileLine))
+				if errPath and errFileLine then
+					err = gsub(err, errFileLine, format("..%s/%s", errPath, errFileLine))
+				end
 			end
+
+			local text = parseFormat("${luaNotSupported}; \n`%s`", langList, err)
+			local embed = replyEmbed(text, data.message, "error")
+			local errorEmbed = bird:post(nil, embed:raw(), data.channel)
+
+			storeTempData[data.author.id].errorEmbed = errorEmbed
 		end
-
-		local text = parseFormat("${luaNotSupported}; \n`%s`", langList, err)
-		local embed = replyEmbed(text, data.message, "error")
-		local errorEmbed = bird:post(nil, embed:raw(), data.channel)
-
-		storeTempData[data.author.id].errorEmbed = errorEmbed
 	end
 end
 

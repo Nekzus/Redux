@@ -80,12 +80,12 @@ function loadFile(path)
 		if code then
 			setfenv(code, getfenv())
 
-			local ran, err = pcall(code)
+			local ran, ret = pcall(code)
 
 			if ran then
-				return ran
+				return ret
 			else
-				printf("RUNTIME ERROR: %s | %s", fileName, err)
+				printf("RUNTIME ERROR: %s | %s", fileName, ret)
 
 				return false
 			end
@@ -132,10 +132,15 @@ function loadBot()
 	for _, folder in next, {"base", "economy", "entertainment", "moderation"} do
 		for file, type in fs.scandirSync(format("./mods/%s/", folder)) do
 			if type == "file" then
-				local mod = loadFile(format("./%s/%s", folder, file))
+				local mod = loadFile(format("./mods/%s/%s", folder, file))
 
-				mod.config.category = format("${%s}", folder)
-				command:create(mod.config)
+				if mod then
+					mod.config.category = format("${%s}", folder)
+					mod.config.func = mod.func
+					commands:create(mod.config):accept(unpack(mod.config.aliases))
+				else
+					printf("Failed to load command %s of category %s", file, folder)
+				end
 			end
 		end
 	end
@@ -148,37 +153,6 @@ function loadBot()
 	bot.loaded = true
 end
 
-function loadBot()
-	local startupMessage = format("%s %s %s\n", rep("-", 10), os.date("%m/%d/%Y %I:%M %p"), rep("-", 10))
-
-	if bot.loaded then
-		startupMessage = format("\n%s", startupMessage)
-	end
-
-	bot.loaded = false
-	print(startupMessage)
-	client:removeAllListeners()
-	loadFile("./config.lua")
-
-	for _, folder in next, {"core", "langs", "mods", "events"} do
-		for file, type in fs.scandirSync(format("./%s/", folder)) do
-			if type == "file" then
-				loadFile(format("./%s/%s", folder, file))
-			end
-		end
-	end
-
-	saves.global = cache(db.load("global") or {}) -- Patrons and guilds data
-	saves.economy = cache(db.load("economy") or {}) -- Servers economy and store items
-	saves.clans = cache(db.load("clans") or {}) -- Servers clans data, membership and hierarchy
-	saves.track = cache(db.load("track") or {}) -- Global trackers for mutes and bot data
-	saves.temp = cache(db.load("temp") or {}) -- Temporary information and last command use
-
-	bot.loaded = true
-end
-
-coroutine.wrap(function()
-	loadBot()
-	client:run(format("Bot %s", config.meta.token))
-	config.meta.token = nil
-end)()
+loadBot()
+client:run(format("Bot %s", config.meta.token))
+config.meta.token = nil
