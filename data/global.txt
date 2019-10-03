@@ -1,1 +1,1 @@
-do local _={["280874940171943936"]={mutes={},deleteCommand={},roles={},prefix=".",lang="en-us"},["464558668894175232"]={mutes={},deleteCommand={},roles={},prefix=".",lang="pt-br"}};return _;end
+do local _={["464558668894175232"]={mutes={},deleteCommand={},roles={},prefix=".",lang="pt-br"},["280874940171943936"]={mutes={},deleteCommand={},roles={},prefix=".",lang="en-us"}};return _;end
