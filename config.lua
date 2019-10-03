@@ -21,7 +21,7 @@ config.time = {
 }
 config.saving = {
 	enabled = true,
-	delay = 60,
+	delay = 30,
 }
 config.clean = {
 	enabled = true,

@@ -1,0 +1,1 @@
+do local _={["464558668894175232"]={mutes={},deleteCommand={},roles={},prefix=".",lang="pt-br"}};return _;end
