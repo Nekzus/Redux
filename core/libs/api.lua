@@ -14,7 +14,7 @@ local apiData = {
 	googleCx = "000898645152450243880:ypizs90acrv",
 }
 
-function httpPost(endPoint, option, param, ...)
+function httpHandle(method, endPoint, param, ...)
 	local point
 	local link = api[endPoint]
 
@@ -26,22 +26,15 @@ function httpPost(endPoint, option, param, ...)
 		end
 	end
 
-	return http.request("POST", point, ...)
+	return http.request(method, point, ...)
 end
 
-function httpGet(endPoint, option, param, ...)
-	local point
-	local link = api[endPoint]
+function httpPost(endPoint, param, ...)
+	return httpHandle("POST", endPoint, param, ...)
+end
 
-	if access then
-		if param then
-			point = format(link, unpack(param))
-		else
-			point = link
-		end
-	end
-
-	return http.request("GET", point, ...)
+function httpGet(endPoint, param, ...)
+	return httpHandle("GET", endPoint, param, ...)
 end
 
 function catApi()
@@ -88,28 +81,22 @@ function truthApi(text)
 end
 
 function googleSearchApi(text)
-	local result = ""
-
-	for _, word in next, text:split(" ") do
-		if result ~= "" then
-			result = format("%s%+", result)
-		end
-
-		result = format("%s%s", result, word)
-	end
-
-	local data, request = httpGet("googleSearch", {_config.googleKey, _config.googleCx, text})
+	local data, request = httpGet("googleSearch", {apiData.googleKey, apiData.googleCx, text})
 	local decoded = json.decode(request)
+
+	if not decoded then
+		return nil, print("unable to decode googleSearchApi()")
+	end
 
 	return decoded
 end
 
-function youtubeApi(text)
-	local data, request = httpGet("youtubeSearch", {_config.youtube.key, text})
+function youtubeVideoApi(text)
+	local data, request = httpGet("youtubeSearch", {apiData.youtubeKey, text})
 	local decoded = json.decode(request)
 
 	if not decoded then
-		return nil, print("unable to decode youtubeApi()")
+		return nil, print("unable to decode youtubeVideoApi()")
 	end
 
 	return decoded

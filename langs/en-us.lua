@@ -233,11 +233,13 @@ langs["en-us"] = {
 	["storeItemTakeRole"] = "Takes role",
 	["storeItemTakeCash"] = "Takes cash",
 	["storeItemTakeItem"] = "Takes item",
+	["googleNotFoundTerms"] = "Could not find anything with '%s'",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["searchesGoogle"] = "searches on google for what you want",
 	["createsStoreItem"] = "creates a new item for the store of the server.",
 	["createsScreenshare"] = "creates a screenshare link for your voice-channel.",
 	["setsLang"] = "sets the default language.",

@@ -164,9 +164,11 @@ function loadBot()
 				local mod = loadFile(format("./mods/%s/%s", folder, file))
 
 				if mod then
+					local aliases = mod.config.aliases
 					mod.config.category = format("${%s}", folder)
 					mod.config.func = mod.func
-					commands:create(mod.config):accept(unpack(mod.config.aliases))
+					mod.config.aliases = nil
+					commands:create(mod.config):accept(unpack(aliases))
 				else
 					printf("Failed to load %s of category %s", file, folder)
 				end
