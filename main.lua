@@ -7,25 +7,48 @@ enums = discordia.enums
 discordia.extensions()
 
 -- String
-format = string.format
-match = string.match
-gsub = string.gsub
-gmatch = string.gmatch
-rep = string.rep
-sub = string.sub
+byte = string.byte
+char = string.char
 find = string.find
+format = string.format
+gmatch = string.gmatch
+gsub = string.gsub
+len = string.len
+lower = string.lower
+match = string.match
+rep = string.rep
+reverse = string.reverse
+sub = string.sub
+upper = string.upper
 
 -- Math
-random = math.random
-seed = math.randomseed
+abs = math.abs
+acos = math.acos
+asin = math.asin
+atan = math.atan
+ceil = math.ceil
+cos = math.cos
+deg = math.deg
+exp = math.exp
+floor = math.floor
+fmod = math.fmod
+huge = math.huge
+log = math.log
 max = math.max
 min = math.min
 modf = math.modf
+pi = math.pi
+rad = math.rad
+random = math.random
+randomseed = math.randomseed
+sin = math.sin
+sqrt = math.sqrt
+tan = math.tan
 
 -- Table
+concat = table.concat
 insert = table.insert
 remove = table.remove
-concat = table.concat
 unpack = table.unpack
 sort = table.sort
 deepcopy = table.deepcopy
@@ -62,7 +85,7 @@ function isValue(list, value)
 	return false
 end
 
-math.randomseed(os.time())
+randomseed(os.time())
 
 function loadFile(path)
 	local file = fs.readFileSync(path)

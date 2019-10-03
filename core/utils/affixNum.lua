@@ -20,7 +20,7 @@ function affixNum(num)
 
 	num = num - num % 10
 
-	local affix = min(floor(math.log(math.abs(num)) / log(1000)), #config.numAffixes)
+	local affix = min(floor(log(abs(num)) / log(1000)), #config.numAffixes)
 
 	if isNeg then
 		num = num * - 1
