@@ -1,8 +1,8 @@
 local _config = {
-	name = "youtube",
-	desc = "${searchesYoutubeVideo}",
+	name = "google",
+	desc = "${searchesGoogle}",
 	usage = "${messageKey}",
-	aliases = {"yt", "video"},
+	aliases = {"g", "search"},
 	cooldown = 15,
 	level = 0,
 	direct = true,
@@ -30,14 +30,13 @@ local _function = function(data)
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
-	local searchResult = youtubeVideoApi(searchTerms)
-	local youtubeLink = "https://www.youtube.com/watch?v=%s"
+	local searchResult = googleSearchApi(searchTerms)
 
 	local page = 1
 	local pages = 50
 
 	if searchResult == nil or searchResult.items == nil then
-		local text = parseFormat("${videoNotFoundTerms}", langList, searchTerms)
+		local text = parseFormat("${googleNotFoundTerms}", langList, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		decoyBird:update(nil, embed:raw())
@@ -51,7 +50,7 @@ local _function = function(data)
 		local curItem = searchResult.items[page]
 
 		if not curItem then
-			local text = parseFormat("${videoNotFoundTerms}", langList, searchTerms)
+			local text = parseFormat("${googleNotFoundTerms}", langList, searchTerms)
 			local embed = replyEmbed(text, data.message, "error")
 
 			decoyBird:update(nil, embed:raw())
@@ -59,7 +58,7 @@ local _function = function(data)
 			return false
 		end
 
-		decoyBird:update(format(youtubeLink, curItem.id.videoId), nil)
+		decoyBird:update(curItem.link, nil)
 
 		if firstTime == true then
 			firstTime = false

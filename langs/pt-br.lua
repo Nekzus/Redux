@@ -233,11 +233,13 @@ langs["pt-br"] = {
 	["storeItemTakeRole"] = "Toma o cargo",
 	["storeItemTakeCash"] = "Toma o dinheiro",
 	["storeItemTakeItem"] = "Toma o item",
+	["googleNotFoundTerms"] = "Nada foi encontrado com os termos '%s'",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["searchesGoogle"] = "pesquisa no google pelo oque você quiser",
 	["createsStoreItem"] = "cria um novo item para a loja do servidor.",
 	["createsScreenshare"] = "cria um link de compartilhamento de tela para o seu canal-de-voz.",
 	["setsLang"] = "modifica o idioma padrão.",
