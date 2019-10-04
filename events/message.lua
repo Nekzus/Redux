@@ -1,6 +1,7 @@
 -- VOICE LOAD https://github.com/rokf/nandek/blob/master/bot.lua
 -- https://github.com/fabiocolacio/discord-sound-board/blob/master/discord_sound_board.lua
 -- https://en.wikipedia.org/wiki/Names_of_large_numbers
+-- https://github.com/kekkus-vult/garbage-person-v2/blob/master/commands/urban.lua
 
 client:on("messageCreate",
 	function(message)
