@@ -239,6 +239,7 @@ langs["pt-br"] = {
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["emojifiesText"] = "transforma o seu texto em emojis.",
 	["searchesGoogle"] = "pesquisa no google pelo oque você quiser",
 	["createsStoreItem"] = "cria um novo item para a loja do servidor.",
 	["createsScreenshare"] = "cria um link de compartilhamento de tela para o seu canal-de-voz.",

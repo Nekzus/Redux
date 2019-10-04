@@ -239,7 +239,8 @@ langs["en-us"] = {
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
-	["searchesGoogle"] = "searches on google for what you want",
+	["emojifiesText"] = "turns your text into emojis.",
+	["searchesGoogle"] = "searches on google for what you want.",
 	["createsStoreItem"] = "creates a new item for the store of the server.",
 	["createsScreenshare"] = "creates a screenshare link for your voice-channel.",
 	["setsLang"] = "sets the default language.",
