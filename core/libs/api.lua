@@ -102,7 +102,7 @@ function youtubeVideoApi(text)
 	return decoded
 end
 
-function screenShareApi(guildId, voiceId)
+function screenshareApi(guildId, voiceId)
 	assert(guildId, "Missing guild ID")
 	assert(voiceId, "Missing voice ID")
 
