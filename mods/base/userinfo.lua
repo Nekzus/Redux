@@ -16,8 +16,15 @@ local _function = function(data)
 	local args = data.args
 
 	local guild = data.guild
-	local user = data.member --data.message.mentionedUsers.first
 	local embed = newEmbed()
+	local mentioned = data.message.mentionedUsers.first
+	local user
+
+	if mentioned then
+		user = data.guild:getMember(mentioned.id)
+	else
+		user = data.member
+	end
 
 	embed:image(user.avatarURL)
 	embed:field({name = parseFormat("${name}", langList), value = (user.nickname and format("%s (%s)", user.username, user.nickname) or user.username), inline = true})

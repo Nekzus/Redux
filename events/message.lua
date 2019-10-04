@@ -125,7 +125,7 @@ client:on("messageCreate",
 			deleteCommand = not private and guildData:get("deleteCommand", false) or false
 
 			if not success then
-				printf("\nCommand Error: '%s' --> %s\nInformation: '%s' --> %s", commandName, commandError, data.author.tag, data.message.content)
+				printf("\nCommand Error: '%s' | %s\nInformation: '%s' | %s", commandName, commandError, data.author.tag, data.message.content)
 			end
 
 			if not private then
