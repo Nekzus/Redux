@@ -109,7 +109,7 @@ local _function = function(data)
 	end
 
 	local fullText = data.message.cleanContent --getCleanText(data.content:sub(#data.args[1] + 2))
-	local muteTime = math.min(interpTime(fullText:gsub('(%b"")', "")), timeInterps.week) or 60 * 60
+	local muteTime = min(interpTime(args[3]:gsub('(%b"")', "")), config.time.week) or 60 * 60
 	local formalMuteTime = timeLong(muteTime)
 
 	local reason
