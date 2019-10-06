@@ -210,7 +210,6 @@ local _function = function(data)
 			info = info,
 			order = order,
 			data = data,
-
 			embed = embed,
 			botEmbed = botEmbed
 		}
