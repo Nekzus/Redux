@@ -8,9 +8,11 @@ function getGuildData(guild)
 		guildData:get(k, v)
 	end
 
-	for roleId, _ in next, guildRoles:raw() do
-		if not getRole(roleId, "id", guild) then
-			guildRoles:set(roleId, nil)
+	if type(guild) == "table" then
+		for roleId, _ in next, guildRoles:raw() do
+			if not getRole(roleId, "id", guild) then
+				guildRoles:set(roleId, nil)
+			end
 		end
 	end
 

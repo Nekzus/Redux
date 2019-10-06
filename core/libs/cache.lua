@@ -30,9 +30,7 @@ function access(tab, paths, default, erase)
 					last[inner] = nil
 				elseif last[inner] then
 					if last[inner] == false then
-						last[inner] = false
-					else
-						last[inner] = last[inner]
+						last[inner] = false -- else last[inner] = last[inner]
 					end
 				elseif default ~= nil then
 					last[inner] = default

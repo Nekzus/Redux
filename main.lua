@@ -137,11 +137,13 @@ function loadBot()
 		startMessage = format("\n%s", startMessage)
 	end
 
+	-- Initializes the bot
 	bot.loaded = false
 	print(startMessage)
 	client:removeAllListeners()
 	loadFile("./config.lua")
 
+	-- Loads all extensions and utilities
 	for _, folder in next, {"libs", "utils"} do
 		for file, type in fs.scandirSync(format("./core/%s/", folder)) do
 			if type == "file" then
@@ -150,6 +152,7 @@ function loadBot()
 		end
 	end
 
+	-- Loads all languages and listeners
 	for _, folder in next, {"langs", "events"} do
 		for file, type in fs.scandirSync(format("./%s/", folder)) do
 			if type == "file" then
@@ -158,24 +161,28 @@ function loadBot()
 		end
 	end
 
-	for _, folder in next, {"base", "economy", "entertainment", "moderation"} do
-		for file, type in fs.scandirSync(format("./mods/%s/", folder)) do
-			if type == "file" then
-				local mod = loadFile(format("./mods/%s/%s", folder, file))
+	-- Loads all mods from its categories
+	for category, type in fs.scandirSync("./mods/") do
+		if type == "directory" then
+			for file, type in fs.scandirSync(format("./mods/%s/", category)) do
+				if type == "file" then
+					local mod = loadFile(format("./mods/%s/%s", category, file))
 
-				if mod then
-					local aliases = mod.config.aliases
-					mod.config.category = format("${%s}", folder)
-					mod.config.func = mod.func
-					mod.config.aliases = nil
-					commands:create(mod.config):accept(unpack(aliases))
-				else
-					printf("Failed to load %s of category %s", file, folder)
+					if mod then
+						local aliases = mod.config.aliases
+						mod.config.category = format("${%s}", category)
+						mod.config.func = mod.func
+						mod.config.aliases = nil
+						commands:create(mod.config):accept(unpack(aliases))
+					else
+						printf("Failed to load %s of category %s", file, category)
+					end
 				end
 			end
 		end
 	end
 
+	-- Initializes the datastores
 	saves.global = cache(db.load("global") or {}) -- Patrons and guilds data
 	saves.economy = cache(db.load("economy") or {}) -- Servers economy and store items
 	saves.clans = cache(db.load("clans") or {}) -- Servers clans data, membership and hierarchy

@@ -67,7 +67,7 @@ local _function = function(data)
 	end
 
 	local user = data.message.mentionedUsers.first
-	local member = user and data.guild:getMember(user)
+	local member = user and data.guild:getMember(user.id)
 
 	if not user or not member then
 		local text = parseFormat("${userNotFound}", langList)
@@ -124,9 +124,9 @@ local _function = function(data)
 	local muteData = {
 		added = os.time(),
 		duration = muteTime,
-		-- reason = reason,
+		reason = reason,
 		moderator = author.id,
-		user = member.id,
+		userId = member.id,
 		guild = data.guild.id,
 		guid = guid,
 	}
