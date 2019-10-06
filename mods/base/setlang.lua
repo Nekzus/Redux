@@ -4,7 +4,7 @@ local _config = {
 	usage = "${valueKey}",
 	aliases = {"slang"},
 	cooldown = 3,
-	level = 0,
+	level = 4,
 	direct = false,
 }
 
@@ -25,7 +25,7 @@ local _function = function(data)
 	end
 
 	if not langs[args[2]] then
-		local text = parseFormat("${langNotFound}", langList, values)
+		local text = parseFormat("${langNotFound}", langList, args[2])
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)

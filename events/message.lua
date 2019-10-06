@@ -46,7 +46,7 @@ client:on("messageCreate",
 		end
 
 		local commandPrefix = data.prefix
-		local commandName = data.command:lower():sub(2)
+		local commandName = data.command:lower():sub(#commandPrefix + 1)
 		local commandData = commandName and commands.list[commandName]
 		local commandCategory = commandData and commandData.category:match("%w+")
 

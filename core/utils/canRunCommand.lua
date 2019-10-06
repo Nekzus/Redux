@@ -3,7 +3,8 @@ function canRunCommand(data)
 	local private = isPrivateChannel(data.channel)
 	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
 	local commandPatron = false
-	local commandName = data.command:lower():sub(2)
+	local commandPrefix = data.prefix
+	local commandName = data.command:lower():sub(#commandPrefix + 1)
 	local commandData = commandName and commands.list[commandName]
 	local commandLevel = commandData and commandData.level
 
