@@ -1,6 +1,6 @@
 function getGuildData(guild)
-	local guildId = (type(guild) == "string" and guild) or (type(guild) == "table" and guild.id)
-	local guildData = saves.global:get(guildId)
+	local guild = type(guild) == "string" and client:getGuild(guild) or guild
+	local guildData = saves.global:get(guild.id)
 	local guildRoles = guildData:get("roles")
 	local guildMutes = guildData:get("mutes")
 
@@ -8,11 +8,9 @@ function getGuildData(guild)
 		guildData:get(k, v)
 	end
 
-	if type(guild) == "table" then
-		for roleId, _ in next, guildRoles:raw() do
-			if not getRole(roleId, "id", guild) then
-				guildRoles:set(roleId, nil)
-			end
+	for roleId, _ in next, guildRoles:raw() do
+		if not getRole(roleId, "id", guild) then
+			guildRoles:set(roleId, nil)
 		end
 	end
 

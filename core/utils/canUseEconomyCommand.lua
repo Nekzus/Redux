@@ -1,4 +1,5 @@
 function canUseEconomyCommand(command, member, guild)
+	local guild = type(guild) == "string" and client:getGuild(guild) or guild
 	local memberEconomy, guildEconomy = getMemberEconomy(member, guild)
 	local commandsUsed = memberEconomy:get("commandsUsed")
 	local commandData = commands.list[command]
