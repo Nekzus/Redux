@@ -234,6 +234,7 @@ langs["en-us"] = {
 	["storeItemTakeCash"] = "Takes cash",
 	["storeItemTakeItem"] = "Takes item",
 	["googleNotFoundTerms"] = "Could not find anything with '%s'",
+	["messageTooLong"] = "Your message is too long!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",

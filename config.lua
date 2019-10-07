@@ -138,6 +138,39 @@ str = " \t \r \n String with spaces  \t  \r  \n  "
 print( string.format( "Leading whitespace removed: %s", str:match( "^%s*(.+)" ) ) )
 print( string.format( "Trailing whitespace removed: %s", str:match( "(.-)%s*$" ) ) )
 print( string.format( "Leading and trailing whitespace removed: %s", str:match( "^%s*(.-)%s*$" ) ) )
+
+%a	letters (A-Z, a-z)
+%c	control characters (\n, \t, \r, ...)
+%d	digits (0-9)
+%l	lower-case letter (a-z)
+%p	punctuation characters (!, ?, &, ...)
+%s	space characters
+%u	upper-case letters
+%w	alphanumeric characters (A-Z, a-z, 0-9)
+%x	hexadecimal digits (\3, \4, ...)
+%z	the character with representation 0
+.	Matches any character
+
+[]
+()
+%
+.
++
+-
+*
+?
+^
+$
+
++	One or more repetitions
+*	Zero or more repetitions
+-	Also zero or more repetitions
+?	Optional (zero or one occurrence)
+
+%n	for n between 1 and 9 matches a substring equal to the n-th captured string
+%bxy	matches substring between two distinct characters (balanced pair of x and y)
+%f[set]	frontier pattern: matches an empty string at any position such that the next character
+belongs to set and the previous character does not belong to set
 ]]
 
 config.numAffixes = {

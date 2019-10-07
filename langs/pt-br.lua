@@ -234,6 +234,7 @@ langs["pt-br"] = {
 	["storeItemTakeCash"] = "Toma o dinheiro",
 	["storeItemTakeItem"] = "Toma o item",
 	["googleNotFoundTerms"] = "Nada foi encontrado com os termos '%s'",
+	["messageTooLong"] = "Sua mensagem é muito grande!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
