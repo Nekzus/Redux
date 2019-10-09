@@ -3,7 +3,7 @@ local _config = {
 	desc = "${emojifiesText}",
 	usage = "${messageKey}",
 	aliases = {"blocks", "t"},
-	cooldown = 0,
+	cooldown = 2,
 	level = 0,
 	direct = true,
 }

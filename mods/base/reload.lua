@@ -22,6 +22,7 @@ local _function = function(data)
 	coroutine.wrap(function()
 		commands:flushList()
 		loadBot()
+		client:setGame(format("%shelp", config.default.prefix))
 	end)()
 
 	local text = parseFormat("${botModulesReloaded}", langList)
