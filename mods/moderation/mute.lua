@@ -67,7 +67,7 @@ local _function = function(data)
 	end
 
 	local user = data.message.mentionedUsers.first
-	local member = user and data.guild:getMember(user)
+	local member = user and data.guild:getMember(user.id)
 
 	if not user or not member then
 		local text = parseFormat("${userNotFound}", langList)
@@ -109,7 +109,7 @@ local _function = function(data)
 	end
 
 	local fullText = data.message.cleanContent --getCleanText(data.content:sub(#data.args[1] + 2))
-	local muteTime = math.min(interpTime(fullText:gsub('(%b"")', "")), timeInterps.week) or 60 * 60
+	local muteTime = min(interpTime(args[3]:gsub('(%b"")', "")), config.time.week) or 60 * 60
 	local formalMuteTime = timeLong(muteTime)
 
 	local reason
@@ -124,9 +124,9 @@ local _function = function(data)
 	local muteData = {
 		added = os.time(),
 		duration = muteTime,
-		-- reason = reason,
+		reason = reason,
 		moderator = author.id,
-		user = member.id,
+		userId = member.id,
 		guild = data.guild.id,
 		guid = guid,
 	}

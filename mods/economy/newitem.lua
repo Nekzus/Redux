@@ -41,7 +41,7 @@ local _function = function(data)
 			local missingValues = ""
 
 			for k, v in next, order do
-				if not v.chosen then
+				if not v.picked then
 					if missingValues ~= "" then
 						missingValues = format("%s, ", missingValues)
 					end
@@ -100,94 +100,94 @@ local _function = function(data)
 		info = {}
 		order = {
 			itemName = {
-				chosen = false,
+				picked = false,
 				default = "${noNameSpecified}",
 				title = "$<storeItemName>",
 				short = "name",
 			},
 			itemDesc = {
-				chosen = true,
+				picked = true,
 				default = "${noDescSpecified}",
 				title = "$<storeItemDesc>",
 				short = "desc",
 			},
 			itemPrice = {
-				chosen = false,
+				picked = false,
 				default = 0,
 				title = "$<storeItemPrice>",
 				short = "price",
 			},
 			itemStock = {
-				chosen = false,
+				picked = false,
 				default = 0,
 				title = "$<storeItemStock>",
 				short = "stock",
 			},
 
 			giveRole = {
-				chosen = true,
+				picked = true,
 				default = 0,
 				title = "$<storeItemAwardRole>",
 				short = "give role",
 			},
 			giveCash = {
-				chosen = true,
+				picked = true,
 				default = 0,
 				title = "$<storeItemAwardCash>",
 				short = "give cash",
 			},
 			giveItem = {
-				chosen = true,
+				picked = true,
 				default = "",
 				title = "$<storeItemAwardItem>",
 				short = "give item",
 			},
 			giveReply = {
-				chosen = true,
+				picked = true,
 				default = "${inventoryItemUsed}",
 				title = "$<storeItemReplyUsed>",
 				short = "reply",
 			},
 
 			reqRole = {
-				chosen = true,
+				picked = true,
 				default = 0,
 				title = "$<storeItemRequiredRole>",
 				short = "need role",
 			},
 			reqCash = {
-				chosen = true,
+				picked = true,
 				default = 0,
 				title = "$<storeItemRequiredCash>",
 				short = "need cash",
 			},
 			reqItem = {
-				chosen = true,
+				picked = true,
 				default = 0,
 				title = "$<storeItemRequiredItem>",
 				short = "need item",
 			},
 			reqTime = {
-				chosen = true,
+				picked = true,
 				default = 0,
 				title = "$<storeItemRequiredTime>",
 				short = "need time",
 			},
 
 			takeRole = {
-				chosen = true,
+				picked = true,
 				default = 0,
 				title = "$<storeItemTakeRole>",
 				short = "need role",
 			},
 			takeCash = {
-				chosen = true,
+				picked = true,
 				default = 0,
 				title = "$<storeItemTakeCash>",
 				short = "need cash",
 			},
 			takeItem = {
-				chosen = true,
+				picked = true,
 				default = 0,
 				title = "$<storeItemTakeItem>",
 				short = "need item",
@@ -210,7 +210,6 @@ local _function = function(data)
 			info = info,
 			order = order,
 			data = data,
-
 			embed = embed,
 			botEmbed = botEmbed
 		}
@@ -244,10 +243,10 @@ local _function = function(data)
 					end
 
 					info.name = v
-					order.name.chosen = true
+					order.name.picked = true
 				elseif inList(k, {"description", "desc", "d"}) then
 					info.desc = v
-					order.desc.chosen = true
+					order.desc.picked = true
 				elseif inList(k, {"price", "p", "value", "v"}) then
 					local n = tonumber(v)
 
@@ -261,7 +260,7 @@ local _function = function(data)
 					end
 
 					info.price = math.max(0, n)
-					order.price.chosen = true
+					order.price.picked = true
 				elseif inList(k, {"stock", "stck", "stk", "st", "s"}) then
 					local n = tonumber(v)
 
@@ -275,7 +274,7 @@ local _function = function(data)
 					end
 
 					info.stock = math.max(0, n)
-					order.stock.chosen = true
+					order.stock.picked = true
 				elseif inList(k, {"role", "rol", "rl", "r"}) then
 					local role = getRole(v, "name", lastData.guild)
 
@@ -289,7 +288,7 @@ local _function = function(data)
 					end
 
 					info.role = role.id
-					order.role.chosen = true
+					order.role.picked = true
 				end
 			end
 		end)

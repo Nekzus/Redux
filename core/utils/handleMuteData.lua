@@ -10,7 +10,16 @@ function handleMuteData(muteData)
 	local guild = client:getGuild(muteData.guild)
 	local guildData = getGuildData(guild)
 	local tempMutes = saves.temp:get("mutes")
-	local member = guild:getMember(muteData.user)
+	local userId = muteData.userId
+	local member = guild:getMember(userId)
+
+	if not member then
+		guildData:get("mutes"):set(userId, nil)
+
+		if muteData.guid then
+			tempMutes:set(muteData.guid, nil)
+		end
+	end
 
 	local newTime = os.time()
 	local elapsedTime = newTime - muteData.added
@@ -18,7 +27,7 @@ function handleMuteData(muteData)
 	local role = roleId and getRole(roleId, "id", guild)
 
 	if not role then
-		guildData.mutes[member.id] = nil
+		guildData:get("mutes"):set(member.id, nil)
 
 		return false
 	end

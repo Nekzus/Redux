@@ -4,7 +4,7 @@ local _config = {
 	usage = "",
 	aliases = {"rls"},
 	cooldown = 0,
-	level = 0,
+	level = 5,
 	direct = false,
 }
 
@@ -35,7 +35,7 @@ local _function = function(data)
 		return a.level > b.level or (a.level == b.level and a.added > b.added)
 	end)
 
-	local perPage = 10
+	local perPage = 8
 	local page = tonumber(args[2]) or 1
 
 	local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)

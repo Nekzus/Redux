@@ -1,4 +1,5 @@
 function getMemberLevel(member, guild)
+	local guild = type(guild) == "string" and client:getGuild(guild) or guild
 	local guildData = getGuildData(guild)
 	local guildRoles = guildData:get("roles")
 

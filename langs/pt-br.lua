@@ -155,7 +155,7 @@ langs["pt-br"] = {
 	["roleAddedAdmin"] = "O cargo `@%s` foi adicionado como `Administrador`",
 	["roleRemovedAdmin"] = "O cargo `@%s` foi removido de `Administrador`",
 	["roleAddedOrganizer"] = "O cargo `@%s` foi adicionado como `Organizador`",
-	["roleRemovedOrganizer"] = "Role `@%s` foi removido de `Organizador`",
+	["roleRemovedOrganizer"] = "O cargo `@%s` foi removido de `Organizador`",
 	["roleAddedMuted"] = "O cargo `@%s` foi adicionado como `Mutado`",
 	["roleRemovedMuted"] = "O cargo `@%s` foi removido de `Mutado`",
 	["mutedRoleTip"] = "Não se esqueça de definir um cargo de `Mutado` com **%ssetmutedrole**",
@@ -234,6 +234,7 @@ langs["pt-br"] = {
 	["storeItemTakeCash"] = "Toma o dinheiro",
 	["storeItemTakeItem"] = "Toma o item",
 	["googleNotFoundTerms"] = "Nada foi encontrado com os termos '%s'",
+	["messageTooLong"] = "Sua mensagem é muito grande!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
