@@ -59,6 +59,7 @@ local _function = function(data)
 
 			if not success then
 				local knownError = getMatchingDiscordError(err:match("%d+"), langList)
+				local noticeType
 				local text
 
 				if knownError then
@@ -67,11 +68,13 @@ local _function = function(data)
 
 				if deleted > 0 then
 					text = parseFormat("${failedContinueDetails} ${successDeletedXMessages}", langList, err, deleted)
+					noticeType = "warn"
 				else
 					text = parseFormat("${failedContinueDetails}", langList, err)
+					noticeType = "error"
 				end
 
-				local embed = replyEmbed(text, data.message, "error")
+				local embed = replyEmbed(text, data.message, noticeType)
 
 				decoy:update(nil, embed:raw(), data.channel)
 
