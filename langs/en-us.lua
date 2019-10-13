@@ -86,6 +86,7 @@ langs["en-us"] = {
 	["codeKey"] = "[code]",
 	["nameKey"] = "[name]",
 	["numKey"] = "[number]",
+	["languageKey"] = "[language]",
 
 	-- Outputs
 	["unicodeResult"] = "Unicode: \\%s",

@@ -1,7 +1,7 @@
 local _config = {
 	name = "translate",
 	desc = "${translatesYourText}",
-	usage = "${messageKey}",
+	usage = "${languageKey} ${messageKey}",
 	aliases = {"to"},
 	cooldown = 10,
 	level = 0,
