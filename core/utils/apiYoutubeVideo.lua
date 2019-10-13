@@ -1,9 +1,11 @@
 function apiYoutubeVideo(text)
-	local data, request = httpGet("youtubeSearch", {config.keys.youtubeKey, text})
+	local data, request = httpGet("youtubeSearch", {config.keys.youtubeVideoKey, text})
 	local decoded = json.decode(request)
 
 	if not decoded then
-		return nil, print("unable to decode apiYoutubeVideo()")
+		print("unable to decode apiYoutubeVideo()")
+
+		return nil
 	end
 
 	return decoded

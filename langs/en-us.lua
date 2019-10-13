@@ -48,6 +48,8 @@ langs["en-us"] = {
 	["question"] = "Question",
 	["answer"] = "Answer",
 	["googleSearch"] = "Google Search",
+	["translation"] = "Translation",
+	["sourceLanguage"] = "Source Language",
 
 	["itemName"] = "Item Name",
 	["itemDesc"] = "Item Description",
@@ -235,11 +237,13 @@ langs["en-us"] = {
 	["storeItemTakeItem"] = "Takes item",
 	["googleNotFoundTerms"] = "Could not find anything with '%s'",
 	["messageTooLong"] = "Your message is too long!",
+	["googleTranslationNotFound"] = "Could not translate your message, try again later or with different terms!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["translatesYourText"] = "translates your text.",
 	["emojifiesText"] = "turns your text into emojis.",
 	["searchesGoogle"] = "searches on google for what you want.",
 	["createsStoreItem"] = "creates a new item for the store of the server.",

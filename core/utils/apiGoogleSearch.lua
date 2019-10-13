@@ -1,9 +1,11 @@
 function apiGoogleSearch(text)
-	local data, request = httpGet("googleSearch", {config.keys.googleKey, config.keys.googleCx, text})
+	local data, request = httpGet("googleSearch", {config.keys.googleSearchKey, config.keys.googleSearchCx, text})
 	local decoded = json.decode(request)
 
 	if not decoded then
-		return nil, print("unable to decode apiGoogleSearch()")
+		print("unable to decode apiGoogleSearch()")
+
+		return nil
 	end
 
 	return decoded

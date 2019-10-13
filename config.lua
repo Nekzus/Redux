@@ -16,15 +16,17 @@ config.api = {
 	dogImage = "https://dog.ceo/api/breeds/image/random",
 	youtubeSearch = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&order=date&type=video&key=%s&q=%s",
 	googleSearch = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&q=%s",
+	googleTranslate = "https://translation.googleapis.com/language/translate/v2?key=%s&target=%s&q=%s",
 	truthYesNo = "https://yesno.wtf/api",
 	truthYesNoForce = "https://yesno.wtf/api?force=%s",
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
 }
 
 config.keys = {
-	youtubeKey = "AIzaSyApllT_5QSRx-JnNJF8TNcDZRSSKm3cBCE",
-	googleKey = "AIzaSyDENwT8E_qHRpzrI6eLHANOAvLHy_WiyBo",
-	googleCx = "000898645152450243880:ypizs90acrv",
+	youtubeVideoKey = "AIzaSyApllT_5QSRx-JnNJF8TNcDZRSSKm3cBCE",
+	googleSearchKey = "AIzaSyDENwT8E_qHRpzrI6eLHANOAvLHy_WiyBo",
+	googleSearchCx = "000898645152450243880:ypizs90acrv",
+	googleTranslateKey = "AIzaSyDYrXTvbJhfINQg9zcXy_SuL4rpt5B1azs",
 }
 
 config.time = {

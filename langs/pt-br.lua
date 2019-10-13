@@ -48,6 +48,8 @@ langs["pt-br"] = {
 	["maybe"] = "Talvez",
 	["answer"] = "Resposta",
 	["googleSearch"] = "Pesquisa do Google",
+	["translation"] = "Tradução",
+	["sourceLanguage"] = "Linguagem de Origem",
 
 	["itemName"] = "Nome do Item",
 	["itemDesc"] = "Descrição do Item",
@@ -235,11 +237,13 @@ langs["pt-br"] = {
 	["storeItemTakeItem"] = "Toma o item",
 	["googleNotFoundTerms"] = "Nada foi encontrado com os termos '%s'",
 	["messageTooLong"] = "Sua mensagem é muito grande!",
+	["googleTranslationNotFound"] = "Sua mensagem não pode ser traduzida, tente mais tarde ou com termos diferentes!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["translatesYourText"] = "traduz o seu texto.",
 	["emojifiesText"] = "transforma o seu texto em emojis.",
 	["searchesGoogle"] = "pesquisa no google pelo oque você quiser",
 	["createsStoreItem"] = "cria um novo item para a loja do servidor.",
