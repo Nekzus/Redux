@@ -1,23 +1,15 @@
 local main = {}
 main.__index = main
 
-function access(tab, paths, default, erase)
-	if not (tab and type(tab) == "table"
-	and paths and type(paths) == "string") then
-		if type(paths) == "table" then
-			for k, v in next, paths do
-				print(k, v)
-			end
-		end
+function access(list, paths, default, delete)
+	assert(list and type(list) == "table", "List must be a table")
+	assert(paths and type(paths) == "string", "Paths must be a string path")
 
-		return false, printf("Invalid parameters --> %s - %s", tab, paths)
-	end
-
-	local ret = {}
+	local result = {}
 	local paths = paths:split(";")
 
 	for _, path in next, paths do
-		local last = tab
+		local last = list
 		local dirs = path:split("/")
 
 		for _, dir in next, dirs do
@@ -26,11 +18,11 @@ function access(tab, paths, default, erase)
 			if #inners == 1 then
 				local inner = inners[1]
 
-				if erase then
+				if delete then
 					last[inner] = nil
 				elseif last[inner] then
 					if last[inner] == false then
-						last[inner] = false -- else last[inner] = last[inner]
+						last[inner] = false
 					end
 				elseif default ~= nil then
 					last[inner] = default
@@ -49,41 +41,52 @@ function access(tab, paths, default, erase)
 			end
 		end
 
-		insert(ret, last)
+		insert(result, last)
 	end
 
-	return unpack(ret)
+	return unpack(result)
 end
 
-function main:__call(tab)
+function main:__call(list)
 	if self.bin == nil then
-		return setmetatable({bin = type(tab) == "table" and tab or {}}, main)
+		return setmetatable({
+			bin = type(list) == "table" and list or {}
+		}, main)
 	else
-		return false, print("Thread is already created, use :get() or :set()")
+		print("Thread is already created, use :get() or :set()")
+
+		return false
 	end
 end
 
 function main:get(paths, default)
 	if self.bin == nil then
-		return false, print("Must create a thread first, use main(list)")
-	else
-		default = default or {}
-		local ret = access(self.bin, paths, default)
+		print("Must create a thread first, use cache(table)")
 
-		if ret and type(ret) == "table" then
-			return setmetatable({bin = ret}, main)
+		return false
+	else
+		local result = access(self.bin, paths, default or {})
+
+		if result and type(result) == "table" then
+			return setmetatable({
+				bin = result
+			}, main)
 		else
-			return ret or nil
+			return result
 		end
 	end
 end
 
 function main:set(key, value)
 	if self.bin == nil then
-		return false, print("Must create a thread first, use main(list)")
+		print("Must create a thread first, use cache(table)")
+
+		return false
 	else
 		if not key then
-			return false, print("Key not found for table index in :set()")
+			print("Key not found for table index in :set()")
+
+			return false
 		end
 
 		self.bin[key] = value
@@ -94,7 +97,7 @@ end
 
 function main:raw()
 	if self.bin == nil then
-		return false, print("Must create a thread first, use main(list)")
+		return false
 	else
 		return self.bin
 	end
