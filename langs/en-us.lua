@@ -50,6 +50,7 @@ langs["en-us"] = {
 	["googleSearch"] = "Google Search",
 	["translation"] = "Translation",
 	["sourceLanguage"] = "Source Language",
+	["translationCodes"] = "Translation Codes",
 
 	["itemName"] = "Item Name",
 	["itemDesc"] = "Item Description",
