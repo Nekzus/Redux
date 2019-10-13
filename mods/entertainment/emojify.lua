@@ -69,6 +69,15 @@ local _function = function(data)
 		end
 	end
 
+	if not result:find(":") then
+		local text = parseFormat("${missingArg}", langList)
+		local embed = replyEmbed(text, data.message, "error")
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return false
+	end
+
 	if #result > 2047 then
 		local text = parseFormat("${messageTooLong}", langList)
 		local embed = replyEmbed(text, data.message, "warn")

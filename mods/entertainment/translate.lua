@@ -93,7 +93,7 @@ local _function = function(data)
 				blinker:on(arwRight.id, function()
 					page = min(pages, page + 1)
 					if not private then
-						message:removeReaction(arwLeft, data.user.id)
+						message:removeReaction(arwRight, data.user.id)
 					end
 					showPage()
 				end)
@@ -192,7 +192,7 @@ local _function = function(data)
 				blinker:on(arwRight.id, function()
 					page = min(pages, page + 1)
 					if not private then
-						message:removeReaction(arwLeft, data.user.id)
+						message:removeReaction(arwRight, data.user.id)
 					end
 					showPage()
 				end)
