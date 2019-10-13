@@ -1,5 +1,6 @@
-db = {}
 serpent = serpent or require("./core/libs/serpent.lua")
+
+local main = {}
 
 local function isFile(path)
 	local file = fs.openSync(path, "r")
@@ -12,7 +13,7 @@ local function isFile(path)
 	return false
 end
 
-function db.load(filePath)
+function main.load(filePath)
 	filePath = assert(filePath and format("./saves/%s.txt", filePath), "[1] Invalid file path for .load()")
 	assert(isFile(filePath), "[2] Invalid file path for .load()")
 
@@ -26,7 +27,7 @@ function db.load(filePath)
 	return result()
 end
 
-function db.save(data, filePath)
+function main.save(data, filePath)
 	assert(data and type(data) == "table", "Data must be a table in .load()")
 	filePath = assert(filePath and format("./saves/%s.txt", filePath), "[1] Invalid file path for .load()")
 	assert(isFile(filePath), "[2] Invalid file path for .load()")
@@ -43,5 +44,7 @@ function db.save(data, filePath)
 
 	return true
 end
+
+db = main
 
 return db
