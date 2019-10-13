@@ -99,14 +99,26 @@ local _function = function(data)
 		end
 
 		showPage()
+
 	elseif translateTerms == nil then
 		local nCount = 0
 		local rList = {}
 
-		for langName, langCode in next, config.langsCodes do
-			if langName:lower():find(translateLang) or langCode:lower():find(translateLang) then
-				insert(rList, {name = langName, code = langCode})
-				nCount = nCount + 1
+		if sub(translateLang, 1, 1) == "\"" or sub(translateLang, 1,1) == "'" then
+			translateLang = translateLang:match("%w+")
+
+			for langName, langCode in next, config.langsCodes do
+				if langName:lower() == translateLang or langCode:lower() == translateLang then
+					insert(rList, {name = langName, code = langCode})
+					nCount = nCount + 1
+				end
+			end
+		else
+			for langName, langCode in next, config.langsCodes do
+				if langName:lower():find(translateLang) or langCode:lower():find(translateLang) then
+					insert(rList, {name = langName, code = langCode})
+					nCount = nCount + 1
+				end
 			end
 		end
 
@@ -182,6 +194,7 @@ local _function = function(data)
 		end
 
 		showPage()
+
 	else
 		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 		local translateResult = apiGoogleTranslate(translateLang, translateTerms)
