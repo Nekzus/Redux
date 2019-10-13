@@ -30,7 +30,7 @@ local _function = function(data)
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
-	local searchResult = youtubeVideoApi(searchTerms)
+	local searchResult = apiYoutubeVideo(searchTerms)
 	local youtubeLink = "https://www.youtube.com/watch?v=%s"
 
 	local page = 1

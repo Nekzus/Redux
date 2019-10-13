@@ -30,7 +30,7 @@ local _function = function(data)
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
-	local searchResult = googleSearchApi(searchTerms)
+	local searchResult = apiGoogleSearch(searchTerms)
 
 	local page = 1
 	local pages = 50

@@ -28,7 +28,7 @@ local _function = function(data)
 	end
 
 	local embed = replyEmbed(text, data.message, "info")
-	local screenLink = screenshareApi(data.guild.id, voice.id)
+	local screenLink = apiScreenshare(data.guild.id, voice.id)
 
 	local embed = newEmbed()
 

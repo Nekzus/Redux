@@ -1,8 +1,8 @@
 local _config = {
-	name = "8ball",
+	name = "truth",
 	desc = "${answersYesNoMaybe}",
 	usage = "<-y|-n|-m> ${messageKey}",
-	aliases = {"yn", "ynm", "istrue", "itstrue", "truth"},
+	aliases = {"yn", "ynm", "istrue", "itstrue", "8ball"},
 	cooldown = 0,
 	level = 0,
 	direct = true,
@@ -18,7 +18,7 @@ local _function = function(data)
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 	local embed = newEmbed()
 	local question = data.content:sub(#args[1] + 2) or "-"
-	local resultText, resultImage = truthApi(data.message.content)
+	local resultText, resultImage = apiTruth(data.message.content)
 
 	question:gsub("`", "")
 	question:gsub("*", "")

@@ -15,7 +15,8 @@ local _function = function(data)
 	local langList = langs[guildLang]
 	local args = data.args
 
-	local result, err = catApi()
+	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
+	local result, err = apiCat()
 	local embed = newEmbed()
 
 	signFooter(embed, data.author, guildLang)
@@ -25,7 +26,7 @@ local _function = function(data)
 		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 		embed:footerIcon(config.images.info)
 
-		bird:post(nil, embed:raw(), data.channel)
+		decoyBird:update(nil, embed:raw())
 
 		return true
 	else
@@ -33,7 +34,7 @@ local _function = function(data)
 		embed:color(config.colors.red:match(config.patterns.colorRGB.capture))
 		embed:footerIcon(config.images.error)
 
-		bird:post(nil, embed:raw(), data.channel)
+		decoyBird:update(nil, embed:raw())
 
 		return false
 	end

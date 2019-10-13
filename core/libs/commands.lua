@@ -1,49 +1,51 @@
 -- backup bot https://github.com/Lautenschlager-id/BackupBot/blob/master/bot.lua
 
-commands = {list = {}, temp = {}, last = ""}
+commands = {list = {}, temp = {}}
 commands.__index = commands
 
 function commands:create(data)
-	name = data.name
-	assert(name, "Missing data for command at commands:add(...)")
+	local name = assert(data.name, "Missing data for command at commands:add(...)")
+
 	self.list[name] = data
 	self.last = name
 	self.temp = {}
+
 	return setmetatable(data, commands)
 end
 
 function commands:accept(...)
 	local list = {...}
 
-	if #list > 0 then
-		for _, n in next, list do
-			assert(type(n) == "string", "Invalid name variation at commands:accept(...)")
-			if self.list[n] then
-				printf("Alias %s is already defined for %s", n, self.name)
-			else
-				local copy = deepcopy(commands.list[self.name])
-
-				if not self.aliases then
-					self.aliases = {}
-				end
-
-				insert(commands.list[self.name].aliases, n)
-				copy.alias = true
-				copy.aliases = nil
-				copy.origin = self.name
-				commands.list[n] = copy
-			end
-		end
-
-		return true
+	if #list == 0 then
+		return false
 	end
 
-	return false
+	for _, alias in next, list do
+		assert(type(alias) == "string", "Invalid name type at commands:accept()")
+
+		if self.list[alias] then
+			printf("Alias %s is already defined for %s", alias, self.name)
+		else
+			local command = deepcopy(commands.list[self.name])
+
+			if not self.aliases then
+				self.aliases = {}
+			end
+
+			insert(commands.list[self.name].aliases, alias)
+			command.alias = true
+			command.aliases = nil
+			command.origin = self.name
+			commands.list[alias] = command
+		end
+	end
+
+	return true
 end
 
-local function alike(list, base)
-	for k, v in next, base do
-		if list[k] == nil or list[k] ~= v then
+local function contains(list, base)
+	for key, value in next, base do
+		if not list[key] or list[key] ~= value then
 			return false
 		end
 	end
@@ -51,81 +53,69 @@ local function alike(list, base)
 	return true
 end
 
-local function collectKeys(list, base)
-	local r = {}
+local function getKeys(list, base)
+	local result = {}
 
-	for k, v in next, base do
-		if list[v] then
-			insert(r, v)
+	for key, value in next, base do
+		if list[value] then
+			insert(result, list[value])
 		end
 	end
 
-	return r
+	return result
 end
 
 function commands:getList(mode, ...)
-	mode = mode or 0
-	local r = {}
 	local args = {...}
+	local result = {}
 
-	if mode == "full" then -- get full list
+	mode = mode or full
+
+	if mode == "full" then
 		return commands.list
-
-	elseif mode == "basic" then -- name, desc, usage, level
-		for k, v in next, commands.list do
-			insert(r, collectKeys(v, {"name", "desc", "usage", "level"}))
+	elseif mode == "basic" then
+		for _, command in next, commands.list do
+			insert(result, getKeys(command, {"name", "desc", "usage", "level"}))
 		end
-
-	elseif mode == "level" then -- get commands permitted by level
-		local byLevel = args[1] or 0
-
-		for k, v in next, commands.list do
-			if alike(v, {level = byLevel}) then
-				insert(r, collectKeys(v, {"name", "desc", "usage", "level"}))
-			end
-		end
-
-	elseif mode == "has" then -- get commands matching a condition
-		-- Creates a reader to avoid performing the same operation multiple times
-		local conditionKey = ""
+	elseif mode == "with" then
+		local code = ""
 
 		for i = 1, #args, 2 do
-			conditionKey = format("%s-%s:%s", conditionKey, args[i], args[i + 1])
+			code = format("%s-%s:%s", code, args[i], args[i + 1])
 		end
 
-		-- Checks whether the current operation has been performed and returns it if so
-		local conditionExists = self.temp[conditionKey]
+		local cached = self.temp[code]
 
-		if conditionExists then
-			return conditionExists
+		if cached then
+			return cached
 		else
-			for k, v in next, commands.list do
-				local isValid = false
+			for _, command in next, commands.list do
+				local contains = true
 
 				for i = 1, #args, 2 do
-					local hasKey = args[i]
-					local hasVal = args[i + 1]
+					local key = args[i]
+					local value = args[i + 1]
 
-					if not (v[hasKey] and v[hasKey] == hasVal) then
+					if not (command[key] and command[key] == value) then
+						contains = false
+
 						break
 					end
-
-					isValid = true
 				end
 
-				insert(r, v)
+				if contains then
+					insert(result, command)
+				end
 			end
 
-			self.temp[conditionKey] = r
+			self.temp[code] = result
 		end
 	end
-
-	return r
 end
 
 function commands:flushList()
-	for k, v in next, commands.list do
-		commands.list[k] = nil
+	for key, command in next, commands.list do
+		commands.list[key] = nil
 	end
 
 	commands.list = {}
