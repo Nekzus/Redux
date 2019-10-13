@@ -1,5 +1,5 @@
-local main = {}
-main.__index = main
+cache = {}
+cache.__index = cache
 
 function access(tab, paths, default, erase)
 	if not (tab and type(tab) == "table"
@@ -55,15 +55,15 @@ function access(tab, paths, default, erase)
 	return unpack(ret)
 end
 
-function main:__call(tab)
+function cache:__call(tab)
 	if self.bin == nil then
-		return setmetatable({bin = type(tab) == "table" and tab or {}}, main)
+		return setmetatable({bin = type(tab) == "table" and tab or {}}, cache)
 	else
 		return false, print("Thread is already created, use :get() or :set()")
 	end
 end
 
-function main:get(paths, default)
+function cache:get(paths, default)
 	if self.bin == nil then
 		return false, print("Must create a thread first, use cache(list)")
 	else
@@ -71,14 +71,14 @@ function main:get(paths, default)
 		local ret = access(self.bin, paths, default)
 
 		if ret and type(ret) == "table" then
-			return setmetatable({bin = ret}, main)
+			return setmetatable({bin = ret}, cache)
 		else
 			return ret or nil
 		end
 	end
 end
 
-function main:set(key, value)
+function cache:set(key, value)
 	if self.bin == nil then
 		return false, print("Must create a thread first, use cache(list)")
 	else
@@ -92,7 +92,7 @@ function main:set(key, value)
 	end
 end
 
-function main:raw()
+function cache:raw()
 	if self.bin == nil then
 		return false, print("Must create a thread first, use cache(list)")
 	else
@@ -100,6 +100,6 @@ function main:raw()
 	end
 end
 
-cache = setmetatable({}, main)
+cache = setmetatable({}, cache)
 
 return cache

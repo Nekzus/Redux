@@ -1,7 +1,7 @@
-local main = {}
-main.__index = main
+blink = {}
+blink.__index = blink
 
-function main:__call(message, timeout, whitelist)
+function blink:__call(message, timeout, whitelist)
 	assert(self.message == nil, "Context for blink already exists")
 
 	whitelist = whitelist or {}
@@ -12,31 +12,31 @@ function main:__call(message, timeout, whitelist)
 		lastUse = os.time(),
 		whitelist = whitelist,
 		active = {},
-	}, main)
+	}, blink)
 
 	reactionsCallback[message.id] = mt
 
 	return mt
 end
 
-function main:on(emojiId, func)
+function blink:on(emojiId, func)
 	assert(self.message, "Must create blink context with constructor")
 
 	self.active[emojiId] = func
 end
 
-function main:close()
+function blink:close()
 	assert(self.message, "Must create blink context with constructor")
 
 	reactionsCallback[message.id] = {}
 end
 
-function main:raw()
+function blink:raw()
 	assert(self.message, "Must create blink context with constructor")
 
 	return self.active
 end
 
-blink = setmetatable({}, main)
+blink = setmetatable({}, blink)
 
 return blink

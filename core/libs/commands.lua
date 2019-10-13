@@ -1,5 +1,3 @@
--- backup bot https://github.com/Lautenschlager-id/BackupBot/blob/master/bot.lua
-
 commands = {list = {}, temp = {}}
 commands.__index = commands
 

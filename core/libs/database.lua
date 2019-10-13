@@ -1,6 +1,5 @@
-local serializer = serializer or require("./core/libs/serpent.lua")
-
-local main = {}
+db = {}
+serpent = serpent or require("./core/libs/serpent.lua")
 
 local function isFile(path)
 	local file = fs.openSync(path, "r")
@@ -13,7 +12,7 @@ local function isFile(path)
 	return false
 end
 
-function main.load(filePath)
+function db.load(filePath)
 	filePath = assert(filePath and format("./saves/%s.txt", filePath), "[1] Invalid file path for .load()")
 	assert(isFile(filePath), "[2] Invalid file path for .load()")
 
@@ -27,7 +26,7 @@ function main.load(filePath)
 	return result()
 end
 
-function main.save(data, filePath)
+function db.save(data, filePath)
 	assert(data and type(data) == "table", "Data must be a table in .load()")
 	filePath = assert(filePath and format("./saves/%s.txt", filePath), "[1] Invalid file path for .load()")
 	assert(isFile(filePath), "[2] Invalid file path for .load()")
@@ -37,14 +36,12 @@ function main.save(data, filePath)
 
 	assert(file, format("Could not open file: %s", err))
 
-	local encoded = serializer.dump(data)
+	local encoded = serpent.dump(data)
 
 	fs.writeSync(file, - 1, encoded)
 	fs.closeSync(file)
 
 	return true
 end
-
-db = main
 
 return db

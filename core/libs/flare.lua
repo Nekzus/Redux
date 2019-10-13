@@ -1,9 +1,9 @@
-local main = {}
-main.__index = main
+flare = {}
+flare.__index = flare
 
 math.randomseed(os.time())
 
-function main:__call(first, ...)
+function flare:__call(first, ...)
 	if self.mode == 1 then
 		for _, func in next, self.tasks do
 			func(first, ...)
@@ -23,10 +23,10 @@ function main:__call(first, ...)
 	return setmetatable({
 		mode = max(0, min(2, first or 1)),
 		tasks = {}
-	}, main)
+	}, flare)
 end
 
-function main:task(func)
+function flare:task(func)
 	local index = tostring(func)
 	local tasks = self.tasks
 	local ret = {}
@@ -40,7 +40,7 @@ function main:task(func)
 	return ret
 end
 
-function main:flush()
+function flare:flush()
 	for k, v in next, self.tasks do
 		self.tasks[k] = nil
 	end
@@ -48,6 +48,6 @@ function main:flush()
 	self.tasks = {}
 end
 
-flare = setmetatable({}, main)
+flare = setmetatable({}, flare)
 
 return flare

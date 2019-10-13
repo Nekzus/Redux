@@ -1,104 +1,104 @@
-local main = {}
-main.__index = main
+newEmbed = {}
+newEmbed.__index = newEmbed
 
-function main:__call(data)
+function newEmbed:__call(data)
 	assert(self.embed == nil, "Embed already exists, cannot create a new")
 
 	return setmetatable({
 		embed = data or {},
-	}, main)
+	}, newEmbed)
 end
 
-function main:author(text)
+function newEmbed:author(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.author = self.embed.author or {}
 	embed.author.name = text
 end
 
-function main:authorImage(text)
+function newEmbed:authorImage(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.author = embed.author or {}
 	embed.author.icon_url = text
 end
 
-function main:authorUrl(text)
+function newEmbed:authorUrl(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.author = embed.author or {}
 	embed.author.url = text
 end
 
-function main:color(r, g, b)
+function newEmbed:color(r, g, b)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.color = discordia.Color.fromRGB(r, g, b).value
 end
 
-function main:thumbnail(text)
+function newEmbed:thumbnail(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.thumbnail = embed.thumbnail or {}
 	embed.thumbnail.url = text
 end
 
-function main:image(text)
+function newEmbed:image(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.image = embed.image or {}
 	embed.image.url = text
 end
 
-function main:footer(text)
+function newEmbed:footer(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.footer = embed.footer or {}
 	embed.footer.text = text
 end
 
-function main:footerIcon(text)
+function newEmbed:footerIcon(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.footer = embed.footer or {}
 	embed.footer.icon_url = text
 end
 
-function main:title(text)
+function newEmbed:title(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.title = text
 end
 
-function main:timestamp(text)
+function newEmbed:timestamp(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.timestamp = text
 end
 
-function main:description(text)
+function newEmbed:description(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.description = text
 end
 
-function main:content(text)
+function newEmbed:content(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.content = text
 end
 
-function main:field(field)
+function newEmbed:field(field)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.fields = embed.fields or {}
 	insert(embed.fields, field)
 end
 
-function main:raw()
+function newEmbed:raw()
 	return assert(self.embed, "Must create an embed first with constructor")
 end
 
-newEmbed = setmetatable({}, main)
+newEmbed = setmetatable({}, newEmbed)
 
 return newEmbed

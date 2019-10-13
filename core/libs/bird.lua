@@ -1,9 +1,7 @@
-local main = {}
-main.__index = main
+bird = {}
+bird.__index = bird
 
-local actives = {}
-
-function main:post(text, embed, channel)
+function bird:post(text, embed, channel)
 	local reply = {}
 
 	if text then
@@ -16,20 +14,20 @@ function main:post(text, embed, channel)
 		reply.embed = embed
 	end
 
-	return setmetatable({message = channel:send(reply)}, main)
+	return setmetatable({message = channel:send(reply)}, bird)
 end
 
 function sanityCheck(self)
 	assert(self.message, "Must use :post() first")
 end
 
-function main:getMessage()
+function bird:getMessage()
 	sanityCheck(self)
 
 	return self.message
 end
 
-function main:update(content, embed)
+function bird:update(content, embed)
 	sanityCheck(self)
 
 	if content ~= true then
@@ -41,37 +39,37 @@ function main:update(content, embed)
 	end
 end
 
-function main:delete()
+function bird:delete()
 	sanityCheck(self)
 
 	return self.message:delete()
 end
 
-function main:react(emoji)
+function bird:react(emoji)
 	sanityCheck(self)
 
 	return self.message:addReaction(emoji)
 end
 
-function main:clearReacts()
+function bird:clearReacts()
 	sanityCheck(self)
 
 	return self.message:clearReactions()
 end
 
-function main:unreact(emoji, userId)
+function bird:unreact(emoji, userId)
 	sanityCheck(self)
 
 	return self.message:removeReaction(emoji, userId)
 end
 
-function main:pin()
+function bird:pin()
 	sanityCheck(self)
 
 	return self.message:pin()
 end
 
-function main:unpin()
+function bird:unpin()
 	sanityCheck(self)
 
 	return self.message:unpin()
@@ -86,7 +84,5 @@ function countListItems(list)
 
 	return count
 end
-
-bird = main
 
 return bird
