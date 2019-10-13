@@ -1,19 +1,25 @@
 function canRunCommand(data)
-	local permit = false
 	local private = isPrivateChannel(data.channel)
-	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
 	local commandPatron = false
 	local commandPrefix = data.prefix
 	local commandName = data.command:lower():sub(#commandPrefix + 1)
 	local commandData = commandName and commands.list[commandName]
 	local commandLevel = commandData and commandData.level
+	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
+
+	if data.user.id == config.meta.ownerId then
+		userLevel = 5
+	end
 
 	if not (userLevel and commandData and data) then
-		return false, printf("Missing arguments on canRunCommand()")
+		print("Missing arguments on canRunCommand()")
+
+		return false
 	end
 
 	local member = data.user
-	local patron = data.member and isPatron(data.member) or (userLevel >= 255)
+	local patron = data.member and isPatron(data.member) or (userLevel == 5)
+	local permit = false
 
 	if userLevel then
 		if commandData.level then
@@ -22,7 +28,7 @@ function canRunCommand(data)
 					commandPatron = true
 
 					if private then
-						if commandData.allowDm then
+						if commandData.direct then
 							if patron then
 								permit = true
 							end
@@ -34,7 +40,7 @@ function canRunCommand(data)
 					end
 				else
 					if private then
-						if commandData.allowDm then
+						if commandData.direct then
 							permit = true
 						end
 					else
@@ -47,7 +53,7 @@ function canRunCommand(data)
 				commandPatron = true
 
 				if private then
-					if commandData.allowDm then
+					if commandData.direct then
 						if patron then
 							permit = true
 						end
@@ -59,7 +65,7 @@ function canRunCommand(data)
 				end
 			else
 				if private then
-					if commandData.allowDm then
+					if commandData.direct then
 						permit = true
 					end
 				else

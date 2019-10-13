@@ -5,6 +5,7 @@ config = {}
 
 config.meta = {
 	reactionTimeout = 30,
+	ownerId = "280415970416394253",
 	invite = "https://discordapp.com/api/oauth2/authorize?client_id=309586161876205579&permissions=8&scope=bot",
 	token = "MzA5NTg2MTYxODc2MjA1NTc5.XO1xyA.whj0EwjDy_zGyxFP6QbGPqBFmVQ",
 	baseGuild = "464558668894175232",

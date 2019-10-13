@@ -85,7 +85,7 @@ client:on("messageCreate",
 				return bird:post(nil, embed:raw(), data.channel)
 			end
 
-			if private and not commandData.allowDm then
+			if private and not commandData.direct then
 				if deleteCommand == true then
 					message:delete()
 				end
