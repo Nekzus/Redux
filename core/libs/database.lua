@@ -1,4 +1,4 @@
-local serializer = serializer or require("./core/libs/serpent.lua")
+serpent = serpent or require("./core/libs/serpent.lua")
 
 local main = {}
 
@@ -37,7 +37,7 @@ function main.save(data, filePath)
 
 	assert(file, format("Could not open file: %s", err))
 
-	local encoded = serializer.dump(data)
+	local encoded = serpent.dump(data)
 
 	fs.writeSync(file, - 1, encoded)
 	fs.closeSync(file)

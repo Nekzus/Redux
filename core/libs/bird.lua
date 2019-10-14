@@ -1,8 +1,6 @@
 local main = {}
 main.__index = main
 
-local actives = {}
-
 function main:post(text, embed, channel)
 	local reply = {}
 
@@ -19,18 +17,14 @@ function main:post(text, embed, channel)
 	return setmetatable({message = channel:send(reply)}, main)
 end
 
-function sanityCheck(self)
-	assert(self.message, "Must use :post() first")
-end
-
 function main:getMessage()
-	sanityCheck(self)
+	assert(self.message, "Must create main context with :post() first")
 
 	return self.message
 end
 
 function main:update(content, embed)
-	sanityCheck(self)
+	assert(self.message, "Must create main context with :post() first")
 
 	if content ~= true then
 		self.message:setContent(content)
@@ -42,37 +36,37 @@ function main:update(content, embed)
 end
 
 function main:delete()
-	sanityCheck(self)
+	assert(self.message, "Must create main context with :post() first")
 
 	return self.message:delete()
 end
 
 function main:react(emoji)
-	sanityCheck(self)
+	assert(self.message, "Must create main context with :post() first")
 
 	return self.message:addReaction(emoji)
 end
 
 function main:clearReacts()
-	sanityCheck(self)
+	assert(self.message, "Must create main context with :post() first")
 
 	return self.message:clearReactions()
 end
 
 function main:unreact(emoji, userId)
-	sanityCheck(self)
+	assert(self.message, "Must create main context with :post() first")
 
 	return self.message:removeReaction(emoji, userId)
 end
 
 function main:pin()
-	sanityCheck(self)
+	assert(self.message, "Must create main context with :post() first")
 
 	return self.message:pin()
 end
 
 function main:unpin()
-	sanityCheck(self)
+	assert(self.message, "Must create main context with :post() first")
 
 	return self.message:unpin()
 end

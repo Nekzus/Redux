@@ -30,7 +30,7 @@ local _function = function(data)
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
-	local searchResult = youtubeVideoApi(searchTerms)
+	local searchResult = apiYoutubeVideo(searchTerms)
 	local youtubeLink = "https://www.youtube.com/watch?v=%s"
 
 	local page = 1
@@ -71,13 +71,17 @@ local _function = function(data)
 
 			blinker:on(arwLeft.id, function()
 				page = max(1, page - 1)
-				message:removeReaction(arwLeft, data.user.id)
+				if not private then
+					message:removeReaction(arwLeft, data.user.id)
+				end
 				showPage()
 			end)
 
 			blinker:on(arwRight.id, function()
 				page = min(pages, page + 1)
-				message:removeReaction(arwRight, data.user.id)
+				if not private then
+					message:removeReaction(arwRight, data.user.id)
+				end
 				showPage()
 			end)
 		end

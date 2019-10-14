@@ -2,7 +2,7 @@ local main = {}
 main.__index = main
 
 function main:__call(message, timeout, whitelist)
-	assert(self.message == nil, "Context for blink already exists")
+	assert(self.message == nil, "Context for main already exists")
 
 	whitelist = whitelist or {}
 
@@ -20,19 +20,19 @@ function main:__call(message, timeout, whitelist)
 end
 
 function main:on(emojiId, func)
-	assert(self.message, "Must create blink context with constructor")
+	assert(self.message, "Must create main context with constructor")
 
 	self.active[emojiId] = func
 end
 
 function main:close()
-	assert(self.message, "Must create blink context with constructor")
+	assert(self.message, "Must create main context with constructor")
 
 	reactionsCallback[message.id] = {}
 end
 
 function main:raw()
-	assert(self.message, "Must create blink context with constructor")
+	assert(self.message, "Must create main context with constructor")
 
 	return self.active
 end

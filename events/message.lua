@@ -36,6 +36,8 @@ client:on("messageCreate",
 		local guildLang = not private and guildData and guildData:get("lang") or config.default.lang
 		local langList = langs[guildLang]
 		local deleteCommand = not private and guildData:get("deleteCommand", false) or false
+		local botMember = data.guild:getMember(client.user.id)
+		local hasDeleteMessagePerm = hasPermissions(botMember, data.channel, {"manageMessages"})
 
 		if not private then
 			data.guildData = guildData
@@ -50,6 +52,7 @@ client:on("messageCreate",
 		local commandName = data.command:lower():sub(#commandPrefix + 1)
 		local commandData = commandName and commands.list[commandName]
 		local commandCategory = commandData and commandData.category:match("%w+")
+		local commandDataPerms = commandData and commandData.perms
 
 		if commandData and (data.command:lower() == format("%s%s", commandPrefix, commandName:lower())) then
 			local userData = saves.temp:get(format("users/%s", data.user.id))
@@ -73,7 +76,7 @@ client:on("messageCreate",
 					bird:post(nil, embed:raw(), data.channel)
 				end
 
-				if deleteCommand == true then
+				if deleteCommand == true and hasDeleteMessagePerm then
 					message:delete()
 				end
 
@@ -86,8 +89,8 @@ client:on("messageCreate",
 				return bird:post(nil, embed:raw(), data.channel)
 			end
 
-			if private and not commandData.allowDm then
-				if deleteCommand == true then
+			if private and not commandData.direct then
+				if deleteCommand == true and hasDeleteMessagePerm then
 					message:delete()
 				end
 
@@ -95,6 +98,35 @@ client:on("messageCreate",
 				local embed = replyEmbed(text, message, "error")
 
 				return bird:post(nil, embed:raw(), data.channel)
+			end
+
+			if not private then
+				local permsList = {
+					"embedLinks",
+					"sendMessages",
+					"useExternalEmojis"
+				}
+
+				if commandDataPerms then
+					for _, perm in next, commandData.perms do
+						insert(permsList, perm)
+					end
+				end
+
+				local hasPerms, permsData = hasPermissions(botMember, data.channel, permsList)
+
+				if not hasPerms then
+					local formatted = parseFormat(format("**%s**", permsData.text), langList):lower()
+					local text = parseFormat("${missingThesePerms}", langList, formatted)
+
+					if inList("embedLinks", permsData.list) then
+						return bird:post(text, nil, data.channel)
+					else
+						local embed = replyEmbed(text, data.message, "warn")
+
+						return bird:post(nil, embed:raw(), data.channel)
+					end
+				end
 			end
 
 			if commandCategory then
@@ -133,7 +165,7 @@ client:on("messageCreate",
 			if not private then
 				deleteCommand = guildData:get("deleteCommand", false)
 
-				if deleteCommand == true then
+				if deleteCommand == true and hasDeleteMessagePerm then
 					message:delete()
 				end
 			end

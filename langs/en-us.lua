@@ -48,6 +48,9 @@ langs["en-us"] = {
 	["question"] = "Question",
 	["answer"] = "Answer",
 	["googleSearch"] = "Google Search",
+	["translation"] = "Translation",
+	["sourceLanguage"] = "Source Language",
+	["translationCodes"] = "Translation Codes",
 
 	["itemName"] = "Item Name",
 	["itemDesc"] = "Item Description",
@@ -73,6 +76,37 @@ langs["en-us"] = {
 	["member"] = "Member",
 	["muted"] = "Muted",
 
+	-- Permissions
+	["addReactions"] = "Add Reactions",
+	["administrator"] = "Administrator",
+	["attachFiles"] = "Attach Files",
+	["banMembers"] = "Ban Members",
+	["changeNickname"] = "Change Nickname",
+	["connect"] = "Connect to Voice-Chat",
+	["createInstantInvite"] = "Create Instant Invite",
+	["deafenMembers"] = "Deafen Members",
+	["embedLinks"] = "Embed Links",
+	["kickMembers"] = "Kick Members",
+	["manageChannels"] = "Manage Channels",
+	["manageEmojis"] = "Manage Emojis",
+	["manageGuild"] = "Manage Guild",
+	["manageMessages"] = "Manage Messages",
+	["manageNicknames"] = "Manage Nicknames",
+	["manageRoles"] = "Manage Roles",
+	["manageWebhooks"] = "Manage Webhooks",
+	["mentionEveryone"] = "Mention Everyone",
+	["moveMembers"] = "Move Members",
+	["muteMembers"] = "Mute Members",
+	["prioritySpeaker"] = "Priority Speaker",
+	["readMessageHistory"] = "Read Message History",
+	["readMessages"] = "Read Messages",
+	["sendMessages"] = "Send Messages",
+	["sendTextToSpeech"] = "Send Text-to-Speech",
+	["speak"] = "Speak in Voice-Chat",
+	["useExternalEmojis"] = "Use External Emojis",
+	["useVoiceActivity"] = "Use Voice-Activity",
+	["viewAuditLog"] = "View Audit Log",
+
 	-- Keys
 	["pageKey"] = "[page]",
 	["userKey"] = "[user]",
@@ -84,6 +118,7 @@ langs["en-us"] = {
 	["codeKey"] = "[code]",
 	["nameKey"] = "[name]",
 	["numKey"] = "[number]",
+	["languageKey"] = "[language]",
 
 	-- Outputs
 	["unicodeResult"] = "Unicode: \\%s",
@@ -235,11 +270,14 @@ langs["en-us"] = {
 	["storeItemTakeItem"] = "Takes item",
 	["googleNotFoundTerms"] = "Could not find anything with '%s'",
 	["messageTooLong"] = "Your message is too long!",
+	["googleTranslationNotFound"] = "Could not translate your message, try again later or with different terms!",
+	["missingThesePerms"] = "In order to continue, I must be able to %s",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["translatesYourText"] = "translates your text.",
 	["emojifiesText"] = "turns your text into emojis.",
 	["searchesGoogle"] = "searches on google for what you want.",
 	["createsStoreItem"] = "creates a new item for the store of the server.",

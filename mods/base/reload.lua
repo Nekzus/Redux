@@ -18,12 +18,8 @@ local _function = function(data)
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 
 	saveAllData()
-
-	coroutine.wrap(function()
-		commands:flushList()
-		loadBot()
-		client:setGame(format("%shelp", config.default.prefix))
-	end)()
+	commands:flushList()
+	loadBot()
 
 	local text = parseFormat("${botModulesReloaded}", langList)
 	local embed = replyEmbed(text, data.message, "ok")

@@ -48,6 +48,9 @@ langs["pt-br"] = {
 	["maybe"] = "Talvez",
 	["answer"] = "Resposta",
 	["googleSearch"] = "Pesquisa do Google",
+	["translation"] = "Tradução",
+	["sourceLanguage"] = "Linguagem de Origem",
+	["translationCodes"] = "Códigos de Tradução",
 
 	["itemName"] = "Nome do Item",
 	["itemDesc"] = "Descrição do Item",
@@ -73,6 +76,37 @@ langs["pt-br"] = {
 	["member"] = "Membro",
 	["muted"] = "Mutado",
 
+	-- Permissions
+	["addReactions"] = "Adicionar Reações",
+	["administrator"] = "Administrador",
+	["attachFiles"] = "Anexar Arquivos",
+	["banMembers"] = "Banir Membros",
+	["changeNickname"] = "Mudar o Apelido",
+	["connect"] = "Conectar ao Chat-de-Voz",
+	["createInstantInvite"] = "Criar Convite Instantâneo",
+	["deafenMembers"] = "Ensurdecer Membros",
+	["embedLinks"] = "Embutir Links",
+	["kickMembers"] = "Expulsar Membros",
+	["manageChannels"] = "Gerenciar Canais",
+	["manageEmojis"] = "Gerenciar Emojis",
+	["manageGuild"] = "Gerenciar a Guilda",
+	["manageMessages"] = "Gerenciar Mensagens",
+	["manageNicknames"] = "Gerenciar Apelidos",
+	["manageRoles"] = "Gerenciar Cargos",
+	["manageWebhooks"] = "Gerenciar Webhooks",
+	["mentionEveryone"] = "Mencionar Todos",
+	["moveMembers"] = "Mover Membros",
+	["muteMembers"] = "Mutar Membros",
+	["prioritySpeaker"] = "Orador Prioritário",
+	["readMessageHistory"] = "Ler Histórico de Mensagens",
+	["readMessages"] = "Ler Mensagens",
+	["sendMessages"] = "Enviar Mensagens",
+	["sendTextToSpeech"] = "Enviar Texto-para-Voz",
+	["speak"] = "Falar no Canal-de-Voz",
+	["useExternalEmojis"] = "Usar Emojis Externos",
+	["useVoiceActivity"] = "Usar Atividade-de-Voz",
+	["viewAuditLog"] = "Ver Histórico de Voz",
+
 	-- Keys
 	["pageKey"] = "[pagina]",
 	["userKey"] = "[usuário]",
@@ -84,6 +118,7 @@ langs["pt-br"] = {
 	["codeKey"] = "[código]",
 	["nameKey"] = "[nome]",
 	["numKey"] = "[número]",
+	["languageKey"] = "[língua]",
 
 	-- Outputs
 	["unicodeResult"] = "Unicode: \\%s",
@@ -149,7 +184,7 @@ langs["pt-br"] = {
 	["userOrganizered"] = "**%s** recebeu o cargo `Organizador`",
 	["userUnorged"] = "**%s** teve o cargo `Organizador` removido",
 	["beenDefined"] = "**%s** foi definido como **%s**",
-	["botDataSaved"] = "Os dados do bot foram salvos",
+	["botDataSaved"] = "Os dados do bot foram salvos com sucesso!",
 	["roleAddedMod"] = "O cargo `@%s` foi adicionado como `Moderador`",
 	["roleRemovedMod"] = "O cargo `@%s` foi removido de `Moderador`",
 	["roleAddedAdmin"] = "O cargo `@%s` foi adicionado como `Administrador`",
@@ -235,11 +270,14 @@ langs["pt-br"] = {
 	["storeItemTakeItem"] = "Toma o item",
 	["googleNotFoundTerms"] = "Nada foi encontrado com os termos '%s'",
 	["messageTooLong"] = "Sua mensagem é muito grande!",
+	["googleTranslationNotFound"] = "Sua mensagem não pode ser traduzida, tente mais tarde ou com termos diferentes!",
+	["missingThesePerms"] = "Para continuar, eu preciso poder %s",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["translatesYourText"] = "traduz o seu texto.",
 	["emojifiesText"] = "transforma o seu texto em emojis.",
 	["searchesGoogle"] = "pesquisa no google pelo oque você quiser",
 	["createsStoreItem"] = "cria um novo item para a loja do servidor.",

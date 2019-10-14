@@ -1,6 +1,9 @@
 client:on("ready",
 	function()
-		client:setGame(format("%shelp", config.default.prefix))
+		client:setGame {
+			type = 2,
+			name = format("%shelp", config.default.prefix)
+		}
 		print("\nFramework and modules ready")
 
 		coroutine.wrap(

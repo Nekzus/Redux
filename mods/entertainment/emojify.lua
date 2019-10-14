@@ -2,7 +2,7 @@ local _config = {
 	name = "emojify",
 	desc = "${emojifiesText}",
 	usage = "${messageKey}",
-	aliases = {"blocks", "t"},
+	aliases = {"em"},
 	cooldown = 2,
 	level = 0,
 	direct = true,
@@ -67,6 +67,15 @@ local _function = function(data)
 		if found then
 			result = format("%s%s", result, found)
 		end
+	end
+
+	if not result:find(":") then
+		local text = parseFormat("${missingArg}", langList)
+		local embed = replyEmbed(text, data.message, "error")
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return false
 	end
 
 	if #result > 2047 then

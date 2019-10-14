@@ -1,15 +1,35 @@
 -- .f client:setAvatar("./images/nekito4.png")
 -- https://atom.io/packages/language-lua
--- test
 
 config = {}
+
 config.meta = {
 	reactionTimeout = 30,
+	ownerId = "280415970416394253",
 	invite = "https://discordapp.com/api/oauth2/authorize?client_id=309586161876205579&permissions=8&scope=bot",
 	token = "MzA5NTg2MTYxODc2MjA1NTc5.XO1xyA.whj0EwjDy_zGyxFP6QbGPqBFmVQ",
 	baseGuild = "464558668894175232",
 	build = "Redux",
 }
+
+config.api = {
+	catImage = "https://aws.random.cat/meow",
+	dogImage = "https://dog.ceo/api/breeds/image/random",
+	youtubeSearch = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&order=date&type=video&key=%s&q=%s",
+	googleSearch = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&q=%s",
+	googleTranslate = "https://translation.googleapis.com/language/translate/v2?key=%s&target=%s&q=%s",
+	truthYesNo = "https://yesno.wtf/api",
+	truthYesNoForce = "https://yesno.wtf/api?force=%s",
+	discordScreenshare = "https://discordapp.com/channels/%s/%s",
+}
+
+config.keys = {
+	youtubeVideoKey = "AIzaSyApllT_5QSRx-JnNJF8TNcDZRSSKm3cBCE",
+	googleSearchKey = "AIzaSyDENwT8E_qHRpzrI6eLHANOAvLHy_WiyBo",
+	googleSearchCx = "000898645152450243880:ypizs90acrv",
+	googleTranslateKey = "AIzaSyDYrXTvbJhfINQg9zcXy_SuL4rpt5B1azs",
+}
+
 config.time = {
 	second = 1,
 	minute = 60,
@@ -19,19 +39,23 @@ config.time = {
 	month = 2592000,
 	year = 31536000,
 }
+
 config.saving = {
 	enabled = true,
 	delay = 30,
 }
+
 config.clean = {
 	enabled = true,
 	delay = 2,
 }
+
 config.default = {
 	prefix = ".",
 	lang = "en-us",
 	deleteCommand = false,
 }
+
 config.economyDefault = {
 	symbol = ":dollar:",
 	users = {},
@@ -46,6 +70,7 @@ config.economyDefault = {
 		}
 	},
 }
+
 config.images = {
 	ok = "https://cdn.discordapp.com/attachments/605826739842711562/605826801385603083/Ok.png",
 	warn = "https://cdn.discordapp.com/attachments/605826739842711562/605826803721961492/Attention.png",
@@ -55,12 +80,14 @@ config.images = {
 	google = "https://cdn.discordapp.com/attachments/605826739842711562/611950666037854231/google.png",
 	googleBlue = "https://cdn.discordapp.com/attachments/605826739842711562/611953227814141974/Google_blue.png",
 }
+
 config.emojis = {
 	loading = "RotatingGears",
 	topic = "Rhombus",
 	arwLeft = "ArrowLeft",
 	arwRight = "ArrowRight"
 }
+
 config.colors = {
 	green = "r76g175b80",
 	yellow = "r255g202b40",
@@ -70,6 +97,7 @@ config.colors = {
 	grey = "r249g239b239",
 	black = "r0g0b0",
 }
+
 config.titles = {
 	dev = {level = 5, title = "${dev}"},
 	owner = {level = 4, title = "${svOwner}"},
@@ -79,6 +107,7 @@ config.titles = {
 	member = {level = 0, title = "${member}"},
 	muted = {level = -1, title = "${muted}"},
 }
+
 config.terms = {
 	done = {
 		"done", "d",
@@ -93,6 +122,7 @@ config.terms = {
 
 	}
 }
+
 config.patterns = {
 	colorRGB = {
 		base = "r%d+g%d+b%d+",
@@ -129,7 +159,6 @@ config.patterns = {
 		base = "%s*.-%s*=%s*.-%s*$",
 		capture = "%s*(.-)%s*=%s*(.-)%s*$",
 	},
-	-- "^%s*(.-)%s*$"
 }
 
 --[[
@@ -172,6 +201,73 @@ $
 %f[set]	frontier pattern: matches an empty string at any position such that the next character
 belongs to set and the previous character does not belong to set
 ]]
+
+config.langsCodes = {
+	["Afrikaans"] = "af",
+	["Albanian"] = "sq",
+	["Arabic"] = "ar",
+	["Azerbaijani"] = "az",
+	["Basque"] = "eu",
+	["Bengali"] = "bn",
+	["Belarusian"] = "be",
+	["Bulgarian"] = "bg",
+	["Catalan"] = "ca",
+	["Chinese Simplified"] = "zh-CN",
+	["Chinese Traditional"] = "zh-TW",
+	["Croatian"] = "hr",
+	["Czech"] = "cs",
+	["Danish"] = "da",
+	["Dutch"] = "nl",
+	["English"] = "en",
+	["Esperanto"] = "eo",
+	["Estonian"] = "et",
+	["Filipino"] = "tl",
+	["Finnish"] = "fi",
+	["French"] = "fr",
+	["Galician"] = "gl",
+	["Georgian"] = "ka",
+	["German"] = "de",
+	["Greek"] = "el",
+	["Gujarati"] = "gu",
+	["Haitian Creole"] = "ht",
+	["Hebrew"] = "iw",
+	["Hindi"] = "hi",
+	["Hungarian"] = "hu",
+	["Icelandic"] = "is",
+	["Indonesian"] = "id",
+	["Irish"] = "ga",
+	["Italian"] = "it",
+	["Japanese"] = "ja",
+	["Kannada"] = "kn",
+	["Korean"] = "ko",
+	["Latin"] = "la",
+	["Latvian"] = "lv",
+	["Lithuanian"] = "lt",
+	["Macedonian"] = "mk",
+	["Malay"] = "ms",
+	["Maltese"] = "mt",
+	["Norwegian"] = "no",
+	["Persian"] = "fa",
+	["Polish"] = "pl",
+	["Portuguese"] = "pt",
+	["Romanian"] = "ro",
+	["Russian"] = "ru",
+	["Serbian"] = "sr",
+	["Slovak"] = "sk",
+	["Slovenian"] = "sl",
+	["Spanish"] = "es",
+	["Swahili"] = "sw",
+	["Swedish"] = "sv",
+	["Tamil"] = "ta",
+	["Telugu"] = "te",
+	["Thai"] = "th",
+	["Turkish"] = "tr",
+	["Ukrainian"] = "uk",
+	["Urdu"] = "ur",
+	["Vietnamese"] = "vi",
+	["Welsh"] = "cy",
+	["Yiddish"] = "yi",
+}
 
 config.numAffixes = {
 	{key = "K", name = "Thousand"}, -- 10e3
