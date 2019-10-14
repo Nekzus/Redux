@@ -2,8 +2,8 @@ local main = {}
 main.__index = main
 
 function access(list, paths, default, delete)
-	assert(list and type(list) == "table", "List must be a table")
-	assert(paths and type(paths) == "string", "Paths must be a string path")
+	assert(list and type(list) == "table", "List must be a table in access()")
+	assert(paths and type(paths) == "string", "Paths must be a string path for access()")
 
 	local result = {}
 	local paths = paths:split(";")

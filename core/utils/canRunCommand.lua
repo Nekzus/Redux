@@ -1,5 +1,5 @@
 function canRunCommand(data)
-	local private = isPrivateChannel(data.channel)
+	local private = data.member == nil
 	local commandPatron = false
 	local commandPrefix = data.prefix
 	local commandName = data.command:lower():sub(#commandPrefix + 1)

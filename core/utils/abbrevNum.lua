@@ -1,14 +1,14 @@
-function abbrevNum(text, highestNum)
+function abbrevNum(text, numMax)
 	if type(text) == "string" then
 		if text:lower() == "all" then
-			text = highestNum
+			text = numMax
 		elseif text:lower() == "half" then
-			text = highestNum / 2
+			text = numMax / 2
 		elseif text:match("%d+%%") then
 			text = text:match("%d+")
 
 			if text then
-				text = (text / 100) * highestNum
+				text = (text / 100) * numMax
 			end
 		else
 			text = realNum(text)

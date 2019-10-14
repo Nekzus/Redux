@@ -8,7 +8,7 @@ function getGuildDefinedRoles(guild)
 		return false
 	end
 
-	local ret = {}
+	local result = {}
 
 	for roleId, roleData in next, guildData:get("roles"):raw() do
 		local roleExists = getRole(roleId, "id", guild)
@@ -17,17 +17,17 @@ function getGuildDefinedRoles(guild)
 		if roleExists then
 			local isPrimary = getPrimaryRoleIndex(roleData.level, guildRoles) == roleId
 
-			insert(ret, {id = roleId, level = roleData.level, primary = isPrimary, added = roleData.added})
+			insert(result, {id = roleId, level = roleData.level, primary = isPrimary, added = roleData.added})
 		end
 	end
 
-	if #ret > 1 then
-		sort(ret, function(a, b)
+	if #result > 1 then
+		sort(result, function(a, b)
 			return a.level > b.level or (a.level == b.level and a.added > b.added)
 		end)
 	end
 
-	return ret
+	return result
 end
 
 return getGuildDefinedRoles
