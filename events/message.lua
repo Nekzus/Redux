@@ -36,8 +36,8 @@ client:on("messageCreate",
 		local guildLang = not private and guildData and guildData:get("lang") or config.default.lang
 		local langList = langs[guildLang]
 		local deleteCommand = not private and guildData:get("deleteCommand", false) or false
-		local botMember = data.guild:getMember(client.user.id)
-		local hasDeleteMessagePerm = hasPermissions(botMember, data.channel, {"manageMessages"})
+		local botMember = not private and data.guild:getMember(client.user.id)
+		local hasDeleteMessagePerm = not private and hasPermissions(botMember, data.channel, {"manageMessages"}) or false
 
 		if not private then
 			data.guildData = guildData
