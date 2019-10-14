@@ -6,6 +6,7 @@ local _config = {
 	cooldown = 3,
 	level = 0,
 	direct = true,
+	perms = {"addReactions", "manageMessages"},
 }
 
 local _function = function(data)

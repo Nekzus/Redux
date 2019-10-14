@@ -6,6 +6,7 @@ local _config = {
 	cooldown = 0,
 	level = 1,
 	direct = false,
+	perms = {"manageRoles"},
 }
 
 local _function = function(data)
