@@ -1,7 +1,7 @@
 function getMatchingLevelTitle(level)
-	for k, v in next, config.titles do
-		if v.level == level then
-			return v.title
+	for titleKey, titleData in next, config.titles do
+		if titleData.level == level then
+			return titleData.title
 		end
 	end
 

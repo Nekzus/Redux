@@ -6,7 +6,6 @@ function canUseEconomyCommand(command, member, guild)
 
 	if not commandData then
 		printf("Could not find command '%s'", command)
-
 		return false
 	end
 
@@ -19,7 +18,6 @@ function canUseEconomyCommand(command, member, guild)
 
 	if not commandData then
 		printf("Could not find action '%s'", command)
-
 		return false
 	end
 

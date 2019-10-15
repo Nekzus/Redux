@@ -6,7 +6,6 @@ function canUseCommand(command, member)
 
 	if not commandData then
 		printf("Could not find command '%s'", command)
-
 		return false
 	elseif commandData.alias then
 		command = commandData.origin

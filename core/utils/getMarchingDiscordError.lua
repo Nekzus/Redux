@@ -1,7 +1,7 @@
 function getMatchingDiscordError(text, list)
-	for k, v in next, list do
-		if k:find(text) then
-			return v
+	for errorKey, errorMessage in next, list do
+		if errorKey:find(text) then
+			return errorMessage
 		end
 	end
 

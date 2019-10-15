@@ -1,7 +1,7 @@
 function getMatchingRoleTitle(num)
-	for k, v in next, config.titles do
-		if v.level == num then
-			return v.title
+	for titleKey, titleData in next, config.titles do
+		if titleData.level == num then
+			return titleData.title
 		end
 	end
 

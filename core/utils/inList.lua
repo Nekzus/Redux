@@ -1,9 +1,9 @@
-function inList(value, list)
-	for k, v in next, list do
-		if value == k then
-			return v, k
-		elseif value == v then
-			return k, v
+function inList(item, list)
+	for key, value in next, list do
+		if item == key then
+			return value, key
+		elseif item == value then
+			return key, value
 		end
 	end
 

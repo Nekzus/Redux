@@ -1,15 +1,5 @@
-function apiTruth(text)
-	local data, request
-	local choice = text:find("-y") and "yes"
-	or text:find("-n") and "no"
-	or text:find("-m") and "maybe"
-
-	if choice then
-		data, request = httpGet("truthYesNoForce", {choice})
-	else
-		data, request = httpGet("truthYesNo")
-	end
-
+function apiTruth()
+	local data, request = httpGet("truthYesNo")
 	local decode = json.decode(request)
 
 	if not decode then
