@@ -51,6 +51,7 @@ langs["en-us"] = {
 	["translation"] = "Translation",
 	["sourceLanguage"] = "Source Language",
 	["translationCodes"] = "Translation Codes",
+	["guilds"] = "Guilds",
 
 	["itemName"] = "Item Name",
 	["itemDesc"] = "Item Description",
@@ -272,11 +273,15 @@ langs["en-us"] = {
 	["messageTooLong"] = "Your message is too long!",
 	["googleTranslationNotFound"] = "Could not translate your message, try again later or with different terms!",
 	["missingThesePerms"] = "In order to continue, I must be able to %s",
+	["guildNotFound"] = "Guild not found!",
+	["successLeftGuild"] = "Successfully left guild (**%s**)",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["leavesMentionedGuild"] = "leaves the mentioned guild.",
+	["showsGlobalGuildsList"] = "shows the global list of guilds that the bot is in.",
 	["translatesYourText"] = "translates your text.",
 	["emojifiesText"] = "turns your text into emojis.",
 	["searchesGoogle"] = "searches on google for what you want.",

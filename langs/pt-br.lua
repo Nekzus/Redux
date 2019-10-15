@@ -51,6 +51,7 @@ langs["pt-br"] = {
 	["translation"] = "Tradução",
 	["sourceLanguage"] = "Linguagem de Origem",
 	["translationCodes"] = "Códigos de Tradução",
+	["guilds"] = "Guildas",
 
 	["itemName"] = "Nome do Item",
 	["itemDesc"] = "Descrição do Item",
@@ -272,11 +273,15 @@ langs["pt-br"] = {
 	["messageTooLong"] = "Sua mensagem é muito grande!",
 	["googleTranslationNotFound"] = "Sua mensagem não pode ser traduzida, tente mais tarde ou com termos diferentes!",
 	["missingThesePerms"] = "Para continuar, eu preciso poder %s",
+	["guildNotFound"] = "Guilda não encontrada!",
+	["successLeftGuild"] = "Guilda deixada com sucesso (**%s**)",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["leavesMentionedGuild"] = "sai da guilda mencionada.",
+	["showsGlobalGuildsList"] = "mostra a lista global de guildas em que o bot está.",
 	["translatesYourText"] = "traduz o seu texto.",
 	["emojifiesText"] = "transforma o seu texto em emojis.",
 	["searchesGoogle"] = "pesquisa no google pelo oque você quiser",
