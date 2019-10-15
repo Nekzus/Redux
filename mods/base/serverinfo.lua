@@ -15,8 +15,14 @@ local _function = function(data)
 	local langList = langs[guildLang]
 	local args = data.args
 
-	local guild = data.guild
+	local guild
 	local embed = newEmbed()
+
+	if data.user.id == config.meta.ownerId and args[2] and type(args[2]) == "string" and #args[2] == 18 and tonumber(args[2]) then
+		guild = client:getGuild(args[2])
+	else
+		guild = data.guild
+	end
 
 	embed:field({name = parseFormat("${name}", langList), value = guild.name, inline = true})
 	embed:field({name = parseFormat("${id}", langList), value = guild.id, inline = true})
