@@ -20,6 +20,15 @@ local _function = function(data)
 	local sentence = data.content:sub(#args[1] + 2)
 	local edit = storeTempData[data.user.id]
 
+	local filled
+	local template
+	local embed
+	local botEmbed
+
+	if edit then
+
+	end
+
 	local filled = {}
 	local template = {
 		-- Base definition of the current item
@@ -138,15 +147,18 @@ local _function = function(data)
 	embed:footerIcon(config.images.info)
 	signFooter(embed, data.author, guildLang)
 
-	local botEmbed = bird:post(nil, embed:raw(), data.channel)
+	local decoyBird = bird:post(nil, embed:raw(), data.channel)
 
 	storeTempData[data.author.id] = {
+		data = data,
 		filled = filled,
 		template = template,
-		data = data,
 		embed = embed,
-		botEmbed = botEmbed
+		decoyBird = decoyBird
 	}
+
+	-- now onto logic, make it so it will skip all above if there's already a registered request
+	-- with all matching data
 end
 
 return {config = _config, func = _function}
