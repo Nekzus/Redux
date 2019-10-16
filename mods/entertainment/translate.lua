@@ -204,12 +204,8 @@ local _function = function(data)
 		showPage()
 
 	else
-		translateTerms = translateTerms:gsub("\n", "%%0A"):gsub(" ", "%%20")
-		print(translateTerms)
-		print(translateLang, translateTerms)
-
 		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
-		local translateResult = apiGoogleTranslate(translateLang, translateTerms)
+		local translateResult = apiGoogleTranslate(translateLang, translateTerms:gsub("\n", "%%0A"):gsub(" ", "%%20"))
 
 		if translateResult == nil or translateResult.data == nil then
 			local text = parseFormat("${googleNotFoundTerms}", langList, translateLang)
