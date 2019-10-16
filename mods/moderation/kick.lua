@@ -1,7 +1,7 @@
 local _config = {
 	name = "kick",
 	desc = "${kicksUser}",
-	usage = "${userKey} ${messageKey}",
+	usage = "${userKey} ${reasonKey}",
 	aliases = {},
 	cooldown = 0,
 	level = 1,
