@@ -4,14 +4,15 @@ client:on("ready",
 			type = 2,
 			name = format("%shelp", config.default.prefix)
 		}
-		print("\nFramework and modules ready")
+		print("\n")
+		print("Framework and modules ready")
 
 		coroutine.wrap(
 			function()
 				print("Persistent mutes enabled")
 
-				for k, v in next, saves.temp:get("mutes"):raw() do
-					handleMuteData(v)
+				for _, muteData in next, saves.temp:get("mutes"):raw() do
+					handleMuteData(muteData)
 				end
 			end
 		)()
@@ -59,5 +60,7 @@ client:on("ready",
 				end
 			end
 		)()
+
+		print("\n")
 	end
 )

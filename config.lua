@@ -49,7 +49,7 @@ config.saving = {
 
 config.clean = {
 	enabled = true,
-	delay = 2,
+	delay = 5,
 }
 
 config.default = {
@@ -120,9 +120,6 @@ config.terms = {
 		"stop", "s",
 		"end", "e",
 	},
-	name = {
-
-	}
 }
 
 config.patterns = {
