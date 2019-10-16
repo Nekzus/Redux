@@ -1,8 +1,8 @@
 local _config = {
-	name = "unorgrole",
-	desc = "${removesRoleOrganizer}",
+	name = "setorg",
+	desc = "${addsRoleOrganizer}",
 	usage = "${nameKey}",
-	aliases = {"rrorg"},
+	aliases = {"sorg"},
 	cooldown = 0,
 	level = 4,
 	direct = false,
@@ -17,12 +17,14 @@ local _function = function(data)
 
 	local roleName = data.content:sub(#data.args[1] + 2)
 	local role = getRole(roleName, "name", data.guild)
+	local level = 3
 
 	if role then
-		local text = parseFormat("${roleRemovedOrganizer}", langList, roleName)
+		local text = parseFormat("${roleAddedOrganizer}", langList, roleName)
 		local embed = replyEmbed(text, data.message, "ok")
+		local perms = {level = level, added = os.time()}
 
-		guildData:get("roles"):set(role.id, nil)
+		guildData:get("roles"):set(role.id, perms)
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
