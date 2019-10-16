@@ -1,11 +1,12 @@
 local _config = {
-	name = "setlang",
-	desc = "${setsLang}",
+	name = "deletecommand",
+	desc = "${setsDelCmd}",
 	usage = "${valueKey}",
-	aliases = {"slang"},
-	cooldown = 3,
-	level = 4,
+	aliases = {"delcommand", "delcmd"},
+	cooldown = 0,
+	level = 3,
 	direct = false,
+	perms = {"manageMessages"}
 }
 
 local _function = function(data)
@@ -15,7 +16,7 @@ local _function = function(data)
 	local langList = langs[guildLang]
 	local args = data.args
 
-	if not (args[2]) then
+	if not args[2] then
 		local text = parseFormat("${missingArg}", langList)
 		local embed = replyEmbed(text, data.message, "error")
 
@@ -24,8 +25,31 @@ local _function = function(data)
 		return false
 	end
 
-	if not langs[args[2]] then
-		local text = parseFormat("${langNotFound}", langList, args[2])
+	local bool
+	local v = args[2]:lower()
+
+	local yesList = {
+		"on",
+		"true",
+		"1",
+		"+"
+	}
+
+	local noList = {
+		"off",
+		"false",
+		"0",
+		"-"
+	}
+
+	if isFiltered(v, yesList) then
+		bool = true
+	elseif isFiltered(v, noList) then
+		bool = false
+	end
+
+	if bool == nil then
+		local text = parseFormat("${missingArg}", langList)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -34,12 +58,10 @@ local _function = function(data)
 	end
 
 	local guildData = saves.global:get(data.guild.id)
-	local valueSet = guildData:set("lang", args[2])
+	local valueSet = guildData:set("deleteCommand", bool)
 
-	langList = langs[args[2]]
-
-	if valueSet then
-		local text = parseFormat("${beenDefined}", langList, "lang", valueSet)
+	if valueSet ~= nil then
+		local text = parseFormat("${beenDefined}", langList, "deleteCommand", valueSet)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)

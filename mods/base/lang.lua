@@ -1,10 +1,10 @@
 local _config = {
-	name = "setprefix",
-	desc = "${setsPrefix}",
+	name = "lang",
+	desc = "${setsLang}",
 	usage = "${valueKey}",
-	aliases = {"sprefix"},
-	cooldown = 0,
-	level = 3,
+	aliases = {},
+	cooldown = 3,
+	level = 4,
 	direct = false,
 }
 
@@ -15,7 +15,7 @@ local _function = function(data)
 	local langList = langs[guildLang]
 	local args = data.args
 
-	if not args[2] then
+	if not (args[2]) then
 		local text = parseFormat("${missingArg}", langList)
 		local embed = replyEmbed(text, data.message, "error")
 
@@ -24,11 +24,22 @@ local _function = function(data)
 		return false
 	end
 
+	if not langs[args[2]] then
+		local text = parseFormat("${langNotFound}", langList, args[2])
+		local embed = replyEmbed(text, data.message, "error")
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return false
+	end
+
 	local guildData = saves.global:get(data.guild.id)
-	local valueSet = guildData:set("prefix", args[2])
+	local valueSet = guildData:set("lang", args[2])
+
+	langList = langs[args[2]]
 
 	if valueSet then
-		local text = parseFormat("${beenDefined}", langList, "prefix", valueSet)
+		local text = parseFormat("${beenDefined}", langList, "lang", valueSet)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)

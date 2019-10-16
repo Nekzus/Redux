@@ -1,12 +1,11 @@
 local _config = {
-	name = "setdelcmd",
-	desc = "${setsDelCmd}",
+	name = "prefix",
+	desc = "${setsPrefix}",
 	usage = "${valueKey}",
 	aliases = {},
 	cooldown = 0,
 	level = 3,
 	direct = false,
-	perms = {"manageMessages"}
 }
 
 local _function = function(data)
@@ -25,43 +24,11 @@ local _function = function(data)
 		return false
 	end
 
-	local bool
-	local v = args[2]:lower()
-
-	local yesList = {
-		"on",
-		"true",
-		"1",
-		"+"
-	}
-
-	local noList = {
-		"off",
-		"false",
-		"0",
-		"-"
-	}
-
-	if isFiltered(v, yesList) then
-		bool = true
-	elseif isFiltered(v, noList) then
-		bool = false
-	end
-
-	if bool == nil then
-		local text = parseFormat("${missingArg}", langList)
-		local embed = replyEmbed(text, data.message, "error")
-
-		bird:post(nil, embed:raw(), data.channel)
-
-		return false
-	end
-
 	local guildData = saves.global:get(data.guild.id)
-	local valueSet = guildData:set("deleteCommand", bool)
+	local valueSet = guildData:set("prefix", args[2])
 
-	if valueSet ~= nil then
-		local text = parseFormat("${beenDefined}", langList, "deleteCommand", valueSet)
+	if valueSet then
+		local text = parseFormat("${beenDefined}", langList, "prefix", valueSet)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)

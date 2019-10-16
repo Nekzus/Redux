@@ -1,8 +1,8 @@
 local _config = {
-	name = "setbotstatus",
-	desc = "${setsBotGame}",
+	name = "botname",
+	desc = "${setsUsername}",
 	usage = "${messageKey}",
-	aliases = {"setgame"},
+	aliases = {"bname"},
 	cooldown = 0,
 	level = 5,
 	direct = true,
@@ -25,9 +25,9 @@ local _function = function(data)
 	end
 
 	local value = data.content:sub(#args[1] + 2)
-	client:setGame(value)
+	client:setUsername(value)
 
-	local text = parseFormat("${playingStatusSet}", langList, text)
+	local text = parseFormat("${usernameSet}", langList, text)
 	local embed = replyEmbed(embed, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)
