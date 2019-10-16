@@ -1,8 +1,8 @@
 local _config = {
-	name = "setmodrole",
-	desc = "${addsRoleMod}",
+	name = "muterole",
+	desc = "${addsRoleMuted}",
 	usage = "${nameKey}",
-	aliases = {"srmod", "srolemod", "addmodrole", "addmod"},
+	aliases = {"smute"},
 	cooldown = 0,
 	level = 3,
 	direct = false,
@@ -17,10 +17,10 @@ local _function = function(data)
 
 	local roleName = data.content:sub(#data.args[1] + 2)
 	local role = getRole(roleName, "name", data.guild)
-	local level = 1
+	local level = -1
 
 	if role then
-		local text = parseFormat("${roleAddedMod}", langList, roleName)
+		local text = parseFormat("${roleAddedMuted}", langList, roleName)
 		local embed = replyEmbed(text, data.message, "ok")
 		local perms = {level = level, added = os.time()}
 

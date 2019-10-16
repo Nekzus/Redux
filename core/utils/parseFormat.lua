@@ -8,13 +8,17 @@ function parseFormat(text, list, ...)
 		["($%b[])"] = function(text) return string.upper(text) end,
 	}
 
-	for pattern, f in next, replace do
+	for pattern, callback in next, replace do
 		if text:find(pattern) then
-			text = parseText(text, pattern, list, f)
+			text = parseText(text, pattern, list, callback)
 		end
 	end
 
-	return #{...} > 0 and text:format(...) or text
+	if #{...} > 0 then
+		return text:format(...)
+	else
+		return text
+	end
 end
 
 return parseFormat

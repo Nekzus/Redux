@@ -1,8 +1,8 @@
-function parseText(text, pattern, list, f)
+function parseText(text, pattern, list, callback)
 	return (text:gsub(pattern,
 		function(word)
-		if f then
-			return f(list[word:sub(3, - 2)] or word)
+		if callback then
+			return callback(list[word:sub(3, - 2)] or word)
 		else
 			return list[word:sub(3, - 2)] or word
 		end

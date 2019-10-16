@@ -1,8 +1,8 @@
 local _config = {
-	name = "setmutedrole",
-	desc = "${addsRoleMuted}",
+	name = "unadminrole",
+	desc = "${removesRoleAdmin}",
 	usage = "${nameKey}",
-	aliases = {"srmuted", "srolemuted", "addmutedrole", "addmuted"},
+	aliases = {"unadmrole", "rradmin"},
 	cooldown = 0,
 	level = 3,
 	direct = false,
@@ -17,14 +17,12 @@ local _function = function(data)
 
 	local roleName = data.content:sub(#data.args[1] + 2)
 	local role = getRole(roleName, "name", data.guild)
-	local level = -1
 
 	if role then
-		local text = parseFormat("${roleAddedMuted}", langList, roleName)
+		local text = parseFormat("${roleRemovedAdmin}", langList, roleName)
 		local embed = replyEmbed(text, data.message, "ok")
-		local perms = {level = level, added = os.time()}
 
-		guildData:get("roles"):set(role.id, perms)
+		guildData:get("roles"):set(role.id, nil)
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true

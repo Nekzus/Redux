@@ -39,12 +39,12 @@ local _function = function(data)
 	end
 
 	local patrons = saves.track:get("patrons")
-	local mPatron = patrons:raw()[member.id]
-	local nLevel = tonumber(args[3])
-	local changeOnly = false
+	local patronData = patrons:raw()[member.id]
+	local numLevel = tonumber(args[3])
+	local updated = false
 
-	if mPatron then
-		if nLevel == nil or mPatron.level == nLevel then
+	if patronData then
+		if numLevel == nil or patronData.level == numLevel then
 			local text = parseFormat("${alreadyPatron}", langList, member.tag)
 			local embed = replyEmbed(text, data.message, "warn")
 
@@ -52,15 +52,15 @@ local _function = function(data)
 
 			return true
 		else
-			changeOnly = true
+			updated = true
 		end
 	end
 
-	local text = changeOnly and parseFormat("${patronLevelSet}", langList, member.tag, nLevel or 1)
+	local text = updated and parseFormat("${patronLevelSet}", langList, member.tag, numLevel or 1)
 	or parseFormat("${patronAdded}", langList, member.tag)
 	local embed = replyEmbed(text, data.message, "ok")
 
-	patrons:set(tostring(member.id), {level = nLevel or 1, added = os.time()})
+	patrons:set(tostring(member.id), {level = numLevel or 1, added = os.time()})
 	db.save(saves.track.bin, "track")
 	bird:post(nil, embed:raw(), data.channel)
 

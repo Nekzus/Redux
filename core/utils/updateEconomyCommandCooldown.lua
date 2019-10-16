@@ -13,7 +13,6 @@ function updateEconomyCommandCooldown(command, member, guild)
 
 	if not commandData then
 		printf("Could not find command '%s'", command)
-
 		return false
 	end
 

@@ -48,9 +48,9 @@ local _function = function(data)
 	pages = #searchResult.items
 
 	local function showPage()
-		local curItem = searchResult.items[page]
+		local item = searchResult.items[page]
 
-		if not curItem then
+		if not item then
 			local text = parseFormat("${videoNotFoundTerms}", langList, searchTerms)
 			local embed = replyEmbed(text, data.message, "error")
 
@@ -59,7 +59,7 @@ local _function = function(data)
 			return false
 		end
 
-		decoyBird:update(format(youtubeLink, curItem.id.videoId), nil)
+		decoyBird:update(format(youtubeLink, item.id.videoId), nil)
 
 		if firstTime == true then
 			firstTime = false
@@ -71,17 +71,21 @@ local _function = function(data)
 
 			blinker:on(arwLeft.id, function()
 				page = max(1, page - 1)
+
 				if not private then
 					message:removeReaction(arwLeft, data.user.id)
 				end
+
 				showPage()
 			end)
 
 			blinker:on(arwRight.id, function()
 				page = min(pages, page + 1)
+
 				if not private then
 					message:removeReaction(arwRight, data.user.id)
 				end
+
 				showPage()
 			end)
 		end

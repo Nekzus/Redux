@@ -4,7 +4,7 @@ local _config = {
 	usage = "${keyKey} = ${valueKey}",
 	aliases = {"emb", "e"},
 	cooldown = 0,
-	level = 1,
+	level = 0,
 	direct = false,
 }
 

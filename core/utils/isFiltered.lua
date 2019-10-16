@@ -1,15 +1,21 @@
 function isFiltered(text, list)
+	local result = {}
+
 	text = text:lower()
 
-	for k, v in next, list do
-		v = v:lower()
+	for _, word in next, list do
+		local found = text:find(word:lower())
 
-		if text:find(v) then
-			return v, k
+		if found then
+			insert(result, found)
 		end
 	end
 
-	return nil
+	if #result == 0 then
+		return false
+	else
+		return result
+	end
 end
 
 return isFiltered

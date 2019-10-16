@@ -2,7 +2,6 @@ function timeLong(seconds)
 	seconds = seconds and tonumber(seconds) or 0
 
 	local result = ""
-
 	local days = floor(seconds / config.time.day)
 	local hours = floor(fmod(seconds, config.time.day) / config.time.hour)
 	local minutes = floor(fmod(seconds, config.time.hour) / config.time.minute)

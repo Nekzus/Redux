@@ -1,9 +1,9 @@
-function isCommandRestrict(commandData, lang)
+function isCommandRestrict(commandData, langName)
 	local restricted = true
 
 	if commandData.restrict then
-		for k, v in next, commandData.restrict do
-			if v == lang then
+		for _, lang in next, commandData.restrict do
+			if lang == langName then
 				restricted = false
 				break
 			end

@@ -19,15 +19,15 @@ local _function = function(data)
 	local guildStore = guildEconomy:get("store")
 	local symbol = guildEconomy:get("symbol")
 
-	local nCount = 0
-	local rList = {}
+	local listTotal = 0
+	local listItems = {}
 
 	for itemGuid, item in pairs(guildStore:raw()) do
-		insert(rList, {name = item.name, desc = item.desc, price = item.price, quant = item.quant, roles = item.role})
-		nCount = nCount + 1
+		insert(listItems, {name = item.name, desc = item.desc, price = item.price, quant = item.quant, roles = item.role})
+		listTotal = listTotal + 1
 	end
 
-	sort(rList, function(a, b)
+	sort(listItems, function(a, b)
 		return a.price > b.price
 	end)
 
@@ -43,11 +43,11 @@ local _function = function(data)
 
 	local function showPage()
 		local embed = newEmbed()
-		local count = 0
+		local inPage = 0
 		local result = ""
 
-		for _, obj in next, paginate(rList, perPage, page) do
-			count = count + 1
+		for _, obj in next, paginate(listItems, perPage, page) do
+			inPage = inPage + 1
 
 			if result ~= "" then
 				result = format("%s\n", result)
@@ -56,20 +56,20 @@ local _function = function(data)
 			result = format("%s%s **%s** - **%s** %s", result, symbol, obj.price, parseFormat(obj.name, langList), parseFormat(obj.desc, langList))
 		end
 
-		local pages = nCount / perPage
+		local pages = listTotal / perPage
 
 		if tostring(pages):match("%.%d+") then
 			pages = tostring(pages):match("%d+")
 			pages = tostring(tonumber(pages) + 1)
 		end
 
-		embed:field({name = parseFormat("${store} (%s/%s) [${page} %s/%s]", langList, count, nCount, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
+		embed:field({name = parseFormat("${store} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
 
 		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
-		if nCount <= perPage then
+		if listTotal <= perPage then
 			decoyBird = decoyBird == nil and bird:post(nil, embed:raw(), data.channel)
 			or decoyBird:update(nil, embed:raw())
 
@@ -86,17 +86,21 @@ local _function = function(data)
 
 			blinker:on(arwLeft.id, function()
 				page = max(1, page - 1)
+
 				if not private then
 					message:removeReaction(arwLeft, data.user.id)
 				end
+
 				showPage()
 			end)
 
 			blinker:on(arwRight.id, function()
 				page = min(pages, page + 1)
+
 				if not private then
 					message:removeReaction(arwRight, data.user.id)
 				end
+
 				showPage()
 			end)
 		else

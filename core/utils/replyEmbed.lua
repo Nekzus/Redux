@@ -19,9 +19,11 @@ function replyEmbed(text, message, method)
 
 	embed:color(color:match(config.patterns.colorRGB.capture))
 	embed:footerIcon(config.images[method] or message.author.avatarURL)
+
 	if text then
 		embed:description(text)
 	end
+
 	signFooter(embed, message.author, guildLang)
 
 	return embed

@@ -1,10 +1,10 @@
 local _config = {
-	name = "removeadminrole",
-	desc = "${removesRoleAdmin}",
+	name = "unorgrole",
+	desc = "${removesRoleOrganizer}",
 	usage = "${nameKey}",
-	aliases = {"rradmin", "rroleadmin", "removeadmin"},
+	aliases = {"rrorg"},
 	cooldown = 0,
-	level = 3,
+	level = 4,
 	direct = false,
 }
 
@@ -19,7 +19,7 @@ local _function = function(data)
 	local role = getRole(roleName, "name", data.guild)
 
 	if role then
-		local text = parseFormat("${roleRemovedAdmin}", langList, roleName)
+		local text = parseFormat("${roleRemovedOrganizer}", langList, roleName)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		guildData:get("roles"):set(role.id, nil)

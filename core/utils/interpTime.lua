@@ -5,9 +5,9 @@ function interpTime(text)
 		local num, key = formula:match(config.patterns.mute.capture)
 
 		if key then
-			for k, v in next, config.time do
-				if k:sub(1, #key) == key then
-					totalTime = totalTime + num * v
+			for timeKey, timeNum in next, config.time do
+				if timeKey:sub(1, #key) == key then
+					totalTime = totalTime + num * timeNum
 					break
 				end
 			end

@@ -17,8 +17,8 @@ local _function = function(data)
 
 	local guildRoles = guildData:get("roles")
 
-	local rList = {}
-	local nCount = 0
+	local listTotal = 0
+	local listItems = {}
 
 	for roleId, obj in pairs(guildRoles:raw()) do
 		local roleExists = getRole(roleId, "id", data.guild)
@@ -26,12 +26,12 @@ local _function = function(data)
 		if roleExists then
 			local isPrimary = getPrimaryRoleIndex(obj.level, guildRoles:raw()) == roleId
 
-			insert(rList, {id = roleId, level = obj.level, primary = isPrimary, added = obj.added})
-			nCount = nCount + 1
+			insert(listItems, {id = roleId, level = obj.level, primary = isPrimary, added = obj.added})
+			listTotal = listTotal + 1
 		end
 	end
 
-	sort(rList, function(a, b)
+	sort(listItems, function(a, b)
 		return a.level > b.level or (a.level == b.level and a.added > b.added)
 	end)
 
@@ -47,11 +47,11 @@ local _function = function(data)
 
 	local function showPage()
 		local embed = newEmbed()
-		local count = 0
+		local inPage = 0
 		local result = ""
 
-		for _, obj in next, paginate(rList, perPage, page) do
-			count = count + 1
+		for _, obj in next, paginate(listItems, perPage, page) do
+			inPage = inPage + 1
 
 			if result ~= "" then
 				result = result .. "\n"
@@ -62,19 +62,19 @@ local _function = function(data)
 			result = format("%s%s %s@%s: `%s`", result, topicEmoji.mentionString, obj.primary and parseFormat("**[${initial}]** ", langList) or "", getRole(obj.id, "id", data.guild).name, (obj.level and roleTitle and parseFormat(roleTitle, langList)))
 		end
 
-		local pages = nCount / perPage
+		local pages = listTotal / perPage
 
 		if tostring(pages):match("%.%d+") then
 			pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:field({name = parseFormat("${roles} (%s/%s) [${page} %s/%s]", langList, count, nCount, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
+		embed:field({name = parseFormat("${roles} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
 
 		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
-		if nCount <= perPage then
+		if listTotal <= perPage then
 			decoyBird = decoyBird == nil and bird:post(nil, embed:raw(), data.channel)
 			or decoyBird:update(nil, embed:raw())
 
@@ -91,17 +91,21 @@ local _function = function(data)
 
 			blinker:on(arwLeft.id, function()
 				page = max(1, page - 1)
+
 				if not private then
 					message:removeReaction(arwLeft, data.user.id)
 				end
+
 				showPage()
 			end)
 
 			blinker:on(arwRight.id, function()
 				page = min(pages, page + 1)
+
 				if not private then
 					message:removeReaction(arwRight, data.user.id)
 				end
+
 				showPage()
 			end)
 		else

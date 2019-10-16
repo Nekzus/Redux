@@ -19,15 +19,15 @@ local _function = function(data)
 	local translateTerms = data.args[3] and data.content:sub(#args[1] + #args[2] + 3)
 
 	if translateLang == nil or tonumber(translateLang) then
-		local nCount = 0
-		local rList = {}
+		local listTotal = 0
+		local listItems = {}
 
 		for langName, langCode in pairs(config.langsCodes) do
-			insert(rList, {name = langName, code = langCode})
-			nCount = nCount + 1
+			insert(listItems, {name = langName, code = langCode})
+			listTotal = listTotal + 1
 		end
 
-		sort(rList, function(a, b)
+		sort(listItems, function(a, b)
 			return a.name < b.name
 		end)
 
@@ -42,11 +42,11 @@ local _function = function(data)
 
 		local function showPage()
 			local embed = newEmbed()
-			local count = 0
+			local inPage = 0
 			local result = ""
 
-			for _, obj in next, paginate(rList, perPage, page) do
-				count = count + 1
+			for _, obj in next, paginate(listItems, perPage, page) do
+				inPage = inPage + 1
 
 				if result ~= "" then
 					result = format("%s\n", result)
@@ -55,19 +55,19 @@ local _function = function(data)
 				result = parseFormat("%s%s **%s** `%s`", langList, result, topicEmoji.mentionString, obj.name, obj.code)
 			end
 
-			local pages = nCount / perPage
+			local pages = listTotal / perPage
 
 			if tostring(pages):match("%.%d+") then
 				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:field({name = parseFormat("${translationCodes} (%s/%s) [${page} %s/%s]", langList, count, nCount, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
+			embed:field({name = parseFormat("${translationCodes} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
 
 			embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
-			if nCount <= perPage then
+			if listTotal <= perPage then
 				decoyBird = decoyBird == nil and bird:post(nil, embed:raw(), data.channel)
 				or decoyBird:update(nil, embed:raw())
 
@@ -84,17 +84,21 @@ local _function = function(data)
 
 				blinker:on(arwLeft.id, function()
 					page = max(1, page - 1)
+
 					if not private then
 						message:removeReaction(arwLeft, data.user.id)
 					end
+
 					showPage()
 				end)
 
 				blinker:on(arwRight.id, function()
 					page = min(pages, page + 1)
+
 					if not private then
 						message:removeReaction(arwRight, data.user.id)
 					end
+
 					showPage()
 				end)
 			else
@@ -105,28 +109,28 @@ local _function = function(data)
 		showPage()
 
 	elseif translateTerms == nil then
-		local nCount = 0
-		local rList = {}
+		local listTotal = 0
+		local listItems = {}
 
 		if sub(translateLang, 1, 1) == "\"" or sub(translateLang, 1,1) == "'" then
 			translateLang = translateLang:match("%w+")
 
 			for langName, langCode in next, config.langsCodes do
 				if langName:lower() == translateLang or langCode:lower() == translateLang then
-					insert(rList, {name = langName, code = langCode})
-					nCount = nCount + 1
+					insert(listItems, {name = langName, code = langCode})
+					listTotal = listTotal + 1
 				end
 			end
 		else
 			for langName, langCode in next, config.langsCodes do
 				if langName:lower():find(translateLang) or langCode:lower():find(translateLang) then
-					insert(rList, {name = langName, code = langCode})
-					nCount = nCount + 1
+					insert(listItems, {name = langName, code = langCode})
+					listTotal = listTotal + 1
 				end
 			end
 		end
 
-		sort(rList, function(a, b)
+		sort(listItems, function(a, b)
 			return a.name < b.name
 		end)
 
@@ -141,11 +145,11 @@ local _function = function(data)
 
 		local function showPage()
 			local embed = newEmbed()
-			local count = 0
+			local inPage = 0
 			local result = ""
 
-			for _, obj in next, paginate(rList, perPage, page) do
-				count = count + 1
+			for _, obj in next, paginate(listItems, perPage, page) do
+				inPage = inPage + 1
 
 				if result ~= "" then
 					result = format("%s\n", result)
@@ -154,19 +158,19 @@ local _function = function(data)
 				result = parseFormat("%s%s **%s** `%s`", langList, result, topicEmoji.mentionString, obj.name, obj.code)
 			end
 
-			local pages = nCount / perPage
+			local pages = listTotal / perPage
 
 			if tostring(pages):match("%.%d+") then
 				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:field({name = parseFormat("${translationCodes} (%s/%s) [${page} %s/%s]", langList, count, nCount, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
+			embed:field({name = parseFormat("${translationCodes} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
 
 			embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
-			if nCount <= perPage then
+			if listTotal <= perPage then
 				decoyBird = decoyBird == nil and bird:post(nil, embed:raw(), data.channel)
 				or decoyBird:update(nil, embed:raw())
 
@@ -183,17 +187,21 @@ local _function = function(data)
 
 				blinker:on(arwLeft.id, function()
 					page = max(1, page - 1)
+
 					if not private then
 						message:removeReaction(arwLeft, data.user.id)
 					end
+
 					showPage()
 				end)
 
 				blinker:on(arwRight.id, function()
 					page = min(pages, page + 1)
+
 					if not private then
 						message:removeReaction(arwRight, data.user.id)
 					end
+
 					showPage()
 				end)
 			else
@@ -239,11 +247,13 @@ local _function = function(data)
 			value = format("```%s```", translatedText),
 			inline = true,
 		})
+
 		embed:field({
 			name = parseFormat("${sourceLanguage}", langList),
 			value = format("```%s```", detectedSourceLanguage),
 			inline = true,
 		})
+
 		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 		embed:footerIcon(config.images.info)
 

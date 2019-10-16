@@ -1,19 +1,19 @@
 function realNum(text)
 	if type(text) == "string" then
 		text = text
-	elseif type(text) == "number" then
+	elseif type(text) == "num" then
 		return text
 	else
 		return false
 	end
 
-	local affix = text:match("%a+")
 	local num = text:match("[0-9]+[%p][0-9]+") or text:match("[0-9]+")
-	local sig = text:match("[%+|%-]")
-	local nAffix
+	local affix = text:match("%a+")
+	local signal = text:match("[%+|%-]")
+	local numAffix
 
-	if sig then
-		num = format("%s%s", sig, num)
+	if signal then
+		num = format("%s%s", signal, num)
 	end
 
 	if num then
@@ -26,18 +26,18 @@ function realNum(text)
 		return num
 	end
 
-	for k, v in pairs(config.numAffixes) do
-		if affix:lower() == v.key:lower() then
-			nAffix = k
+	for affixKey, affixData in pairs(config.numAffixes) do
+		if affix:lower() == affixData.key:lower() then
+			numAffix = affixKey
 			break
 		end
 	end
 
-	if not nAffix then
+	if not numAffix then
 		return false
 	end
 
-	return num * (1000 ^ nAffix)
+	return num * (1000 ^ numAffix)
 end
 
 return realNum

@@ -11,7 +11,9 @@ function updateCommandCooldown(command, member)
 	end
 
 	if commandData.cooldown then
-		commandsUsed:set(commandData.origin or command, {lastUse = os.time()})
+		commandsUsed:set(commandData.origin or command, {
+			lastUse = os.time()
+		})
 	end
 
 	clearTempCommandsUsed(member)

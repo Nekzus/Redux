@@ -1,12 +1,12 @@
 function paginate(list, perPage, page)
-	perPage = perPage or 10
+	perPage = perPage or 8
 	page = page or 1
 
-	local endAt = (page * perPage)
-	local startAt = (endAt - (perPage - 1))
-	local rList = slice(list, startAt, endAt, 1)
+	local sliceTo = (page * perPage)
+	local sliceAt = (sliceTo - (perPage - 1))
+	local result = slice(list, sliceAt, sliceTo, 1)
 
-	return rList
+	return result
 end
 
 return paginate

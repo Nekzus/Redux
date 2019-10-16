@@ -8,45 +8,45 @@ function loadCode(code, message, extra)
 	end
 
 	local output = {}
-	local ret = {}
+	local result = {}
 
 	if message.author.id == client.owner.id then
-		ret = getfenv()
+		result = getfenv()
 	else
-		ret.enums = enums
-		ret.math = math
-		ret.string = string
-		ret.eval = eval
-		ret.type = type
-		ret.tostring = tostring
-		ret.tonumber = tonumber
+		result.enums = enums
+		result.math = math
+		result.string = string
+		result.eval = eval
+		result.type = type
+		result.tostring = tostring
+		result.tonumber = tonumber
 	end
 
-	ret.message = message
+	result.message = message
 
 	if extra then
-		for k, v in next, extra do
-			ret[k] = v
+		for key, value in next, extra do
+			result[key] = value
 		end
 	end
 
-	function ret.print(...)
-		table.insert(output, printLine(...))
+	function result.print(...)
+		insert(output, printLine(...))
 	end
 
-	function ret.error(...)
-		table.insert(output, printLine(...))
+	function result.error(...)
+		insert(output, printLine(...))
 	end
 
-	function ret.warn(...)
-		table.insert(output, printLine(...))
+	function result.warn(...)
+		insert(output, printLine(...))
 	end
 
-	local f, syntaxError = load(code:gsub('```\n?', ''), 'LuaSandbox', 't', ret)
-	local success, runtimeError = pcall(f)
+	local func, syntaxError = load(code:gsub('```\n?', ''), 'Sandbox', 't', result)
+	local success, runtimeError = pcall(func)
 
 	if success then
-		response = table.concat(output, '\n')
+		response = concat(output, '\n')
 
 		if #response > 1990 then
 			response = response:sub(1, 1990)

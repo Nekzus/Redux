@@ -1,8 +1,8 @@
 local _config = {
-	name = "setorgrole",
+	name = "orgrole",
 	desc = "${addsRoleOrganizer}",
 	usage = "${nameKey}",
-	aliases = {"srorg", "sroleorg", "addorgrole", "addorg"},
+	aliases = {"sorg"},
 	cooldown = 0,
 	level = 4,
 	direct = false,

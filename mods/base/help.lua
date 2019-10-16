@@ -68,8 +68,8 @@ local _function = function(data)
 			return false
 		end
 	elseif type(value) == "number" then
-		local nCount = 0
-		local rList = {}
+		local listTotal = 0
+		local listItems = {}
 
 		for commandName, command in pairs(commands.list) do
 			if not command.alias and not isCommandRestrict(command, guildLang) then
@@ -78,13 +78,13 @@ local _function = function(data)
 				local permit, patronCommand = canRunCommand(data)
 
 				if permit then
-					insert(rList, {name = commandName, data = command})
-					nCount = nCount + 1
+					insert(listItems, {name = commandName, data = command})
+					listTotal = listTotal + 1
 				end
 			end
 		end
 
-		sort(rList, function(a, b)
+		sort(listItems, function(a, b)
 			return a.name < b.name
 		end)
 
@@ -100,14 +100,14 @@ local _function = function(data)
 
 		local function showPage()
 			local embed = newEmbed()
-			local count = 0
+			local inPage = 0
 			local result = ""
 
 			embed:title(client.user.name)
 			embed:description(parseFormat("${botDesc}", langList, client.user.name))
 
-			for _, command in next, paginate(rList, perPage, page) do
-				count = count + 1
+			for _, command in next, paginate(listItems, perPage, page) do
+				inPage = inPage + 1
 
 				if result ~= "" then
 					result = format("%s\n", result)
@@ -120,19 +120,19 @@ local _function = function(data)
 				end
 			end
 
-			local pages = nCount / perPage
+			local pages = listTotal / perPage
 
 			if tostring(pages):match("%.%d+") then
 				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:field({name = parseFormat("${commands} (%s/%s) [${page} %s/%s]", langList, count, nCount, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList)), inline = true})
+			embed:field({name = parseFormat("${commands} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList)), inline = true})
 
 			embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
-			if nCount <= perPage then
+			if listTotal <= perPage then
 				decoyBird = decoyBird == nil and bird:post(nil, embed:raw(), data.channel)
 				or decoyBird:update(nil, embed:raw())
 
@@ -149,17 +149,21 @@ local _function = function(data)
 
 				blinker:on(arwLeft.id, function()
 					page = max(1, page - 1)
+
 					if not private then
 						message:removeReaction(arwLeft, data.user.id)
 					end
+
 					showPage()
 				end)
 
 				blinker:on(arwRight.id, function()
 					page = min(pages, page + 1)
+
 					if not private then
 						message:removeReaction(arwRight, data.user.id)
 					end
+
 					showPage()
 				end)
 			else
