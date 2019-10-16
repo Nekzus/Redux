@@ -16,7 +16,7 @@ local _function = function(data)
 	local args = data.args
 
 	local translateLang = data.args[2]
-	local translateTerms = data.args[3] and data.content:sub(#args[1] + #args[2] + 3):gsub(" ", "+")
+	local translateTerms = data.args[3] and data.content:sub(#args[1] + #args[2] + 3)
 
 	if translateLang == nil or tonumber(translateLang) then
 		local nCount = 0
@@ -205,7 +205,7 @@ local _function = function(data)
 
 	else
 		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
-		local translateResult = apiGoogleTranslate(translateLang, translateTerms)
+		local translateResult = apiGoogleTranslate(translateLang, translateTerms:gsub("\n", "%%0A"):gsub(" ", "%%20"))
 
 		if translateResult == nil or translateResult.data == nil then
 			local text = parseFormat("${googleNotFoundTerms}", langList, translateLang)

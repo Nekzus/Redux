@@ -23,6 +23,8 @@ config.api = {
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
 }
 
+-- https://translation.googleapis.com/language/translate/v2?key=AIzaSyDYrXTvbJhfINQg9zcXy_SuL4rpt5B1azs&target=%s&q=en
+
 config.keys = {
 	youtubeVideoKey = "AIzaSyApllT_5QSRx-JnNJF8TNcDZRSSKm3cBCE",
 	googleSearchKey = "AIzaSyDENwT8E_qHRpzrI6eLHANOAvLHy_WiyBo",
