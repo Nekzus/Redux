@@ -1,7 +1,7 @@
 local _config = {
 	name = "unban",
 	desc = "${unbansUser}",
-	usage = "${userKey}",
+	usage = "${userKey} ${reasonKey}",
 	aliases = {"unbanish"},
 	cooldown = 0,
 	level = 3,
@@ -25,18 +25,25 @@ local _function = function(data)
 		return false
 	end
 
-	local nCount = 0
+	local count = 0
 	local lastTag = nil
+	local reason
+
+	if args[3] and #args[3] > 2 then
+		reason = data.content:sub(#args[1] + #args[2] + 3)
+	else
+		reason = parseFormat("${noReason}", langList)
+	end
 
 	for ban in data.guild:getBans():iter() do
 		if ban.user.tag:lower():match(data.args[2]) then
-			nCount = nCount + 1
+			count = count + 1
 			lastTag = ban.user.tag
-			ban:delete()
+			ban:delete(format("[%s]: %s"), author.tag, reason)
 		end
 	end
 
-	if nCount == 0 or lastTag == nil then
+	if count == 0 or lastTag == nil then
 		local text = parseFormat("${userNotFound}", langList)
 		local embed = replyEmbed(text, data.message, "warn")
 
@@ -45,22 +52,22 @@ local _function = function(data)
 		return false
 	end
 
-	if nCount == 1 then
+	if count == 1 then
 		local text = parseFormat("${userUnbanned}", langList, lastTag)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
-	elseif nCount > 1 then
-		local text = parseFormat("${usersUnbanned}", langList, nCount)
+	elseif count > 1 then
+		local text = parseFormat("${usersUnbanned}", langList, count)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
 	else
-		local text = parseFormat("${userNotFound}", langList, nCount)
+		local text = parseFormat("${userNotFound}", langList, count)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
