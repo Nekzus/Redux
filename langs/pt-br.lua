@@ -276,11 +276,14 @@ langs["pt-br"] = {
 	["missingThesePerms"] = "Para continuar, eu preciso poder %s",
 	["guildNotFound"] = "Guilda não encontrada!",
 	["successLeftGuild"] = "Guilda deixada com sucesso (**%s**)",
+	["itemNotFoundName"] = "Item não encontrado",
+	["itemDeletedFromStore"] = "Item deletado da loja com sucesso",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["removesItemFromStore"] = "remove o item mencionado da loja.",
 	["leavesMentionedGuild"] = "sai da guilda mencionada.",
 	["showsGlobalGuildsList"] = "mostra a lista global de guildas em que o bot está.",
 	["translatesYourText"] = "traduz o seu texto.",

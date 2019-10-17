@@ -276,11 +276,14 @@ langs["en-us"] = {
 	["missingThesePerms"] = "In order to continue, I must be able to %s",
 	["guildNotFound"] = "Guild not found!",
 	["successLeftGuild"] = "Successfully left guild (**%s**)",
+	["itemNotFoundName"] = "Item not found",
+	["itemDeletedFromStore"] = "Item successfully deleted from the store",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["removesItemFromStore"] = "removes the mentioned item from the store.",
 	["leavesMentionedGuild"] = "leaves the mentioned guild.",
 	["showsGlobalGuildsList"] = "shows the global list of guilds that the bot is in.",
 	["translatesYourText"] = "translates your text.",

@@ -1,8 +1,8 @@
 local _config = {
-	name = "newitem",
+	name = "createitem",
 	desc = "${createsStoreItem}",
 	usage = "${keyKey} = ${valueKey}",
-	aliases = {"ni", "createitem", "ci"},
+	aliases = {"ci", "ni", "newitem"},
 	cooldown = 0,
 	level = 3,
 	direct = false,
@@ -212,7 +212,7 @@ local _function = function(data)
 
 			if inList(key, {"name", "itemname", "item name", "n"}) then -- Base item-data
 				for itemGuid, item in next, guildStore:raw() do
-					if item.itemName == value then
+					if item.itemName:lower() == value:lower() then
 						local text = parseFormat("${itemNameSpecifiedExists}: %s", langList, item.itemName)
 						local embed = replyEmbed(text, data.message, "warn")
 

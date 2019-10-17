@@ -23,7 +23,6 @@ local _function = function(data)
 	local listItems = {}
 
 	for itemGuid, item in pairs(guildStore:raw()) do
-		printf("Added %s", item.itemName, item.itemPrice)
 		insert(listItems, {
 			name = item.itemName,
 			desc = item.itemDesc,
