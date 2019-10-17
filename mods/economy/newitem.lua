@@ -80,6 +80,22 @@ local _function = function(data)
 
 			return true
 		end
+
+		if lastData.guild.id ~= data.guild.id then
+			local finishCommand = format("%s cancel", data.command)
+			local editLostMessage = parseFormat("${userItemEditLost} ${itemFinishTip2}", langList, data.user.username, finishCommand)
+			local jumpTo = parseFormat("[${jumpToMessage}](%s)", langList, decoyBird.message.link)
+			local embed = newEmbed()
+
+			embed:description(format("%s\n\n%s", editLostMessage, jumpTo))
+			embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+			embed:footerIcon(config.images.info)
+			signFooter(embed, lastData.author, guildLang)
+
+			bird:post(nil, embed:raw(), data.channel)
+
+			return false
+		end
 	else
 		lastData = data
 		itemData = {createDate = os.time()}
@@ -429,9 +445,11 @@ local _function = function(data)
 		})
 
 		-- Attributes that will be given
+		local giveRole = getRole(itemData.giveRole, "id", lastData.guild)
+
 		embed:field({
 			name = parseFormat("${storeItemAwardRole} (giveRole)", langList),
-			value = getRole(itemData.giveRole, "id", lastData.guild) or "-",
+			value = giveRole and giveRole.name or "-",
 			inline = true,
 		})
 
@@ -461,9 +479,11 @@ local _function = function(data)
 		})
 
 		-- Required attributes
+		local reqRole = getRole(itemData.reqRole, "id", lastData.guild)
+
 		embed:field({
 			name = parseFormat("${storeItemRequiredRole} (reqRole)", langList),
-			value = getRole(itemData.reqRole, "id", lastData.guild) or "-",
+			value = reqRole and reqRole.name or "-",
 			inline = true,
 		})
 
@@ -486,9 +506,11 @@ local _function = function(data)
 		})
 
 		-- Attributes that will be taken
+		local takeRole = getRole(itemData.takeRole, "id", lastData.guild)
+
 		embed:field({
 			name = parseFormat("${storeItemTakeRole} (takeRole)", langList),
-			value = getRole(itemData.takeRole, "id", lastData.guild) or "-",
+			value = takeRole and takeRole.name or "-",
 			inline = true,
 		})
 

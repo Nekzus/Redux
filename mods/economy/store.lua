@@ -60,7 +60,7 @@ local _function = function(data)
 				result = format("%s\n", result)
 			end
 
-			result = format("%s%s **%s** - **%s** %s", result, symbol, obj.price, parseFormat(obj.name, langList), parseFormat(obj.desc, langList))
+			result = format("%s%s **%s** - **%s** %s", result, symbol, affixNum(obj.price), parseFormat(obj.name, langList), parseFormat(obj.desc, langList))
 		end
 
 		local pages = listTotal / perPage
