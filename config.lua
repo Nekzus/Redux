@@ -12,6 +12,24 @@ config.meta = {
 	build = "Redux",
 }
 
+--[[
+https://accountsettings.roblox.com/docs
+https://api.roblox.com/docs
+https://auth.roblox.com/docs
+https://avatar.roblox.com/docs
+https://billing.roblox.com/docs
+https://catalog.roblox.com/docs
+https://chat.roblox.com/docs
+https://develop.roblox.com/docs
+https://friends.roblox.com/docs
+https://games.roblox.com/docs
+https://groups.roblox.com/docs
+https://inventory.roblox.com/docs
+https://notifications.roblox.com/docs
+https://points.roblox.com/docs
+https://presence.roblox.com/docs
+]]
+
 config.api = {
 	catImage = "https://aws.random.cat/meow",
 	dogImage = "https://dog.ceo/api/breeds/image/random",
@@ -21,6 +39,19 @@ config.api = {
 	truthYesNo = "https://yesno.wtf/api",
 	truthYesNoForce = "https://yesno.wtf/api?force=%s",
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
+
+	-- 110839429
+	robloxGetUserInfo = "https://api.roblox.com/users/%s", -- User ID
+	robloxGetUserId = "https://api.roblox.com/users/get-by-username?username=%s", -- Username
+	robloxGetUserFriends = "https://friends.roblox.com/v1/users/%s/friends", -- User ID
+	robloxGetFriendsCount = "https://friends.roblox.com/v1/users/%s/friends/count", -- User ID
+	robloxUserAvatar = "https://avatar.roblox.com/v1/users/%s/avatar", -- User ID
+	robloxAssetsWearing = "https://avatar.roblox.com/v1/users/%s/currently-wearing", -- User ID
+	robloxUserOutfits = "https://avatar.roblox.com/v1/users/%s/outfits", -- User ID
+	robloxOutfitInfo = "https://avatar.roblox.com/v1/outfits/117031959/details", -- Outfit ID
+	robloxCatalogCategories = "https://catalog.roblox.com/v1/categories", -- No params
+	robloxCatalogSubcategories = "https://catalog.roblox.com/v1/subcategories", -- No params
+	robloxCollectibles = "https://inventory.roblox.com/v1/users/%s/assets/collectibles?sortOrder=Desc&limit=100"
 }
 
 -- https://translation.googleapis.com/language/translate/v2?key=AIzaSyDYrXTvbJhfINQg9zcXy_SuL4rpt5B1azs&target=%s&q=en
@@ -84,7 +115,7 @@ config.images = {
 }
 
 config.emojis = {
-	loading = "RotatingGears",
+	loading = "FourCirclesLoading",
 	topic = "Rhombus",
 	arwLeft = "ArrowLeft",
 	arwRight = "ArrowRight"
