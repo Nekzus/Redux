@@ -77,10 +77,10 @@ local _function = function(data)
 	end
 
 	if not reason then
-		member:send(parseFormat("${beenKicked}", langList, data.guild.name, parseFormat("${noReason}", langList)))
+		-- member:send(parseFormat("${beenKicked}", langList, data.guild.name, parseFormat("${noReason}", langList)))
 		member:kick(parseFormat("[%s]: ${noReason}", langList, author.tag))
 	else
-		member:send(parseFormat("${beenKicked}", langList, data.guild.name, reason))
+		-- member:send(parseFormat("${beenKicked}", langList, data.guild.name, reason))
 		member:kick(format("[%s]: %s", author.tag, reason))
 	end
 

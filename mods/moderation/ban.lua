@@ -77,10 +77,10 @@ local _function = function(data)
 	end
 
 	if not reason then
-		member:send(parseFormat("${beenBanned}", langList, data.guild.name, parseFormat("${noReason}", langList)))
+		-- member:send(parseFormat("${beenBanned}", langList, data.guild.name, parseFormat("${noReason}", langList)))
 		member:ban(parseFormat("[%s]: ${noReason}", langList, author.tag))
 	else
-		member:send(parseFormat("${beenBanned}", langList, data.guild.name, reason))
+		-- member:send(parseFormat("${beenBanned}", langList, data.guild.name, reason))
 		member:ban(format("[%s]: %s", author.tag, reason))
 	end
 

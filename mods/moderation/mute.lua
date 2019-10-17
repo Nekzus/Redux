@@ -136,11 +136,11 @@ local _function = function(data)
 	guildData:get("mutes"):set(member.id, muteData)
 	handleMuteData(muteData)
 
-	if not reason then
+	--[[if not reason then
 		member:send(parseFormat("${beenMuted}", langList, data.guild.name, parseFormat("${noReason}", langList)))
 	else
 		member:send(parseFormat("${beenMuted}", langList, data.guild.name, reason))
-	end
+	end]]
 
 	member:addRole(role)
 
