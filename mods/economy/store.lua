@@ -4,7 +4,7 @@ local _config = {
 	usage = "${numKey}",
 	aliases = {"st", "market", "mk"},
 	cooldown = 0,
-	level = 5,
+	level = 0,
 	direct = false,
 }
 

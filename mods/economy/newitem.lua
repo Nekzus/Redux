@@ -4,7 +4,7 @@ local _config = {
 	usage = "${keyKey} = ${valueKey}",
 	aliases = {"ni", "createitem", "ci"},
 	cooldown = 0,
-	level = 5,
+	level = 3,
 	direct = false,
 }
 
