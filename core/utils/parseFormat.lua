@@ -1,6 +1,6 @@
 function parseFormat(text, list, ...)
-	assert(text, "Must provide a text")
-	assert(list, "Must provide a replacement list")
+	assert(text and type(text) == "string", "Must provide a text")
+	assert(list and type(list) == "table", "Must provide a replacement list")
 
 	local replace = {
 		["($%b{})"] = function(text) return text end,

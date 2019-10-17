@@ -143,7 +143,7 @@ config.patterns = {
 		base = "<#%d+>",
 		capture = "<#(%d+)>",
 	},
-	mute = {
+	time = {
 		base = "%d+%a",
 		capture = "(%d+)(%a)",
 	},

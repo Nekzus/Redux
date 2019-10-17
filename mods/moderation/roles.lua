@@ -26,7 +26,12 @@ local _function = function(data)
 		if roleExists then
 			local isPrimary = getPrimaryRoleIndex(obj.level, guildRoles:raw()) == roleId
 
-			insert(listItems, {id = roleId, level = obj.level, primary = isPrimary, added = obj.added})
+			insert(listItems, {
+				id = roleId,
+				level = obj.level,
+				primary = isPrimary,
+				added = obj.added
+			})
 			listTotal = listTotal + 1
 		end
 	end
@@ -68,7 +73,10 @@ local _function = function(data)
 			pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:field({name = parseFormat("${roles} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
+		embed:field({
+			name = parseFormat("${roles} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages),
+			value = (result ~= "" and result or parseFormat("${noResults}", langList))
+		})
 
 		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 		embed:footerIcon(config.images.info)

@@ -23,7 +23,14 @@ local _function = function(data)
 	local listItems = {}
 
 	for itemGuid, item in pairs(guildStore:raw()) do
-		insert(listItems, {name = item.name, desc = item.desc, price = item.price, quant = item.quant, roles = item.role})
+		printf("Added %s", item.itemName, item.itemPrice)
+		insert(listItems, {
+			name = item.itemName,
+			desc = item.itemDesc,
+			price = item.itemPrice,
+			stock = item.itemStock,
+			roles = item.giveRole
+		})
 		listTotal = listTotal + 1
 	end
 
@@ -63,7 +70,10 @@ local _function = function(data)
 			pages = tostring(tonumber(pages) + 1)
 		end
 
-		embed:field({name = parseFormat("${store} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
+		embed:field({
+			name = parseFormat("${store} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages),
+			value = (result ~= "" and result or parseFormat("${noResults}", langList))
+		})
 
 		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 		embed:footerIcon(config.images.info)

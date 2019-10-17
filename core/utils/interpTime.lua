@@ -1,8 +1,8 @@
 function interpTime(text)
 	local totalTime = 0
 
-	for formula in text:gmatch(config.patterns.mute.base) do
-		local num, key = formula:match(config.patterns.mute.capture)
+	for formula in text:gmatch(config.patterns.time.base) do
+		local num, key = formula:match(config.patterns.time.capture)
 
 		if key then
 			for timeKey, timeNum in next, config.time do

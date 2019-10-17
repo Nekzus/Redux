@@ -4,7 +4,7 @@ local _config = {
 	usage = "${pageKey}",
 	aliases = {"pats"},
 	cooldown = 10,
-	level = 0,
+	level = 5,
 	direct = false,
 	perms = {"addReactions", "manageMessages"},
 }
@@ -59,7 +59,10 @@ local _function = function(data)
 			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:field({name = parseFormat("${patrons} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
+		embed:field({
+			name = parseFormat("${patrons} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages),
+			value = (result ~= "" and result or parseFormat("${noResults}", langList))
+		})
 
 		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 		embed:footerIcon(config.images.info)

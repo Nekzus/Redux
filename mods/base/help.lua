@@ -2,7 +2,7 @@ local _config = {
 	name = "help",
 	desc = "${helpMessage}",
 	usage = "${pageKey}",
-	aliases = {"h", "commands", "cmds", "cmd"},
+	aliases = {"h", "commands", "cmds"},
 	cooldown = 3,
 	level = 0,
 	direct = true,
@@ -43,14 +43,24 @@ local _function = function(data)
 			embed:description(format("%s", parseFormat(command.desc, langList)))
 
 			if command.usage ~= nil and command.usage ~= "" then
-				embed:field({name = parseFormat("${params}", langList), value = format("`%s`", parseFormat(command.usage, langList)), inline = true})
+				embed:field({
+					name = parseFormat("${params}", langList),
+					value = format("`%s`", parseFormat(command.usage, langList)), inline = true
+				})
 			end
 
 			local roleTitle = parseFormat(getMatchingLevelTitle(command.level or 0), langList)
 			local levelParsed = parseFormat("${roleAndAbove}", langList, roleTitle)
 
-			embed:field({name = parseFormat("${level}", langList), value = levelParsed, inline = true})
-			embed:field({name = parseFormat("${aliases}", langList), value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or parseFormat("${none}", langList)), inline = true})
+			embed:field({
+				name = parseFormat("${level}", langList),
+				value = levelParsed, inline = true
+			})
+
+			embed:field({
+				name = parseFormat("${aliases}", langList),
+				value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or parseFormat("${none}", langList)), inline = true
+			})
 
 			embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 			embed:footerIcon(config.images.info)
@@ -126,7 +136,10 @@ local _function = function(data)
 				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:field({name = parseFormat("${commands} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList)), inline = true})
+			embed:field({
+				name = parseFormat("${commands} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages),
+				value = (result ~= "" and result or parseFormat("${noResults}", langList)), inline = true
+			})
 
 			embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
 			embed:footerIcon(config.images.info)
