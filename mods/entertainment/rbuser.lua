@@ -16,8 +16,9 @@ local _function = function(data)
 	local args = data.args
 
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
-	local result, err = apiCat()
 	local embed = newEmbed()
+
+	local userName
 
 	signFooter(embed, data.author, guildLang)
 end

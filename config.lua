@@ -44,6 +44,7 @@ config.api = {
 	robloxGetUserInfo = "https://api.roblox.com/users/%s", -- User ID
 	robloxGetUserId = "https://api.roblox.com/users/get-by-username?username=%s", -- Username
 	robloxGetUserFriends = "https://friends.roblox.com/v1/users/%s/friends", -- User ID
+
 	robloxGetFriendsCount = "https://friends.roblox.com/v1/users/%s/friends/count", -- User ID
 	robloxUserAvatar = "https://avatar.roblox.com/v1/users/%s/avatar", -- User ID
 	robloxAssetsWearing = "https://avatar.roblox.com/v1/users/%s/currently-wearing", -- User ID
