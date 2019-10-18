@@ -408,7 +408,6 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemName} (itemName)", langList),
 			value = itemName or "-",
-			inline = true,
 		})
 
 		local itemDesc = itemData.itemDesc
@@ -427,7 +426,6 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemPrice} (itemPrice)", langList),
 			value = affixNum(itemData.itemPrice) or "-",
-			inline = true,
 		})
 
 		local itemStock = itemData.itemStock
@@ -450,7 +448,6 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemAwardRole} (giveRole)", langList),
 			value = giveRole and giveRole.name or "-",
-			inline = true,
 		})
 
 		embed:field({
@@ -462,7 +459,6 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemAwardItem} (giveItem)", langList),
 			value = itemData.giveItem or "-",
-			inline = true,
 		})
 
 		local giveReply = itemData.giveReply
@@ -484,7 +480,6 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemRequiredRole} (reqRole)", langList),
 			value = reqRole and reqRole.name or "-",
-			inline = true,
 		})
 
 		embed:field({
@@ -496,7 +491,6 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemRequiredItem} (reqItem)", langList),
 			value = itemData.reqItem or "-",
-			inline = true,
 		})
 
 		embed:field({
@@ -511,7 +505,6 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemTakeRole} (takeRole)", langList),
 			value = takeRole and takeRole.name or "-",
-			inline = true,
 		})
 
 		embed:field({
@@ -523,7 +516,6 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemTakeItem} (takeItem)", langList),
 			value = itemData.takeItem or "-",
-			inline = true,
 		})
 
 		return embed
