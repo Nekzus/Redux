@@ -11,12 +11,12 @@
 ]
 ]]
 
-function apiRobloxGetUserFriends(id)
-	local data, request = httpGet("robloxGetUserFriends", id)
+function apiRobloxGetUserFriendsList(id)
+	local data, request = httpGet("robloxGetUserFriendsList", id)
 	local decode = json.decode(request)
 
 	if not decode then
-		print("Unable to decode apiRobloxGetUserFriends()")
+		print("Unable to decode apiRobloxGetUserFriendsList()")
 
 		return nil
 	end
@@ -24,4 +24,4 @@ function apiRobloxGetUserFriends(id)
 	return decode.data
 end
 
-return apiRobloxGetUserFriends
+return apiRobloxGetUserFriendsList

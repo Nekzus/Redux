@@ -28,6 +28,7 @@ https://inventory.roblox.com/docs
 https://notifications.roblox.com/docs
 https://points.roblox.com/docs
 https://presence.roblox.com/docs
+https://developer.roblox.com/en-us/articles/Catalog-API
 ]]
 
 config.api = {
@@ -40,12 +41,14 @@ config.api = {
 	truthYesNoForce = "https://yesno.wtf/api?force=%s",
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
 
-	-- 110839429
-	robloxGetUserInfo = "https://api.roblox.com/users/%s", -- User ID
-	robloxGetUserId = "https://api.roblox.com/users/get-by-username?username=%s", -- Username
-	robloxGetUserFriends = "https://friends.roblox.com/v1/users/%s/friends", -- User ID
+	-- https://www.googleapis.com/customsearch/v1?key=AIzaSyDENwT8E_qHRpzrI6eLHANOAvLHy_WiyBo&cx=000898645152450243880:ypizs90acrv&q=
 
-	robloxGetFriendsCount = "https://friends.roblox.com/v1/users/%s/friends/count", -- User ID
+	-- 110839429
+	robloxGetUserFromId = "https://api.roblox.com/users/%s", -- User ID
+	robloxGetUserFromName = "https://api.roblox.com/users/get-by-username?username=%s", -- Username
+	robloxGetUserFriendsList = "https://friends.roblox.com/v1/users/%s/friends", -- User ID
+	robloxGetUserFriendsCount = "https://friends.roblox.com/v1/users/%s/friends/count", -- User ID
+
 	robloxUserAvatar = "https://avatar.roblox.com/v1/users/%s/avatar", -- User ID
 	robloxAssetsWearing = "https://avatar.roblox.com/v1/users/%s/currently-wearing", -- User ID
 	robloxUserOutfits = "https://avatar.roblox.com/v1/users/%s/outfits", -- User ID
