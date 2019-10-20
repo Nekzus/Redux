@@ -24,19 +24,24 @@ local _function = function(data)
 		return false
 	end
 
+	local itemName
 	local buyAmount = tonumber(args[2])
 
-	if not buyAmount then
+	if buyAmount == nil then
+		buyAmount = 1
+		itemName = data.content:sub(#args[1] + 2)
+	elseif (type(buyAmount) == "number" and buyAmount < 1) then
 		local text = parseFormat("${missingArg}: buyAmount", langList)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
+	else
+		itemName = data.content:sub(#args[1] + #args[2] + 3)
 	end
 
-	local itemName = data.content:sub(#args[1] + #args[2] + 3)
-	local itemData = getStoreItem(data.guild, itemName)
+	local itemData = getStoreItem(itemName, data.guild)
 
 	if not itemData then
 		local text = parseFormat("${itemNotFoundName}", langList)

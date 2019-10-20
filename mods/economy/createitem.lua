@@ -39,7 +39,7 @@ local _function = function(data)
 			local text = parseFormat("${newItemCanceled}", langList)
 			local embed = replyEmbed(text, data.message, "info")
 
-			bird:post(nil, embed:raw(), data.channel)
+			decoyBird:update(nil, embed:raw(), data.channel)
 
 			return true
 
@@ -163,11 +163,6 @@ local _function = function(data)
 				required = false,
 				default = "",
 				title = "$<storeItemRequiredItem>",
-			},
-			reqTime = {
-				required = false,
-				default = 0,
-				title = "$<storeItemRequiredTime>",
 			},
 
 			-- These will be taken from the user upon the usage
@@ -337,20 +332,6 @@ local _function = function(data)
 
 				return false
 
-			elseif inList(key, {"reqtime", "requiredtime", "time", "req time", "required time", "rt"}) then
-				local value = interpTime(value)
-
-				if not value then
-					local text = parseFormat("${missingArg}: reqTime", langList)
-					local embed = replyEmbed(text, data.message, "error")
-
-					bird:post(nil, embed:raw(), data.channel)
-
-					return false
-				end
-
-				itemData.reqTime = value
-
 			elseif inList(key, {"takerole", "take role", "tr"}) then -- Attributes that will be taken
 				local role = getRole(value, "name", lastData.guild)
 
@@ -411,6 +392,7 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemName} (itemName)", langList),
 			value = itemName or "-",
+			inline = true,
 		})
 
 		local itemDesc = itemData.itemDesc
@@ -429,6 +411,7 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemPrice} (itemPrice)", langList),
 			value = affixNum(itemData.itemPrice) or "-",
+			inline = true,
 		})
 
 		local itemStock = itemData.itemStock
@@ -451,6 +434,7 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemAwardRole} (giveRole)", langList),
 			value = giveRole and giveRole.name or "-",
+			inline = true,
 		})
 
 		embed:field({
@@ -462,6 +446,7 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemAwardItem} (giveItem)", langList),
 			value = itemData.giveItem or "-",
+			inline = true,
 		})
 
 		local giveReply = itemData.giveReply
@@ -483,6 +468,7 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemRequiredRole} (reqRole)", langList),
 			value = reqRole and reqRole.name or "-",
+			inline = true,
 		})
 
 		embed:field({
@@ -494,11 +480,6 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemRequiredItem} (reqItem)", langList),
 			value = itemData.reqItem or "-",
-		})
-
-		embed:field({
-			name = parseFormat("${storeItemRequiredTime} (reqTime)", langList),
-			value = parseFormat(timeLong(itemData.reqTime), langList) or "-",
 			inline = true,
 		})
 
@@ -508,6 +489,7 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemTakeRole} (takeRole)", langList),
 			value = takeRole and takeRole.name or "-",
+			inline = true,
 		})
 
 		embed:field({
@@ -519,22 +501,27 @@ local _function = function(data)
 		embed:field({
 			name = parseFormat("${storeItemTakeItem} (takeItem)", langList),
 			value = itemData.takeItem or "-",
+			inline = true,
 		})
 
 		return embed
 	end
 
+	local finishCommand = format("%s done", data.command)
+	local cancelCommand = format("%s cancel", data.command)
+	local tipText = parseFormat("${editModeResult}; ${itemFinishTip}", langList, data.author.tag, finishCommand, cancelCommand)
+
 	if decoyBird == nil then
 		local embed = renderItemPreviewEmbed()
 
-		decoyBird = bird:post(nil, embed:raw(), lastData.channel)
+		decoyBird = bird:post(tipText, embed:raw(), lastData.channel)
 		storeTempData[data.author.id].decoyBird = decoyBird
 
 		return true
 	else
 		local embed = renderItemPreviewEmbed()
 
-		decoyBird:update(nil, embed:raw())
+		decoyBird:update(tipText, embed:raw())
 
 		return true
 	end

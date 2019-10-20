@@ -118,13 +118,15 @@ config.images = {
 	info = "https://cdn.discordapp.com/attachments/605826739842711562/605827616368230411/Information.png",
 	google = "https://cdn.discordapp.com/attachments/605826739842711562/611950666037854231/google.png",
 	googleBlue = "https://cdn.discordapp.com/attachments/605826739842711562/611953227814141974/Google_blue.png",
+
+	laranjo = "https://cdn.discordapp.com/attachments/635508704749420546/635508720582787124/d2310a6a6b55c77c606596e219248bfe.png",
 }
 
 config.emojis = {
 	loading = "FourCirclesLoading",
 	topic = "Rhombus",
 	arwLeft = "ArrowLeft",
-	arwRight = "ArrowRight"
+	arwRight = "ArrowRight",
 }
 
 config.colors = {

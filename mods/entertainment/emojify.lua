@@ -44,6 +44,7 @@ local _function = function(data)
 		["x"] = ":regional_indicator_x:",
 		["y"] = ":regional_indicator_y:",
 		["z"] = ":regional_indicator_z:",
+		["ç"] = ":regional_indicator_c:",
 
 		["1"] = ":one:",
 		["2"] = ":two:",

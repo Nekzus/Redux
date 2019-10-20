@@ -18,6 +18,7 @@ local _function = function(data)
 
 	local text = data.content:sub(#args[1] + 2):lower()
 	local replaces = {
+		["filho"] = "fio",
 		["inho%s"] = "in ",
 		["moral"] = "molau",
 		["gostar"] = "gosta",
@@ -99,6 +100,8 @@ local _function = function(data)
 	end
 
 	local embed = replyEmbed(text, data.message, "ok")
+
+	embed:thumbnail(config.images.laranjo)
 
 	bird:post(nil, embed:raw(), data.channel)
 

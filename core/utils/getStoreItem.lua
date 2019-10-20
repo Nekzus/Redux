@@ -1,4 +1,4 @@
-function getStoreItem(guild, value)
+function getStoreItem(value, guild)
 	local guildData = getGuildEconomy(guild)
 	local guildStore = guildData:get("store")
 

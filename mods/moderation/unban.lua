@@ -36,10 +36,10 @@ local _function = function(data)
 	end
 
 	for ban in data.guild:getBans():iter() do
-		if ban.user.tag:lower():match(data.args[2]) then
+		if ban.user.tag:lower():match(args[2]) then
 			count = count + 1
 			lastTag = ban.user.tag
-			ban:delete(format("[%s]: %s"), author.tag, reason)
+			ban:delete(format("[%s]: %s", data.author.tag, reason))
 		end
 	end
 
