@@ -1,5 +1,6 @@
 -- .f client:setAvatar("./images/nekito4.png")
 -- https://atom.io/packages/language-lua
+-- https://discordapp.com/api/oauth2/authorize?client_id=309586161876205579&permissions=8&scope=bot
 
 config = {}
 
@@ -50,6 +51,7 @@ config.api = {
 	robloxGetUserFriendsCount = "https://friends.roblox.com/v1/users/%s/friends/count", -- User ID
 
 	robloxUserAvatar = "https://avatar.roblox.com/v1/users/%s/avatar", -- User ID
+
 	robloxAssetsWearing = "https://avatar.roblox.com/v1/users/%s/currently-wearing", -- User ID
 	robloxUserOutfits = "https://avatar.roblox.com/v1/users/%s/outfits", -- User ID
 	robloxOutfitInfo = "https://avatar.roblox.com/v1/outfits/117031959/details", -- Outfit ID

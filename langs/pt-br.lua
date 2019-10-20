@@ -283,6 +283,7 @@ langs["pt-br"] = {
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["buysItemFromStore"] = "compra um item da loja.",
 	["removesItemFromStore"] = "remove o item mencionado da loja.",
 	["leavesMentionedGuild"] = "sai da guilda mencionada.",
 	["showsGlobalGuildsList"] = "mostra a lista global de guildas em que o bot está.",

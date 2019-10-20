@@ -74,9 +74,12 @@ local _function = function(data)
 
 			local text = parseFormat("${newItemCreated}", langList)
 			local embed = replyEmbed(text, data.message, "ok")
+			local guid = newGuid()
+
+			itemData.guid = guid
 
 			bird:post(nil, embed:raw(), data.channel)
-			guildStore:set(newGuid(), itemData)
+			guildStore:set(guid, itemData)
 
 			return true
 		end
