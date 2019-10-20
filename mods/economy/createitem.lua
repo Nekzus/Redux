@@ -39,7 +39,7 @@ local _function = function(data)
 			local text = parseFormat("${newItemCanceled}", langList)
 			local embed = replyEmbed(text, data.message, "info")
 
-			decoyBird:update(nil, embed:raw(), data.channel)
+			decoyBird:update(nil, embed:raw())
 
 			return true
 
@@ -78,7 +78,7 @@ local _function = function(data)
 
 			itemData.guid = guid
 
-			bird:post(nil, embed:raw(), data.channel)
+			decoyBird:update(nil, embed:raw())
 			guildStore:set(guid, itemData)
 
 			return true
