@@ -276,8 +276,12 @@ langs["en-us"] = {
 	["missingThesePerms"] = "In order to continue, I must be able to %s",
 	["guildNotFound"] = "Guild not found!",
 	["successLeftGuild"] = "Successfully left guild (**%s**)",
-	["itemNotFoundName"] = "Item not found",
+	["itemNotFoundName"] = "Item not found!",
 	["itemDeletedFromStore"] = "Item successfully deleted from the store",
+	["storeItemCashNeeded"] = "You're **%s** short from buying that item!",
+	["storeItemOutStock"] = "This item has ran out of stock!",
+	["stockItemBuyMax"] = "You can only buy **%s** editions of this item!",
+	["successBoughtItem"] = "Item successfully bought!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",

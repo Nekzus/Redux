@@ -276,8 +276,12 @@ langs["pt-br"] = {
 	["missingThesePerms"] = "Para continuar, eu preciso poder %s",
 	["guildNotFound"] = "Guilda não encontrada!",
 	["successLeftGuild"] = "Guilda deixada com sucesso (**%s**)",
-	["itemNotFoundName"] = "Item não encontrado",
+	["itemNotFoundName"] = "Item não encontrado!",
 	["itemDeletedFromStore"] = "Item deletado da loja com sucesso",
+	["storeItemCashNeeded"] = "Você precisa de mais **%s** para comprar esse item!",
+	["storeItemOutStock"] = "Esse item não está mais em estoque!",
+	["stockItemBuyMax"] = "Você só pode comprar **%s** edições deste item!",
+	["successBoughtItem"] = "Item comprado com sucesso!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",

@@ -4,7 +4,7 @@ local _config = {
 	usage = "${nameKey}",
 	aliases = {},
 	cooldown = 2,
-	level = 5,
+	level = 0,
 	direct = false,
 }
 
@@ -15,7 +15,7 @@ local _function = function(data)
 	local langList = langs[guildLang]
 	local args = data.args
 
-	if not (args[2]) then
+	if not (args[2] and args[3]) then
 		local text = parseFormat("${missingArg}", langList)
 		local embed = replyEmbed(text, data.message, "error")
 
@@ -24,8 +24,19 @@ local _function = function(data)
 		return false
 	end
 
-	local itemName = data.content:sub(#args[1] + 2)
-	local itemData = getStoreItem(itemName)
+	local buyAmount = tonumber(args[2])
+
+	if not buyAmount then
+		local text = parseFormat("${missingArg}: buyAmount", langList)
+		local embed = replyEmbed(text, data.message, "error")
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return false
+	end
+
+	local itemName = data.content:sub(#args[1] + #args[2] + 3)
+	local itemData = getStoreItem(data.guild, itemName)
 
 	if not itemData then
 		local text = parseFormat("${itemNotFoundName}", langList)
@@ -39,58 +50,92 @@ local _function = function(data)
 	local memberEconomy, guildEconomy = getMemberEconomy(data.user, data.guild)
 	local memberCash = memberEconomy:get("cash", 0)
 	local memberBank = memberEconomy:get("bank", 0)
+	local memberTotal = memberCash + memberBank
 	local member = data.guild:getMember(data.author)
+	local symbol = guildEconomy:get("symbol")
 
-	-- edit below
+	local guid = itemData.guid
+	local itemName = itemData.itemName
+	local itemPrice = itemData.itemPrice
+	local itemStock = itemData.itemStock
+	local buyTotal = itemPrice * buyAmount
 
-	if value then
-		if value < 1 then
-			local text = parseFormat("${invalidAmount}", langList)
-			local embed = replyEmbed(text, data.message, "error")
+	if itemStock == 0 then
+		local text = parseFormat("${storeItemOutStock}", langList)
+		local embed = replyEmbed(text, data.message, "warn")
 
-			bird:post(nil, embed:raw(), data.channel)
+		bird:post(nil, embed:raw(), data.channel)
 
-			return false
-		end
-
-		local liquid = memberCash + memberBank
-
-		if liquid >= value then
-			if memberCash < value then
-				local diff = value - memberCash
-
-				memberBank = memberEconomy:set("bank", memberBank - diff)
-				memberCash = memberEconomy:set("cash", memberCash + diff)
-			end
-
-			local targetEconomy = getMemberEconomy(target, data.guild)
-			local targetBank = targetEconomy:get("bank", 0)
-
-			memberEconomy:set("cash", memberCash - value)
-			targetEconomy:set("bank", targetBank + value)
-
-			local text = parseFormat("${userPaidSuccess}", langList, format("%s %s", guildEconomy:get("symbol"), affixNum(value)), target.tag)
-			local embed = replyEmbed(text, data.message, "ok")
-
-			bird:post(nil, embed:raw(), data.channel)
-
-			return true
-		else
-			local text = parseFormat("${notEnoughCash}", langList)
-			local embed = replyEmbed(text, data.message, "error")
+		return false
+	elseif itemStock ~= -1 then
+		if buyAmount > itemStock then
+			local text = parseFormat("${stockItemBuyMax}", langList, itemStock)
+			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
 
 			return false
 		end
-	else
-		local text = parseFormat("${missingArg}", langList)
-		local embed = replyEmbed(text, data.message, "error")
+	end
+
+	if buyTotal > memberTotal then
+		local text = parseFormat("${storeItemCashNeeded}", langList, format("%s %s", symbol, buyTotal - memberTotal))
+		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	end
+
+	local pendingPrice = buyTotal
+
+	while pendingPrice > 0 do
+		if memberCash > 0 then
+			if memberCash >= pendingPrice then
+				memberCash = memberEconomy:set("cash", memberCash - pendingPrice)
+				pendingPrice = 0
+			else
+				memberCash = memberEconomy:set("cash", 0)
+				pendingPrice = pendingPrice - memberCash
+			end
+		elseif memberBank > 0 then
+			if memberBank >= pendingPrice then
+				memberBank = memberEconomy:set("bank", memberBank - pendingPrice)
+				pendingPrice = 0
+			else
+				memberBank = memberEconomy:set("bank", 0)
+				pendingPrice = pendingPrice - memberBank
+			end
+		else
+			break
+		end
+	end
+
+	if itemStock ~= -1 then
+		itemData.itemStock = max(0, itemData.itemStock - buyAmount)
+	end
+
+	local memberInventory = memberEconomy:get("inventory")
+	local itemExists = memberInventory:raw()[itemData.guid]
+
+	if itemExists then
+		itemExists.itemAmount = itemExists.itemAmount + buyAmount
+		memberInventory:set(itemData.guid, itemExists)
+	else
+		local newItemData = {
+			guid = guid,
+			itemAmount = buyAmount,
+		}
+
+		memberInventory:set(guid, newItemData)
+	end
+
+	local text = parseFormat("${successBoughtItem}", langList)
+	local embed = replyEmbed(text, data.message, "ok")
+
+	bird:post(nil, embed:raw(), data.channel)
+
+	return true
 end
 
 return {config = _config, func = _function}
