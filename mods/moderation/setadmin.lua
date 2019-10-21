@@ -1,5 +1,5 @@
 local _config = {
-	name = "setadminrole",
+	name = "setadmin",
 	desc = "${addsRoleAdmin}",
 	usage = "${nameKey}",
 	aliases = {"sadmin"},
