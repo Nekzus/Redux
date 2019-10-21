@@ -68,7 +68,7 @@ local _function = function(data)
 
 	if reqRoleId and reqRole then
 		if not data.member:hasRole(reqRoleId) then
-			local text = parseFormat("${itemUseMustHaveRole}", langList)
+			local text = parseFormat("${itemUseMustHaveRole}", langList, reqRole.name)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
