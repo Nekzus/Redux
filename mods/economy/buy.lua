@@ -84,7 +84,7 @@ local _function = function(data)
 	end
 
 	if buyTotal > memberTotal then
-		local text = parseFormat("${storeItemCashNeeded}", langList, format("%s %s", symbol, buyTotal - memberTotal))
+		local text = parseFormat("${storeItemCashNeeded}", langList, format("%s %s", symbol, affixNum(buyTotal - memberTotal)))
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)

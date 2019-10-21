@@ -93,6 +93,7 @@ local fullMatch = {
 	["zumbi"] = {"🧟‍♂️", "🧟‍♀️"},
 	["meu"] = {"🙆‍", "😌", "😇"},
 	["minha"] = {"🙆‍", "😌", "😇"},
+	["grande"] = {"😎", "👍", "👌"},
 
 	-- Abreviações/Girias
 	["aff"] = {"🙄"},
@@ -160,6 +161,7 @@ local fullMatch = {
 
 	-- Personagens
 	["bolsonaro"] = {"🚫🏳️‍🌈", "🔫"},
+	["dia"] = {"👍", "👌"},
 	["doria"] = {"💩"},
 	["lula"] = {"💰", "🏢", "🦑"},
 	["mario"] = {"🍄"},
@@ -186,6 +188,9 @@ local partialMatchAny = {
 
 	-- Especiais
 	["chit"] = {"🤢", "💩", "🤧", "🐔", "🐄"},
+	["karibo"] = {"🐂"},
+	["corno"] = {"🐂"},
+	["baiano"] = {"🛌", "😴"},
 }
 
 local partialMatchPrefix = {
@@ -339,7 +344,7 @@ local moods = {
 	sickEmojis = {"😷", "🤒", "🤕", "🤢", "🤢", "🤧"},
 }
 
-function apiZap(text, force)
+function zapMeme(text, force)
 	local list = text:split(" ")
 	local result = ""
 
@@ -393,4 +398,4 @@ function apiZap(text, force)
 	return result
 end
 
-return apiZap
+return zapMeme

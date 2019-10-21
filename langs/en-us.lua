@@ -52,6 +52,7 @@ langs["en-us"] = {
 	["sourceLanguage"] = "Source Language",
 	["translationCodes"] = "Translation Codes",
 	["guilds"] = "Guilds",
+	["inventory"] = "Inventory",
 
 	["itemName"] = "Item Name",
 	["itemDesc"] = "Item Description",

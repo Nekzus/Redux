@@ -26,7 +26,7 @@ local _function = function(data)
 	end
 
 	local text = data.content:sub(#args[1] + 2)
-	local zaped = apiZap(text, random(1, 3))
+	local zaped = zapMeme(text, random(1, 3))
 	-- local embed = replyEmbed(zaped, data.message, "ok")
 
 	bird:post(zaped, nil, data.channel)
