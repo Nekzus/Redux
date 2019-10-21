@@ -262,14 +262,7 @@ langs["pt-br"] = {
 	["storeItemStock"] = "Estoque do item",
 	["storeItemAwardRole"] = "Cargo de premiação",
 	["storeItemAwardCash"] = "Dinheiro de premiação",
-	["storeItemAwardItem"] = "Item de premiação",
-	["storeItemReplyUsed"] = "Resposta ao usar",
 	["storeItemRequiredRole"] = "Cargo necessário",
-	["storeItemRequiredCash"] = "Dinheiro necessário",
-	["storeItemRequiredItem"] = "Item necessário",
-	["storeItemTakeRole"] = "Toma o cargo",
-	["storeItemTakeCash"] = "Toma o dinheiro",
-	["storeItemTakeItem"] = "Toma o item",
 	["googleNotFoundTerms"] = "Nada foi encontrado com os termos '%s'",
 	["messageTooLong"] = "Sua mensagem é muito grande!",
 	["googleTranslationNotFound"] = "Sua mensagem não pode ser traduzida, tente mais tarde ou com termos diferentes!",
@@ -282,11 +275,14 @@ langs["pt-br"] = {
 	["storeItemOutStock"] = "Esse item não está mais em estoque!",
 	["stockItemBuyMax"] = "Você só pode comprar **%s** edições deste item!",
 	["successBoughtItem"] = "Item comprado com sucesso!",
+	["itemUseMustHaveRole"] = "Você precisa ter o cargo **%s** para poder usar este item!",
+	["itemDoesNotHave"] = "Você não tem esse item!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["usesItemFromInventory"] = "usa o item mencionado que está em seu inventário.",
 	["showsInventory"] = "mostra o seu inventário.",
 	["zappifiesText"] = "zapifica o texto.",
 	["buysItemFromStore"] = "compra um item da loja.",

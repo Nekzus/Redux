@@ -25,7 +25,7 @@ local _function = function(data)
 	for itemGuid, item in pairs(memberInventory:raw()) do
 		local itemData = guildInventory:raw()[itemGuid]
 
-		if not itemData then
+		if not itemData or (item and item.itemAmount and item.itemAmount <= 0) then
 			memberInventory:set(itemGuid, nil)
 		else
 			insert(listItems, {

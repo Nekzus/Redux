@@ -30,6 +30,7 @@ asin = math.asin
 atan = math.atan
 ceil = math.ceil
 cos = math.cos
+clamp = math.clamp
 deg = math.deg
 exp = math.exp
 floor = math.floor

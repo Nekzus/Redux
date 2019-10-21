@@ -262,14 +262,7 @@ langs["en-us"] = {
 	["storeItemStock"] = "Item stock",
 	["storeItemAwardRole"] = "Award role",
 	["storeItemAwardCash"] = "Award cash",
-	["storeItemAwardItem"] = "Award item",
-	["storeItemReplyUsed"] = "Reply on use",
 	["storeItemRequiredRole"] = "Required role",
-	["storeItemRequiredCash"] = "Required cash",
-	["storeItemRequiredItem"] = "Required item",
-	["storeItemTakeRole"] = "Takes role",
-	["storeItemTakeCash"] = "Takes cash",
-	["storeItemTakeItem"] = "Takes item",
 	["googleNotFoundTerms"] = "Could not find anything with '%s'",
 	["messageTooLong"] = "Your message is too long!",
 	["googleTranslationNotFound"] = "Could not translate your message, try again later or with different terms!",
@@ -282,11 +275,14 @@ langs["en-us"] = {
 	["storeItemOutStock"] = "This item has ran out of stock!",
 	["stockItemBuyMax"] = "You can only buy **%s** editions of this item!",
 	["successBoughtItem"] = "Item successfully bought!",
+	["itemUseMustHaveRole"] = "You must have the **%s** role in order to use this item!",
+	["itemDoesNotHave"] = "You don't have this item!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["usesItemFromInventory"] = "uses the mentioned item in your inventory.",
 	["showsInventory"] = "shows your inventory.",
 	["zappifiesText"] = "zappifies text.",
 	["buysItemFromStore"] = "buys an item from the store.",

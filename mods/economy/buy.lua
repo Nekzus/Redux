@@ -15,7 +15,7 @@ local _function = function(data)
 	local langList = langs[guildLang]
 	local args = data.args
 
-	if not (args[2] and args[3]) then
+	if not (args[2]) then
 		local text = parseFormat("${missingArg}", langList)
 		local embed = replyEmbed(text, data.message, "error")
 
@@ -39,6 +39,7 @@ local _function = function(data)
 		return false
 	else
 		itemName = data.content:sub(#args[1] + #args[2] + 3)
+		print(itemName, buyAmount)
 	end
 
 	local itemData = getStoreItem(itemName, data.guild)

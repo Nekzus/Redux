@@ -136,11 +136,6 @@ local _function = function(data)
 				default = 0,
 				title = "$<storeItemAwardCash>",
 			},
-			giveItem = {
-				required = false,
-				default = "",
-				title = "$<storeItemAwardItem>",
-			},
 			giveReply = {
 				required = false,
 				default = "${inventoryItemUsed}",
@@ -153,33 +148,6 @@ local _function = function(data)
 				required = false,
 				default = "",
 				title = "$<storeItemRequiredRole>",
-			},
-			reqCash = {
-				required = false,
-				default = 0,
-				title = "$<storeItemRequiredCash>",
-			},
-			reqItem = {
-				required = false,
-				default = "",
-				title = "$<storeItemRequiredItem>",
-			},
-
-			-- These will be taken from the user upon the usage
-			takeRole = {
-				required = false,
-				default = "",
-				title = "$<storeItemTakeRole>",
-			},
-			takeCash = {
-				required = false,
-				default = 0,
-				title = "$<storeItemTakeCash>",
-			},
-			takeItem = {
-				required = false,
-				default = "",
-				title = "$<storeItemTakeItem>",
 			},
 		}
 
@@ -281,19 +249,6 @@ local _function = function(data)
 
 				itemData.giveCash = value
 
-			elseif inList(key, {"giveitem", "give item", "gi"}) then
-				for itemGuid, item in next, guildStore:raw() do
-					if item.itemName == value then
-						itemData.giveItem = itemGuid
-						break
-					end
-				end
-
-				return false
-
-			elseif inList(key, {"givereply", "give reply", "reply", "gre"}) then
-				itemData.giveReply = value
-
 			elseif inList(key, {"reqrole", "requiredrole", "req role", "required role", "rr"}) then -- Required attributes
 				local role = getRole(value, "name", lastData.guild)
 
@@ -307,68 +262,6 @@ local _function = function(data)
 				end
 
 				itemData.reqRole = role.id
-
-			elseif inList(key, {"reqcash", "requiredcash", "req cash", "required cash", "rc"}) then
-				local value = realNum(value)
-
-				if not value then
-					local text = parseFormat("${missingArg}: reqCash", langList)
-					local embed = replyEmbed(text, data.message, "error")
-
-					bird:post(nil, embed:raw(), data.channel)
-
-					return false
-				end
-
-				itemData.reqCash = value
-
-			elseif inList(key, {"reqitem", "requireditem", "req item", "required item", "ri"}) then
-				for itemGuid, item in next, guildStore:raw() do
-					if item.itemName == value then
-						itemData.reqItem = itemGuid
-						break
-					end
-				end
-
-				return false
-
-			elseif inList(key, {"takerole", "take role", "tr"}) then -- Attributes that will be taken
-				local role = getRole(value, "name", lastData.guild)
-
-				if not role then
-					local text = parseFormat("${missingArg}: takeRole", langList)
-					local embed = replyEmbed(text, data.message, "error")
-
-					bird:post(nil, embed:raw(), data.channel)
-
-					return false
-				end
-
-				itemData.takeRole = role.id
-
-			elseif inList(key, {"takecash", "take cash", "tc"}) then
-				local value = realNum(value)
-
-				if not value then
-					local text = parseFormat("${missingArg}: takeCash", langList)
-					local embed = replyEmbed(text, data.message, "error")
-
-					bird:post(nil, embed:raw(), data.channel)
-
-					return false
-				end
-
-				itemData.takeCash = value
-
-			elseif inList(key, {"takeitem", "take item", "ti"}) then
-				for itemGuid, item in next, guildStore:raw() do
-					if item.itemName == value then
-						itemData.takeItem = itemGuid
-						break
-					end
-				end
-
-				return false
 			end
 		end
 	end
@@ -443,64 +336,12 @@ local _function = function(data)
 			inline = true,
 		})
 
-		embed:field({
-			name = parseFormat("${storeItemAwardItem} (giveItem)", langList),
-			value = itemData.giveItem or "-",
-			inline = true,
-		})
-
-		local giveReply = itemData.giveReply
-		giveReply = giveReply and parseFormat(giveReply, langList) or "-"
-
-		--[[if #giveReply > charLimit then
-			giveReply = format("%s...", giveReply:sub(1, charLimit))
-		end]]
-
-		embed:field({
-			name = parseFormat("${storeItemReplyUsed} (giveReply)", langList),
-			value = giveReply or "-",
-			inline = true,
-		})
-
 		-- Required attributes
 		local reqRole = getRole(itemData.reqRole, "id", lastData.guild)
 
 		embed:field({
 			name = parseFormat("${storeItemRequiredRole} (reqRole)", langList),
 			value = reqRole and reqRole.name or "-",
-			inline = true,
-		})
-
-		embed:field({
-			name = parseFormat("${storeItemRequiredCash} (reqCash)", langList),
-			value = affixNum(itemData.reqCash) or "-",
-			inline = true,
-		})
-
-		embed:field({
-			name = parseFormat("${storeItemRequiredItem} (reqItem)", langList),
-			value = itemData.reqItem or "-",
-			inline = true,
-		})
-
-		-- Attributes that will be taken
-		local takeRole = getRole(itemData.takeRole, "id", lastData.guild)
-
-		embed:field({
-			name = parseFormat("${storeItemTakeRole} (takeRole)", langList),
-			value = takeRole and takeRole.name or "-",
-			inline = true,
-		})
-
-		embed:field({
-			name = parseFormat("${storeItemTakeCash} (takeCash)", langList),
-			value = affixNum(itemData.takeCash) or "-",
-			inline = true,
-		})
-
-		embed:field({
-			name = parseFormat("${storeItemTakeItem} (takeItem)", langList),
-			value = itemData.takeItem or "-",
 			inline = true,
 		})
 
