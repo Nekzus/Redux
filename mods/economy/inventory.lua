@@ -1,10 +1,10 @@
 local _config = {
 	name = "inventory",
-	desc = "${buysItemFromStore}",
-	usage = "${nameKey}",
+	desc = "${showsInventory}",
+	usage = "${pageKey}",
 	aliases = {"inv", "stuff"},
 	cooldown = 2,
-	level = 5,
+	level = 0,
 	direct = false,
 }
 

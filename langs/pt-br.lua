@@ -287,6 +287,7 @@ langs["pt-br"] = {
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["showsInventory"] = "mostra o seu inventário.",
 	["zappifiesText"] = "zapifica o texto.",
 	["buysItemFromStore"] = "compra um item da loja.",
 	["removesItemFromStore"] = "remove o item mencionado da loja.",
