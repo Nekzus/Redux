@@ -47,9 +47,9 @@ local _function = function(data)
 		replaces["!"] = " " .. increment[math.random(#increment)]
 	end
 
-	local embed = replyEmbed(text, data.message, "ok")
+	--local embed = replyEmbed(text, data.message, "ok")
 
-	bird:post(nil, embed:raw(), data.channel)
+	bird:post(text, nil, data.channel)
 
 	return true
 end

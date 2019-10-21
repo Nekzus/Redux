@@ -286,6 +286,7 @@ langs["en-us"] = {
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["zappifiesText"] = "zappifies text.",
 	["buysItemFromStore"] = "buys an item from the store.",
 	["removesItemFromStore"] = "removes the mentioned item from the store.",
 	["leavesMentionedGuild"] = "leaves the mentioned guild.",

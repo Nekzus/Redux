@@ -20,6 +20,8 @@ rep = string.rep
 reverse = string.reverse
 sub = string.sub
 upper = string.upper
+startsWith = string.startswith
+endsWith = string.endswith
 
 -- Math
 abs = math.abs
@@ -53,6 +55,8 @@ unpack = table.unpack
 sort = table.sort
 deepcopy = table.deepcopy
 slice = table.slice
+randomPair = table.randompair
+randomIpair = table.randomipair
 
 -- Extensions
 fs = require("fs")

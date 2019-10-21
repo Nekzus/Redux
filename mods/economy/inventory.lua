@@ -4,7 +4,7 @@ local _config = {
 	usage = "${nameKey}",
 	aliases = {"inv", "stuff"},
 	cooldown = 2,
-	level = 5
+	level = 5,
 	direct = false,
 }
 
