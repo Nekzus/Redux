@@ -1,0 +1,74 @@
+local _config = {
+	name = "balance",
+	desc = "${checksBalance}",
+	usage = "",
+	aliases = {"bal", "net", "networth"},
+	cooldown = 0,
+	level = 0,
+	direct = false,
+}
+
+local _function = function(data)
+	local private = data.member == nil
+	local guildData = data.guildData
+	local guildLang = data.guildLang
+	local langList = langs[guildLang]
+	local args = data.args
+
+	if mentionsOtherBot(data.message) then
+		local text = parseFormat("${noExecuteOtherBot}", langList)
+		local embed = replyEmbed(text, data.message, "error")
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return false
+	end
+
+	local target = data.message.mentionedUsers.first
+
+	if target then
+		local targetEconomy, guildEconomy = getMemberEconomy(target, data.guild)
+		local targetCash = targetEconomy:get("cash", 0)
+		local targetBank = targetEconomy:get("bank", 0)
+		local symbol = guildEconomy:get("symbol")
+
+		local embed = newEmbed()
+
+		embed:title(target.tag)
+		embed:authorImage(target:getAvatarURL())
+		embed:field({name = parseFormat("${cash}", langList), value = format("%s %s", symbol, affixNum(memberCash or 0)), inline = true})
+		embed:field({name = parseFormat("${bank}", langList), value = format("%s %s", symbol, affixNum(memberBank or 0)), inline = true})
+		embed:field({name = parseFormat("${networth}", langList), value = format("%s %s", symbol, affixNum((memberCash or 0) + (memberBank or 0))), inline = true})
+
+		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:footerIcon(config.images.info)
+		signFooter(embed, data.author, guildLang)
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return true
+	else
+		local memberEconomy, guildEconomy = getMemberEconomy(data.author, data.guild)
+		local memberCash = memberEconomy:get("cash", 0)
+		local memberBank = memberEconomy:get("bank", 0)
+		local symbol = guildEconomy:get("symbol")
+
+		local embed = newEmbed()
+
+		embed:title(data.author.tag)
+		embed:authorImage(data.author:getAvatarURL())
+		embed:field({name = parseFormat("${cash}", langList), value = format("%s %s", symbol, affixNum(memberCash or 0)), inline = true})
+		embed:field({name = parseFormat("${bank}", langList), value = format("%s %s", symbol, affixNum(memberBank or 0)), inline = true})
+		embed:field({name = parseFormat("${networth}", langList), value = format("%s %s", symbol, affixNum((memberCash or 0) + (memberBank or 0))), inline = true})
+
+		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:footerIcon(config.images.info)
+		signFooter(embed, data.author, guildLang)
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return true
+	end
+end
+
+return {config = _config, func = _function}
