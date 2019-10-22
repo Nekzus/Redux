@@ -1,5 +1,6 @@
 -- Agrupa as principais funcionalidades para o bot
 discordia = require("discordia")
+client = discordia.Client{cacheAllMembers = true, logLevel = 3, logFile = ""}
 emitter = discordia.Emitter()
 time = discordia.Time()
 enums = discordia.enums
@@ -153,6 +154,8 @@ function loadBot()
 	local startMessage = format("%s %s %s\n", rep("-", 10), os.date("%m/%d/%Y %I:%M %p"), rep("-", 10))
 
 	bot.loaded = false
+	print(format("\n%s", startMessage))
+	client:removeAllListeners()
 
 	-- Carrega todos os arquivos de configuração
 	for file, type in fs.scandirSync("./config/") do
@@ -160,10 +163,6 @@ function loadBot()
 			loadFile(format("./config/%s", file))
 		end
 	end
-
-	client = discordia.Client(config.main.runParams)
-	print(format("\n%s", startMessage))
-	client:removeAllListeners()
 
 	-- Carrega todas as bibliotecas e utilidades
 	for _, folder in next, {"libs", "utils"} do

@@ -42,11 +42,17 @@ local _function = function(data)
 		return false
 	end
 
-	local guildData = saves.global:get(data.guild.id)
-	local valueSet = guildData:set("deleteCommand", bool)
+	local channel = data.channel
+	local success
 
-	if valueSet ~= nil then
-		local text = parseFormat("${beenDefined}", langList, "deleteCommand", valueSet)
+	if bool == true and channel.nsfw == false then
+		success = data.channel:enableNSFW()
+	elseif bool == false and channel.nsfw == true then
+		success = data.channel:disableNSFW()
+	end
+
+	if success then
+		local text = parseFormat("${beenDefined}", langList, "NSFW", success)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
