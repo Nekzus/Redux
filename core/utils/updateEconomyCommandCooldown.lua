@@ -9,7 +9,7 @@ function updateEconomyCommandCooldown(command, member, guild)
 		commandData = commands.list[command]
 	end
 
-	commandData = config.economyDefault.actions[command] and guildEconomy:get("actions"):raw()[command]
+	commandData = config.defaultEconomy.actions[command] and guildEconomy:get("actions"):raw()[command]
 
 	if not commandData then
 		printf("Could not find command '%s'", command)

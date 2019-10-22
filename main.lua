@@ -1,12 +1,11 @@
--- Core
+-- Agrupa as principais funcionalidades para o bot
 discordia = require("discordia")
-client = discordia.Client{cacheAllMembers = true, logLevel = 3, logFile = ""}
 emitter = discordia.Emitter()
 time = discordia.Time()
 enums = discordia.enums
 discordia.extensions()
 
--- String
+-- Atalhos string
 byte = string.byte
 char = string.char
 find = string.find
@@ -22,8 +21,12 @@ sub = string.sub
 upper = string.upper
 startsWith = string.startswith
 endsWith = string.endswith
+split = string.split
+trim = string.trim
+pad = string.pad
+levenshtein = string.levenshtein
 
--- Math
+-- Atalhos math
 abs = math.abs
 acos = math.acos
 asin = math.asin
@@ -43,23 +46,32 @@ modf = math.modf
 pi = math.pi
 rad = math.rad
 random = math.random
-randomseed = math.randomseed
+randomSeed = math.randomseed
+round = math.round
 sin = math.sin
 sqrt = math.sqrt
 tan = math.tan
 
--- Table
+-- Atalhos table
 concat = table.concat
+copy = table.copy
 insert = table.insert
 remove = table.remove
 unpack = table.unpack
 sort = table.sort
-deepcopy = table.deepcopy
+deepCopy = table.deepcopy
+deepCount = table.deepcount
 slice = table.slice
 randomPair = table.randompair
 randomIpair = table.randomipair
+reverse = table.reverse
+reversed = table.reversed
+keys = table.keys
+values = table.values
+sorted = table.sorted
+search = table.search
 
--- Extensions
+-- Extensões principais
 fs = require("fs")
 query = require("querystring")
 http = require("coro-http")
@@ -68,31 +80,33 @@ timer = require("timer")
 parse = require("url").parse
 spawn = require("coro-spawn")
 
--- Trackers shortcuts
-bot = {loaded = false}
+-- Pontos pricipais de acesso
+bot = {}
 saves = {}
+config = {}
 
-function wait(sec)
-	return timer.sleep(sec * 1000)
+config.time = {
+	second = 1,
+	minute = 60,
+	hour = 3600,
+	day = 86400,
+	week = 604800,
+	month = 2592000,
+	year = 31536000,
+}
+
+randomSeed(os.time())
+
+-- Funções facilitadoras essenciais
+function wait(num) -- wait baseado no timer.sleep que não para o processo de execução principal do Luvit (como loops)
+	return timer.sleep(num * 1000)
 end
 
-function printf(text, ...)
+function printf(text, ...) -- Print formatado que permite exibir um texto ao mesmo tempo que há a formatação
 	return print(format(text, ...))
 end
 
-function isValue(list, value)
-	for k, v in next, list do
-		if v == value then
-			return true
-		end
-	end
-
-	return false
-end
-
-randomseed(os.time())
-
-function loadFile(path)
+function loadFile(path) -- Função principal para carregar arquivos que estão presentes em um caminho pré-definido
 	local file = fs.readFileSync(path)
 	local fileName = path:split("/")
 
@@ -108,47 +122,50 @@ function loadFile(path)
 		if code then
 			setfenv(code, getfenv())
 
-			local ran, ret = pcall(code)
+			local success, result = pcall(code)
 
-			if ran then
-				return ret
+			if success then
+				return result
 			else
 				printf("RUNTIME ERROR: %s | %s", fileName, ret)
-
 				return false
 			end
 		else
 			printf("SYNTAX ERROR: %s | %s", fileName, err)
-
 			return false
 		end
 	else
 		printf("LOAD ERROR: %s | %s", code, err)
-
 		return false
 	end
 end
 
+-- Salva todos os dados
 function saveAllData()
 	for name, data in next, saves do
-		db.save(data.bin, name)
+		db.save(data:raw(), name)
 	end
 end
 
+-- Inicializa a estrutura
 function loadBot()
+	-- Inicializa o bot
 	local startMessage = format("%s %s %s\n", rep("-", 10), os.date("%m/%d/%Y %I:%M %p"), rep("-", 10))
 
-	if bot.loaded then
-		startMessage = format("\n%s", startMessage)
+	bot.loaded = false
+
+	-- Carrega todos os arquivos de configuração
+	for file, type in fs.scandirSync("./config/") do
+		if type == "file" then
+			loadFile(format("./config/%s", file))
+		end
 	end
 
-	-- Initializes the bot
-	bot.loaded = false
-	print(startMessage)
+	client = discordia.Client(config.main.runParams)
+	print(format("\n%s", startMessage))
 	client:removeAllListeners()
-	loadFile("./config.lua")
 
-	-- Loads all extensions and utilities
+	-- Carrega todas as bibliotecas e utilidades
 	for _, folder in next, {"libs", "utils"} do
 		for file, type in fs.scandirSync(format("./core/%s/", folder)) do
 			if type == "file" then
@@ -157,7 +174,7 @@ function loadBot()
 		end
 	end
 
-	-- Loads all languages and listeners
+	-- Carrega todas as linguagens e eventos
 	for _, folder in next, {"langs", "events"} do
 		for file, type in fs.scandirSync(format("./%s/", folder)) do
 			if type == "file" then
@@ -166,7 +183,7 @@ function loadBot()
 		end
 	end
 
-	-- Loads all mods from its categories
+	-- Carrega todos os comandos
 	for category, type in fs.scandirSync("./mods/") do
 		if type == "directory" then
 			for file, type in fs.scandirSync(format("./mods/%s/", category)) do
@@ -187,15 +204,15 @@ function loadBot()
 		end
 	end
 
-	-- Initializes the datastores
-	saves.global = cache(db.load("global") or {}) -- Patrons and guilds data
-	saves.economy = cache(db.load("economy") or {}) -- Servers economy and store items
-	saves.clans = cache(db.load("clans") or {}) -- Servers clans data, membership and hierarchy
-	saves.track = cache(db.load("track") or {}) -- Global trackers for mutes and bot data
-	saves.temp = cache(db.load("temp") or {}) -- Temporary information and last command use
+	-- Carrega todos os dados
+	saves.global = cache(db.load("global") or {}) -- Informações principais de guildas
+	saves.economy = cache(db.load("economy") or {}) -- Economia de servidores e itens das lojas virtuais
+	saves.clans = cache(db.load("clans") or {}) -- Informações de clans, membros e hierarquia
+	saves.track = cache(db.load("track") or {}) -- Rastreadores globais de mutes e patronos
+	saves.temp = cache(db.load("temp") or {}) -- Informações temporárias de utilização de comandos
 	bot.loaded = true
 end
 
+-- Inicializa o processo principal
 loadBot()
-client:run(format("Bot %s", config.meta.token))
-config.meta.token = nil
+client:run(format("Bot %s", config.main.botToken))

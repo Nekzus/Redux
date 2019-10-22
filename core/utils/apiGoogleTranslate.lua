@@ -1,5 +1,5 @@
 function apiGoogleTranslate(lang, text)
-	local data, request = httpGet("googleTranslate", {config.keys.googleTranslateKey, lang, text})
+	local data, request = httpGet("googleTranslate", {config.apiKeys.googleTranslateKey, lang, text})
 	local decoded = json.decode(request)
 
 	if not decoded then

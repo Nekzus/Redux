@@ -1,5 +1,5 @@
 function apiYoutubeVideo(text)
-	local data, request = httpGet("youtubeSearch", {config.keys.youtubeVideoKey, text})
+	local data, request = httpGet("youtubeSearch", {config.apiKeys.youtubeVideoKey, text})
 	local decoded = json.decode(request)
 
 	if not decoded then

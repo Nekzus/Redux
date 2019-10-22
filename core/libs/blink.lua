@@ -21,19 +21,16 @@ end
 
 function main:on(emojiId, func)
 	assert(self.message, "Must create main context with constructor")
-
 	self.active[emojiId] = func
 end
 
 function main:close()
 	assert(self.message, "Must create main context with constructor")
-
 	reactionsCallback[message.id] = {}
 end
 
 function main:raw()
 	assert(self.message, "Must create main context with constructor")
-
 	return self.active
 end
 

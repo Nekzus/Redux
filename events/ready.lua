@@ -2,7 +2,7 @@ client:on("ready",
 	function()
 		client:setGame {
 			type = 2,
-			name = format("%shelp", config.default.prefix)
+			name = format("%shelp", config.defaultGuild.prefix)
 		}
 		print("\n")
 		print("Framework and modules ready")
@@ -19,13 +19,13 @@ client:on("ready",
 
 		coroutine.wrap(
 			function()
-				if config.saving.enabled then
+				if config.saver.enabled then
 					print("Auto-save routine enabled")
 
 					while true do
-						wait(config.saving.delay)
+						wait(config.saver.delay)
 
-						if config.saving.enabled then
+						if config.saver.enabled then
 							saveAllData()
 						end
 					end
@@ -37,13 +37,13 @@ client:on("ready",
 
 		coroutine.wrap(
 			function()
-				if config.clean.enabled then
+				if config.cleaner.enabled then
 					print("Cleanser routine enabled")
 
 					reactionsCallback = reactionsCallback or {}
 
 					while true do
-						wait(config.clean.delay)
+						wait(config.cleaner.delay)
 
 						for messageId, blinkData in next, reactionsCallback do
 							local timeout = blinkData.timeout

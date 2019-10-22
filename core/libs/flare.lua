@@ -1,7 +1,7 @@
 local main = {}
 main.__index = main
 
-math.randomseed(os.time())
+randomSeed(os.time())
 
 function main:__call(first, ...)
 	if self.mode == 1 then
