@@ -1,12 +1,11 @@
--- Principais pontos de acesso para extensões
+-- Agrupa as principais funcionalidades para o bot
 discordia = require("discordia")
-client = discordia.Client(config.params)
 emitter = discordia.Emitter()
 time = discordia.Time()
 enums = discordia.enums
 discordia.extensions()
 
--- String
+-- Atalhos string
 byte = string.byte
 char = string.char
 find = string.find
@@ -27,7 +26,7 @@ trim = string.trim
 pad = string.pad
 levenshtein = string.levenshtein
 
--- Math
+-- Atalhos math
 abs = math.abs
 acos = math.acos
 asin = math.asin
@@ -53,7 +52,7 @@ sin = math.sin
 sqrt = math.sqrt
 tan = math.tan
 
--- Table
+-- Atalhos table
 concat = table.concat
 copy = table.copy
 insert = table.insert
@@ -72,7 +71,7 @@ values = table.values
 sorted = table.sorted
 search = table.search
 
--- Extensions
+-- Extensões principais
 fs = require("fs")
 query = require("querystring")
 http = require("coro-http")
@@ -81,21 +80,33 @@ timer = require("timer")
 parse = require("url").parse
 spawn = require("coro-spawn")
 
--- Trackers shortcuts
+-- Pontos pricipais de acesso
 bot = {}
 saves = {}
+config = {}
 
-function wait(sec)
-	return timer.sleep(sec * 1000)
-end
-
-function printf(text, ...)
-	return print(format(text, ...))
-end
+config.time = {
+	second = 1,
+	minute = 60,
+	hour = 3600,
+	day = 86400,
+	week = 604800,
+	month = 2592000,
+	year = 31536000,
+}
 
 randomSeed(os.time())
 
-function loadFile(path)
+-- Funções facilitadoras essenciais
+function wait(num) -- wait baseado no timer.sleep que não para o processo de execução principal do Luvit (como loops)
+	return timer.sleep(num * 1000)
+end
+
+function printf(text, ...) -- Print formatado que permite exibir um texto ao mesmo tempo que há a formatação
+	return print(format(text, ...))
+end
+
+function loadFile(path) -- Função principal para carregar arquivos que estão presentes em um caminho pré-definido
 	local file = fs.readFileSync(path)
 	local fileName = path:split("/")
 
@@ -129,24 +140,32 @@ function loadFile(path)
 	end
 end
 
--- Saves all bot data
+-- Salva todos os dados
 function saveAllData()
 	for name, data in next, saves do
 		db.save(data:raw(), name)
 	end
 end
 
--- Initializes the framework
+-- Inicializa a estrutura
 function loadBot()
-	-- Initialiazes the bot
+	-- Inicializa o bot
 	local startMessage = format("%s %s %s\n", rep("-", 10), os.date("%m/%d/%Y %I:%M %p"), rep("-", 10))
 
 	bot.loaded = false
+
+	-- Carrega todos os arquivos de configuração
+	for file, type in fs.scandirSync("./config/") do
+		if type == "file" then
+			loadFile(format("./config/%s", file))
+		end
+	end
+
+	client = discordia.Client(config.main.runParams)
 	print(format("\n%s", startMessage))
 	client:removeAllListeners()
-	loadFile("./config.lua")
 
-	-- Loads all libraries and utilities
+	-- Carrega todas as bibliotecas e utilidades
 	for _, folder in next, {"libs", "utils"} do
 		for file, type in fs.scandirSync(format("./core/%s/", folder)) do
 			if type == "file" then
@@ -155,7 +174,7 @@ function loadBot()
 		end
 	end
 
-	-- Loads all languages and events
+	-- Carrega todas as linguagens e eventos
 	for _, folder in next, {"langs", "events"} do
 		for file, type in fs.scandirSync(format("./%s/", folder)) do
 			if type == "file" then
@@ -164,7 +183,7 @@ function loadBot()
 		end
 	end
 
-	-- Loads all commands
+	-- Carrega todos os comandos
 	for category, type in fs.scandirSync("./mods/") do
 		if type == "directory" then
 			for file, type in fs.scandirSync(format("./mods/%s/", category)) do
@@ -185,16 +204,15 @@ function loadBot()
 		end
 	end
 
-	-- Loads all data
-	saves.global = cache(db.load("global") or {}) -- Patrons and guilds data
-	saves.economy = cache(db.load("economy") or {}) -- Servers economy and store items
-	saves.clans = cache(db.load("clans") or {}) -- Servers clans data, membership and hierarchy
-	saves.track = cache(db.load("track") or {}) -- Global trackers for mutes and bot data
-	saves.temp = cache(db.load("temp") or {}) -- Temporary information and last command use
+	-- Carrega todos os dados
+	saves.global = cache(db.load("global") or {}) -- Informações principais de guildas
+	saves.economy = cache(db.load("economy") or {}) -- Economia de servidores e itens das lojas virtuais
+	saves.clans = cache(db.load("clans") or {}) -- Informações de clans, membros e hierarquia
+	saves.track = cache(db.load("track") or {}) -- Rastreadores globais de mutes e patronos
+	saves.temp = cache(db.load("temp") or {}) -- Informações temporárias de utilização de comandos
 	bot.loaded = true
 end
 
--- Initializes the process
+-- Inicializa o processo principal
 loadBot()
-client:run(format("Bot %s", config.meta.token))
-config.meta.token = nil
+client:run(format("Bot %s", config.main.botToken))

@@ -7,7 +7,7 @@ function canRunCommand(data)
 	local commandLevel = commandData and commandData.level
 	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
 
-	if data.user.id == config.meta.ownerId then
+	if data.user.id == config.main.ownerId then
 		userLevel = 5
 	end
 

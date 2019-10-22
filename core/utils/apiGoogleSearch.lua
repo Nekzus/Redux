@@ -1,5 +1,5 @@
 function apiGoogleSearch(text)
-	local data, request = httpGet("googleSearch", {config.keys.googleSearchKey, config.keys.googleSearchCx, text})
+	local data, request = httpGet("googleSearch", {config.apiKeys.googleSearchKey, config.apiKeys.googleSearchCx, text})
 	local decoded = json.decode(request)
 
 	if not decoded then

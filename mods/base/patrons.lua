@@ -31,9 +31,9 @@ local _function = function(data)
 	local perPage = 8
 	local page = tonumber(args[2]) or 1
 
-	local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
-	local arwLeft = getEmoji(config.emojis.arwLeft, "name", baseGuild)
-	local arwRight = getEmoji(config.emojis.arwRight, "name", baseGuild)
+	local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuildId)
+	local arwLeft = getEmoji(config.emojis.arwLeft, "name", baseGuildId)
+	local arwRight = getEmoji(config.emojis.arwRight, "name", baseGuildId)
 
 	local decoyBird
 	local message
@@ -78,7 +78,7 @@ local _function = function(data)
 		if decoyBird == nil then
 			decoyBird = bird:post(nil, embed:raw(), data.channel)
 			message = decoyBird.message
-			blinker = blink(message, config.meta.reactionTimeout, {data.user.id})
+			blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
 			message:addReaction(arwLeft)
 			message:addReaction(arwRight)

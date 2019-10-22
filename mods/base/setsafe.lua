@@ -1,12 +1,12 @@
 local _config = {
-	name = "deletecommand",
-	desc = "${setsDelCmd}",
+	name = "setnsfw",
+	desc = "${setsNsfwMode}",
 	usage = "${valueKey}",
-	aliases = {"delcommand", "delcmd"},
+	aliases = {"setsfw"},
 	cooldown = 2,
-	level = 3,
+	level = 2,
 	direct = false,
-	perms = {"manageMessages"}
+	perms = {"manageChannels"}
 }
 
 local _function = function(data)
@@ -39,7 +39,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -51,14 +50,12 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return true
 	else
 		local text = parseFormat("${noAllowEdit}", langList)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 end

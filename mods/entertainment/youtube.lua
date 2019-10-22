@@ -24,8 +24,8 @@ local _function = function(data)
 		return false
 	end
 
-	local arwLeft = getEmoji(config.emojis.arwLeft, "name", baseGuild)
-	local arwRight = getEmoji(config.emojis.arwRight, "name", baseGuild)
+	local arwLeft = getEmoji(config.emojis.arwLeft, "name", baseGuildId)
+	local arwRight = getEmoji(config.emojis.arwRight, "name", baseGuildId)
 
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
@@ -64,7 +64,7 @@ local _function = function(data)
 		if firstTime == true then
 			firstTime = false
 			message = decoyBird.message
-			blinker = blink(message, config.meta.reactionTimeout, {data.user.id})
+			blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
 			message:addReaction(arwLeft)
 			message:addReaction(arwRight)

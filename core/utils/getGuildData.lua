@@ -4,7 +4,7 @@ function getGuildData(guild)
 	local guildRoles = guildData:get("roles")
 	local guildMutes = guildData:get("mutes")
 
-	for property, value in next, config.default do
+	for property, value in next, config.defaultGuild do
 		guildData:get(property, value)
 	end
 

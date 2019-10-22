@@ -22,7 +22,7 @@ local _function = function(data)
 		local listTotal = 0
 		local listItems = {}
 
-		for langName, langCode in pairs(config.langsCodes) do
+		for langName, langCode in pairs(config.locale) do
 			insert(listItems, {name = langName, code = langCode})
 			listTotal = listTotal + 1
 		end
@@ -34,9 +34,9 @@ local _function = function(data)
 		local perPage = 8
 		local page = tonumber(args[2]) or 1
 
-		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
-		local arwLeft = getEmoji(config.emojis.arwLeft, "name", baseGuild)
-		local arwRight = getEmoji(config.emojis.arwRight, "name", baseGuild)
+		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuildId)
+		local arwLeft = getEmoji(config.emojis.arwLeft, "name", baseGuildId)
+		local arwRight = getEmoji(config.emojis.arwRight, "name", baseGuildId)
 		local decoyBird
 		local message
 
@@ -77,7 +77,7 @@ local _function = function(data)
 			if decoyBird == nil then
 				decoyBird = bird:post(nil, embed:raw(), data.channel)
 				message = decoyBird.message
-				blinker = blink(message, config.meta.reactionTimeout, {data.user.id})
+				blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
 				message:addReaction(arwLeft)
 				message:addReaction(arwRight)
@@ -115,14 +115,14 @@ local _function = function(data)
 		if sub(translateLang, 1, 1) == "\"" or sub(translateLang, 1,1) == "'" then
 			translateLang = translateLang:match("%w+")
 
-			for langName, langCode in next, config.langsCodes do
+			for langName, langCode in next, config.locale do
 				if langName:lower() == translateLang or langCode:lower() == translateLang then
 					insert(listItems, {name = langName, code = langCode})
 					listTotal = listTotal + 1
 				end
 			end
 		else
-			for langName, langCode in next, config.langsCodes do
+			for langName, langCode in next, config.locale do
 				if langName:lower():find(translateLang) or langCode:lower():find(translateLang) then
 					insert(listItems, {name = langName, code = langCode})
 					listTotal = listTotal + 1
@@ -137,9 +137,9 @@ local _function = function(data)
 		local perPage = 8
 		local page = tonumber(args[2]) or 1
 
-		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
-		local arwLeft = getEmoji(config.emojis.arwLeft, "name", baseGuild)
-		local arwRight = getEmoji(config.emojis.arwRight, "name", baseGuild)
+		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuildId)
+		local arwLeft = getEmoji(config.emojis.arwLeft, "name", baseGuildId)
+		local arwRight = getEmoji(config.emojis.arwRight, "name", baseGuildId)
 		local decoyBird
 		local message
 
@@ -180,7 +180,7 @@ local _function = function(data)
 			if decoyBird == nil then
 				decoyBird = bird:post(nil, embed:raw(), data.channel)
 				message = decoyBird.message
-				blinker = blink(message, config.meta.reactionTimeout, {data.user.id})
+				blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
 				message:addReaction(arwLeft)
 				message:addReaction(arwRight)

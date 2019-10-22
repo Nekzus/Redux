@@ -14,8 +14,8 @@ client:on("messageCreate",
 			return
 		end
 
-		if baseGuild == nil then
-			baseGuild = client:getGuild(config.meta.baseGuild)
+		if baseGuildId == nil then
+			baseGuildId = client:getGuild(config.main.baseGuildId)
 			timer.sleep(1000)
 		end
 
@@ -33,7 +33,7 @@ client:on("messageCreate",
 
 		local private = data.member == nil
 		local guildData = not private and getGuildData(data.guild)
-		local guildLang = not private and guildData and guildData:get("lang") or config.default.lang
+		local guildLang = not private and guildData and guildData:get("lang") or config.defaultGuild.lang
 		local langList = langs[guildLang]
 		local deleteCommand = not private and guildData:get("deleteCommand", false) or false
 		local botMember = not private and data.guild:getMember(client.user.id)
@@ -44,8 +44,8 @@ client:on("messageCreate",
 			data.guildLang = guildLang
 			data.prefix = guildData:raw().prefix
 		else
-			data.guildLang = config.default.lang
-			data.prefix = config.default.prefix
+			data.guildLang = config.defaultGuild.lang
+			data.prefix = config.defaultGuild.prefix
 		end
 
 		local commandPrefix = data.prefix
@@ -131,7 +131,7 @@ client:on("messageCreate",
 
 			if commandCategory then
 				if commandCategory == "economy" then
-					if config.economyDefault.actions[commandName] then
+					if config.defaultEconomy.actions[commandName] then
 						local canUse, timeLeft = canUseEconomyCommand(commandName, data.user, data.guild)
 
 						if not canUse then

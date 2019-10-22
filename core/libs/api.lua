@@ -1,6 +1,7 @@
-function httpHandle(method, api, param, ...)
+-- Função base para chamar pedidos GET, POST e outros em http
+function httpHandle(method, apiName, param, ...)
 	local point
-	local link = config.api[api]
+	local link = config.apiPoints[apiName]
 
 	if access then
 		if param then
@@ -13,12 +14,15 @@ function httpHandle(method, api, param, ...)
 	return http.request(method, point, ...)
 end
 
-function httpPost(api, param, ...)
-	return httpHandle("POST", api, param, ...)
+-- Função de redirecionamento para métodos GET
+function httpGet(apiName, param, ...)
+	return httpHandle("GET", apiName, param, ...)
 end
 
-function httpGet(api, param, ...)
-	return httpHandle("GET", api, param, ...)
+-- Função de redirecionamento para métodos POST
+function httpPost(apiName, param, ...)
+	return httpHandle("POST", apiName, param, ...)
 end
 
+-- Confirma que houve a execução sem erros
 return true
