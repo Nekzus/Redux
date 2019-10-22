@@ -11,6 +11,7 @@ config.meta = {
 	token = "MzA5NTg2MTYxODc2MjA1NTc5.XO1xyA.whj0EwjDy_zGyxFP6QbGPqBFmVQ",
 	baseGuild = "464558668894175232",
 	build = "Redux",
+	params = {cacheAllMembers = true, logLevel = 3, logFile = ""},
 }
 
 --[[

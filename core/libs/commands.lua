@@ -24,7 +24,7 @@ function commands:accept(...)
 		if self.list[alias] then
 			printf("Alias %s is already defined for %s", alias, self.name)
 		else
-			local command = deepcopy(commands.list[self.name])
+			local command = deepCopy(commands.list[self.name])
 
 			if not self.aliases then
 				self.aliases = {}

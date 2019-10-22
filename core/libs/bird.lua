@@ -14,7 +14,9 @@ function main:post(text, embed, channel)
 		reply.embed = embed
 	end
 
-	return setmetatable({message = channel:send(reply)}, main)
+	return setmetatable({
+		message = channel:send(reply)
+	}, main)
 end
 
 function main:getMessage()
@@ -69,16 +71,6 @@ function main:unpin()
 	assert(self.message, "Must create main context with :post() first")
 
 	return self.message:unpin()
-end
-
-function countListItems(list)
-	local count = 0
-
-	for k, v in next, list do
-		count = count + 1
-	end
-
-	return count
 end
 
 bird = main

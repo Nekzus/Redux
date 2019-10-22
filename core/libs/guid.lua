@@ -1,4 +1,4 @@
-math.randomseed(os.time())
+randomSeed(os.time())
 
 function newGuid()
 	return gsub('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx', '[xy]', function (c)
