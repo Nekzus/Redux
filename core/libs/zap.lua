@@ -91,8 +91,8 @@ local fullMatch = {
 	["ver"] = {"👀👀", "👀"},
 	["voce"] = {"👉"},
 	["zumbi"] = {"🧟‍♂️", "🧟‍♀️"},
-	["meu"] = {"🙆‍", "😌", "😇"},
-	["minha"] = {"🙆‍", "😌", "😇"},
+	["meu"] = {"😌", "😇", "😍", "😻", "😘", "😗", "😙", "😚"},
+	["minha"] = {"😌", "😇", "😍", "😻", "😘", "😗", "😙", "😚"},
 	["grande"] = {"😎", "👍", "👌"},
 
 	-- Abreviações/Girias
@@ -347,9 +347,10 @@ local moods = {
 	sickEmojis = {"😷", "🤒", "🤕", "🤢", "🤢", "🤧"},
 }
 
-function zapMeme(text, force)
+function zap(text, force)
 	local list = text:split(" ")
 	local result = ""
+	local mood
 
 	force = force or 1
 
@@ -390,15 +391,39 @@ function zapMeme(text, force)
 		end
 
 		if not added then
-			local mood, emojis = randomPair(moods)
+			local key, emojis = randomPair(moods)
 
 			for i = 1, force do
 				result = format("%s %s", result, emojis[random(1, #emojis)])
 			end
+
+			--[[if not mood then
+				for match, emojis in next, moods do
+					for _, emoji in next, emojis do
+						if result:find(emoji) then
+							mood = match
+						end
+					end
+				end
+			end]]
+
+			--[[if mood then
+				local emojis = moods[mood]
+
+				for i = 1, force do
+					result = format("%s %s", result, emojis[random(1, #emojis)])
+				end
+			else
+				local key, emojis = randomPair(moods)
+
+				for i = 1, force do
+					result = format("%s %s", result, emojis[random(1, #emojis)])
+				end
+			end]]
 		end
 	end
 
 	return result
 end
 
-return zapMeme
+return zap
