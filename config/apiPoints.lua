@@ -8,6 +8,10 @@ config.apiPoints = {
 	truthYesNoForce = "https://yesno.wtf/api?force=%s",
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
 
+	robloxGetUserHeadShot = "https://www.roblox.com/search/users/avatar?isHeadshot=false&userIds=%s",
+	robloxGetUserFollowingCount = "https://www.roblox.com/users/friends/list-json?friendsType=Following&pageSize=100&userId=%s",
+	robloxGetUserFollowersCount = "https://www.roblox.com/users/friends/list-json?friendsType=Followers&pageSize=100&userId=%s",
+
 	robloxGetUserFromId = "https://api.roblox.com/users/%s", -- User ID
 	robloxGetUserFromName = "https://api.roblox.com/users/get-by-username?username=%s", -- Username
 	robloxGetUserFriendsList = "https://friends.roblox.com/v1/users/%s/friends", -- User ID
