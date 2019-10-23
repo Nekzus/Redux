@@ -32,7 +32,7 @@ function main:on(emojiId, func)
 	assert(self.message, "Must create main context with constructor")
 	self.active[emojiId] = func
 end
-um
+
 -- Fecha a comunicação com um dos emojis que foi definidos via on()
 function main:close()
 	assert(self.message, "Must create main context with constructor")

@@ -32,7 +32,7 @@ local _function = function(data)
 			enum.sendMessages,
 			enum.addReactions,
 			enum.manageMessages,
-			enum.createInstantInvite,
+			enum.createInstantInvite
 		)
 
 		-- Configura o cargo para não ter permissões em todos os canais
@@ -46,7 +46,7 @@ local _function = function(data)
 				enum.sendMessages,
 				enum.addReactions,
 				enum.manageMessages,
-				enum.createInstantInvite,
+				enum.createInstantInvite
 			)
 		end
 

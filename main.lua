@@ -1,10 +1,14 @@
 -- Agrupa as principais funcionalidades para o bot
 discordia = require("discordia")
-client = discordia.Client{cacheAllMembers = true, logLevel = 3, logFile = ""}
 emitter = discordia.Emitter()
 time = discordia.Time()
 enums = discordia.enums
 discordia.extensions()
+client = discordia.Client({
+	cacheAllMembers = true,
+	logLevel = 3,
+	logFile = ""
+})
 
 -- Atalhos string
 byte = string.byte
@@ -92,8 +96,11 @@ config.time = {
 	hour = 3600,
 	day = 86400,
 	week = 604800,
-	month = 2592000,
-	year = 31536000,
+	month = 2629746,
+	year = 31556952,
+	decade = 315569520,
+	century = 3155695200,
+	millenia = 31556952000,
 }
 
 randomSeed(os.time())
