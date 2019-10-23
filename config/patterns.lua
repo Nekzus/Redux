@@ -1,3 +1,5 @@
+-- Padrões de RegEx
+
 config.patterns = {
 	colorRGB = {
 		base = "r%d+g%d+b%d+",

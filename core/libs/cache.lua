@@ -1,3 +1,16 @@
+--[[
+	Parte responsável por criar ou retornar caminhos conforme é feito o acesso
+	dentro de um vetor.
+
+	Exemplo:
+
+	local recipes = cache() -- or cache({})
+	local cakeRecipe = receitas:get("cake/ingredients")
+	cakeRecipe:set("milk", "1lt")
+	cakeRecipe:set("egg", "4un")
+	cakeRecipe:set("butter", "200g")
+]]
+
 local main = {}
 main.__index = main
 

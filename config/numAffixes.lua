@@ -1,3 +1,5 @@
+-- Dicionário de afixos dos valores dos números
+
 config.numAffixes = {
 	{key = "K", name = "Thousand"}, -- 10e3
 	{key = "M", name = "Million"}, -- 10e6

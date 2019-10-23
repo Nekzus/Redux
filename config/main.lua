@@ -1,3 +1,5 @@
+-- Configurações principais do bot
+
 config.main = {
 	ownerId = "280415970416394253",
 	baseGuildId = "464558668894175232",

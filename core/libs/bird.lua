@@ -1,3 +1,7 @@
+--[[
+	Parte responsável por postar mensagens e ditar o comportamento delas.
+]]
+
 -- Cria um construtor para registrar os métodos e metamétodos
 local main = {}
 main.__index = main

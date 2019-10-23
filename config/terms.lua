@@ -1,3 +1,5 @@
+-- Dicionário de termos reconhecidos como palavras chaves
+
 config.terms = {
 	done = {
 		"done", "d",

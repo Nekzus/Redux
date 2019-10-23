@@ -1,3 +1,5 @@
+-- Configuração de emojis
+
 config.emojis = {
 	loading = "FourCirclesLoading",
 	topic = "Rhombus",

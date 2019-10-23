@@ -1,3 +1,5 @@
+-- Chaves de API
+
 config.apiKeys = {
 	youtubeVideoKey = "AIzaSyApllT_5QSRx-JnNJF8TNcDZRSSKm3cBCE",
 	googleSearchKey = "AIzaSyDENwT8E_qHRpzrI6eLHANOAvLHy_WiyBo",

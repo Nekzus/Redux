@@ -1,3 +1,5 @@
+-- Principais títulos reconhecidos via nível pelo bot
+
 config.titles = {
 	dev = {level = 5, title = "${dev}"},
 	owner = {level = 4, title = "${svOwner}"},
