@@ -6,14 +6,17 @@
 
 	local recipes = cache() -- or cache({})
 	local cakeRecipe = receitas:get("cake/ingredients")
+
 	cakeRecipe:set("milk", "1lt")
 	cakeRecipe:set("egg", "4un")
 	cakeRecipe:set("butter", "200g")
 ]]
 
+-- Cria um construtor para registrar os métodos e metamétodos
 local main = {}
 main.__index = main
 
+-- Função para realizar o acesso e a criação dentro do vetor passado
 function access(list, paths, default, delete)
 	assert(list and type(list) == "table", "List must be a table in access()")
 	assert(paths and type(paths) == "string", "Paths must be a string path for access()")
@@ -60,6 +63,7 @@ function access(list, paths, default, delete)
 	return unpack(result)
 end
 
+-- Função construtora que retorna ou cria os métodos dentro do vetor passado
 function main:__call(list)
 	if self.bin == nil then
 		return setmetatable({
@@ -72,6 +76,7 @@ function main:__call(list)
 	end
 end
 
+-- Retorna o acesso dentro do vetor após a criação conforme passado via string
 function main:get(paths, default)
 	if self.bin == nil then
 		print("Must create a thread first, use cache(table)")
@@ -90,6 +95,7 @@ function main:get(paths, default)
 	end
 end
 
+-- Define uma chave e um valor dentro do vetor atualmente acessado
 function main:set(key, value)
 	if self.bin == nil then
 		print("Must create a thread first, use cache(table)")
@@ -108,6 +114,7 @@ function main:set(key, value)
 	end
 end
 
+-- Retorna o vetor principal
 function main:raw()
 	if self.bin == nil then
 		return false
@@ -116,6 +123,8 @@ function main:raw()
 	end
 end
 
+-- Registra o processo
 cache = setmetatable({}, main)
 
+-- Retorna o processo para confirmar que houve a execução sem erros
 return cache

@@ -39,7 +39,7 @@ function main:close()
 	reactionsCallback[message.id] = {}
 end
 
--- Retorna o vetor principal que agrupa os emojis e as funções
+-- Retorna o vetor principal
 function main:raw()
 	assert(self.message, "Must create main context with constructor")
 	return self.active
