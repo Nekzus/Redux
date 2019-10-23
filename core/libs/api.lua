@@ -1,4 +1,8 @@
--- Função base para chamar pedidos GET, POST e outros em http
+--[[
+	Parte responsável por lidar com pedidos HTTP GET, POST e outros.
+]]
+
+-- Função base para criar os pedidos
 function httpHandle(method, apiName, param, ...)
 	local point
 	local link = config.apiPoints[apiName]

@@ -71,10 +71,17 @@ function commands:getList(mode, ...)
 
 	if mode == "full" then
 		return commands.list
+
 	elseif mode == "basic" then
 		for _, command in next, commands.list do
-			insert(result, getKeys(command, {"name", "desc", "usage", "level"}))
+			insert(result, getKeys(command, {
+				"name",
+				"desc",
+				"usage",
+				"level"
+			}))
 		end
+
 	elseif mode == "with" then
 		local code = ""
 

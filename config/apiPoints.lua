@@ -1,3 +1,5 @@
+-- Pontos de acesso de API
+
 config.apiPoints = {
 	catImage = "https://aws.random.cat/meow",
 	dogImage = "https://dog.ceo/api/breeds/image/random",

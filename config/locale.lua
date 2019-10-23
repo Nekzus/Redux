@@ -1,3 +1,5 @@
+-- Dicionário de linguas reconhecidas pelo bot
+
 config.locale = {
 	["Afrikaans"] = "af",
 	["Albanian"] = "sq",

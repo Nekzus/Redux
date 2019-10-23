@@ -6,6 +6,7 @@ local _config = {
 	cooldown = 0,
 	level = 3,
 	direct = false,
+	perms = {"manageRoles", "manageChannels"},
 }
 
 local _function = function(data)

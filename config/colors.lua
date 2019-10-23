@@ -1,3 +1,5 @@
+-- Configurações de cores
+
 config.colors = {
 	green = "r76g175b80",
 	yellow = "r255g202b40",
