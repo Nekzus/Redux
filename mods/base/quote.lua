@@ -68,7 +68,7 @@ local _function = function(data)
 		embed:author(sentBy)
 		embed:authorImage(targetMessage.author.avatarURL)
 		embed:description(format("%s\n\n%s", targetMessage.content, jumpTo))
-		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 

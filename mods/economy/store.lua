@@ -74,7 +74,7 @@ local _function = function(data)
 			value = (result ~= "" and result or parseFormat("${noResults}", langList))
 		})
 
-		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 

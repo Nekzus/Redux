@@ -1,7 +1,10 @@
+-- Cria um construtor para registrar os métodos
 local main = {}
 
+-- Carrega os dados da modula serpent que converte um vetor em texto
 serpent = serpent or require("./core/libs/serpent.lua")
 
+-- Função local para checar se o caminho para um arquivo é válido
 local function isFile(path)
 	local file = fs.openSync(path, "r")
 
@@ -13,6 +16,7 @@ local function isFile(path)
 	return false
 end
 
+-- Carrega as informações de um arquivo que foi salvo no caminho específicado
 function main.load(filePath)
 	filePath = assert(filePath and format("./saves/%s.txt", filePath), "Could not parse file location in load()")
 	assert(isFile(filePath), "Could not find file in location in load()")
@@ -27,10 +31,11 @@ function main.load(filePath)
 	return result()
 end
 
+-- Salva as informações de um arquivo no caminho específicado
 function main.save(data, filePath)
-	assert(data and type(data) == "table", "Data must be a table in .load()")
-	filePath = assert(filePath and format("./saves/%s.txt", filePath), "[1] Invalid file path for .load()")
-	assert(isFile(filePath), "[2] Invalid file path for .load()")
+	assert(data and type(data) == "table", "Data must be of table-type in load()")
+	filePath = assert(filePath and format("./saves/%s.txt", filePath), "Could not parse file location in save()")
+	assert(isFile(filePath), "Could not find file in location save()")
 
 	local result
 	local file = fs.openSync(filePath, "w")
@@ -45,6 +50,8 @@ function main.save(data, filePath)
 	return true
 end
 
+-- Registra o processo
 db = main
 
+-- Retorna o processo para confirmar que houve a execução sem erros
 return db

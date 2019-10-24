@@ -23,7 +23,7 @@ local _function = function(data)
 
 	if result then
 		embed:image(result)
-		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 
 		decoyBird:update(nil, embed:raw())
@@ -31,7 +31,7 @@ local _function = function(data)
 		return true
 	else
 		embed:description(parseFormat("${couldNotProcess}", langList))
-		embed:color(config.colors.red:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.red)
 		embed:footerIcon(config.images.error)
 
 		decoyBird:update(nil, embed:raw())

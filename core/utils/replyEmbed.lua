@@ -17,7 +17,7 @@ function replyEmbed(text, message, method)
 		color = config.colors.blue
 	end
 
-	embed:color(color:match(config.patterns.colorRGB.capture))
+	embed:color(color)
 	embed:footerIcon(config.images[method] or message.author.avatarURL)
 
 	if text then

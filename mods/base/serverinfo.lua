@@ -35,7 +35,7 @@ local _function = function(data)
 	embed:field({name = parseFormat("${roles}", langList), value = tostring(#guild.roles), inline = true})
 	embed:field({name = parseFormat("${emojis}", langList), value = tostring(#guild.emojis), inline = true})
 
-	embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+	embed:color(config.colors.blue)
 	embed:footerIcon(config.images.info)
 	signFooter(embed, data.author, guildLang)
 

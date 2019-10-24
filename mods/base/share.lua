@@ -35,7 +35,7 @@ local _function = function(data)
 	embed:title(parseFormat("${shareLinkForVoice}", langList, voice.name))
 	embed:description(parseFormat("[${clickHereScreenshare}](%s)", langList, screenLink))
 
-	embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+	embed:color(config.colors.blue)
 	embed:footerIcon(config.images.info)
 	signFooter(embed, data.author, guildLang)
 

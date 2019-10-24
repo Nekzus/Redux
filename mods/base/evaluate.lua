@@ -35,7 +35,7 @@ local _function = function(data)
 		if output:lower():find("inv")
 		or output:lower():find("not")
 		or output:lower():find("err") then
-			embed:color(config.colors.red:match(config.patterns.colorRGB.capture))
+			embed:color(config.colors.red)
 			embed:footerIcon(config.images.error)
 		end
 	end
