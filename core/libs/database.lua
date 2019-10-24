@@ -1,6 +1,6 @@
-serpent = serpent or require("./core/libs/serpent.lua")
-
 local main = {}
+
+serpent = serpent or require("./core/libs/serpent.lua")
 
 local function isFile(path)
 	local file = fs.openSync(path, "r")
@@ -14,8 +14,8 @@ local function isFile(path)
 end
 
 function main.load(filePath)
-	filePath = assert(filePath and format("./saves/%s.txt", filePath), "[1] Invalid file path for .load()")
-	assert(isFile(filePath), "[2] Invalid file path for .load()")
+	filePath = assert(filePath and format("./saves/%s.txt", filePath), "Could not parse file location in load()")
+	assert(isFile(filePath), "Could not find file in location in load()")
 
 	local result
 	local file = fs.openSync(filePath, "r")
