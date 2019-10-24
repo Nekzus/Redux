@@ -34,7 +34,7 @@ local _function = function(data)
 	embed:field({name = parseFormat("${joinedDisc}", langList), value = discordia.Date.fromSnowflake(user.id):toISO("T", "Z"), inline = true})
 	embed:field({name = parseFormat("${joinedServer}", langList), value = user.joinedAt, user.joinedAt:gsub("%..*", ""):gsub("T", " ") or "?", inline = true})
 
-	embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+	embed:color(config.colors.blue)
 	embed:footerIcon(config.images.info)
 	signFooter(embed, data.author, guildLang)
 

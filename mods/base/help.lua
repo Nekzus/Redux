@@ -62,7 +62,7 @@ local _function = function(data)
 				value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or parseFormat("${none}", langList)), inline = true
 			})
 
-			embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
@@ -141,7 +141,7 @@ local _function = function(data)
 				value = (result ~= "" and result or parseFormat("${noResults}", langList)), inline = true
 			})
 
-			embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 

@@ -91,7 +91,7 @@ local _function = function(data)
 			local embed = newEmbed()
 
 			embed:description(format("%s\n\n%s", editLostMessage, jumpTo))
-			embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, lastData.author, guildLang)
 
@@ -270,7 +270,7 @@ local _function = function(data)
 		local charLimit = 15
 		local embed = newEmbed()
 
-		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 

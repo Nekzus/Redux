@@ -62,7 +62,7 @@ local _function = function(data)
 
 		embed:field({name = parseFormat("${guilds} (%s/%s) [${page} %s/%s]", langList, count, nCount, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
 
-		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 

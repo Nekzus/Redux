@@ -43,7 +43,7 @@ local _function = function(data)
 			})
 		end
 		embed:image(resultImage)
-		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 
 		decoy:update(nil, embed:raw())
@@ -51,7 +51,7 @@ local _function = function(data)
 		return true
 	else
 		embed:description(parseFormat("${couldNotProcess}", langList))
-		embed:color(config.colors.red:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.red)
 		embed:footerIcon(config.images.error)
 
 		decoy:update(nil, embed:raw())

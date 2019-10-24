@@ -1,6 +1,23 @@
+--[[
+	Parte responsável por registrar comandos com atributos específicos.
+
+	Exemplo:
+
+	-- Criação de dados para o comando
+	local data = {name = "help", desc = "shows help.", ...}
+
+	-- Registra o comando na lista de comandos
+	local command = commands:create(commandData)
+
+	-- Registra o comando como 'h' também
+	command:accept("h")
+]]
+
+-- Cria um construtor para registrar os métodos e metamétodos
 commands = {list = {}, temp = {}}
 commands.__index = commands
 
+-- Função que cria um novo comando a partir de dados já pré-definidos
 function commands:create(data)
 	local name = assert(data.name, "Missing data for command at commands:add(...)")
 
@@ -11,6 +28,8 @@ function commands:create(data)
 	return setmetatable(data, commands)
 end
 
+-- Função para registrar mais formas de chamar o comando registrado
+-- também conhecido como "aliases"
 function commands:accept(...)
 	local list = {...}
 
@@ -41,6 +60,7 @@ function commands:accept(...)
 	return true
 end
 
+-- Função local para checar se uma lista contém os valores passado em 'base'
 local function contains(list, base)
 	for key, value in next, base do
 		if not list[key] or list[key] ~= value then
@@ -51,6 +71,7 @@ local function contains(list, base)
 	return true
 end
 
+-- Função local para retornar valores de uma lista conforme passados em 'base'
 local function getKeys(list, base)
 	local result = {}
 
@@ -63,6 +84,7 @@ local function getKeys(list, base)
 	return result
 end
 
+-- Retorna da lista de comandos as informações mais relevantes conforme o modo
 function commands:getList(mode, ...)
 	local args = {...}
 	local result = {}
@@ -118,6 +140,7 @@ function commands:getList(mode, ...)
 	end
 end
 
+-- Limpa a lista de comandos completamente
 function commands:flushList()
 	for key, command in next, commands.list do
 		commands.list[key] = nil
@@ -126,4 +149,5 @@ function commands:flushList()
 	commands.list = {}
 end
 
+-- Retorna o processo para confirmar que houve a execução sem erros
 return commands

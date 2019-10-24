@@ -40,7 +40,7 @@ local _function = function(data)
 		embed:field({name = parseFormat("${bank}", langList), value = format("%s %s", symbol, affixNum(memberBank or 0)), inline = true})
 		embed:field({name = parseFormat("${networth}", langList), value = format("%s %s", symbol, affixNum((memberCash or 0) + (memberBank or 0))), inline = true})
 
-		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
@@ -61,7 +61,7 @@ local _function = function(data)
 		embed:field({name = parseFormat("${bank}", langList), value = format("%s %s", symbol, affixNum(memberBank or 0)), inline = true})
 		embed:field({name = parseFormat("${networth}", langList), value = format("%s %s", symbol, affixNum((memberCash or 0) + (memberBank or 0))), inline = true})
 
-		embed:color(config.colors.blue:match(config.patterns.colorRGB.capture))
+		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
