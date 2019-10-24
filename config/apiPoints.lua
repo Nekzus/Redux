@@ -29,6 +29,9 @@ config.apiPoints = {
 }
 
 --[[ -- 110839429
+https://api.roblox.com/docs?useConsolidatedPage=true
+
+
 https://accountsettings.roblox.com/docs
 https://api.roblox.com/docs
 https://auth.roblox.com/docs
