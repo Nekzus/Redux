@@ -27,8 +27,12 @@ local _function = function(data)
 		local perms = {level = level, added = os.time()}
 		local enum = enums.permission
 
+		-- Configura o cargo na lista de cargos da guilda
+		guildData:get("roles"):set(role.id, perms)
+		bird:post(nil, embed:raw(), data.channel)
+
 		-- Configura o cargo para não ter permissões relevantes
-		role:denyPermissions(
+		role:disablePermissions(
 			enum.sendMessages,
 			enum.addReactions,
 			enum.manageMessages,
@@ -49,10 +53,6 @@ local _function = function(data)
 				enum.createInstantInvite
 			)
 		end
-
-		-- Configura o cargo na lista de cargos da guilda
-		guildData:get("roles"):set(role.id, perms)
-		bird:post(nil, embed:raw(), data.channel)
 
 		return true
 	else

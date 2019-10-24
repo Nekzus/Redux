@@ -24,6 +24,7 @@ local _function = function(data)
 		guild = data.guild
 	end
 
+	embed:thumbnail(data.guild.iconURL)
 	embed:field({name = parseFormat("${name}", langList), value = guild.name, inline = true})
 	embed:field({name = parseFormat("${id}", langList), value = guild.id, inline = true})
 	embed:field({name = parseFormat("${owner}", langList), value = guild.owner.tag, inline = true})

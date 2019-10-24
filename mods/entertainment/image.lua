@@ -66,7 +66,7 @@ local _function = function(data)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
-		decoyBird:update(item.link, nil)
+		decoyBird:update(nil, embed:raw())
 
 		if firstTime == true then
 			firstTime = false

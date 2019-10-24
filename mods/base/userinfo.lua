@@ -26,7 +26,7 @@ local _function = function(data)
 		user = data.member
 	end
 
-	embed:image(user.avatarURL)
+	embed:thumbnail(user.avatarURL)
 	embed:field({name = parseFormat("${name}", langList), value = (user.nickname and format("%s (%s)", user.username, user.nickname) or user.username), inline = true})
 	embed:field({name = parseFormat("${discrim}", langList), value = user.discriminator, inline = true})
 	embed:field({name = parseFormat("${id}", langList), value = user.id, inline = true})

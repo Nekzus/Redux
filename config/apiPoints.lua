@@ -5,7 +5,7 @@ config.apiPoints = {
 	dogImage = "https://dog.ceo/api/breeds/image/random",
 	youtubeSearch = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&order=date&type=video&key=%s&q=%s",
 	googleSearch = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&q=%s",
-	googleSearch = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&searchType=image&q=%s",
+	googleSearchImage = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&searchType=image&q=%s",
 	googleTranslate = "https://translation.googleapis.com/language/translate/v2?key=%s&target=%s&q=%s",
 	truthYesNo = "https://yesno.wtf/api",
 	truthYesNoForce = "https://yesno.wtf/api?force=%s",

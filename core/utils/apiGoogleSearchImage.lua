@@ -1,9 +1,9 @@
 function apiGoogleSearchImage(text)
-	local data, request = httpGet("googleImageSearch", {config.apiKeys.googleSearchKey, config.apiKeys.googleSearchCx, text})
+	local data, request = httpGet("googleSearchImage", {config.apiKeys.googleSearchKey, config.apiKeys.googleSearchCx, text})
 	local decoded = json.decode(request)
 
 	if not decoded then
-		print("unable to decode apiGoogleSearch()")
+		print("unable to decode apiGoogleSearchImage()")
 
 		return nil
 	end
@@ -11,4 +11,4 @@ function apiGoogleSearchImage(text)
 	return decoded
 end
 
-return apiGoogleSearch
+return apiGoogleSearchImage
