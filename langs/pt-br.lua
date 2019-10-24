@@ -282,6 +282,7 @@ langs["pt-br"] = {
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["searchesImage"] = "pesquisa no google pela imagem mencionada.",
 	["setsNsfwMode"] = "define o modo NSFW para o canal que você está.",
 	["usesItemFromInventory"] = "usa o item mencionado que está em seu inventário.",
 	["showsInventory"] = "mostra o seu inventário.",

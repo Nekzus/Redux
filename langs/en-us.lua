@@ -282,6 +282,7 @@ langs["en-us"] = {
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["searchesImage"] = "searches on google for the mentioned image.",
 	["setsNsfwMode"] = "sets the NSFW mode for the channel you're in.",
 	["usesItemFromInventory"] = "uses the mentioned item in your inventory.",
 	["showsInventory"] = "shows your inventory.",
