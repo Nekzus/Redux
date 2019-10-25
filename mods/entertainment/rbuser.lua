@@ -15,10 +15,23 @@ local _function = function(data)
 	local langList = langs[guildLang]
 	local args = data.args
 
-	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
-	local embed = newEmbed()
+	if not (args[2]) then
+		local text = parseFormat("${missingArg}: userName", langList)
+		local embed = replyEmbed(text, data.message, "error")
 
-	local userName
+		bird:post(nil, embed:raw(), data.channel)
+
+		return false
+	end
+
+	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
+
+	local user = apiRobloxGetUser(args[2], "name")
+	local friends = apiRobloxGetUserFriends(user.Id)
+	local followings = apiRobloxGetUserFollowings(user.Id)
+	local followers = apiRobloxGetUserFollowers(user.Id)
+
+	local embed = newEmbed()
 
 	signFooter(embed, data.author, guildLang)
 end

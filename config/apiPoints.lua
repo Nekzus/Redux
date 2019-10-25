@@ -12,13 +12,12 @@ config.apiPoints = {
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
 
 	robloxGetUserHeadShot = "https://www.roblox.com/search/users/avatar?isHeadshot=false&userIds=%s",
-	robloxGetUserFollowingCount = "https://www.roblox.com/users/friends/list-json?friendsType=Following&pageSize=100&userId=%s",
-	robloxGetUserFollowersCount = "https://www.roblox.com/users/friends/list-json?friendsType=Followers&pageSize=100&userId=%s",
+	robloxGetUserFriends = "https://www.roblox.com/users/friends/list-json?friendsType=AllFriends&pageSize=18&userId=%s",
+	robloxGetUserFollowings = "https://www.roblox.com/users/friends/list-json?friendsType=Following&pageSize=18&userId=%s",
+	robloxGetUserFollowers = "https://www.roblox.com/users/friends/list-json?friendsType=Followers&pageSize=18&userId=%s",
 
 	robloxGetUserFromId = "https://api.roblox.com/users/%s", -- User ID
 	robloxGetUserFromName = "https://api.roblox.com/users/get-by-username?username=%s", -- Username
-	robloxGetUserFriendsList = "https://friends.roblox.com/v1/users/%s/friends", -- User ID
-	robloxGetUserFriendsCount = "https://friends.roblox.com/v1/users/%s/friends/count", -- User ID
 	robloxUserAvatar = "https://avatar.roblox.com/v1/users/%s/avatar", -- User ID
 	robloxAssetsWearing = "https://avatar.roblox.com/v1/users/%s/currently-wearing", -- User ID
 	robloxUserOutfits = "https://avatar.roblox.com/v1/users/%s/outfits", -- User ID
