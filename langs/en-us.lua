@@ -52,7 +52,15 @@ langs["en-us"] = {
 	["sourceLanguage"] = "Source Language",
 	["translationCodes"] = "Translation Codes",
 	["guilds"] = "Guilds",
+
 	["inventory"] = "Inventory",
+	["social"] = "Social",
+	["friends"] = "Friends",
+	["following"] = "Following",
+	["followers"] = "Followers",
+	["investments"] = "Investimentos",
+	["recentAveragePrice"] = "Recent Average Price",
+	["recentAveragePriceTag"] = "RAP",
 
 	["itemName"] = "Item Name",
 	["itemDesc"] = "Item Description",

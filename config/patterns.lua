@@ -36,6 +36,10 @@ config.patterns = {
 		base = "%s*.-%s*=%s*.-%s*$",
 		capture = "%s*(.-)%s*=%s*(.-)%s*$",
 	},
+	rbUserStatus = {
+		base = 'data%-statustext=".-"%s%a',
+		capture = 'data%-statustext="(.-)"%s%a',
+	}
 }
 
 --[[

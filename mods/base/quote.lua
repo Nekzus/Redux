@@ -20,7 +20,7 @@ local _function = function(data)
 	end
 
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
-	local tries = 10
+	local tries = 20
 	local terms = data.content:sub(#args[1] + 2)
 	local isNum = tonumber(terms)
 	local targetMessage

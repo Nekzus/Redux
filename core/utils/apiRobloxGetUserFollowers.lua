@@ -41,8 +41,10 @@
 	]
 ]]
 
-function apiRobloxGetUserFollowers(id)
-	local data, request = httpGet("robloxGetUserFollowers", {id})
+function apiRobloxGetUserFollowers(id, perPage)
+	perPage = perPage or 18
+
+	local data, request = httpGet("robloxGetUserFollowers", {perPage, id})
 	local decode = json.decode(request)
 
 	if not decode then
