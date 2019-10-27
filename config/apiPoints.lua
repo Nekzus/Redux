@@ -10,6 +10,7 @@ config.apiPoints = {
 	truthYesNo = "https://yesno.wtf/api",
 	truthYesNoForce = "https://yesno.wtf/api?force=%s",
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
+	exchangeRate = "https://api.exchangeratesapi.io/latest?base=%s",
 
 	robloxGetUserHeadShot = "https://www.roblox.com/search/users/avatar?isHeadshot=%s&userIds=%s",
 	robloxGetUserFriends = "https://www.roblox.com/users/friends/list-json?friendsType=AllFriends&pageSize=%s&userId=%s",
