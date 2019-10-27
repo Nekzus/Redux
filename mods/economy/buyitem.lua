@@ -1,8 +1,8 @@
 local _config = {
-	name = "buy",
+	name = "buyitem",
 	desc = "${buysItemFromStore}",
 	usage = "${nameKey}",
-	aliases = {},
+	aliases = {"buy"},
 	cooldown = 2,
 	level = 0,
 	direct = false,
@@ -39,7 +39,6 @@ local _function = function(data)
 		return false
 	else
 		itemName = data.content:sub(#args[1] + #args[2] + 3)
-		print(itemName, buyAmount)
 	end
 
 	local itemData = getStoreItem(itemName, data.guild)

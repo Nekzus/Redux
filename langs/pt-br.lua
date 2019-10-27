@@ -292,6 +292,7 @@ langs["pt-br"] = {
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["givesItemToSomeone"] = "dá o item mencionado para uma ou mais pessoas.",
 	["showsRobloxProfile"] = "mostra o perfil no ROBLOX do usuário mencionado.",
 	["searchesImage"] = "pesquisa no google pela imagem mencionada.",
 	["setsNsfwMode"] = "define o modo NSFW para o canal que você está.",

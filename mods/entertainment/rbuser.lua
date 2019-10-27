@@ -41,7 +41,6 @@ local _function = function(data)
 		return false
 	end
 
-	local limiteds = apiRobloxGetUserLimiteds(user.Id)
 	local profileCustom = apiRobloxGetUserProfileCustom(user.Id)
 
 	local headShot = profileCustom.userHeadShot
@@ -53,6 +52,7 @@ local _function = function(data)
 	local followers = profileCustom.followersCount
 
 	-- Informações de investimento
+	local limiteds = apiRobloxGetUserLimiteds(user.Id)
 	local limitedsCount = 0
 	local limitedsRAP = 0
 
@@ -69,7 +69,10 @@ local _function = function(data)
 	local embed = newEmbed()
 	local robloxLogo = getEmoji(config.emojis.robloxLogo, "name", baseGuildId)
 
-	embed:thumbnail(headShot)
+	if headShot then
+		embed:thumbnail(headShot)
+	end
+
 	embed:author(format("%s (%s)", user.Username, user.Id))
 	embed:authorImage(config.images.robloxLogo)
 	embed:authorUrl(format("https://www.roblox.com/users/%s/profile", user.Id))

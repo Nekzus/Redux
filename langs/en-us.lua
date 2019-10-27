@@ -292,6 +292,7 @@ langs["en-us"] = {
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["givesItemToSomeone"] = "gives the mentioned item to the mentioned person or more.",
 	["showsRobloxProfile"] = "shows the ROBLOX profile of the mentioned user.",
 	["searchesImage"] = "searches on google for the mentioned image.",
 	["setsNsfwMode"] = "sets the NSFW mode for the channel you're in.",

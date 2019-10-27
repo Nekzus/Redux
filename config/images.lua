@@ -8,4 +8,6 @@ config.images = {
 	info = "https://cdn.discordapp.com/attachments/605826739842711562/605827616368230411/Information.png",
 	laranjo = "https://cdn.discordapp.com/attachments/635508704749420546/635508720582787124/d2310a6a6b55c77c606596e219248bfe.png",
 	robloxLogo = "https://cdn.discordapp.com/attachments/605826739842711562/637839253572681788/robloxLogo.png",
+	onlineIcon = "https://cdn.discordapp.com/attachments/605826739842711562/638112174950055973/onlineIcon.png",
+	offlineIcon = "https://cdn.discordapp.com/attachments/605826739842711562/638112177072373800/offlineIcon.png",
 }

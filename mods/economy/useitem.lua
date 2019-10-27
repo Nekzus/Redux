@@ -1,8 +1,8 @@
 local _config = {
-	name = "use",
+	name = "useitem",
 	desc = "${usesItemFromInventory}",
 	usage = "${nameKey}",
-	aliases = {},
+	aliases = {"use"},
 	cooldown = 2,
 	level = 0,
 	direct = false,
