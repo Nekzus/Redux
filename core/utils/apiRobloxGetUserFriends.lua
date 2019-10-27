@@ -49,7 +49,6 @@ function apiRobloxGetUserFriends(id, perPage)
 
 	if not decode then
 		print("Unable to decode apiRobloxGetUserFriends()")
-
 		return nil
 	end
 

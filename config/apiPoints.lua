@@ -16,15 +16,16 @@ config.apiPoints = {
 	robloxGetUserFollowings = "https://www.roblox.com/users/friends/list-json?friendsType=Following&pageSize=%s&userId=%s",
 	robloxGetUserFollowers = "https://www.roblox.com/users/friends/list-json?friendsType=Followers&pageSize=%s&userId=%s",
 	robloxGetUserProfile = "https://www.roblox.com/users/%s/profile",
+	robloxGetUserCollectibles = "https://inventory.roblox.com/v1/users/%s/assets/collectibles?sortOrder=Desc&limit=%s&cursor=%s",
+	robloxGetUserAccessories = "https://inventory.roblox.com/v2/users/%s/inventory/%s?sortOrder=Desc&limit=%s&cursor=%s",
 
-	robloxGetUserCollectibles = "https://inventory.roblox.com/v1/users/%s/assets/collectibles?sortOrder=Desc&limit=100",
 	robloxGetUserAvatar = "https://avatar.roblox.com/v1/users/%s/avatar", -- User ID
-
 	robloxGetUserFromId = "https://api.roblox.com/users/%s", -- User ID
 	robloxGetUserFromName = "https://api.roblox.com/users/get-by-username?username=%s", -- Username
 	robloxGetUserAssetsWearing = "https://avatar.roblox.com/v1/users/%s/currently-wearing", -- User ID
 	robloxGetUserOutfits = "https://avatar.roblox.com/v1/users/%s/outfits", -- User ID
 	robloxGetUserOutfitInfo = "https://avatar.roblox.com/v1/outfits/117031959/details", -- Outfit ID
+
 	robloxCatalogCategories = "https://catalog.roblox.com/v1/categories", -- No params
 	robloxCatalogSubcategories = "https://catalog.roblox.com/v1/subcategories", -- No params
 }

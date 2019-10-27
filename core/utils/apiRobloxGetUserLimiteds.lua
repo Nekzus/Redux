@@ -27,16 +27,34 @@
 ]]
 
 function apiRobloxGetUserLimiteds(id, amount)
-	local data, request = httpGet("robloxGetUserCollectibles", {id})
-	local decode = json.decode(request)
+	local result = {}
+	local nextPage = ""
 
-	if not decode then
-		print("Unable to decode apiRobloxGetUserHeadShot()")
+	amount = amount or 100
 
-		return nil
+	while true do
+		local data, request = httpGet("robloxGetUserCollectibles", {id, amount, nextPage})
+		local decode = json.decode(request)
+
+		if not decode then
+			print("Unable to decode apiRobloxGetUserLimiteds()")
+			break
+		elseif not decode.data then
+			break
+		end
+
+		for _, tab in next, decode.data do
+			insert(result, tab)
+		end
+
+		if decode.nextPageCursor and amount == 100 then
+			nextPage = decode.nextPageCursor
+		else
+			break
+		end
 	end
 
-	return decode
+	return result
 end
 
-return apiRobloxGetUserHeadShot
+return apiRobloxGetUserLimiteds

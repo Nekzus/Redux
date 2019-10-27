@@ -58,9 +58,11 @@ langs["en-us"] = {
 	["friends"] = "Friends",
 	["following"] = "Following",
 	["followers"] = "Followers",
-	["investments"] = "Investimentos",
+	["investments"] = "Investments",
 	["recentAveragePrice"] = "Recent Average Price",
 	["recentAveragePriceTag"] = "RAP",
+	["limiteds"] = "Limiteds",
+	["userVisits"] = "User Visits",
 
 	["itemName"] = "Item Name",
 	["itemDesc"] = "Item Description",
@@ -290,6 +292,7 @@ langs["en-us"] = {
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["showsRobloxProfile"] = "shows the ROBLOX profile of the mentioned user.",
 	["searchesImage"] = "searches on google for the mentioned image.",
 	["setsNsfwMode"] = "sets the NSFW mode for the channel you're in.",
 	["usesItemFromInventory"] = "uses the mentioned item in your inventory.",

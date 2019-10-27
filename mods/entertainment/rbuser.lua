@@ -1,9 +1,9 @@
 local _config = {
 	name = "rbuser",
-	desc = "--",
+	desc = "${showsRobloxProfile}",
 	usage = "${userKey}",
-	aliases = {},
-	cooldown = 5,
+	aliases = {"rbprofile"},
+	cooldown = 10,
 	level = 0,
 	direct = true,
 }
@@ -41,31 +41,49 @@ local _function = function(data)
 		return false
 	end
 
-	local friends = apiRobloxGetUserFriends(user.Id)
-	local followings = apiRobloxGetUserFollowings(user.Id)
-	local followers = apiRobloxGetUserFollowers(user.Id)
-	local headShot = apiRobloxGetUserHeadShot(user.Id, true)
-	local status = apiRobloxGetUserStatus(user.Id)
+	local limiteds = apiRobloxGetUserLimiteds(user.Id)
+	local profileCustom = apiRobloxGetUserProfileCustom(user.Id)
+
+	local headShot = profileCustom.userHeadShot
+	local status = profileCustom.status
+	local created = profileCustom.created
+	local placeVisits = profileCustom.placeVisits
+	local friends = profileCustom.friendsCount
+	local followings = profileCustom.followingsCount
+	local followers = profileCustom.followersCount
 
 	-- Informações de investimento
+	local limitedsCount = 0
+	local limitedsRAP = 0
+
+	for _, item in next, limiteds do
+		limitedsCount = limitedsCount + 1
+
+		local rap = item.recentAveragePrice
+
+		if rap then
+			limitedsRAP = limitedsRAP + rap
+		end
+	end
 
 	local embed = newEmbed()
 	local robloxLogo = getEmoji(config.emojis.robloxLogo, "name", baseGuildId)
 
-	embed:thumbnail(headShot.PlayerAvatars[1].Thumbnail.Url)
-	embed:title(format("%s %s (%s)", robloxLogo.mentionString, user.Username, user.Id))
+	embed:thumbnail(headShot)
+	embed:author(format("%s (%s)", user.Username, user.Id))
+	embed:authorImage(config.images.robloxLogo)
+	embed:authorUrl(format("https://www.roblox.com/users/%s/profile", user.Id))
 	embed:description(status)
 	embed:field({
 		name = parseFormat("%s ${social}", langList, ":raising_hand:"),
-		value = parseFormat("**${friends}:** %s\n**${following}:** %s\n**${followers}:** %s", langList, friends.TotalFriends, followings.TotalFriends, followers.TotalFriends),
+		value = parseFormat("**${friends}:** %s\n**${following}:** %s\n**${followers}:** %s", langList, affixNum(friends), affixNum(followings), affixNum(followers)),
 		inline = true,
 	})
-	--[[
 	embed:field({
 		name = parseFormat("%s ${investments}", langList, ":moneybag:"),
-		value = parseFormat("**${recentAveragePriceTag}:** %s", langList, )
+		value = parseFormat("**${recentAveragePriceTag}:** %s\n**${limiteds}:** %s\n**${userVisits}:** %s", langList, affixNum(limitedsRAP), affixNum(limitedsCount), affixNum(placeVisits)),
+		inline = true,
 	})
-	]]
 
 	embed:color(config.colors.red3)
 	signFooter(embed, data.author, guildLang)

@@ -36,9 +36,33 @@ config.patterns = {
 		base = "%s*.-%s*=%s*.-%s*$",
 		capture = "%s*(.-)%s*=%s*(.-)%s*$",
 	},
-	rbUserStatus = {
+	rbUserProfileStatus = {
 		base = 'data%-statustext=".-"%s%a',
 		capture = 'data%-statustext="(.-)"%s%a',
+	},
+	rbUserProfileCreated = {
+		base = 'Join Date<p class=text%-lead>.-<',
+		capture = 'Join Date<p class=text%-lead>(.-)<',
+	},
+	rbUserProfilePlaceVisits = {
+		base = 'Place Visits<p class=text%-lead>.-<',
+		capture = 'Place Visits<p class=text%-lead>(.-)<',
+	},
+	rbUserProfileFriendsCount = {
+		base = 'data%-friendscount=.-%s',
+		capture = 'data%-friendscount=(.-)%s',
+	},
+	rbUserProfileFollowersCount = {
+		base = 'data%-followerscount=.-%s',
+		capture = 'data%-followerscount=(.-)%s',
+	},
+	rbUserProfileFollowingsCount = {
+		base = 'data%-followingscount=.-%s',
+		capture = 'data%-followingscount=(.-)%s',
+	},
+	rbUserProfileHeadShot = {
+		base = [[avatar%-thumb" ng%-src="{{ '.-' }}]],
+		capture = [[avatar%-thumb" ng%-src="{{ '(.-)' }}]],
 	}
 }
 

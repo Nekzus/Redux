@@ -1,10 +1,10 @@
 function affixNum(num)
 	if type(num) == "string" then
-		num = tonumber(num)
+		num = tonumber(num) or 0
 	elseif type(num) == "number" then
 		num = num
 	else
-		return false
+		return 0
 	end
 
 	local isNeg = false

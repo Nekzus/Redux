@@ -61,6 +61,8 @@ langs["pt-br"] = {
 	["investments"] = "Investimentos",
 	["recentAveragePrice"] = "Preço Médio Recente",
 	["recentAveragePriceTag"] = "PMR",
+	["limiteds"] = "Limitados",
+	["userVisits"] = "Visitas de Usuários",
 
 	["itemName"] = "Nome do Item",
 	["itemDesc"] = "Descrição do Item",
@@ -290,6 +292,7 @@ langs["pt-br"] = {
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["showsRobloxProfile"] = "mostra o perfil no ROBLOX do usuário mencionado.",
 	["searchesImage"] = "pesquisa no google pela imagem mencionada.",
 	["setsNsfwMode"] = "define o modo NSFW para o canal que você está.",
 	["usesItemFromInventory"] = "usa o item mencionado que está em seu inventário.",

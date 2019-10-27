@@ -7,4 +7,5 @@ config.images = {
 	error = "https://cdn.discordapp.com/attachments/605826739842711562/605826805621981201/Cancel.png",
 	info = "https://cdn.discordapp.com/attachments/605826739842711562/605827616368230411/Information.png",
 	laranjo = "https://cdn.discordapp.com/attachments/635508704749420546/635508720582787124/d2310a6a6b55c77c606596e219248bfe.png",
+	robloxLogo = "https://cdn.discordapp.com/attachments/605826739842711562/637839253572681788/robloxLogo.png",
 }

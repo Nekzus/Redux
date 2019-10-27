@@ -49,7 +49,6 @@ function apiRobloxGetUserFollowers(id, perPage)
 
 	if not decode then
 		print("Unable to decode apiRobloxGetUserFollowers()")
-
 		return nil
 	end
 

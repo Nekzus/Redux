@@ -29,7 +29,6 @@ function apiRobloxGetUserHeadShot(id, headShot)
 
 	if not decode then
 		print("Unable to decode apiRobloxGetUserHeadShot()")
-
 		return nil
 	end
 
