@@ -121,7 +121,7 @@ function loadFile(path) -- Função principal para carregar arquivos que estão 
 	if fileName then
 		fileName = fileName[#fileName]
 	else
-		fileName = format("UNKNOWN FILENAME (%s)", tostring(os.time() + random()):gsub("[.]", ""))
+		fileName = format("Unknown Filename (%s)", tostring(os.time() + random()):gsub("[.]", ""))
 	end
 
 	if file then
@@ -135,16 +135,30 @@ function loadFile(path) -- Função principal para carregar arquivos que estão 
 			if success then
 				return result
 			else
-				printf("RUNTIME ERROR: %s | %s", fileName, ret)
+				printf("Runtime Error: %s | %s", fileName, ret)
 				return false
 			end
 		else
-			printf("SYNTAX ERROR: %s | %s", fileName, err)
+			printf("Syntax Error: %s | %s", fileName, err)
 			return false
 		end
 	else
-		printf("LOAD ERROR: %s | %s", code, err)
+		printf("Load Error: %s | %s", code, err)
 		return false
+	end
+end
+
+function loadAllFiles(path, callback) -- Carrega todos os arquivos da pasta e subpastas
+	for file, type in fs.scandirSync(path) do
+		if type == "file" then
+			local loaded = loadFile(format("%s/%s", path, file))
+
+			if callback and loaded then
+				callback(loaded)
+			end
+		elseif type == "directory" then
+			loadAllFiles(format("%s/%s", path, file))
+		end
 	end
 end
 
@@ -165,29 +179,33 @@ function loadBot()
 	client:removeAllListeners()
 
 	-- Carrega todos os arquivos de configuração
-	for file, type in fs.scandirSync("./config/") do
+	loadAllFiles("./config/")
+	--[[for file, type in fs.scandirSync("./config/") do
 		if type == "file" then
 			loadFile(format("./config/%s", file))
 		end
-	end
+	end]]
 
 	-- Carrega todas as bibliotecas e utilidades
-	for _, folder in next, {"libs", "utils"} do
+	loadAllFiles("./core/")
+	--[[for _, folder in next, {"libs", "utils"} do
 		for file, type in fs.scandirSync(format("./core/%s/", folder)) do
 			if type == "file" then
 				loadFile(format("./core/%s/%s", folder, file))
 			end
 		end
-	end
+	end]]
 
 	-- Carrega todas as linguagens e eventos
-	for _, folder in next, {"langs", "events"} do
+	loadAllFiles("./langs/")
+	loadAllFiles("./events/")
+	--[[for _, folder in next, {"langs", "events"} do
 		for file, type in fs.scandirSync(format("./%s/", folder)) do
 			if type == "file" then
 				loadFile(format("./%s/%s", folder, file))
 			end
 		end
-	end
+	end]]
 
 	-- Carrega todos os comandos
 	for category, type in fs.scandirSync("./mods/") do

@@ -1,23 +1,35 @@
 function abbrevNum(text, numMax)
+	local result
+
 	if type(text) == "string" then
 		if text:lower() == "all" then
-			text = numMax
+			result = numMax
 		elseif text:lower() == "half" then
-			text = numMax / 2
+			result = numMax / 2
 		elseif text:match("%d+%%") then
-			text = text:match("%d+")
+			local num = text:match("%d+")
 
-			if text then
-				text = (text / 100) * numMax
+			if num then
+				result = (num / 100) * numMax
+			end
+		elseif text:match("rand%a-") then
+			local num = text:match("%d+")
+
+			if num and num > 0 then
+				result = random(numMax)
 			end
 		else
-			text = realNum(text)
+			result = realNum(text)
 		end
-
-		return text
+	elseif type(text) == "number" then
+		result = realNum(text)
 	end
 
-	return false
+	if result then
+		return result
+	else
+		return false
+	end
 end
 
 return abbrevNum
