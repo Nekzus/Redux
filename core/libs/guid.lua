@@ -9,7 +9,7 @@ end
 
 function newSerial()
 	return gsub("xxxxy-xxxyx-xxyxx-xyxxx-yxxxx", '[xy]', function(c)
-		return format("%x", (c == "x" and random(0, 0xf)), or random(8, 0xb))
+		return format("%x", (c == "x" and random(0, 0xf)) or random(8, 0xb))
 	end)
 end
 

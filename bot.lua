@@ -178,34 +178,10 @@ function loadBot()
 	print(format("\n%s", startMessage))
 	client:removeAllListeners()
 
-	-- Carrega todos os arquivos de configuração
-	loadAllFiles("./config/")
-	--[[for file, type in fs.scandirSync("./config/") do
-		if type == "file" then
-			loadFile(format("./config/%s", file))
-		end
-	end]]
-
-	-- Carrega todas as bibliotecas e utilidades
-	loadAllFiles("./core/")
-	--[[for _, folder in next, {"libs", "utils"} do
-		for file, type in fs.scandirSync(format("./core/%s/", folder)) do
-			if type == "file" then
-				loadFile(format("./core/%s/%s", folder, file))
-			end
-		end
-	end]]
-
-	-- Carrega todas as linguagens e eventos
-	loadAllFiles("./langs/")
-	loadAllFiles("./events/")
-	--[[for _, folder in next, {"langs", "events"} do
-		for file, type in fs.scandirSync(format("./%s/", folder)) do
-			if type == "file" then
-				loadFile(format("./%s/%s", folder, file))
-			end
-		end
-	end]]
+	loadAllFiles("./config/") -- Carrega todos os arquivos de configuração
+	loadAllFiles("./core/") -- Carrega as funcionalidades essenciais
+	loadAllFiles("./langs/") -- Carrega os dicionários de tradução
+	loadAllFiles("./events/") -- Carrega os eventos do Discord para o bot
 
 	-- Carrega todos os comandos
 	for category, type in fs.scandirSync("./mods/") do
