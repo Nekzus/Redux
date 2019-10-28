@@ -1,8 +1,15 @@
+--[[
+	Parte responsável por registrar callbacks que serão ativados por eventos
+]]
+
+-- Cria um construtor para registrar os métodos e metamétodos
 local main = {}
 main.__index = main
 
+-- Cria uma nova seed para o gerador pseudo-random
 randomSeed(os.time())
 
+-- Função construtora que cria um novo objeto 'flare' para ser usado
 function main:__call(first, ...)
 	if self.mode == 1 then
 		for _, func in next, self.tasks do
@@ -26,6 +33,7 @@ function main:__call(first, ...)
 	}, main)
 end
 
+-- Registra um novo callback
 function main:task(func)
 	local index = tostring(func)
 	local tasks = self.tasks
@@ -40,6 +48,7 @@ function main:task(func)
 	return ret
 end
 
+-- Limpa todos os callbacks atualmente registrados
 function main:flush()
 	for k, v in next, self.tasks do
 		self.tasks[k] = nil
@@ -48,6 +57,8 @@ function main:flush()
 	self.tasks = {}
 end
 
+-- Registra o processo
 flare = setmetatable({}, main)
 
+-- Retorna o processo para confirmar que houve a execução sem erros
 return flare

@@ -12,12 +12,16 @@ config.terms = {
 	},
 	yes = {
 		"yes", "y",
-		"on", "true",
-		"+", "1",
+		"on",
+		"true",
+		"+",
+		"1",
 	},
 	no = {
 		"no", "n",
-		"off", "false",
-		"-", "0",
+		"off",
+		"false",
+		"-",
+		"0",
 	}
 }

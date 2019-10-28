@@ -19,32 +19,27 @@ end
 -- Carrega as informações de um arquivo que foi salvo no caminho específicado
 function main.load(filePath)
 	filePath = assert(filePath and format("./saves/%s.txt", filePath), "Could not parse file location in load()")
-	assert(isFile(filePath), "Could not find file in location in load()")
+	assert(isFile(filePath), "Could not find file in location for load()")
 
 	local result
-	local file = fs.openSync(filePath, "r")
+	local file = assert(fs.openSync(filePath, "r"), format("Could not open file for filePath %s", filePath))
+	result = serpent.load(fs.readSync(file)) -- loadstring(fs.readSync(file))
 
-	assert(file, format("Could not open file: %s", err))
-	result = loadstring(fs.readSync(file))
 	fs.closeSync(file)
 
-	return result()
+	return result --result()
 end
 
 -- Salva as informações de um arquivo no caminho específicado
 function main.save(data, filePath)
-	assert(data and type(data) == "table", "Data must be of table-type in load()")
+	assert(data and type(data) == "table", "Data must be a table-type for save()")
 	filePath = assert(filePath and format("./saves/%s.txt", filePath), "Could not parse file location in save()")
 	assert(isFile(filePath), "Could not find file in location save()")
 
 	local result
-	local file = fs.openSync(filePath, "w")
+	local file = assert(fs.openSync(filePath, "w"), format("Could not open file for filePath %s", filePath))
 
-	assert(file, format("Could not open file: %s", err))
-
-	local encoded = serpent.dump(data)
-
-	fs.writeSync(file, - 1, encoded)
+	fs.writeSync(file, - 1, serpent.dump(data))
 	fs.closeSync(file)
 
 	return true
