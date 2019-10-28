@@ -21,13 +21,12 @@ function main.load(filePath)
 	filePath = assert(filePath and format("./saves/%s.txt", filePath), "Could not parse file location in load()")
 	assert(isFile(filePath), "Could not find file in location for load()")
 
-	local result
 	local file = assert(fs.openSync(filePath, "r"), format("Could not open file for filePath %s", filePath))
-	result = serpent.load(fs.readSync(file)) -- loadstring(fs.readSync(file))
+	local result = loadstring(fs.readSync(file))
 
 	fs.closeSync(file)
 
-	return result --result()
+	return result()
 end
 
 -- Salva as informações de um arquivo no caminho específicado
@@ -36,7 +35,6 @@ function main.save(data, filePath)
 	filePath = assert(filePath and format("./saves/%s.txt", filePath), "Could not parse file location in save()")
 	assert(isFile(filePath), "Could not find file in location save()")
 
-	local result
 	local file = assert(fs.openSync(filePath, "w"), format("Could not open file for filePath %s", filePath))
 
 	fs.writeSync(file, - 1, serpent.dump(data))
