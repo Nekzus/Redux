@@ -121,6 +121,7 @@ local _function = function(data)
 				notMutedUsers = format("%s, ")
 			end
 
+			notMutedAmount = notMutedAmount + 1
 			notMutedUsers = format("%s%s", notMutedUsers, member.name)
 		end
 
@@ -183,7 +184,7 @@ local _function = function(data)
 			text = format("%s\n", text)
 		end
 
-		if alreadyMutedAmount == 1 then
+		if notMutedAmount == 1 then
 			text = format("%s%s", text, parseFormat("${followingUserNotMuted}", langList, notMutedUsers))
 		else
 			text = format("%s%s", text, parseFormat("${followingUsersNotMuted}", langList, notMutedUsers))

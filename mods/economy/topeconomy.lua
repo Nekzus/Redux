@@ -1,8 +1,8 @@
 local _config = {
-	name = "economy",
+	name = "topeconomy",
 	desc = "${listsEconomyTopUsers}",
 	usage = "${pageKey}",
-	aliases = {"top"},
+	aliases = {"top", "topmoney"},
 	cooldown = 0,
 	level = 0,
 	direct = false,
