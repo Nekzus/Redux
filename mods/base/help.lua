@@ -222,8 +222,8 @@ local _function = function(data)
 		showPage()
 
 		decoyBird:addReaction(arwLeft)
-		decoyBird:addReaction(arwUp)
 		decoyBird:addReaction(arwDown)
+		decoyBird:addReaction(arwUp)
 
 		blinker = blinker or blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
 
@@ -234,21 +234,21 @@ local _function = function(data)
 			renderMenu()
 		end)
 
-		blinker:on(arwUp.id, function()
-			page = max(1, page - 1)
-
-			if not private then
-				decoyBird:removeReaction(arwUp, data.user.id)
-			end
-
-			showPage()
-		end)
-
 		blinker:on(arwDown.id, function()
 			page = min(pages, page + 1)
 
 			if not private then
 				decoyBird:removeReaction(arwDown, data.user.id)
+			end
+
+			showPage()
+		end)
+
+		blinker:on(arwUp.id, function()
+			page = max(1, page - 1)
+
+			if not private then
+				decoyBird:removeReaction(arwUp, data.user.id)
 			end
 
 			showPage()

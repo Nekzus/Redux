@@ -1,3 +1,8 @@
+--[[
+	Parte responsável por cuidar de eventos referentes à novas guildas
+	sendo disponibilizadas ao bot
+]]
+
 client:on("guildCreate",
 	function(guild)
 		printf("[Guild Added] New guild is not available %s (%s)", guild.id, guild.name)

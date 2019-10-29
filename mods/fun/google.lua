@@ -64,24 +64,24 @@ local _function = function(data)
 			firstTime = false
 			blinker = blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
 
-			decoyBird:addReaction(arwUp)
 			decoyBird:addReaction(arwDown)
-
-			blinker:on(arwUp.id, function()
-				page = max(1, page - 1)
-
-				if not private then
-					decoyBird:removeReaction(arwUp, data.user.id)
-				end
-
-				showPage()
-			end)
+			decoyBird:addReaction(arwUp)
 
 			blinker:on(arwDown.id, function()
 				page = min(pages, page + 1)
 
 				if not private then
 					decoyBird:removeReaction(arwDown, data.user.id)
+				end
+
+				showPage()
+			end)
+
+			blinker:on(arwUp.id, function()
+				page = max(1, page - 1)
+
+				if not private then
+					decoyBird:removeReaction(arwUp, data.user.id)
 				end
 
 				showPage()

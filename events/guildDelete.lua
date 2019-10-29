@@ -1,3 +1,8 @@
+--[[
+	Parte responsável por realizar a limpeza para quando uma guilda
+	remover	o bot
+]]
+
 client:on("guildDelete",
 	function(guild)
 		saves.global:set(guild.id, nil)

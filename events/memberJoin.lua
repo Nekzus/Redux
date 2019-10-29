@@ -1,3 +1,8 @@
+--[[
+	Parte responsável por realizar checagens quando um usuário novo
+	entrar em uma guilda
+]]
+
 client:on("memberJoin",
 	function(member)
 		if member.user.bot then

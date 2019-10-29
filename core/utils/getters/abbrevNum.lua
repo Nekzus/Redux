@@ -24,7 +24,7 @@ function abbrevNum(text, numMax)
 			if num then
 				result = num * 0.3
 			end
-		elseif text:match("rand%a-") then
+		elseif text:match("rand%a*") then
 			local num = text:match("%d+")
 
 			if num and num > 0 then
