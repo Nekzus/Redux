@@ -8,7 +8,7 @@ client:on("memberJoin",
 		local guildData = getGuildData(guild)
 		local muteData = guildData:get("mutes"):raw()[member.id]
 
-		if muteData then
+		if muteData and hasPermissions(member, nil, {"manageRoles"}) then
 			local roleId = getPrimaryRoleIndex(-1, guildData:get("roles"):raw())
 			local role = roleId and getRole(roleId, "id", guild)
 
