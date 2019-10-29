@@ -1,7 +1,7 @@
 local _config = {
 	name = "help",
 	desc = "${helpMessage}",
-	usage = "${pageKey}",
+	usage = "${nameKey}",
 	aliases = {"h", "commands", "cmds"},
 	cooldown = 5,
 	level = 0,
