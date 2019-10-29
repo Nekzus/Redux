@@ -15,7 +15,7 @@ function main:__call(message, timeout, whitelist)
 
 	local mt = setmetatable({
 		message = message,
-		timeout = timeout or 30,
+		timeout = timeout or config.timeouts.reaction,
 		lastUse = os.time(),
 		whitelist = whitelist,
 		active = {},
@@ -31,6 +31,12 @@ end
 function main:on(emojiId, func)
 	assert(self.message, "Must create main context with constructor")
 	self.active[emojiId] = func
+end
+
+-- Limpa a lista de emojis definidos para as funções
+function main:clear()
+	assert(self.message, "Must create main context with constructor")
+	self.active = {}
 end
 
 -- Fecha a comunicação com um dos emojis que foi definidos via on()

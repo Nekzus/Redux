@@ -18,7 +18,7 @@ langs["pt-br"] = {
 	["roles"] = "Cargos",
 	["emojis"] = "Emojis",
 	["moderation"] = "Moderação",
-	["entertainment"] = "Entretenimento",
+	["fun"] = "Diversão",
 	["base"] = "Base",
 	["owner"] = "Dono",
 	["pong"] = "Pong",
@@ -182,7 +182,7 @@ langs["pt-br"] = {
 	["noDemoteEqual"] = "Você não pode rebaixar esse usuário por que vocês tem o mesmo cargo",
 	["cannotPromoteUser"] = "**%s** não pode ser promovido",
 	["cannotDemoteUser"] = "**%s** não pode ser rebaixado",
-	["botDesc"] = "%s é um bot multi-uso desenvolvido para ajudar a moderar o seu servidor",
+	["botDesc"] = "%s é um bot multi-uso desenvolvido para ajudar a moderar o seu servidor.",
 	["commandRanBy"] = "Comando executado por %s",
 	["userBanned"] = "**%s** foi banido",
 	["userUnbanned"] = "**%s** foi desbanido",
@@ -289,10 +289,24 @@ langs["pt-br"] = {
 	["itemDoesNotHave"] = "Você não tem esse item!",
 	["successGaveItem"] = "Item dado com sucesso!",
 
+	["followingUserBeenMuted"] = "O usuário **%s** foi mutado por **%s**",
+	["followingUsersBeenMuted"] = "Os usuários **%s** foram mutados por **%s**",
+
+	["followingUserNotMuted"] = "O usuário **%s** não pode ser mutado",
+	["followingUsersNotMuted"] = "Os usuários **%s** não puderam ser mutados",
+
+	["followingUserAlreadyMuted"] = "O usuário **%s** já está mutado",
+	["followingUsersAlreadyMuted"] = "Os usuários **%s** já estão mutados",
+
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 
 	-- Descriptions
+	["categoryDescBase"] = "principal e essencial.",
+	["categoryDescEconomy"] = "economia e itens.",
+	["categoryDescFun"] = "diversão e jogos.",
+	["categoryDescModeration"] = "ferramentas de moderação.",
+
 	["givesItemToSomeone"] = "dá o item mencionado para uma ou mais pessoas.",
 	["showsRobloxProfile"] = "mostra o perfil no ROBLOX do usuário mencionado.",
 	["searchesImage"] = "pesquisa no google pela imagem mencionada.",

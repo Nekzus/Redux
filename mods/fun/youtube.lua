@@ -1,8 +1,8 @@
 local _config = {
-	name = "google",
-	desc = "${searchesGoogle}",
+	name = "youtube",
+	desc = "${searchesYoutubeVideo}",
 	usage = "${messageKey}",
-	aliases = {"g", "search"},
+	aliases = {"yt", "video"},
 	cooldown = 15,
 	level = 0,
 	direct = true,
@@ -30,13 +30,14 @@ local _function = function(data)
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
-	local searchResult = apiGoogleSearch(searchTerms)
+	local searchResult = apiYoutubeVideo(searchTerms)
+	local youtubeLink = "https://www.youtube.com/watch?v=%s"
 
 	local page = 1
 	local pages = 50
 
 	if searchResult == nil or searchResult.items == nil then
-		local text = parseFormat("${googleNotFoundTerms}", langList, searchTerms)
+		local text = parseFormat("${videoNotFoundTerms}", langList, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		decoyBird:update(nil, embed:raw())
@@ -50,7 +51,7 @@ local _function = function(data)
 		local item = searchResult.items[page]
 
 		if not item then
-			local text = parseFormat("${googleNotFoundTerms}", langList, searchTerms)
+			local text = parseFormat("${videoNotFoundTerms}", langList, searchTerms)
 			local embed = replyEmbed(text, data.message, "error")
 
 			decoyBird:update(nil, embed:raw())
@@ -58,21 +59,20 @@ local _function = function(data)
 			return false
 		end
 
-		decoyBird:update(item.link, nil)
+		decoyBird:update(format(youtubeLink, item.id.videoId), nil)
 
 		if firstTime == true then
 			firstTime = false
-			message = decoyBird.message
-			blinker = blink(message, config.timeouts.reaction, {data.user.id})
+			blinker = blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
 
-			message:addReaction(arwUp)
-			message:addReaction(arwDown)
+			decoyBird:addReaction(arwUp)
+			decoyBird:addReaction(arwDown)
 
 			blinker:on(arwUp.id, function()
 				page = max(1, page - 1)
 
 				if not private then
-					message:removeReaction(arwUp, data.user.id)
+					decoyBird:removeReaction(arwUp, data.user.id)
 				end
 
 				showPage()
@@ -82,7 +82,7 @@ local _function = function(data)
 				page = min(pages, page + 1)
 
 				if not private then
-					message:removeReaction(arwDown, data.user.id)
+					decoyBird:removeReaction(arwDown, data.user.id)
 				end
 
 				showPage()

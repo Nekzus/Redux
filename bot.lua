@@ -96,11 +96,8 @@ config.time = {
 	hour = 3600,
 	day = 86400,
 	week = 604800,
-	month = 2629746,
-	year = 31556952,
-	decade = 315569520,
-	century = 3155695200,
-	millenia = 31556952000,
+	month = 2592000,
+	year = 31536000,
 }
 
 randomSeed(os.time())

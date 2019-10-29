@@ -33,6 +33,20 @@ client:on("messageCreate",
 
 		local private = data.member == nil
 		local guildData = not private and getGuildData(data.guild)
+		local muteData = not private and guildData:get("mutes"):raw()[data.member.id]
+
+		if muteData then
+			local roleId = getPrimaryRoleIndex(-1, guildData:get("roles"):raw())
+			local role = roleId and getRole(roleId, "id", data.guild)
+
+			if role and not data.member:hasRole(role) then
+				data.member:addRole(role)
+				data.message:delete()
+
+				return false
+			end
+		end
+
 		local guildLang = not private and guildData and guildData:get("lang") or config.defaultGuild.lang
 		local langList = langs[guildLang]
 		local deleteCommand = not private and guildData:get("deleteCommand", false) or false

@@ -18,7 +18,7 @@ langs["en-us"] = {
 	["roles"] = "Roles",
 	["emojis"] = "Emojis",
 	["moderation"] = "Moderation",
-	["entertainment"] = "Entertainment",
+	["fun"] = "Fun",
 	["base"] = "Base",
 	["owner"] = "Owner",
 	["pong"] = "Pong",
@@ -182,7 +182,7 @@ langs["en-us"] = {
 	["noDemoteEqual"] = "You cannot demote that user because you have the same role",
 	["cannotPromoteUser"] = "**%s** cannot be promoted",
 	["cannotDemoteUser"] = "**%s** cannot be demoted",
-	["botDesc"] = "%s is a multi-purpose bot designed to help moderate your server",
+	["botDesc"] = "%s is a multi-purpose bot designed to help moderate your server.",
 	["commandRanBy"] = "Command ran by %s",
 	["userBanned"] = "**%s** has been banned",
 	["userUnbanned"] = "**%s** has been unbanned",
@@ -289,10 +289,24 @@ langs["en-us"] = {
 	["itemDoesNotHave"] = "You don't have this item!",
 	["successGaveItem"] = "Successfully gave the item!",
 
+	["followingUserBeenMuted"] = "The user **%s** has been muted for **%s**",
+	["followingUsersBeenMuted"] = "The users **%s** have been muted for **%s**",
+
+	["followingUserNotMuted"] = "The user **%s** could not be muted",
+	["followingUsersNotMuted"] = "The users **%s** could not be muted",
+
+	["followingUserAlreadyMuted"] = "The user **%s** is already muted",
+	["followingUsersAlreadyMuted"] = "The users **%s** are already muted",
+
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 
 	-- Descriptions
+	["categoryDescBase"] = "main and essential.",
+	["categoryDescEconomy"] = "economy and items.",
+	["categoryDescFun"] = "fun and games.",
+	["categoryDescModeration"] = "moderation tools.",
+
 	["givesItemToSomeone"] = "gives the mentioned item to the mentioned person or more.",
 	["showsRobloxProfile"] = "shows the ROBLOX profile of the mentioned user.",
 	["searchesImage"] = "searches on google for the mentioned image.",

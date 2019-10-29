@@ -8,4 +8,12 @@ config.emojis = {
 	arwRight = "ArrowRight",
 	arwUp = "ArrowUp",
 	arwDown = "ArrowDown",
+	twoMoney = "TwoMoney",
+	book = "Book",
+	balloons = "Balloons",
+	shield = "Shield",
+	ok = "Ok",
+	cancel = "Cancel",
+	warning = "Warning",
+	prohibited = "Prohibited",
 }

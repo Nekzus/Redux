@@ -51,13 +51,13 @@ function main:delete()
 end
 
 -- Adiciona uma reação ao conteúdo do objeto
-function main:react(emoji)
+function main:addReaction(emoji)
 	assert(self.message, "Must create main context with :post() first")
 	return self.message:addReaction(emoji)
 end
 
 -- Remove uma reação do conteúdo do objeto
-function main:removeReact(emoji, userId)
+function main:removeReaction(emoji, userId)
 	assert(self.message, "Must create main context with :post() first")
 	return self.message:removeReaction(emoji, userId)
 end

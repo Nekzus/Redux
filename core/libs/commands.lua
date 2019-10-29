@@ -14,12 +14,18 @@
 ]]
 
 -- Cria um construtor para registrar os métodos e metamétodos
-commands = {list = {}, temp = {}}
+commands = {list = {}, temp = {}, categories = {}}
 commands.__index = commands
 
 -- Função que cria um novo comando a partir de dados já pré-definidos
 function commands:create(data)
 	local name = assert(data.name, "Missing data for command at commands:add(...)")
+	local category = data.category
+	category = category and category:match("%w+")
+
+	if category and not inList(category, self.categories) then
+		insert(self.categories, category)
+	end
 
 	self.list[name] = data
 	self.last = name

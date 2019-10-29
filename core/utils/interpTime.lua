@@ -1,4 +1,10 @@
 function interpTime(text)
+	text = type(text) == "string" and text
+	or type(text) == "number" and tostring(text)
+	or nil
+
+	assert(text, "Text must be a number or string!")
+
 	local totalTime = 0
 
 	for formula in text:gmatch(config.patterns.time.base) do
@@ -18,7 +24,7 @@ function interpTime(text)
 		local match = text:match("%d+")
 
 		if match then
-			totalTime = (totalTime + (tonumber(match))) * hour
+			totalTime = (totalTime + (tonumber(match))) * config.time.hour
 		else
 			totalTime = 60 * 60
 		end

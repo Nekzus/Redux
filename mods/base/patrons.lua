@@ -77,17 +77,16 @@ local _function = function(data)
 
 		if decoyBird == nil then
 			decoyBird = bird:post(nil, embed:raw(), data.channel)
-			message = decoyBird.message
-			blinker = blink(message, config.timeouts.reaction, {data.user.id})
+			blinker = blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
 
-			message:addReaction(arwUp)
-			message:addReaction(arwDown)
+			decoyBird:addReaction(arwUp)
+			decoyBird:addReaction(arwDown)
 
 			blinker:on(arwUp.id, function()
 				page = max(1, page - 1)
 
 				if not private then
-					message:removeReaction(arwUp, data.user.id)
+					decoyBird:removeReaction(arwUp, data.user.id)
 				end
 
 				showPage()
@@ -97,7 +96,7 @@ local _function = function(data)
 				page = min(pages, page + 1)
 
 				if not private then
-					message:removeReaction(arwDown, data.user.id)
+					decoyBird:removeReaction(arwDown, data.user.id)
 				end
 
 				showPage()
