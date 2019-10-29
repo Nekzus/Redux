@@ -24,8 +24,8 @@ local _function = function(data)
 		return false
 	end
 
-	local arwLeft = getEmoji(config.emojis.arwLeft, "name", baseGuildId)
-	local arwRight = getEmoji(config.emojis.arwRight, "name", baseGuildId)
+	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuildId)
+	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuildId)
 
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
@@ -73,24 +73,24 @@ local _function = function(data)
 			message = decoyBird.message
 			blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
-			message:addReaction(arwLeft)
-			message:addReaction(arwRight)
+			message:addReaction(arwUp)
+			message:addReaction(arwDown)
 
-			blinker:on(arwLeft.id, function()
+			blinker:on(arwUp.id, function()
 				page = max(1, page - 1)
 
 				if not private then
-					message:removeReaction(arwLeft, data.user.id)
+					message:removeReaction(arwUp, data.user.id)
 				end
 
 				showPage()
 			end)
 
-			blinker:on(arwRight.id, function()
+			blinker:on(arwDown.id, function()
 				page = min(pages, page + 1)
 
 				if not private then
-					message:removeReaction(arwRight, data.user.id)
+					message:removeReaction(arwDown, data.user.id)
 				end
 
 				showPage()

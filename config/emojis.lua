@@ -6,4 +6,6 @@ config.emojis = {
 	topic = "Rhombus",
 	arwLeft = "ArrowLeft",
 	arwRight = "ArrowRight",
+	arwUp = "ArrowUp",
+	arwDown = "ArrowDown",
 }

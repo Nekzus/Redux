@@ -26,7 +26,8 @@ config.patterns = {
 		capture = "(%d+)(%a)",
 	},
 	quotes = {
-		base = "(%b\"\")",
+		base = "[\"'].-[\"']",
+		capture = "[\"'](.-)[\"']",
 	},
 	numberType1 = {
 		base = "[+-]?%d+%p?%d-",

@@ -287,6 +287,7 @@ langs["pt-br"] = {
 	["successBoughtItem"] = "Item comprado com sucesso!",
 	["itemUseMustHaveRole"] = "Você precisa ter o cargo **%s** para poder usar este item!",
 	["itemDoesNotHave"] = "Você não tem esse item!",
+	["successGaveItem"] = "Item dado com sucesso!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",

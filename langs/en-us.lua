@@ -287,6 +287,7 @@ langs["en-us"] = {
 	["successBoughtItem"] = "Item successfully bought!",
 	["itemUseMustHaveRole"] = "You must have the **%s** role in order to use this item!",
 	["itemDoesNotHave"] = "You don't have this item!",
+	["successGaveItem"] = "Successfully gave the item!",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
