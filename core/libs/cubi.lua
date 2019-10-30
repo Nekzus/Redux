@@ -11,10 +11,25 @@ local textEffects = {
 		"minha",
 	},
 	["funny"] = {
-		"[k]+"
-		"[ahi][hi][ahi]*",
-		"[auhsd][aushd]*",
-		"[r][s][rs]*",
+		"[k]+",
+		"a[h][ah]*",
+		"%srs",
+	},
+	["friendly"] = {
+		"lega[lu]",
+		"gost[oa]",
+		"daor[.%S]*",
+		"[in]*teres[.%S]*t[ei]"
+	},
+	["extend"] = {
+		"acha que",
+		"diria que",
+		"sabe se",
+		"confia que",
+		"sabe me",
+		"diga",
+		"[a]*conselh[aeo][r]*[ia]*",
+		"infor[a-z%S]*"
 	},
 	["offensive"] = {
 		"ot[.%S]*io",
@@ -22,7 +37,7 @@ local textEffects = {
 		"corn[.%S]*",
 		"desgr[.%S]*ado",
 		"f[ou]d[.%S]*",
-		"c[.]*",
+		"%sc[.]*",
 		"viad*",
 		"calcinha",
 		"cueca",
@@ -166,22 +181,6 @@ local textEffects = {
 		"chupo",
 		"chupeta"
 	},
-	["friendly"] = {
-		"lega[lu]",
-		"gost[oa]",
-		"daor[.%S]*",
-		"[in]*teres[.%S]*t[ei]"
-	},
-	["extend"] = {
-		"acha que",
-		"diria que",
-		"sabe se",
-		"confia que",
-		"sabe me",
-		"diga",
-		"[a]*conselh[aeo][r]*[ia]*",
-		"infor[a-z%S]*"
-	}
 }
 
 local positive = {
@@ -257,13 +256,13 @@ local extraPositive = {
 	{
 		"tenho certeza que vai dar tudo certo",
 		"pode ficar em paz",
-		"coloco fé nisso"
-	}
+		"coloco fé nisso",
+	},
 	{
 		"vamo torcer pra ficar de boa, é nois",
 		"tenho certeza que tá tudo certo, tamo junto",
 		"pode crer nisso, é nois",
-	}
+	},
 }
 
 local extraNegative = {
@@ -271,7 +270,7 @@ local extraNegative = {
 		"não acho que vá dar certo",
 		"não confio muito nisso pelo menos",
 		"eu não daria muita importância para isso",
-	}
+	},
 	{
 		"e não ligo",
 		"eu não estou nem aí",
@@ -282,7 +281,7 @@ local extraNegative = {
 		"e não me atrapalhe mais",
 		"agora para de me atrapalhar",
 		"você está me atrapalhando",
-	}
+	},
 	{
 		"e quero que você se foda, sua bosta de cavalo",
 		"e espero que um carro te atropele",
@@ -295,22 +294,22 @@ local extraNegative = {
 		"para de me encher a porra do saco",
 		"e vai ver se outro bot quer seu cú, eu não quero",
 		"vai encher o saco da puta que te pariu",
-	}
+	},
 }
 
 function cubi(text)
-	local effect = {}
+	local list = text:split(" ")
+	local effects = {}
 	local result = ""
 
-	for key, matches in next, textEffects do
-		for _, match in next, matches do
-			if text:find(match) then
-				local isKey = effect[key]
+	for _, word in next, list do
+		for key, matches in next, textEffects do
+			for _, match in next, matches do
+				if word:find(match) then
+					local isKey = effects[key] or {}
 
-				if isKey then
-					isKey = isKey + 1
-				else
-					effect[key] = 1
+					insert(isKey, match)
+					effects[key] = isKey
 				end
 			end
 		end
@@ -320,48 +319,44 @@ function cubi(text)
 		self
 		want
 		funny
-		offensive
 		friendly
 		extend
+		offensive
 	]]
 
+	local function effectLevel(name)
+		local effect = effects[name]
+		effect = effect and #effect or 0
+
+		return effect
+	end
+
+	local function getRandom(list, limit)
+		limit = limit or #list
+		return list[random(min(limit, #list))]
+	end
+
 	-- Montamos o inicio da resposta
-	if random(1, 2) == 1 then
+	local answerType = random(1, 2) == 1 and true or false
+	local rudeLevel = min(3, effectLevel("offensive"))
+	local canOffend = rudeLevel > 0
 
+	if answerType then
+		-- Positive
+		local positiveList = getRandom(positive, canOffend and 3 or 2)
+		result = format("%s%s", result, getRandom(positiveList))
+	else
+		-- Negative
+		local negativeList = getRandom(negative, canOffend and rudeLevel or 2)
+		result = format("%s%s", result, getRandom(negativeList))
+
+		local extraList = getRandom(extraNegative, canOffend and rudeLevel or 2)
+		result = format("%s, %s", result, getRandom(extraList))
 	end
 
-	for key, level in next, effect do
-		printf("%s: %s", key, level)
-	end
+	return result
 end
 
+return cubi
+
 -- https://www.normaculta.com.br/classes-gramaticais/
-
--- Essenciais
---[[
-[] = {
-	"Eu"
-}
-[] = {
-	"não sei",
-	"não ligo",
-	"não me importo"
-}
-[] = {
-	"entendo",
-	"concordo",
-	"apoio"
-}
-
--- Complementares
-[] = {
-	"e não quero saber",
-	"e não ligo",
-	"e caguei pra você"
-}
-[] = {
-	"e espero que dê tudo certo",
-	"e espero que funcione",
-	"e gostaria de entender melhor em algum momento",
-}
-]]
