@@ -40,12 +40,12 @@ client:on("messageCreate",
 			local role = roleId and getRole(roleId, "id", data.guild)
 
 			if role and not data.member:hasRole(role) then
-				if hasPermissions(data.member, data.channel, {"manageMessages"}) then
-					data.message:delete()
+				if hasPermissions(data.member, nil, {"manageRoles"}) then
+					data.member:addRole(role)
 				end
 
-				if hasPermissions(data.member, data.channel, {"manageRoles"}) then
-					data.member:addRole(role)
+				if hasPermissions(data.member, nil, {"manageMessages"}) then
+					data.message:delete()
 				end
 
 				return false

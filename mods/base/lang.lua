@@ -3,8 +3,8 @@ local _config = {
 	desc = "${setsLang}",
 	usage = "${valueKey}",
 	aliases = {},
-	cooldown = 3,
-	level = 4,
+	cooldown = 5,
+	level = 3,
 	direct = false,
 }
 

@@ -38,107 +38,17 @@ local _function = function(data)
 	local decoyBird
 	local blinker
 
-	function menuSwaping()
+	local menuSwaping
+	local renderCategory
+	local renderMenu
+
+	menuSwaping = function()
 		active = false
 		blinker:clear()
 		decoyBird:clearReacts()
 	end
 
-	function renderMenu()
-		local embed = newEmbed()
-
-		embed:title(client.user.name)
-		embed:description(parseFormat("${botDesc}", langList, client.user.name))
-
-		embed:color(config.colors.blue)
-		embed:footerIcon(config.images.info)
-		signFooter(embed, data.author, guildLang)
-
-		embed:field({
-			name = format("%s %s (base)", baseEmoji.mentionString, parseFormat("${base}", langList)),
-			value = parseFormat("${categoryDescBase}", langList),
-			inline = true,
-		})
-		embed:field({
-			name = format("%s %s (economy)", economyEmoji.mentionString, parseFormat("${economy}", langList)),
-			value = parseFormat("${categoryDescEconomy}", langList),
-			inline = true,
-		})
-		embed:field({
-			name = format("%s %s (fun)", entertainmentEmoji.mentionString, parseFormat("${fun}", langList)),
-			value = parseFormat("${categoryDescFun}", langList),
-			inline = true,
-		})
-		embed:field({
-			name = format("%s %s (moderation)", moderationEmoji.mentionString, parseFormat("${moderation}", langList)),
-			value = parseFormat("${categoryDescModeration}", langList),
-			inline = true,
-		})
-
-		if not decoyBird then
-			decoyBird = bird:post(nil, embed:raw(), data.channel)
-		else
-			decoyBird:update(nil, embed:raw())
-		end
-
-		decoyBird:clearReacts()
-		decoyBird:addReaction(baseEmoji)
-		decoyBird:addReaction(economyEmoji)
-		decoyBird:addReaction(entertainmentEmoji)
-		decoyBird:addReaction(moderationEmoji)
-
-		blinker = blinker or blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
-
-		blinker:on(baseEmoji.id,
-			function()
-				if not active then
-					return
-				else
-					menuSwaping()
-					renderCategory("base")
-				end
-			end
-		)
-
-		blinker:on(economyEmoji.id,
-			function()
-				if not active then
-					return
-				else
-					menuSwaping()
-					renderCategory("economy")
-				end
-			end
-		)
-
-		blinker:on(entertainmentEmoji.id,
-			function()
-				if not active then
-					return
-				else
-					menuSwaping()
-					renderCategory("fun")
-				end
-			end
-		)
-
-		blinker:on(moderationEmoji.id,
-			function()
-				if not active then
-					return
-				else
-					menuSwaping()
-					renderCategory("moderation")
-				end
-			end
-		)
-
-		active = true
-
-		return true
-	end
-
-	function renderCategory(category)
+	renderCategory = function(category)
 		local listTotal = 0
 		local listItems = {}
 
@@ -253,6 +163,100 @@ local _function = function(data)
 
 			showPage()
 		end)
+	end
+
+	renderMenu = function()
+		local embed = newEmbed()
+
+		embed:title(client.user.name)
+		embed:description(parseFormat("${botDesc}", langList, client.user.name))
+
+		embed:color(config.colors.blue)
+		embed:footerIcon(config.images.info)
+		signFooter(embed, data.author, guildLang)
+
+		embed:field({
+			name = format("%s %s (base)", baseEmoji.mentionString, parseFormat("${base}", langList)),
+			value = parseFormat("${categoryDescBase}", langList),
+			inline = true,
+		})
+		embed:field({
+			name = format("%s %s (economy)", economyEmoji.mentionString, parseFormat("${economy}", langList)),
+			value = parseFormat("${categoryDescEconomy}", langList),
+			inline = true,
+		})
+		embed:field({
+			name = format("%s %s (fun)", entertainmentEmoji.mentionString, parseFormat("${fun}", langList)),
+			value = parseFormat("${categoryDescFun}", langList),
+			inline = true,
+		})
+		embed:field({
+			name = format("%s %s (moderation)", moderationEmoji.mentionString, parseFormat("${moderation}", langList)),
+			value = parseFormat("${categoryDescModeration}", langList),
+			inline = true,
+		})
+
+		if not decoyBird then
+			decoyBird = bird:post(nil, embed:raw(), data.channel)
+		else
+			decoyBird:update(nil, embed:raw())
+		end
+
+		decoyBird:clearReacts()
+		decoyBird:addReaction(baseEmoji)
+		decoyBird:addReaction(economyEmoji)
+		decoyBird:addReaction(entertainmentEmoji)
+		decoyBird:addReaction(moderationEmoji)
+
+		blinker = blinker or blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
+
+		blinker:on(baseEmoji.id,
+			function()
+				if not active then
+					return
+				else
+					menuSwaping()
+					renderCategory("base")
+				end
+			end
+		)
+
+		blinker:on(economyEmoji.id,
+			function()
+				if not active then
+					return
+				else
+					menuSwaping()
+					renderCategory("economy")
+				end
+			end
+		)
+
+		blinker:on(entertainmentEmoji.id,
+			function()
+				if not active then
+					return
+				else
+					menuSwaping()
+					renderCategory("fun")
+				end
+			end
+		)
+
+		blinker:on(moderationEmoji.id,
+			function()
+				if not active then
+					return
+				else
+					menuSwaping()
+					renderCategory("moderation")
+				end
+			end
+		)
+
+		active = true
+
+		return true
 	end
 
 	if not value then

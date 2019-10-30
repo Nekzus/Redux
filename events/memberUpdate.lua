@@ -4,7 +4,7 @@ client:on("memberUpdate",
 			return
 		end
 
-		local guild = member.guild
+		--[[local guild = member.guild
 		local guildData = getGuildData(guild)
 		local muteData = guildData:get("mutes"):raw()[member.id]
 
@@ -15,6 +15,6 @@ client:on("memberUpdate",
 			if role and not member:hasRole(role) then
 				member:addRole(role)
 			end
-		end
+		end]]
 	end
 )
