@@ -60,8 +60,7 @@ local textEffects = {
 		"demonio",
 		"demônio",
 		"fudi",
-		"arrombado",
-		"arrombada",
+		"arrombad[ao]*",
 		"prostituta",
 		"transa",
 		"transar",
@@ -129,7 +128,6 @@ local textEffects = {
 		"deu muito",
 		"pika",
 		"bct",
-		"cuu",
 		"gostoso",
 		"putiane",
 		"arrombado",
@@ -295,7 +293,7 @@ local extraNegative = {
 		"e não me importo com você, vai tomar NO SEU CÚ CARALHO, SOME",
 		"e aproveita e vai dar o cú",
 		"para de me encher a porra do saco",
-		"vê se outro bot quer seu cú, eu não quero",
+		"e vai ver se outro bot quer seu cú, eu não quero",
 		"vai encher o saco da puta que te pariu",
 	}
 }
