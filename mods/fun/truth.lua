@@ -1,6 +1,6 @@
 local _config = {
 	name = "truth",
-	desc = "${laranjosText}",
+	desc = "${answersYesNoMaybe}",
 	usage = "${messageKey}",
 	aliases = {"yn", "ynm", "istrue", "itstrue", "8ball"},
 	restrict = {"pt-br"},

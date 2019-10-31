@@ -271,8 +271,10 @@ local _function = function(data)
 
 		local embed = newEmbed()
 
-		embed:title(client.user.name)
-		embed:description(parseFormat("${botDesc}", langList, client.user.name))
+		--[[embed:title(client.user.name)
+		embed:description(parseFormat("${botDesc}", langList, client.user.name))]]
+		embed:title(format("%s", value:lower()))
+		embed:description(format("%s", parseFormat(command.desc, langList)))
 
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
