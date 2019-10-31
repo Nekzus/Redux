@@ -142,6 +142,9 @@ reflect.badWords = {
 	"retardado",
 	"retardardo",
 	"idiota",
+	"fedido",
+	"fedorento",
+	"manco",
 }
 reflect.badPhrases = {
 	"n[%z\1-\127\194-\244][\128-\191]o gosto de voc[%z\1-\127\194-\244][\128-\191]*%S",
@@ -426,7 +429,7 @@ function cubi(text, mode)
 	-- Checa se o usuário usou alguma forma de cumprimento
 	if greeting then
 		local using = answers.greetings
-		local level = random(min(#using, rudeLevel + 1))
+		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1) or random(min(#using, rudeLevel + 1))
 		local list = using[level]
 
 		result = format("%s. ", list[random(#list)])
@@ -435,7 +438,7 @@ function cubi(text, mode)
 	-- Caso as chances forem para dar uma resposta neutra
 	if chance == 1 or mode == "neutral" then
 		local using = answers.neutral
-		local level = random(min(#using, rudeLevel + 1))
+		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1) or random(min(#using, rudeLevel + 1))
 		local list = using[level]
 
 		result = format("%s%s.", result, list[random(#list)])
@@ -446,7 +449,7 @@ function cubi(text, mode)
 	-- Resposta positiva
 	if chance == 2 then
 		local using = answers.positive
-		local level = random(min(#using, rudeLevel + 1))
+		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1) or random(min(#using, rudeLevel + 1))
 		local list = using[level]
 
 		result = format("%s%s", result, list[random(#list)])
@@ -467,7 +470,7 @@ function cubi(text, mode)
 	-- Resposta negativa
 	if chance == 3 then -- Negative
 		local using = answers.negative
-		local level = random(min(#using, rudeLevel + 1))
+		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1) or random(min(#using, rudeLevel + 1))
 		local list = using[level]
 		local result = ""
 
