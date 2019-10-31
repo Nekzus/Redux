@@ -123,7 +123,8 @@ client:on("messageCreate",
 				local permsList = {
 					"embedLinks",
 					"sendMessages",
-					"useExternalEmojis"
+					"useExternalEmojis",
+					"addReactions",
 				}
 
 				if commandDataPerms then

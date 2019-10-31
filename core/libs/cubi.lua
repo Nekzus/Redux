@@ -1,189 +1,181 @@
-local textEffects = {
-	["self"] = {
-		"eu",
-		"sou",
-		"estou",
-		"quero"
-	},
-	["want"] = {
-		"quer[oi]",
-		"meu",
-		"minha",
-	},
-	["funny"] = {
-		"[k]+",
-		"a[h][ah]*",
-		"%srs",
-	},
-	["friendly"] = {
-		"lega[lu]",
-		"gost[oa]",
-		"daor[.%S]*",
-		"[in]*teres[.%S]*t[ei]"
-	},
-	["extend"] = {
-		"acha que",
-		"diria que",
-		"sabe se",
-		"confia que",
-		"sabe me",
-		"diga",
-		"[a]*conselh[aeo][r]*[ia]*",
-		"infor[a-z%S]*"
-	},
-	["offensive"] = {
-		"ot[.%S]*io",
-		"lix",
-		"corn[.%S]*",
-		"desgr[.%S]*ado",
-		"f[ou]d[.%S]*",
-		"%sc[.]*",
-		"viad*",
-		"calcinha",
-		"cueca",
-		"buceta",
-		"pau",
-		"f[ou]de[r]*",
-		"vadia",
-		"crl",
-		"puta",
-		"bucet[a]*",
-		"c[u]+[h]*",
-		"cú",
-		"vaca",
-		"puta",
-		"gozei",
-		"gozar",
-		"meter",
-		"meti",
-		"piranha",
-		"cadela",
-		"penetro",
-		"penetrar",
-		"boquete",
-		"boqueteira",
-		"chupa",
-		"chupar",
-		"safada",
-		"putinha",
-		"safadinha",
-		"viado",
-		"viada",
-		"gay",
-		"fdp",
-		"capeta",
-		"demonio",
-		"demônio",
-		"fudi",
-		"arrombad[ao]*",
-		"prostituta",
-		"transa",
-		"transar",
-		"transei",
-		"transou",
-		"possuir",
-		"seu corpo",
-		"estrupar",
-		"estrupei",
-		"arrombada",
-		"piriguete",
-		"putona",
-		"novinha",
-		"novinhas",
-		"meter",
-		"meteria",
-		"comer",
-		"comeria",
-		"cama",
-		"bunda",
-		"bundinha",
-		"bucetinha",
-		"ppk",
-		"xoxota",
-		"passa o",
-		"pauzudo",
-		"bucetuda",
-		"camisinha",
-		"cocaína",
-		"fude",
-		"fudee",
-		"viadinho",
-		"xereca",
-		"pedofilo",
-		"penis",
-		"pênis",
-		"rapariga",
-		"gostosa",
-		"eu chupo",
-		"todinha",
-		"sexoo",
-		"sexooo",
-		"sex",
-		"sexo",
-		"punheta",
-		"siririca",
-		"ponheta",
-		"transaria",
-		"comi ela",
-		"[ei]nfia[r]*",
-		"cuzin",
-		"cuzao",
-		"cuzão",
-		"bucetinhaa",
-		"bicha",
-		"Que tranza",
-		"tranza",
-		"pica",
-		"pika",
-		"me encontre",
-		"passa",
-		"endereço",
-		"vc mora",
-		"você mora",
-		"deu muito",
-		"pika",
-		"bct",
-		"gostoso",
-		"putiane",
-		"arrombado",
-		"rolas",
-		"gozo",
-		"virgindade",
-		"estrupa",
-		"arrombar",
-		"estrupado",
-		"estrupada",
-		"estruparei",
-		"chupar",
-		"estrupador",
-		"galinha",
-		"estrupar",
-		"penetra",
-		"bucetuda",
-		"porra",
-		"fode",
-		"gozada",
-		"nudes",
-		"adiciona",
-		"cu!",
-		"soca",
-		"socar",
-		"mata",
-		"matar",
-		"morrer",
-		"morre",
-		"mora",
-		"casa",
-		"pelado",
-		"pelada",
-		"fudeee",
-		"meteu",
-		"chupo",
-		"chupeta"
-	},
+local reflect = {}
+reflect.badWords = {
+	"ot[.%S]*io",
+	"lix[o]*",
+	"corn[.%S]*",
+	"desgr[.%S]*ado",
+	"f[ou]d[.%S]*",
+	"c[.]*",
+	"calcinha",
+	"cueca",
+	"pau",
+	"f[ou]de[r]*",
+	"vadia",
+	"crl",
+	"put[oa]",
+	"bucet[a]*",
+	"c[u]+[h]*",
+	"c[%z\1-\127\194-\244][\128-\191]*%S",
+	"sua vaca",
+	"goz[ea][ir]*",
+	"meter",
+	"meti",
+	"piranha",
+	"cadela",
+	"penetro",
+	"penetrar",
+	"boquet*",
+	"chupa",
+	"chupar",
+	"safada",
+	"putinh[ao]",
+	"safadinha",
+	"viado",
+	"viada",
+	"fdp",
+	"capeta",
+	"demonio",
+	"demônio",
+	"fudi",
+	"arrombad[ao]*",
+	"prostituta",
+	"transa",
+	"transar",
+	"transei",
+	"transou",
+	"possuir",
+	"seu corpo",
+	"estrupar",
+	"estrupei",
+	"arrombada",
+	"piriguete",
+	"putona",
+	"putão",
+	"putao",
+	"novinha",
+	"novinhas",
+	"meter",
+	"meteria",
+	"comer",
+	"comeria",
+	"cama",
+	"bunda",
+	"bundinha",
+	"bucetinha",
+	"ppk",
+	"xoxota",
+	"passa o",
+	"pauzudo",
+	"bucetuda",
+	"camisinha",
+	"cocaína",
+	"fude",
+	"fudee",
+	"viadinho",
+	"xereca",
+	"pedofilo",
+	"penis",
+	"pênis",
+	"rapariga",
+	"gostosa",
+	"eu chupo",
+	"todinha",
+	"sex[o]*",
+	"punheta",
+	"siririca",
+	"ponheta",
+	"transaria",
+	"comi ela",
+	"[ei]nfia[r]*",
+	"cuzin",
+	"cuzao",
+	"cuzão",
+	"bucetinhaa",
+	"bicha",
+	"Que tranza",
+	"tranza",
+	"pica",
+	"pika",
+	"me encontre",
+	"passa",
+	"endereço",
+	"vc mora",
+	"você mora",
+	"deu muito",
+	"pika",
+	"bct",
+	"gostoso",
+	"putiane",
+	"arrombado",
+	"rolas",
+	"gozo",
+	"virgindade",
+	"estrupa",
+	"arrombar",
+	"estrupado",
+	"estrupada",
+	"estruparei",
+	"chupar",
+	"estrupador",
+	"galinha",
+	"estrupar",
+	"penetra",
+	"bucetuda",
+	"porra",
+	"fode",
+	"gozada",
+	"nudes",
+	"adiciona",
+	"cu!",
+	"soca",
+	"socar",
+	"mata",
+	"matar",
+	"morrer",
+	"morre",
+	"mora",
+	"casa",
+	"pelado",
+	"pelada",
+	"fudeee",
+	"meteu",
+	"chupo",
+	"chupeta",
+	"animal",
+	"retardado",
+	"retardardo",
+	"idiota",
+}
+reflect.badPhrases = {
+	"n[%z\1-\127\194-\244][\128-\191]o gosto de voc[%z\1-\127\194-\244][\128-\191]*%S",
+	"eu te odeio",
+	"eu odeio voc[%z\1-\127\194-\244][\128-\191]*%S",
+	"voc[%z\1-\127\194-\244][\128-\191]*%S [%z\1-\127\194-\244][\128-\191] feio",
+	"seu burro",
+	"sua anta",
+	"sua burra",
+	"seu anta",
+	"seu imundo",
+	"seu inmundo",
+}
+reflect.question = {
+	"acha q[a-z%S]*",
+	"diria q[a-z%S]*",
+	"sabe [sm]e",
+	"confia q[a-z%S]*",
+	"diga",
+	"[a]*conselh[aeo][r]*[ia]*",
+	"infor[%z\1-\127\194-\244][\128-\191]*%S",
+	"me ajud[ea]*",
+	"quer[oi]*",
+	"o qu[%z\1-\127\194-\244][\128-\191]*%S",
+	"oqu[%z\1-\127\194-\244][\128-\191]*%S",
+	"como",
+	"ser[%z\1-\127\194-\244][\128-\191]* q*",
 }
 
-local positive = {
+local answers = {}
+answers.positive = {
 	{
 		"Eu espero que sim",
 		"Eu tenho certeza que sim",
@@ -203,15 +195,18 @@ local positive = {
 		"Pode confiar que sim",
 		"Sem dúvida alguma",
 		"Óbvio que sim",
+		"Claro que sim",
 	},
 	{
-		"Perde teu tempo perguntando não, óbvio que sim",
+		"E eu ainda preciso te responder? Obviamente sim",
 		"Cê ainda tem dúvida disso? Claro que sim",
 		"Bota fé nisso",
-	}
+		"Pode botar fé que sim",
+		"Se pá sim",
+		"Não precisava me perguntar o óbvio",
+	},
 }
-
-local negative = {
+answers.negative = {
 	{
 		"Eu espero que não",
 		"Eu tenho certeza que não",
@@ -225,136 +220,195 @@ local negative = {
 		"Não conte com isso",
 		"É certo que não",
 		"Com certeza não",
-		"Tenho minhas dúvidas"
+		"Duvido muito",
 	},
 	{
 		"Pode confiar que não",
-		"Com todas as dúvidas",
+		"Tenho dúvidas sobre isso",
 		"Óbvio que não",
+		"Claro que não",
 	},
 	{
-		"Perca de tempo, óbvio que não",
-		"Sério que você perdeu seu tempo perguntando isso? É óbvio que não",
-		"Tira seu cavalinho da chuva, óbvio que não",
-	}
+		"Para de perder tempo perguntado, a resposta é não",
+		"Não tenha dúvidas, a resposta é não",
+		"Nem precisa ter esperanças nisso",
+		"Para de me perguntar isso, óbviamente é não",
+		"Se pá não",
+		"Para de me fazer perder tempo, eu já disse que não",
+	},
 }
-
-local neutral = {
+answers.neutral = {
 	{
 		"Concentre-se e pergunte novamente",
 		"A resposta ainda não é certa",
-		"Díficil dizer",
+		"É díficil dizer",
+		"Eu não sei ao certo",
+		"Não tenho certeza",
+		"Não sei como te responder",
+		"Minhas fontes não souberam me dizer",
+		"Não posso te responder isso por enquanto",
+		"Não tenho tanta certeza para te dizer",
+	},
+	{
+		"Pergunte com mais vontade, por favor.",
+		"Faça novamente a sua pergunta",
+		"Elabore melhor a sua pergunta, por favor",
+		"Fica o questionamento.",
+		"Não faço ideia",
+		"Eis a pergunta.",
+	},
+	{
+		"Você não sabe fazer uma pergunta direito não?",
+		"Aprende a fazer uma pergunta antes de falar comigo, obrigado",
+		"Sua pergunta faz tanto sentido quanto o motivo pelo qual você nasceu",
+		"Incrível, outra pergunta inútil",
+		"Ah claro, mais um pra me fazer perder tempo",
+		"Vai arranajar o que fazer, vai",
+		"Xoooo, some daqui, não quero falar contigo",
+		"E eu que sei? Vai procurar no Google",
 	}
 }
-
-local extraPositive = {
+answers.extraPositive = {
 	{
-		"e espero que dê tudo certo",
-		"e tenho certeza que vai ficar tudo certo",
-		"e tenho certeza que vai dar tudo certo",
-	},
-	{
+		"espero que dê tudo certo",
+		"tenho certeza que vai ficar tudo certo",
 		"tenho certeza que vai dar tudo certo",
-		"pode ficar em paz",
-		"coloco fé nisso",
 	},
 	{
-		"vamo torcer pra ficar de boa, é nois",
-		"tenho certeza que tá tudo certo, tamo junto",
-		"pode crer nisso, é nois",
+		"pode ficar na paz",
+		"relaxa",
+		"fica de boa",
+	},
+	{
+		"vamo torcer pra dar bom",
+		"vai dar bom",
+		"pode crer nisso",
 	},
 }
-
-local extraNegative = {
+answers.extraNegative = {
 	{
 		"não acho que vá dar certo",
-		"não confio muito nisso pelo menos",
-		"eu não daria muita importância para isso",
+		"não confio muito nisso, pelo menos",
+		"pelo menos eu não confio muito nisso",
+		"e eu não daria muita importância para isso",
 	},
 	{
 		"e não ligo",
 		"eu não estou nem aí",
 		"eu não me importo",
 		"eu não quero saber",
-		"e aproposito eu tenho raiva de você",
+		"e aproposito, eu tenho raiva de você",
 		"e para de falar comigo",
 		"e não me atrapalhe mais",
 		"agora para de me atrapalhar",
-		"você está me atrapalhando",
+		"e aproposito, você está me atrapalhando",
 	},
 	{
-		"e quero que você se foda, sua bosta de cavalo",
+		"e eu quero que você se foda, sua bosta de cavalo",
 		"e espero que um carro te atropele",
-		"e espero que um carro te atropele, seu pedaço de mendigo",
-		"e espero que você sente num prego e ele entre no seu cú, fdp",
+		"e espero que um carro te atropele, seu pedaço de merda seca",
+		"e espero que você sente num prego e ele entre em você bem fundo",
 		"e estou torcendo pra você ter uma diarreia, sua égua manca",
-		"e não falo com quem passa o fim de semana vendo porno",
-		"e não me importo com você, vai tomar NO SEU CÚ CARALHO, SOME",
-		"e aproveita e vai dar o cú",
-		"para de me encher a porra do saco",
-		"e vai ver se outro bot quer seu cú, eu não quero",
-		"vai encher o saco da puta que te pariu",
+		"e não falo com quem passa o fim de semana assistindo porno",
+		"e não falo com quem passa o fim de semana jogando hentai simulator online",
+		"e não me importo com você, vai tomar VAI SE FERRAR MANO, SOME DAQUI LOGO, NEGÓCIO CHATO VELHO",
+		"e aproveita e volta lá pra esquina, seus clientes tão te esperando já faz meia hora",
+		"agora para de me encher o saco seu resto de aborto",
+		"e vai ver se outro bot quer te comer, eu não quero",
+		"e vai encher o saco do seu médico que deu um tapa na sua cara quando você nasceu por confundir sua bunda com seu rosto",
 	},
 }
 
-function cubi(text)
-	local list = text:split(" ")
-	local effects = {}
-	local result = ""
-
-	for _, word in next, list do
-		for key, matches in next, textEffects do
-			for _, match in next, matches do
-				if word:find(match) then
-					local isKey = effects[key] or {}
-
-					insert(isKey, match)
-					effects[key] = isKey
-				end
-			end
+local function matchList(word, list)
+	for _, value in next, list do
+		if word:find(value) then
+			return word
 		end
 	end
 
-	--[[
-		self
-		want
-		funny
-		friendly
-		extend
-		offensive
-	]]
+	return false
+end
 
-	local function effectLevel(name)
-		local effect = effects[name]
-		effect = effect and #effect or 0
+-- reflect: rude, question
+-- answers: positive, negative, neutral, extraPositive, extraNegative
 
-		return effect
+randomSeed(os.time())
+
+function cubi(text)
+	assert(text and type(text) == "string", "Text must be a string")
+
+	local rudeLevel = 0
+	local question = matchList(text, reflect.question)
+	local list = text:split(" ")
+	local chance = random(1, 3)
+
+	for _, word in next, list do
+		if matchList(word, reflect.badWords) then
+			rudeLevel = rudeLevel + 1
+		end
 	end
 
-	local function getRandom(list, limit)
-		limit = limit or #list
-		return list[random(min(limit, #list))]
+	for _, phrase in next, reflect.badPhrases do
+		if text:find(phrase) then
+			rudeLevel = rudeLevel + 1
+		end
 	end
 
-	-- Montamos o inicio da resposta
-	local answerType = random(1, 2) == 1 and true or false
-	local rudeLevel = min(3, effectLevel("offensive"))
-	local canOffend = rudeLevel > 0
+	-- Resposta neutra
+	if chance == 1 then
+		local using = answers.neutral
+		local level = random(min(#using, rudeLevel + 1))
+		local list = using[level]
+		local result = ""
 
-	if answerType then
-		-- Positive
-		local positiveList = getRandom(positive, canOffend and 3 or 2)
-		result = format("%s%s", result, getRandom(positiveList))
-	else
-		-- Negative
-		local negativeList = getRandom(negative, canOffend and rudeLevel or 2)
-		result = format("%s%s", result, getRandom(negativeList))
+		result = list[random(#list)]
 
-		local extraList = getRandom(extraNegative, canOffend and rudeLevel or 2)
-		result = format("%s, %s", result, getRandom(extraList))
+		return result
 	end
 
-	return result
+	-- Resposta positiva
+	if chance == 2 then
+		local using = answers.positive
+		local level = random(min(#using, rudeLevel + 1))
+		local list = using[level]
+		local result = ""
+
+		result = list[random(#list)]
+
+		if random(1, 10) >= 6 or rudeLevel >= 2 then
+			local using = answers.extraPositive
+			local level = random(min(#using, rudeLevel + 1))
+			local list = using[level]
+
+			result = format("%s, %s.", result, list[random(#list)])
+		else
+			result = format("%s.", result)
+		end
+
+		return result
+	end
+
+	-- Resposta negativa
+	if chance == 3 then -- Negative
+		local using = answers.negative
+		local level = random(min(#using, rudeLevel + 1))
+		local list = using[level]
+		local result = ""
+
+		result = list[random(#list)]
+
+		if random(1, 10) >= 6 or rudeLevel >= 2 then
+			local using = answers.extraNegative
+			local level = random(min(#using, rudeLevel + 1))
+			local list = using[level]
+
+			result = format("%s, %s.", result, list[random(#list)])
+		else
+			result = format("%s.", result)
+		end
+
+		return result
+	end
 end
 
 return cubi
