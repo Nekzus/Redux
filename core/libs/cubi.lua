@@ -479,7 +479,7 @@ function cubi(text, mode)
 			local level = random(min(#using, rudeLevel + 1))
 			local list = using[level]
 
-			result = format("%s, %s.", result, list[random(#list)])
+			result = format("%s, %s", result, list[random(#list)])
 		end
 
 		result = format("%s.", result)
