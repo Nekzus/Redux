@@ -280,7 +280,7 @@ answers.extraPositive = {
 		"fica de boa",
 	},
 	{
-		"vamo torcer pra dar bom",
+		"vamos torcer pra dar bom",
 		"vai dar bom",
 		"pode crer nisso",
 	},
