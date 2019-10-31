@@ -56,8 +56,6 @@ reflect.badWords = {
 	"novinhas",
 	"meter",
 	"meteria",
-	"comer",
-	"comeria",
 	"cama",
 	"bunda",
 	"bundinha",
@@ -157,6 +155,8 @@ reflect.badPhrases = {
 	"seu anta",
 	"seu imundo",
 	"seu inmundo",
+	"me comer",
+	"me comeria",
 }
 reflect.question = {
 	"acha q[a-z%S]*",
@@ -172,6 +172,25 @@ reflect.question = {
 	"oqu[%z\1-\127\194-\244][\128-\191]*%S",
 	"como",
 	"ser[%z\1-\127\194-\244][\128-\191]* q*",
+	"me diz",
+}
+reflect.greeting = {
+	"oi",
+	"ol[%z\1-\127\194-\244][\128-\191]*",
+	"bom dia",
+	"tudo bem",
+	"e a[%z\1-\127\194-\244][\128-\191]*",
+	"eae",
+	"fala ae",
+	"falae",
+	"falai",
+	"fala a[%z\1-\127\194-\244][\128-\191]*",
+	"hello",
+	"helo",
+	"hey",
+	"aloha",
+	"alo",
+	"hi",
 }
 
 local answers = {}
@@ -248,14 +267,12 @@ answers.neutral = {
 		"Minhas fontes não souberam me dizer",
 		"Não posso te responder isso por enquanto",
 		"Não tenho tanta certeza para te dizer",
-	},
-	{
-		"Pergunte com mais vontade, por favor.",
+		"Pergunte com mais vontade, por favor",
 		"Faça novamente a sua pergunta",
 		"Elabore melhor a sua pergunta, por favor",
-		"Fica o questionamento.",
+		"Fica o questionamento",
 		"Não faço ideia",
-		"Eis a pergunta.",
+		"Eis a pergunta",
 	},
 	{
 		"Você não sabe fazer uma pergunta direito não?",
@@ -266,13 +283,30 @@ answers.neutral = {
 		"Vai arranajar o que fazer, vai",
 		"Xoooo, some daqui, não quero falar contigo",
 		"E eu que sei? Vai procurar no Google",
+	},
+	{
+		"Vou nem falar nada, vai que é contagioso",
+		"Você é muito irritante, sabia disso?",
+		"Você é irrelevante para mim",
+		"Some daqui antes que eu te dê ban",
+		"Eu não falo com bandeirantes",
+		"Eu não gosto de você",
+		"Eu não quero falar com você",
+		"Eu já disse que não quero falar com você antes e digo novamente",
+		"Vai tomar no seu cú",
+		"Vai se ferrar, resto de aborto",
+		"Caralho, como você é irritante",
+		"Gente escrota é assim, não pega ninguém e aí decide vim me encher o saco",
+		"Vai se fuder, obrigado",
+		"Vai lá se jogar no rio, obrigado",
+		"Você é doente",
 	}
 }
 answers.extraPositive = {
 	{
-		"espero que dê tudo certo",
-		"tenho certeza que vai ficar tudo certo",
-		"tenho certeza que vai dar tudo certo",
+		"eu acho",
+		"tenho certeza",
+		"tenho quase certeza",
 	},
 	{
 		"pode ficar na paz",
@@ -287,8 +321,8 @@ answers.extraPositive = {
 }
 answers.extraNegative = {
 	{
-		"não acho que vá dar certo",
-		"não confio muito nisso, pelo menos",
+		"eu não sei direito",
+		"não confio muito nisso",
 		"pelo menos eu não confio muito nisso",
 		"e eu não daria muita importância para isso",
 	},
@@ -318,6 +352,28 @@ answers.extraNegative = {
 		"e vai encher o saco do seu médico que deu um tapa na sua cara quando você nasceu por confundir sua bunda com seu rosto",
 	},
 }
+answers.greetings = {
+	{
+		"Olá",
+		"Oi",
+		"Aloha",
+		"Hey",
+		"Hello",
+		"Saudações",
+	},
+	{
+		"E aí",
+		"Fala aí",
+		"Eae",
+		"E aí meu",
+	},
+	{
+		"Fala, porra",
+		"E aí, caralho",
+		"Fala, seu resto de merda",
+		"E aí, caralho",
+	}
+}
 
 local function matchList(word, list)
 	for _, value in next, list do
@@ -334,34 +390,47 @@ end
 
 randomSeed(os.time())
 
-function cubi(text)
-	assert(text and type(text) == "string", "Text must be a string")
+function cubi(text, mode)
+	text = assert(text and type(text) == "string" and text:lower(), "Text must be a string")
 
+	-- Registra uma sequência de regras e considerações
 	local rudeLevel = 0
 	local question = matchList(text, reflect.question)
+	local greeting = matchList(text, reflect.greeting)
 	local list = text:split(" ")
 	local chance = random(1, 3)
+	local result = ""
 
+	-- Verifica se há palavras ofensivas na frase
 	for _, word in next, list do
 		if matchList(word, reflect.badWords) then
 			rudeLevel = rudeLevel + 1
 		end
 	end
 
+	-- Verifica se há frases ofensivas
 	for _, phrase in next, reflect.badPhrases do
 		if text:find(phrase) then
 			rudeLevel = rudeLevel + 1
 		end
 	end
 
-	-- Resposta neutra
-	if chance == 1 then
+	-- Checa se o usuário usou alguma forma de cumprimento
+	if greeting then
+		local using = answers.greetings
+		local level = random(min(#using, rudeLevel + 1))
+		local list = using[level]
+
+		result = format("%s. ", list[random(#list)])
+	end
+
+	-- Caso as chances forem para dar uma resposta neutra
+	if chance == 1 or mode == "neutral" then
 		local using = answers.neutral
 		local level = random(min(#using, rudeLevel + 1))
 		local list = using[level]
-		local result = ""
 
-		result = list[random(#list)]
+		result = format("%s%s.", result, list[random(#list)])
 
 		return result
 	end
@@ -371,19 +440,18 @@ function cubi(text)
 		local using = answers.positive
 		local level = random(min(#using, rudeLevel + 1))
 		local list = using[level]
-		local result = ""
 
-		result = list[random(#list)]
+		result = format("%s%s", result, list[random(#list)])
 
 		if random(1, 10) >= 6 or rudeLevel >= 2 then
 			local using = answers.extraPositive
 			local level = random(min(#using, rudeLevel + 1))
 			local list = using[level]
 
-			result = format("%s, %s.", result, list[random(#list)])
-		else
-			result = format("%s.", result)
+			result = format("%s, %s", result, list[random(#list)])
 		end
+
+		result = format("%s.", result)
 
 		return result
 	end
@@ -395,7 +463,7 @@ function cubi(text)
 		local list = using[level]
 		local result = ""
 
-		result = list[random(#list)]
+		result = format("%s%s", result, list[random(#list)])
 
 		if random(1, 10) >= 6 or rudeLevel >= 2 then
 			local using = answers.extraNegative
@@ -403,9 +471,9 @@ function cubi(text)
 			local list = using[level]
 
 			result = format("%s, %s.", result, list[random(#list)])
-		else
-			result = format("%s.", result)
 		end
+
+		result = format("%s.", result)
 
 		return result
 	end

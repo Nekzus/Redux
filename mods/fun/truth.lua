@@ -17,7 +17,7 @@ local _function = function(data)
 	local args = data.args
 
 	local phrase = data.content:sub(#args[1] + 2):lower()
-	local text = cubi(text)
+	local text = cubi(phrase, #phrase:split(" ") <= 3 and "neutral")
 
 	bird:post(format("%s %s", data.user.mentionString, text), nil, data.channel)
 
