@@ -275,7 +275,7 @@ answers.neutral = {
 		"Eis a pergunta",
 	},
 	{
-		"Você não sabe fazer uma pergunta direito não?",
+		"Você não sabe fazer uma pergunta direito mesmo em",
 		"Aprende a fazer uma pergunta antes de falar comigo, obrigado",
 		"Sua pergunta faz tanto sentido quanto o motivo pelo qual você nasceu",
 		"Incrível, outra pergunta inútil",
@@ -286,7 +286,7 @@ answers.neutral = {
 	},
 	{
 		"Vou nem falar nada, vai que é contagioso",
-		"Você é muito irritante, sabia disso?",
+		"Você é muito irritante, sabia disso? Some daqui",
 		"Você é irrelevante para mim",
 		"Some daqui antes que eu te dê ban",
 		"Eu não falo com bandeirantes",
