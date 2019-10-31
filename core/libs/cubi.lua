@@ -1,11 +1,10 @@
 local reflect = {}
 reflect.badWords = {
-	"ot[.%S]*io",
+	"ot[%z\1-\127\194-\244][\128-\191]*io",
 	"lix[o]*",
 	"corn[.%S]*",
 	"desgr[.%S]*ado",
 	"f[ou]d[.%S]*",
-	"c[.]*",
 	"calcinha",
 	"cueca",
 	"pau",
