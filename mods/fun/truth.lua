@@ -368,7 +368,7 @@ answers.extraNegative = {
 		"e estou torcendo pra você ter uma diarreia, sua égua manca",
 		"e não falo com quem passa o fim de semana assistindo porno",
 		"e não falo com quem passa o fim de semana jogando hentai simulator online",
-		"e não me importo com você, vai tomar VAI SE FERRAR MANO, SOME DAQUI LOGO, NEGÓCIO CHATO VELHO",
+		"e não me importo com você, VAI SE FERRAR, SOME DAQUI LOGO, NEGÓCIO CHATO VELHO",
 		"e aproveita e volta lá pra esquina, seus clientes tão te esperando já faz meia hora",
 		"agora para de me encher o saco seu resto de aborto",
 		"e vai ver se outro bot quer te comer, eu não quero",
