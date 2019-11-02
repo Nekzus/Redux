@@ -157,8 +157,17 @@ reflect.badWords = {
 	"fedido",
 	"fedorento",
 	"manco",
+	"vsf",
+	"bastard",
+	"pulta",
+	"merda",
+	"abortad",
+	"fod[ea]",
+	"caraio",
+	"hentai",
 }
 reflect.badPhrases = {
+	"pega aqui",
 	"n[%z\1-\127\194-\244][\128-\191]o gosto de voc[%z\1-\127\194-\244][\128-\191]*%S",
 	"eu te odeio",
 	"eu odeio voc[%z\1-\127\194-\244][\128-\191]*%S",
@@ -171,6 +180,13 @@ reflect.badPhrases = {
 	"seu inmundo",
 	"me comer",
 	"me comeria",
+	"comi sua",
+	"seu c[%z\1-\127\194-\244][\128-\191]c[%z\1-\127\194-\244][\128-\191]",
+	"vai toma",
+	"seu bot",
+	"seu merda",
+	"seu abortado",
+	"pega no",
 }
 reflect.question = {
 	"acha q[a-z%S]*",
@@ -194,7 +210,9 @@ reflect.greeting = {
 	"bom dia",
 	"tudo bem",
 	"e a[%z\1-\127\194-\244][\128-\191]*",
+	"ea[%z\1-\127\194-\244][\128-\191]*",
 	"eae",
+	"e ae",
 	"fala ae",
 	"falae",
 	"falai",
@@ -205,6 +223,71 @@ reflect.greeting = {
 	"aloha",
 	"alo",
 	"hi",
+}
+
+local phrasesYesNo = {
+	"Sim, bastante",
+	"Muito",
+	"Mais do que você imagina",
+	"Mais do que você pensa",
+	"Sim, agora cale-se",
+
+	"Nem tanto",
+	"Não muito",
+	"Não",
+	"Não, definitivamente não",
+	"Você se acha muito importante, menos por favor",
+}
+
+reflect.references = {
+	["[%z\1-\127\194-\244][\128-\191] doente"] = {
+		"Doente é pouco",
+		"Mais do que você pensa",
+		"Óbvio, não existe ninguém mais doente",
+
+		"Não, você que é",
+		"Doente é você",
+		"Mais do que você? Dúvido muito,"
+	},
+	["[%z\1-\127\194-\244][\128-\191] roludo"] = {
+		"Como você sabe? ( ͡° ͜ʖ ͡°)",
+		"Hmmmm..",
+		"Ao nível do Kid Bengala",
+
+		"Só se 7 centímetros for muito pra ti",
+		"Só está falando isso por não ter aguentado noite passada",
+		"Nops",
+	},
+	["u[%z\1-\127\194-\244][\128-\191]"] = {
+		"Welcome to Brawhalla",
+		"Welcome to Brawl-hallaaaaaa",
+		"Piada velha em",
+	},
+	["super%s*mario"] = {
+		"Super-Mario é um personagem bem legal",
+		"Super-Mario é um personagem bem daora",
+		"Super-Mario é um personagem bem top",
+
+		"Super-Mario é aquele que te comeu atrás do armário",
+		"Super-Mario que te pegou atrás do armário",
+		"Super-Mario que te comeu atrás do armário",
+	},
+	["é seu criador"] = {
+		"O Nekzt é meu criador",
+		"Eu não tenho criador, eu sou o criador",
+		"Eu sou o Thanos, ninguém me criou",
+		"Um maluco que é ruim no Paladins",
+		"Sua mãe",
+	},
+
+	["vou %a+"] = phrasesYesNo,
+	["j[%z\1-\127\194-\244][\128-\191] deu"] = phrasesYesNo,
+	["me %a+"] = phrasesYesNo,
+	["sou %a+"] = phrasesYesNo,
+	["[ao] [%z\1-\127\194-\244][\128-\191]"] = phrasesYesNo,
+	["[ao] dev"] = phrasesYesNo,
+	["[ao] %a+ [%z\1-\127\194-\244][\128-\191]"] = phrasesYesNo,
+	["vai ser"] = phrasesYesNo,
 }
 
 local answers = {}
@@ -225,14 +308,14 @@ answers.positive = {
 		"Sem dúvidas",
 	},
 	{
-		"Pode confiar que sim",
+		"Confia que sim",
 		"Sem dúvida alguma",
 		"Óbvio que sim",
 		"Claro que sim",
 	},
 	{
 		"E eu ainda preciso te responder? Obviamente sim",
-		"Cê ainda tem dúvida disso? Claro que sim",
+		"Cê ainda pergunta? É claro que sim",
 		"Bota fé nisso",
 		"Pode botar fé que sim",
 		"Se pá sim",
@@ -279,7 +362,7 @@ answers.neutral = {
 		"Não tenho certeza",
 		"Não sei como te responder",
 		"Minhas fontes não souberam me dizer",
-		"Não posso te responder isso por enquanto",
+		"Não posso te responder",
 		"Não tenho tanta certeza para te dizer",
 		"Pergunte com mais vontade, por favor",
 		"Faça novamente a sua pergunta",
@@ -301,9 +384,15 @@ answers.neutral = {
 		"Meu.. sério, some daqui vai",
 		"Para de me fazer pergunta sem sentido, obrigado",
 		"Esse comando é para receber uma resposta direta, então faz uma pergunta direta",
+		"Você é desprezível",
+		"Se interna, na boa mesmo",
+		"Eu realmente não gosto de você",
+		"Antes eu já não gostava de você, agora menos ainda",
+		"Você não sabe falar português, vai ler um livrinho vai",
+		"Para de me encher o saco",
 	},
 	{
-		":middle_finger:",
+		"Na boa, aqui pra você :middle_finger: sua bosta seca",
 		"Você tem pelo no dente",
 		"Você é muito idiota",
 		"Você é o ser mais irritante dessa porra desse servidor",
@@ -323,6 +412,20 @@ answers.neutral = {
 		"Vai se fuder, obrigado",
 		"Vai lá se jogar no rio, obrigado",
 		"Você é doente",
+		"Eu te odeio",
+		"Vai se ferrar desgracinha",
+		"Pega aqui :eggplant: idiota",
+		"Some daqui, pedaço de lixo",
+		"Caralho, sério, você é muito fdp",
+		"Vai tomar no olho do seu cú",
+		"Morre, diabo",
+		"Vai pro inferno",
+		"Vou te comer",
+		"Adoro falar contigo, porque sua vida é tão merda que me faz esquecer o quão é a minha",
+		"Seu dente é torto",
+		"Nem preciso te xingar, você já é um xingamento",
+		"Cala boca, rato morto",
+
 	}
 }
 answers.extraPositive = {
@@ -400,7 +503,7 @@ answers.greetings = {
 local function matchList(word, list)
 	for _, value in next, list do
 		if word:find(value) then
-			return word
+			return word, value
 		end
 	end
 
@@ -422,6 +525,16 @@ local function truthAnswer(text, mode)
 	local list = text:split(" ")
 	local chance = random(1, 3)
 	local result = ""
+
+	for phrase, responses in next, reflect.references do
+		if text:find(phrase) then
+			local list = responses
+
+			result = format("%s. ", list[random(#list)])
+
+			return result
+		end
+	end
 
 	-- Verifica se há palavras ofensivas na frase
 	for _, word in next, list do
