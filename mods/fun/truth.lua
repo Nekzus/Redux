@@ -235,7 +235,7 @@ local phrasesYesNo = {
 	"Não muito",
 	"Não",
 	"Não, definitivamente não",
-	"Você se acha muito importante, menos por favor",
+	"Lógico que não",
 }
 
 reflect.references = {
