@@ -4,7 +4,7 @@ local _config = {
 	usage = "${messageKey}",
 	aliases = {"yn", "ynm", "istrue", "itstrue", "8ball"},
 	restrict = {"pt-br"},
-	cooldown = 0,
+	cooldown = 3,
 	level = 0,
 	direct = true,
 }
@@ -548,6 +548,12 @@ end
 
 randomSeed(os.time())
 
+local function waitText(text)
+	if #text > 0 then
+		return wait(#text * 0.035)
+	end
+end
+
 local function truthAnswer(text, mode)
 	text = assert(text and type(text) == "string" and text:lower(), "Text must be a string")
 
@@ -564,6 +570,7 @@ local function truthAnswer(text, mode)
 			local list = responses
 
 			result = format("%s. ", list[random(#list)])
+			waitText(result)
 
 			return result
 		end
@@ -596,13 +603,12 @@ local function truthAnswer(text, mode)
 
 	-- Caso as chances forem para dar uma resposta neutra
 	if chance == 1 or mode == "neutral" then
+		chance = 1
 		local using = answers.neutral
 		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1) or random(min(#using, rudeLevel + 1))
 		local list = using[level]
 
 		result = format("%s%s.", result, list[random(#list)])
-
-		return result
 	end
 
 	-- Resposta positiva
@@ -622,8 +628,6 @@ local function truthAnswer(text, mode)
 		end
 
 		result = format("%s.", result)
-
-		return result
 	end
 
 	-- Resposta negativa
@@ -644,9 +648,11 @@ local function truthAnswer(text, mode)
 		end
 
 		result = format("%s.", result)
-
-		return result
 	end
+
+	waitText(result)
+
+	return result
 end
 
 local _function = function(data)
@@ -657,6 +663,9 @@ local _function = function(data)
 	local args = data.args
 
 	local phrase = data.content:sub(#args[1] + 2):lower()
+
+	data.channel:broadcastTyping()
+
 	local text = truthAnswer(phrase, #phrase:split(" ") <= 2 and "neutral")
 
 	bird:post(format("%s %s", data.user.mentionString, text), nil, data.channel)
