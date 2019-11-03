@@ -1,0 +1,164 @@
+local questions = {
+	{
+		{
+			"Qual é seu nome?",
+			"Como é seu nome?",
+			"Como você se chama?",
+		},
+		{
+			collect = {"userName"}
+		},
+	},
+
+	{
+		{
+			"Qual é sua idade?",
+			"Quantos anos você tem?",
+		},
+		{
+			collect = {"userAge"},
+		},
+	},
+
+	{
+		{
+			"Qual é seu tipo de música?",
+			"Que tipo de música você gosta?",
+			"Qual é seu estilo de música?",
+		},
+		{
+			collect = {"musicLiking"},
+		},
+	},
+}
+
+local keywords = {
+	direct = {
+		"Ei %s,",
+		"%s,",
+	},
+	ask = {
+		"Você poderia",
+		"Você pode",
+	},
+	toTellMe = {
+		"Me dizer",
+		"Me falar",
+	},
+	thank = {
+		"Obrigado",
+		"Muito obrigado",
+		"Agradecido"
+	},
+	apologies = {
+		"Me desculpe",
+		"Desculpe",
+		"Perdão",
+	},
+}
+
+local subjects = {
+	{
+		{
+
+		},
+		{
+
+		}
+	}
+}
+
+local ordinal = {
+	["primeiro"] = 1,
+	["segundo"] = 2,
+	["terceiro"] = 3,
+	["quarto"] = 4,
+	["quinto"] = 5,
+	["sexto"] = 6,
+	["sétimo"] = 7,
+	["oitavo"] = 8,
+	["nono"] = 9,
+	["décimo"] = 10,
+	["vigésimo"] = 20,
+	["trigésimo"] = 30,
+	["quadragésimo"] = 40,
+	["quinquagésimo"] = 50,
+	["sexagésimo"] = 60,
+	["septuagésimo"] = 70,
+	["setuagésimo"] = 70,
+	["octogésimo"] = 80,
+	["nonagésimo"] = 90,
+	["centésimo"] = 100,
+	["ducentésimo"] = 200,
+	["trecentésimo"] = 300,
+	["tricentésimo"] = 300,
+	["quadringentésimo"] = 400,
+	["quingentésimo"] = 500,
+	["sexcentésimo"] = 600,
+	["seiscentésimo"] = 600,
+	["septingentésimo"] = 700,
+	["setingentésimo"] = 700,
+	["octingentésimo"] = 800,
+	["noningentésimo"] = 900,
+	["nongentésimo"] = 900,
+	["milésimo"] = 1000,
+}
+
+local numbers = {
+	["zero"] = 0,
+	["um"] = 1,
+	["dois"] = 2,
+	["tres"] = 3,
+	["quatro"] = 4,
+	["cinco"] = 5,
+	["seis"] = 6,
+	["sete"] = 7,
+	["oito"] = 8,
+	["nove"] = 9,
+	["dez"] = 10,
+	["onze"] = 11,
+	["doze"] = 12,
+	["treze"] = 13,
+	["quatorze"] = 14,
+	["quinze"] = 15,
+	["dezesseis"] = 16,
+	["dezessete"] = 17,
+	["dezoito"] = 18,
+	["dezenove"] = 19,
+	["vinte"] = 20,
+	["trinta"] = 30,
+	["quarenta"] = 40,
+	["cinquenta"] = 50,
+	["sessenta"] = 60,
+	["setenta"] = 70,
+	["oitenta"] = 80,
+	["noventa"] = 90,
+	["cem"] = 100,
+	["cento"] = 100,
+	["mil"] = 1000,
+	["milhar"] = 1000,
+	["milhão"] = 1000000,
+	["milhões"] = 1000000,
+	["bilhão"] = 1000000000,
+	["bilhões"] = 1000000000,
+	["trilhão"] = 1000000000000,
+	["trilhões"] = 1000000000000,
+	["quadrilhão"] = 1000000000000000,
+	["quadrilhões"] = 1000000000000000,
+	["quintilhão"] = 1000000000000000000,
+	["quintilhões"] = 1000000000000000000,
+	["sextilhão"] = 1000000000000000000,
+	["sextilhões"] = 1000000000000000000,
+}
+
+local brain = cache({})
+
+local function talkBack(text, id)
+	local userData = brain:get(id)
+
+	-- Dá prioridade à um assunto que o usuário perguntou
+	-- responde o usuário
+
+	-- Coleta informações sobre o usuário e armazena
+
+end
