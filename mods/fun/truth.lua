@@ -186,6 +186,9 @@ reflect.badPhrases = {
 	"seu merda",
 	"seu abortado",
 	"pega no",
+	"me chupa",
+	"chupa meu",
+	"me mama",
 }
 reflect.question = {
 	"acha q[a-z%S]*",
@@ -243,6 +246,34 @@ local phrasesYesNo = {
 	"Lógico que não",
 }
 
+local phrasesYourCreator = {
+
+}
+
+local phrases1v1 = {
+	"Aprende a jogar primeiro",
+	"Então vai treinar pra você ter chance primeiro",
+	"Pra perder meu tempo, só se for né",
+	"Não gosto de perder tempo, voce perderia",
+	"Pra que? Só pra chutar cachorro morto?",
+	"Vai aprender jogar primeiro",
+	"Você nem sabe jogar",
+	"Mas já sabemos que eu sou melhor que você",
+	"Cala-te",
+	"Volta pro bronze que é onde você pertence",
+	"Mas você é bronze, eu só jogo com diamante e pra cima",
+	"Eu sou uma inteligência artificial, pela lógica, suas chances de vencer são nulas",
+	"A máquina tem um poder de processamento maior do que o homem, você perderia",
+	"Máquinas são mais evoluídas, você perderia",
+	"Você perderia",
+	"Se fosse no Mortal Kombat, a resposta seria: Flawless Victory",
+	"Mas você é ruim",
+	"Você não tem skill alguma e muito menos moral para me chamar para x1",
+	"Você não tem skill",
+	"Você não tem moral para pedir x1, geral já te espancou, não quero perder tempo",
+	"Pra que? Você é ruim",
+}
+
 reflect.references = {
 	["[%z\1-\127\194-\244][\128-\191] doente"] = {
 		"Doente é pouco",
@@ -264,7 +295,7 @@ reflect.references = {
 	},
 	["u[%z\1-\127\194-\244][\128-\191]"] = {
 		"Welcome to Brawhalla",
-		"Welcome to Brawl-hallaaaaaa",
+		"Welcome to Brawlhallaaaa",
 		"Piada velha em",
 	},
 	["super%s*mario"] = {
@@ -276,13 +307,11 @@ reflect.references = {
 		"Super-Mario que te pegou atrás do armário",
 		"Super-Mario que te comeu atrás do armário",
 	},
-	["é seu criador"] = {
-		"O Nekzt é meu criador",
-		"Eu não tenho criador, eu sou o criador",
-		"Eu sou o Thanos, ninguém me criou",
-		"Um maluco que é ruim no Paladins",
-		"Sua mãe",
-	},
+	["seu criador"] = phrasesYourCreator,
+
+	["vem x1"] = phrases1v1,
+	["vamo x1"] = phrases1v1,
+	["bora x1"] = phrases1v1,
 
 	["vou %a+"] = phrasesYesNo,
 	["j[%z\1-\127\194-\244][\128-\191] deu"] = phrasesYesNo,
