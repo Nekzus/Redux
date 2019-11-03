@@ -298,7 +298,7 @@ reflect.references = {
 		"Welcome to Brawlhallaaaa",
 		"Piada velha em",
 	},
-	["super%s*mario"] = {
+	["[o]* [s]*%a*%s*mario"] = {
 		"Super-Mario é um personagem bem legal",
 		"Super-Mario é um personagem bem daora",
 		"Super-Mario é um personagem bem top",
