@@ -120,6 +120,9 @@ langs["en-us"] = {
 	["viewAuditLog"] = "View Audit Log",
 
 	["mutedUsers"] = "Muted Users",
+	["duration"] = "Duration",
+	["reason"] = "Reason",
+	["timeLeft"] = "Time Left",
 
 	-- Keys
 	["pageKey"] = "[page]",
@@ -190,7 +193,6 @@ langs["en-us"] = {
 	["userUnbanned"] = "**%s** has been unbanned",
 	["usersUnbanned"] = "**%s** users have been unbanned",
 	["userKicked"] = "**%s** has been kicked",
-	["userMuted"] = "**%s** has been muted for **%s**",
 	["userUnmuted"] = "**%s** has been unmuted",
 	["userModed"] = "**%s** has been given the `Moderator` role",
 	["userUnmoded"] = "**%s** had the `Moderator` role taken away",
@@ -231,7 +233,6 @@ langs["en-us"] = {
 	["roleSelectedHigher"] = "Please, make sure that the bot has a role above **%s**",
 	["userPromoted"] = "**%s** has been promoted to **%s**",
 	["userDemoted"] = "**%s** has been demoted to **%s**",
-	["userNotMuted"] = "**%s** is not muted",
 	["notEnoughCash"] = "You don't have enough cash for that",
 	["userPaidSuccess"] = "You have paid **%s** to **%s**",
 	["userCashTaken"] = "You have taken **%s** from **%s**",
@@ -291,14 +292,20 @@ langs["en-us"] = {
 	["itemDoesNotHave"] = "You don't have this item!",
 	["successGaveItem"] = "Successfully gave the item!",
 
-	["followingUserBeenMuted"] = "The user **%s** has been muted for **%s**",
-	["followingUsersBeenMuted"] = "The users **%s** have been muted for **%s**",
+	["followingUserBeenMuted"] = "**%s** has been muted for **%s**",
+	["followingUsersBeenMuted"] = "**%s** have been muted for **%s**",
 
-	["followingUserNotMuted"] = "The user **%s** could not be muted",
-	["followingUsersNotMuted"] = "The users **%s** could not be muted",
+	["followingUserCannotMute"] = "**%s** could not be muted",
+	["followingUsersCannotMute"] = "**%s** could not be muted",
 
-	["followingUserAlreadyMuted"] = "The user **%s** is already muted",
-	["followingUsersAlreadyMuted"] = "The users **%s** are already muted",
+	["followingUserAlreadyMuted"] = "**%s** is already muted",
+	["followingUsersAlreadyMuted"] = "**%s** are already muted",
+
+	["followingUserBeenUnmuted"] = "**%s** has been unmuted",
+	["followingUsersBeenUnmuted"] = "**%s** have been unmuted",
+
+	["followingUserNotMuted"] = "**%s** is not muted",
+	["followingUsersNotMuted"] = "**%s** are not muted",
 
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",

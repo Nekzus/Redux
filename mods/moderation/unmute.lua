@@ -67,45 +67,75 @@ local _function = function(data)
 		return false
 	end
 
-	local user = data.message.mentionedUsers.first
-	local member = user and data.guild:getMember(user)
+	local unmutedUsers = ""
+	local alreadyUnmutedUsers = ""
 
-	if not user or not member then
-		local text = parseFormat("${userNotFound}", langList)
-		local embed = replyEmbed(text, data.message, "error")
+	local unmutedAmount = 0
+	local alreadyUnmutedAmount = 0
 
-		bird:post(nil, embed:raw(), data.channel)
+	for _, user in next, data.message.mentionedUsers:toArray() do
+		local member = user and data.guild:getMember(user)
+		local muteData = guildData:get("mutes"):raw()[member.id]
+		local canUnmute = true
 
-		return false
+		if not muteData then
+			if alreadyUnmutedUsers ~= "" then
+				alreadyUnmutedUsers = format("%s, ", alreadyUnmutedUsers)
+			end
+
+			alreadyUnmutedAmount = alreadyUnmutedAmount + 1
+			alreadyUnmutedUsers = format("%s%s", alreadyUnmutedUsers, member.name)
+		else
+			local tempMutes = saves.temp:get("mutes")
+			local timerProcess = muteTimers[muteData.guid]
+
+			if timerProcess then
+				timerProcess:stop()
+				timerProcess:close()
+			end
+
+			guildData:get("mutes"):set(member.id, nil)
+			tempMutes:set(muteData.guid, nil)
+
+			if role and member:hasRole(roleId) then
+				member:removeRole(role)
+			end
+
+			if unmutedUsers ~= "" then
+				unmutedUsers = format("%s, ", unmutedUsers)
+			end
+
+			unmutedAmount = unmutedAmount + 1
+			unmutedUsers = format("%s%s", unmutedUsers, member.name)
+		end
 	end
 
-	local muteData = guildData:get("mutes"):raw()[member.id]
+	local text = ""
 
-	if not muteData then
-		local text = parseFormat("${userNotMuted}", langList, member.tag)
-		local embed = replyEmbed(text, data.message, "warn")
+	if unmutedAmount > 0 then
+		if text ~= "" then
+			text = format("%s\n", text)
+		end
 
-		bird:post(nil, embed:raw(), data.channel)
-
-		return false
+		if unmutedAmount == 1 then
+			text = format("%s%s", text, parseFormat("${followingUserBeenUnmuted}", langList, unmutedUsers))
+		else
+			text = format("%s%s", text, parseFormat("${followingUsersBeenUnmuted}", langList, unmutedUsers))
+		end
 	end
 
-	local tempMutes = saves.temp:get("mutes")
-	local timerProcess = muteTimers[muteData.guid]
+	if alreadyUnmutedAmount > 0 then
+		if text ~= "" then
+			text = format("%s\n", text)
+		end
 
-	if timerProcess then
-		timerProcess:stop()
-		timerProcess:close()
+		if alreadyUnmutedAmount == 1 then
+			text = format("%s%s", text, parseFormat("${followingUserNotMuted}", langList, alreadyUnmutedUsers))
+		else
+			text = format("%s%s", text, parseFormat("${followingUsersNotMuted}", langList, alreadyUnmutedUsers))
+		end
 	end
 
-	guildData:get("mutes"):set(member.id, nil)
-	tempMutes:set(muteData.guid, nil)
-
-	if role and member:hasRole(roleId) then
-		member:removeRole(role)
-	end
-
-	local text = parseFormat("${userUnmuted}", langList, member.tag)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)

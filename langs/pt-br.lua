@@ -120,6 +120,9 @@ langs["pt-br"] = {
 	["viewAuditLog"] = "Ver Logs de Auditoria",
 
 	["mutedUsers"] = "Usuários Mutados",
+	["duration"] = "Duração",
+	["reason"] = "Motivo",
+	["timeLeft"] = "Tempo Restante",
 
 	-- Keys
 	["pageKey"] = "[pagina]",
@@ -190,7 +193,6 @@ langs["pt-br"] = {
 	["userUnbanned"] = "**%s** foi desbanido",
 	["usersUnbanned"] = "**%s** usuários foram desbanidos",
 	["userKicked"] = "**%s** foi expulso",
-	["userMuted"] = "**%s** foi mutado por **%s**",
 	["userUnmuted"] = "**%s** foi desmutado",
 	["userModed"] = "**%s** recebeu o cargo `Moderador`",
 	["userUnmoded"] = "**%s** teve o cargo `Moderador` removido",
@@ -231,7 +233,6 @@ langs["pt-br"] = {
 	["roleSelectedHigher"] = "Por favor, certifique-se de que o bot tem um cargo acima de **%s**",
 	["userPromoted"] = "**%s** foi promovido para **%s**",
 	["userDemoted"] = "**%s** foi rebaixado para **%s**",
-	["userNotMuted"] = "**%s** não está mutado",
 	["notEnoughCash"] = "Você não tem dinheiro suficiente para isso",
 	["userPaidSuccess"] = "Você pagou **%s** para **%s**",
 	["userCashTaken"] = "Você tirou **%s** de **%s**",
@@ -291,14 +292,20 @@ langs["pt-br"] = {
 	["itemDoesNotHave"] = "Você não tem esse item!",
 	["successGaveItem"] = "Item dado com sucesso!",
 
-	["followingUserBeenMuted"] = "O usuário **%s** foi mutado por **%s**",
-	["followingUsersBeenMuted"] = "Os usuários **%s** foram mutados por **%s**",
+	["followingUserBeenMuted"] = "**%s** foi mutado por **%s**",
+	["followingUsersBeenMuted"] = "**%s** foram mutados por **%s**",
 
-	["followingUserNotMuted"] = "O usuário **%s** não pode ser mutado",
-	["followingUsersNotMuted"] = "Os usuários **%s** não puderam ser mutados",
+	["followingUserNotMuted"] = "**%s** não pode ser mutado",
+	["followingUsersNotMuted"] = "**%s** não puderam ser mutados",
 
-	["followingUserAlreadyMuted"] = "O usuário **%s** já está mutado",
-	["followingUsersAlreadyMuted"] = "Os usuários **%s** já estão mutados",
+	["followingUserAlreadyMuted"] = "**%s** já está mutado",
+	["followingUsersAlreadyMuted"] = "**%s** já estão mutados",
+
+	["followingUserBeenUnmuted"] = "**%s** foi desmutado",
+	["followingUsersBeenUnmuted"] = "**%s** foram desmutados",
+
+	["followingUserNotMuted"] = "**%s** não está mutado",
+	["followingUsersNotMuted"] = "**%s** não estão mutados",
 
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",

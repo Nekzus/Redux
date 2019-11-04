@@ -185,9 +185,9 @@ local _function = function(data)
 		end
 
 		if notMutedAmount == 1 then
-			text = format("%s%s", text, parseFormat("${followingUserNotMuted}", langList, notMutedUsers))
+			text = format("%s%s", text, parseFormat("${followingUserCannotMute}", langList, notMutedUsers))
 		else
-			text = format("%s%s", text, parseFormat("${followingUsersNotMuted}", langList, notMutedUsers))
+			text = format("%s%s", text, parseFormat("${followingUsersCannotMute}", langList, notMutedUsers))
 		end
 	end
 
