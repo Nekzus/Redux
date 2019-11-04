@@ -1,3 +1,13 @@
+--[[
+	Como principal funcionalidade do bot, todos os arquivos foram separados
+	da melhor forma possível para garantir a organização.
+	Algumas partes do código geral globalizam funções e/ou variáveis para
+	que elas possam ser acessadas por outras partes do bot também.
+
+	Esse script em especial é responsável por garantir as funcionalidades
+	vitais do bot e a sua inicialização.
+]]
+
 -- Agrupa as principais funcionalidades para o bot
 discordia = require("discordia")
 emitter = discordia.Emitter()
@@ -11,51 +21,51 @@ client = discordia.Client({
 })
 
 -- Atalhos string
-byte = string.byte
-char = string.char
-find = string.find
-format = string.format
-gmatch = string.gmatch
-gsub = string.gsub
-len = string.len
-lower = string.lower
-match = string.match
-rep = string.rep
-reverse = string.reverse
-sub = string.sub
-upper = string.upper
-startsWith = string.startswith
-endsWith = string.endswith
-split = string.split
-trim = string.trim
-pad = string.pad
-levenshtein = string.levenshtein
+byte = string.byte -- Retorna o número do código interno do caractér
+char = string.char -- Retorna uma string com tamanho igual aos argumentos
+dump = string.dump -- Retorna uma representação binária da função passada
+find = string.find -- Retorna a posição de inicio e fim em uma string passada
+format = string.format -- Formata um padrão e retorna o resultado
+gmatch = string.gmatch -- Retorna uma função de iteração para cada captura
+gsub = string.gsub -- Substitui cada valor encontrado em uma string
+len = string.len -- Retorna o tamanho numérico de uma string
+lower = string.lower -- Retorna a string passada em letras minúsculas
+match = string.match -- Retorna uma captura
+rep = string.rep -- Repete uma string x vezes
+reverse = string.reverse -- Retorna a string em ordem inversa
+sub = string.sub -- Retorna parte de uma string conforme x e y
+upper = string.upper -- Retorna a string passada em letras maiúsculas
+startsWith = string.startswith -- Retorna se uma string inicia com o argumento
+endsWith = string.endswith -- Retorna se uma string finaliza-se com o argumento
+split = string.split -- Divide uma string em vários valores em um vetor
+trim = string.trim -- Remove todos os espaços no inicio e fim de uma string
+pad = string.pad -- Alinha a string para direita, centro ou esquerda
+levenshtein = string.levenshtein -- Retorna a distância entre duas strings
 
 -- Atalhos math
-abs = math.abs
-acos = math.acos
-asin = math.asin
-atan = math.atan
-ceil = math.ceil
-cos = math.cos
-clamp = math.clamp
-deg = math.deg
-exp = math.exp
-floor = math.floor
-fmod = math.fmod
-huge = math.huge
-log = math.log
-max = math.max
-min = math.min
-modf = math.modf
-pi = math.pi
-rad = math.rad
-random = math.random
-randomSeed = math.randomseed
-round = math.round
-sin = math.sin
-sqrt = math.sqrt
-tan = math.tan
+abs = math.abs -- Retorna o absoluto ou valor não negativo
+acos = math.acos -- Retorna o cosseno inverso
+asin = math.asin -- Retorna o seno em radianos
+atan = math.atan -- Retorna a tangente inversa em radianos
+ceil = math.ceil -- Retorna o inteiro superior ao número decimal
+cos = math.cos -- Retorna o cosseno do valor
+clamp = math.clamp -- Retorna o valor dentro dos limites de x e y
+deg = math.deg -- Converte radianos para gráus
+exp = math.exp -- Retorna o exponencial do número
+floor = math.floor -- Retorna o inteiro inferior ao número decimal
+fmod = math.fmod -- Retorna o restante da divisão de x por y
+huge = math.huge -- Retorna um número infinito representado por math.huge
+log = math.log -- Retorna o logaritmo natural de x
+max = math.max -- Retorna o maior número dentre os que forem passados
+min = math.min -- Retorna o menor número dentre os que forem passados
+modf = math.modf -- Retorna a parte integral e fracional de x
+pi = math.pi -- Retorna pi (3.1415..)
+rad = math.rad -- Converte gráus para radianos
+random = math.random -- Retorna um número aleatório de 0-1 (ou entre dois)
+randomSeed = math.randomseed -- Define x como a seed para o pseudo-aleatório
+sin = math.sin -- Retorna o seno de x
+sqrt = math.sqrt -- Retorna a raiz quadrada de x
+tan = math.tan -- Retorna a tangente de x
 
 -- Atalhos table
 concat = table.concat
