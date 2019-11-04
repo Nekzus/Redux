@@ -119,6 +119,8 @@ langs["en-us"] = {
 	["useVoiceActivity"] = "Use Voice-Activity",
 	["viewAuditLog"] = "View Audit Log",
 
+	["mutedUsers"] = "Muted Users",
+
 	-- Keys
 	["pageKey"] = "[page]",
 	["userKey"] = "[user]",
@@ -307,6 +309,7 @@ langs["en-us"] = {
 	["categoryDescFun"] = "fun and games.",
 	["categoryDescModeration"] = "moderation tools.",
 
+	["showsMutes"] = "shows the currently muted user or users.",
 	["givesItemToSomeone"] = "gives the mentioned item to the mentioned person or more.",
 	["showsRobloxProfile"] = "shows the ROBLOX profile of the mentioned user.",
 	["searchesImage"] = "searches on google for the mentioned image.",

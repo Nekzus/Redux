@@ -117,7 +117,9 @@ langs["pt-br"] = {
 	["speak"] = "Falar no Canal-de-Voz",
 	["useExternalEmojis"] = "Usar Emojis Externos",
 	["useVoiceActivity"] = "Usar Atividade-de-Voz",
-	["viewAuditLog"] = "Ver Histórico de Voz",
+	["viewAuditLog"] = "Ver Logs de Auditoria",
+
+	["mutedUsers"] = "Usuários Mutados",
 
 	-- Keys
 	["pageKey"] = "[pagina]",
@@ -307,6 +309,7 @@ langs["pt-br"] = {
 	["categoryDescFun"] = "diversão e jogos.",
 	["categoryDescModeration"] = "ferramentas de moderação.",
 
+	["showsMutes"] = "mostra o usuário ou usuários atualmente mutados.",
 	["givesItemToSomeone"] = "dá o item mencionado para uma ou mais pessoas.",
 	["showsRobloxProfile"] = "mostra o perfil no ROBLOX do usuário mencionado.",
 	["searchesImage"] = "pesquisa no google pela imagem mencionada.",
