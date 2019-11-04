@@ -176,23 +176,24 @@ function loadBot()
 	client:removeAllListeners()
 
 	loadAllFiles("./config/") -- Carrega todos os arquivos de configuração
-	loadAllFiles("./core/") -- Carrega as funcionalidades essenciais
+	loadAllFiles("./libs/") -- Carrega as extensões de facilitação
+	loadAllFiles("./utils/") -- Carrega os pontos de utilidade do bot
 	loadAllFiles("./langs/") -- Carrega os dicionários de tradução
-	loadAllFiles("./events/") -- Carrega os eventos do Discord para o bot
+	loadAllFiles("./events/") -- Carrega os eventos direcionados
 
 	-- Carrega todos os comandos
-	for category, type in fs.scandirSync("./mods/") do
+	for category, type in fs.scandirSync("./addons/") do
 		if type == "directory" then
-			for file, type in fs.scandirSync(format("./mods/%s/", category)) do
+			for file, type in fs.scandirSync(format("./addons/%s/", category)) do
 				if type == "file" then
-					local mod = loadFile(format("./mods/%s/%s", category, file))
+					local addon = loadFile(format("./addons/%s/%s", category, file))
 
-					if mod then
-						local aliases = mod.config.aliases
-						mod.config.category = format("${%s}", category)
-						mod.config.func = mod.func
-						mod.config.aliases = nil
-						commands:create(mod.config):accept(unpack(aliases))
+					if addon then
+						local aliases = addon.config.aliases
+						addon.config.category = format("${%s}", category)
+						addon.config.func = addon.func
+						addon.config.aliases = nil
+						commands:create(addon.config):accept(unpack(aliases))
 					else
 						printf("Failed to load %s of category %s", file, category)
 					end
