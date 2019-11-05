@@ -22,7 +22,10 @@ local _function = function(data)
 
 	bird:post(nil, embed:raw(), data.channel)
 
-	client:setGame("Restarting..")
+	client:setGame {
+		type = 2,
+		name = "Restarting..."
+	}
 	client:stop()
 	os.exit(0)
 end
