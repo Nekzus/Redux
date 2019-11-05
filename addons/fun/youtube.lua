@@ -12,11 +12,11 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	if not args[2] then
-		local text = parseFormat("${missingArg}", langList)
+		local text = parseFormat("${missingArg}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -24,8 +24,8 @@ local _function = function(data)
 		return false
 	end
 
-	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuildId)
-	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuildId)
+	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
+	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
@@ -37,7 +37,7 @@ local _function = function(data)
 	local pages = 50
 
 	if searchResult == nil or searchResult.items == nil then
-		local text = parseFormat("${videoNotFoundTerms}", langList, searchTerms)
+		local text = parseFormat("${videoNotFoundTerms}", langData, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		decoyBird:update(nil, embed:raw())
@@ -51,7 +51,7 @@ local _function = function(data)
 		local item = searchResult.items[page]
 
 		if not item then
-			local text = parseFormat("${videoNotFoundTerms}", langList, searchTerms)
+			local text = parseFormat("${videoNotFoundTerms}", langData, searchTerms)
 			local embed = replyEmbed(text, data.message, "error")
 
 			decoyBird:update(nil, embed:raw())

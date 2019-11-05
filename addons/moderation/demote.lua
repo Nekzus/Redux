@@ -13,32 +13,32 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	if not specifiesUser(data.message) then
-		local text = parseFormat("${specifyUser}", langList)
+		local text = parseFormat("${specifyUser}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsOwner(data.message) then
-		local text = parseFormat("${noExecuteOwner}", langList)
+		local text = parseFormat("${noExecuteOwner}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsBot(data.message) then
-		local text = parseFormat("${noExecuteBot}", langList)
+		local text = parseFormat("${noExecuteBot}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsSelf(data.message) then
-		local text = parseFormat("${noExecuteSelf}", langList)
+		local text = parseFormat("${noExecuteSelf}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -50,7 +50,7 @@ local _function = function(data)
 	local member = user and data.guild:getMember(user)
 
 	if not user or not member then
-		local text = parseFormat("${userNotFound}", langList)
+		local text = parseFormat("${userNotFound}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -61,7 +61,7 @@ local _function = function(data)
 	local author = data.guild:getMember(data.author)
 
 	if member.highestRole.position == author.highestRole.position then
-		local text = parseFormat("${noDemoteEqual}", langList)
+		local text = parseFormat("${noDemoteEqual}", langData)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -71,7 +71,7 @@ local _function = function(data)
 
 	if member.highestRole.position >= data.guild.me.highestRole.position
 	or member.highestRole.position >= author.highestRole.position then
-		local text = parseFormat("${mentionedHigher}", langList)
+		local text = parseFormat("${mentionedHigher}", langData)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -100,7 +100,7 @@ local _function = function(data)
 		local nextRoleObject = data.guild:getRole(nextRole)
 
 		if not highestRoleObject then
-			local text = parseFormat("${roleNotFound}", langList, "<highestRoleObject>")
+			local text = parseFormat("${roleNotFound}", langData, "<highestRoleObject>")
 			local embed = replyEmbed(text, data.message, "error")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -108,7 +108,7 @@ local _function = function(data)
 			return false
 		end
 
-		local text = parseFormat("${userDemoted}", langList, member.tag, (nextRoleObject and nextRoleObject.name) or (parseFormat("${member}", langList)))
+		local text = parseFormat("${userDemoted}", langData, member.tag, (nextRoleObject and nextRoleObject.name) or (parseFormat("${member}", langData)))
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)

@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local guildRoles = guildData:get("roles")
@@ -43,9 +43,9 @@ local _function = function(data)
 	local perPage = 8
 	local page = tonumber(args[2]) or 1
 
-	local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuildId)
-	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuildId)
-	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuildId)
+	local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
+	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
+	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 
 	local decoyBird
 	local message
@@ -64,7 +64,7 @@ local _function = function(data)
 
 			local roleTitle = getMatchingRoleTitle(obj.level)
 
-			result = format("%s%s %s@%s: `%s`", result, topicEmoji.mentionString, obj.primary and parseFormat("**[${initial}]** ", langList) or "", getRole(obj.id, "id", data.guild).name, (obj.level and roleTitle and parseFormat(roleTitle, langList)))
+			result = format("%s%s %s@%s: `%s`", result, topicEmoji.mentionString, obj.primary and parseFormat("**[${initial}]** ", langData) or "", getRole(obj.id, "id", data.guild).name, (obj.level and roleTitle and parseFormat(roleTitle, langData)))
 		end
 
 		local pages = listTotal / perPage
@@ -74,8 +74,8 @@ local _function = function(data)
 		end
 
 		embed:field({
-			name = parseFormat("${roles} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages),
-			value = (result ~= "" and result or parseFormat("${noResults}", langList))
+			name = parseFormat("${roles} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages),
+			value = (result ~= "" and result or parseFormat("${noResults}", langData))
 		})
 
 		embed:color(config.colors.blue)

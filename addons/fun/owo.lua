@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local text = data.content:sub(#args[1] + 2):lower()
@@ -34,7 +34,7 @@ local _function = function(data)
 	}
 
 	if isFiltered(text, {"http://", "https://"}) then
-		local text = parseFormat("${linksNotSupported}", langList)
+		local text = parseFormat("${linksNotSupported}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)

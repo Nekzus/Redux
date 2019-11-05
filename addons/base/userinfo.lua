@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.user == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local guild = data.guild
@@ -27,12 +27,12 @@ local _function = function(data)
 	end
 
 	embed:thumbnail(user.avatarURL)
-	embed:field({name = parseFormat("${name}", langList), value = (user.nickname and format("%s (%s)", user.username, user.nickname) or user.username), inline = true})
-	embed:field({name = parseFormat("${discrim}", langList), value = user.discriminator, inline = true})
-	embed:field({name = parseFormat("${id}", langList), value = user.id, inline = true})
-	embed:field({name = parseFormat("${status}", langList), value = user.status, inline = true})
-	embed:field({name = parseFormat("${joinedDisc}", langList), value = discordia.Date.fromSnowflake(user.id):toISO("T", "Z"), inline = true})
-	embed:field({name = parseFormat("${joinedServer}", langList), value = user.joinedAt, user.joinedAt:gsub("%..*", ""):gsub("T", " ") or "?", inline = true})
+	embed:field({name = parseFormat("${name}", langData), value = (user.nickname and format("%s (%s)", user.username, user.nickname) or user.username), inline = true})
+	embed:field({name = parseFormat("${discrim}", langData), value = user.discriminator, inline = true})
+	embed:field({name = parseFormat("${id}", langData), value = user.id, inline = true})
+	embed:field({name = parseFormat("${status}", langData), value = user.status, inline = true})
+	embed:field({name = parseFormat("${joinedDisc}", langData), value = discordia.Date.fromSnowflake(user.id):toISO("T", "Z"), inline = true})
+	embed:field({name = parseFormat("${joinedServer}", langData), value = user.joinedAt, user.joinedAt:gsub("%..*", ""):gsub("T", " ") or "?", inline = true})
 
 	embed:color(config.colors.blue)
 	embed:footerIcon(config.images.info)

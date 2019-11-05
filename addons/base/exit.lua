@@ -12,12 +12,12 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	saveAllData()
 
-	local text = parseFormat("${botDataSaved}", langList)
+	local text = parseFormat("${botDataSaved}", langData)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)

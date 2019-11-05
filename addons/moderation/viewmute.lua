@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local tempMutes = guildData:get("mutes")
@@ -28,7 +28,7 @@ local _function = function(data)
 		local muteData = guildData:get("mutes"):raw()[user.id]
 
 		if not muteData then
-			local text = parseFormat("${followingUserNotMuted}", langList, user.name)
+			local text = parseFormat("${followingUserNotMuted}", langData, user.name)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -40,25 +40,25 @@ local _function = function(data)
 
 		local newTime = os.time()
 		local elapsedTime = newTime - muteData.added
-		local formalMuteTime = parseFormat(timeLong(muteData.duration - elapsedTime), langList)
+		local formalMuteTime = parseFormat(timeLong(muteData.duration - elapsedTime), langData)
 
 		embed:title(mentioned.tag)
 
 		embed:field({
-			name = parseFormat("${timeLeft}", langList),
+			name = parseFormat("${timeLeft}", langData),
 			value = formalMuteTime,
 			inline = true
 		})
 
 		embed:field({
-			name = parseFormat("${mod}", langList),
+			name = parseFormat("${mod}", langData),
 			value = format("<@!%s>", muteData.moderator),
 			inline = true
 		})
 
 		embed:field({
-			name = parseFormat("${reason}", langList),
-			value = muteData.reason or parseFormat("${noReason}", langList),
+			name = parseFormat("${reason}", langData),
+			value = muteData.reason or parseFormat("${noReason}", langData),
 			inline = true
 		})
 
@@ -85,9 +85,9 @@ local _function = function(data)
 		local perPage = 8
 		local page = tonumber(args[2]) or 1
 
-		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuildId)
-		local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuildId)
-		local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuildId)
+		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
+		local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
+		local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 
 		local decoyBird
 		local message
@@ -106,9 +106,9 @@ local _function = function(data)
 
 				local newTime = os.time()
 				local elapsedTime = newTime - obj.added
-				local formalMuteTime = parseFormat(timeLong(obj.duration - elapsedTime), langList)
+				local formalMuteTime = parseFormat(timeLong(obj.duration - elapsedTime), langData)
 
-				result = parseFormat("%s%s <@!%s>: %s", langList, result, topicEmoji.mentionString, obj.userId, formalMuteTime)
+				result = parseFormat("%s%s <@!%s>: %s", langData, result, topicEmoji.mentionString, obj.userId, formalMuteTime)
 			end
 
 			local pages = listTotal / perPage
@@ -118,8 +118,8 @@ local _function = function(data)
 			end
 
 			embed:field({
-				name = parseFormat("${mutedUsers} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages),
-				value = (result ~= "" and result or parseFormat("${noResults}", langList))
+				name = parseFormat("${mutedUsers} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages),
+				value = (result ~= "" and result or parseFormat("${noResults}", langData))
 			})
 
 			embed:color(config.colors.blue)

@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
@@ -21,7 +21,7 @@ local _function = function(data)
 	commands:flushList()
 	loadBot()
 
-	local text = parseFormat("${botModulesReloaded}", langList)
+	local text = parseFormat("${botModulesReloaded}", langData)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	decoy:update(nil, embed:raw())

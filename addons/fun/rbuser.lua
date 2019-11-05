@@ -12,11 +12,11 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}: userName", langList)
+		local text = parseFormat("${missingArg}: userName", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -33,7 +33,7 @@ local _function = function(data)
 	local user = apiRobloxGetUser(name, "name")
 
 	if not user.Id then
-		local text = parseFormat("${userNotFound}: %s", langList, name)
+		local text = parseFormat("${userNotFound}: %s", langData, name)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		decoyBird:update(nil, embed:raw())
@@ -67,7 +67,7 @@ local _function = function(data)
 	end
 
 	local embed = newEmbed()
-	local robloxLogo = getEmoji(config.emojis.robloxLogo, "name", baseGuildId)
+	local robloxLogo = getEmoji(config.emojis.robloxLogo, "name", baseGuild)
 
 	if headShot then
 		embed:thumbnail(headShot)
@@ -78,13 +78,13 @@ local _function = function(data)
 	embed:authorUrl(format("https://www.roblox.com/users/%s/profile", user.Id))
 	embed:description(status)
 	embed:field({
-		name = parseFormat("%s ${social}", langList, ":raising_hand:"),
-		value = parseFormat("**${friends}:** %s\n**${following}:** %s\n**${followers}:** %s", langList, affixNum(friends), affixNum(followings), affixNum(followers)),
+		name = parseFormat("%s ${social}", langData, ":raising_hand:"),
+		value = parseFormat("**${friends}:** %s\n**${following}:** %s\n**${followers}:** %s", langData, affixNum(friends), affixNum(followings), affixNum(followers)),
 		inline = true,
 	})
 	embed:field({
-		name = parseFormat("%s ${investments}", langList, ":moneybag:"),
-		value = parseFormat("**${recentAveragePriceTag}:** %s\n**${limiteds}:** %s\n**${userVisits}:** %s", langList, affixNum(limitedsRAP), affixNum(limitedsCount), affixNum(placeVisits)),
+		name = parseFormat("%s ${investments}", langData, ":moneybag:"),
+		value = parseFormat("**${recentAveragePriceTag}:** %s\n**${limiteds}:** %s\n**${userVisits}:** %s", langData, affixNum(limitedsRAP), affixNum(limitedsCount), affixNum(placeVisits)),
 		inline = true,
 	})
 

@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local guild
@@ -25,16 +25,16 @@ local _function = function(data)
 	end
 
 	embed:thumbnail(data.guild.iconURL)
-	embed:field({name = parseFormat("${name}", langList), value = guild.name, inline = true})
-	embed:field({name = parseFormat("${id}", langList), value = guild.id, inline = true})
-	embed:field({name = parseFormat("${owner}", langList), value = guild.owner.tag, inline = true})
-	embed:field({name = parseFormat("${created}", langList), value = discordia.Date.fromSnowflake(guild.id):toISO("T", "Z"), inline = true})
-	embed:field({name = parseFormat("${members}", langList), value = format("%s / %s", guild.members:count(isOnline), guild.totalMemberCount), inline = true})
-	embed:field({name = parseFormat("${categories}", langList), value = tostring(#guild.categories), inline = true})
-	embed:field({name = parseFormat("${textChannels}", langList), value = tostring(#guild.textChannels), inline = true})
-	embed:field({name = parseFormat("${voiceChannels}", langList), value = tostring(#guild.voiceChannels), inline = true})
-	embed:field({name = parseFormat("${roles}", langList), value = tostring(#guild.roles), inline = true})
-	embed:field({name = parseFormat("${emojis}", langList), value = tostring(#guild.emojis), inline = true})
+	embed:field({name = parseFormat("${name}", langData), value = guild.name, inline = true})
+	embed:field({name = parseFormat("${id}", langData), value = guild.id, inline = true})
+	embed:field({name = parseFormat("${owner}", langData), value = guild.owner.tag, inline = true})
+	embed:field({name = parseFormat("${created}", langData), value = discordia.Date.fromSnowflake(guild.id):toISO("T", "Z"), inline = true})
+	embed:field({name = parseFormat("${members}", langData), value = format("%s / %s", guild.members:count(isOnline), guild.totalMemberCount), inline = true})
+	embed:field({name = parseFormat("${categories}", langData), value = tostring(#guild.categories), inline = true})
+	embed:field({name = parseFormat("${textChannels}", langData), value = tostring(#guild.textChannels), inline = true})
+	embed:field({name = parseFormat("${voiceChannels}", langData), value = tostring(#guild.voiceChannels), inline = true})
+	embed:field({name = parseFormat("${roles}", langData), value = tostring(#guild.roles), inline = true})
+	embed:field({name = parseFormat("${emojis}", langData), value = tostring(#guild.emojis), inline = true})
 
 	embed:color(config.colors.blue)
 	embed:footerIcon(config.images.info)

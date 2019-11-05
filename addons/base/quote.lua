@@ -12,11 +12,11 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	if not args[2] then
-		return replyEmbed(parseFormat("${missingArg}", langList), data.message, "error")
+		return replyEmbed(parseFormat("${missingArg}", langData), data.message, "error")
 	end
 
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
@@ -61,7 +61,7 @@ local _function = function(data)
 	end
 
 	if targetMessage then
-		local jumpTo = parseFormat("[${jumpToMessage}](%s)", langList, targetMessage.link)
+		local jumpTo = parseFormat("[${jumpToMessage}](%s)", langData, targetMessage.link)
 		local sentBy = parseFormat("${messageSentBy}", langs[guildLang], targetMessage.author.tag)
 		local embed = newEmbed()
 
@@ -76,7 +76,7 @@ local _function = function(data)
 
 		return true
 	else
-		local text = parseFormat("${messageWithTermsNotFound}", langList, terms)
+		local text = parseFormat("${messageWithTermsNotFound}", langData, terms)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		decoy:update(nil, embed:raw())

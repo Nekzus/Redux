@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local memberEconomy, guildEconomy = getMemberEconomy(data.user, data.guild)
@@ -30,7 +30,7 @@ local _function = function(data)
 
 	local responses = {}
 
-	for k, v in next, langList do
+	for k, v in next, langData do
 		if k:match("workedAs%a+") then
 			insert(responses, v)
 		end

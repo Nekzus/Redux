@@ -12,13 +12,13 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local user = data.message.mentionedUsers.first
 
 	if not user then
-		local text = parseFormat("${userNotFound}", langList)
+		local text = parseFormat("${userNotFound}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -30,7 +30,7 @@ local _function = function(data)
 
 	if not data.message.mentionedUsers.first
 	or not data.guild:getMember(user) then
-		local text = parseFormat("${userNotFound}", langList)
+		local text = parseFormat("${userNotFound}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -41,14 +41,14 @@ local _function = function(data)
 	local patrons = saves.track:get("patrons")
 
 	if not patrons:raw()[member.id] then
-		local text = parseFormat("${notPatron}", langList, member.tag)
+		local text = parseFormat("${notPatron}", langData, member.tag)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
 	else
-		local text = parseFormat("${patronRemoved}", langList, member.tag)
+		local text = parseFormat("${patronRemoved}", langData, member.tag)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		patrons:set(tostring(member.id), nil)

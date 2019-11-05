@@ -299,13 +299,13 @@ reflect.references = {
 		"Piada velha em",
 	},
 	["[o]* [s]*%a*%s*mario"] = {
-		"Super-Mario é um personagem bem legal",
-		"Super-Mario é um personagem bem daora",
-		"Super-Mario é um personagem bem top",
+		"Mario é um personagem bem legal",
+		"Mario é um personagem bem daora",
+		"Mario é um personagem bem top",
 
-		"Super-Mario é aquele que te comeu atrás do armário",
-		"Super-Mario que te pegou atrás do armário",
-		"Super-Mario que te comeu atrás do armário",
+		"Mario é aquele que te comeu atrás do armário",
+		"Mario que te pegou atrás do armário",
+		"Mario que te comeu atrás do armário",
 	},
 	["seu criador"] = phrasesYourCreator,
 
@@ -458,7 +458,6 @@ answers.neutral = {
 		"Seu dente é torto",
 		"Nem preciso te xingar, você já é um xingamento",
 		"Cala boca, rato morto",
-
 	}
 }
 answers.extraPositive = {
@@ -557,14 +556,12 @@ end
 local function truthAnswer(text, mode)
 	text = assert(text and type(text) == "string" and text:lower(), "Text must be a string")
 
-	-- Registra uma sequência de regras e considerações
 	local rudeLevel = 0
-	local question = matchList(text, reflect.question)
-	local greeting = matchList(text, reflect.greeting)
 	local list = text:split(" ")
-	local chance = random(1, 3)
+	local chance = mode == neutral and 1 or random(1, 3)
 	local result = ""
 
+	-- Checa por frases pré-definidas
 	for phrase, responses in next, reflect.references do
 		if text:find(phrase) then
 			local list = responses
@@ -576,45 +573,48 @@ local function truthAnswer(text, mode)
 		end
 	end
 
-	-- Verifica se há palavras ofensivas na frase
+	-- Verifica por palavras ofensivas e atribui ao nível de "rude"
 	for _, word in next, list do
 		if matchList(word, reflect.badWords) then
 			rudeLevel = rudeLevel + 1
 		end
 	end
 
-	-- Verifica se há frases ofensivas
+	-- Verifica se há frases ofensivas, assim atribuindo mais níveis
+	-- de acordo com o quanto o usuário foi rude ou ofensivo
 	for _, phrase in next, reflect.badPhrases do
 		if text:find(phrase) then
 			rudeLevel = rudeLevel + 1
 		end
 	end
 
-	-- Checa se o usuário usou alguma forma de cumprimento
+	-- Nesse caso abaixo, temos um sistema de cumprimentar o usuário caso ele
+	-- estiver cumprimentando o bot, porém, isso será ignorado caso o usuário
+	-- for rude na frase dele
+	-- Caso o nível de rude do usuário for igual ou superior à 2
 	if rudeLevel >= 2 then
-		mode = "neutral"
-	elseif greeting then
+		chance = 1
+		-- Caso o usuário estiver cumprimentando o bot
+	elseif matchList(text, reflect.greeting) then
 		local using = answers.greetings
-		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1) or random(min(#using, rudeLevel + 1))
+		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1)
+		or random(min(#using, rudeLevel + 1))
 		local list = using[level]
 
 		result = format("%s. ", list[random(#list)])
 	end
 
-	-- Caso as chances forem para dar uma resposta neutra
-	if chance == 1 or mode == "neutral" then
-		chance = 1
+	if chance == 1 then
 		local using = answers.neutral
-		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1) or random(min(#using, rudeLevel + 1))
+		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1)
+		or random(min(#using, rudeLevel + 1))
 		local list = using[level]
 
 		result = format("%s%s.", result, list[random(#list)])
-	end
-
-	-- Resposta positiva
-	if chance == 2 then
+	elseif chance == 2 then
 		local using = answers.positive
-		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1) or random(min(#using, rudeLevel + 1))
+		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1)
+		or random(min(#using, rudeLevel + 1))
 		local list = using[level]
 
 		result = format("%s%s", result, list[random(#list)])
@@ -628,14 +628,11 @@ local function truthAnswer(text, mode)
 		end
 
 		result = format("%s.", result)
-	end
-
-	-- Resposta negativa
-	if chance == 3 then
+	elseif chance == 3 then
 		local using = answers.negative
-		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1) or random(min(#using, rudeLevel + 1))
+		local level = rudeLevel >= 2 and min(#using, rudeLevel + 1)
+		or random(min(#using, rudeLevel + 1))
 		local list = using[level]
-		local result = ""
 
 		result = format("%s%s", result, list[random(#list)])
 
@@ -650,8 +647,6 @@ local function truthAnswer(text, mode)
 		result = format("%s.", result)
 	end
 
-	waitText(result)
-
 	return result
 end
 
@@ -659,15 +654,14 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local phrase = data.content:sub(#args[1] + 2):lower()
-
-	data.channel:broadcastTyping()
-
 	local text = truthAnswer(phrase, #phrase:split(" ") <= 2 and "neutral")
 
+	data.channel:broadcastTyping()
+	waitText(text)
 	bird:post(format("%s %s", data.user.mentionString, text), nil, data.channel)
 
 	return true

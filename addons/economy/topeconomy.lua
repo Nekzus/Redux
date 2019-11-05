@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local guildEconomy = saves.economy:get(data.guild.id)
@@ -32,9 +32,9 @@ local _function = function(data)
 	local perPage = 8
 	local page = tonumber(args[2]) or 1
 
-	local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuildId)
-	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuildId)
-	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuildId)
+	local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
+	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
+	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 
 	local decoyBird
 	local message
@@ -51,7 +51,7 @@ local _function = function(data)
 				result = format("%s\n", result)
 			end
 
-			result = parseFormat("%s%s <@!%s>: %s %s", langList, result, topicEmoji.mentionString, itemData.id, guildEconomy:get("symbol"), affixNum(itemData.cash + itemData.bank))
+			result = parseFormat("%s%s <@!%s>: %s %s", langData, result, topicEmoji.mentionString, itemData.id, guildEconomy:get("symbol"), affixNum(itemData.cash + itemData.bank))
 		end
 
 		local pages = listTotal / perPage
@@ -60,7 +60,7 @@ local _function = function(data)
 			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:field({name = parseFormat("${economy} (%s/%s) [${page} %s/%s]", langList, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langList))})
+		embed:field({name = parseFormat("${economy} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langData))})
 
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)

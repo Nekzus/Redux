@@ -12,13 +12,13 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	local user = data.message.mentionedUsers.first
 
 	if not user then
-		local text = parseFormat("${userNotFound}", langList)
+		local text = parseFormat("${userNotFound}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -30,7 +30,7 @@ local _function = function(data)
 
 	if not data.message.mentionedUsers.first
 	or not data.guild:getMember(user) then
-		local text = parseFormat("${userNotFound}", langList)
+		local text = parseFormat("${userNotFound}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -45,7 +45,7 @@ local _function = function(data)
 
 	if patronData then
 		if numLevel == nil or patronData.level == numLevel then
-			local text = parseFormat("${alreadyPatron}", langList, member.tag)
+			local text = parseFormat("${alreadyPatron}", langData, member.tag)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -56,8 +56,8 @@ local _function = function(data)
 		end
 	end
 
-	local text = updated and parseFormat("${patronLevelSet}", langList, member.tag, numLevel or 1)
-	or parseFormat("${patronAdded}", langList, member.tag)
+	local text = updated and parseFormat("${patronLevelSet}", langData, member.tag, numLevel or 1)
+	or parseFormat("${patronAdded}", langData, member.tag)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	patrons:set(tostring(member.id), {level = numLevel or 1, added = os.time()})

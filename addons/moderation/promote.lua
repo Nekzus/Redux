@@ -13,32 +13,32 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	if not specifiesUser(data.message) then
-		local text = parseFormat("${specifyUser}", langList)
+		local text = parseFormat("${specifyUser}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsOwner(data.message) then
-		local text = parseFormat("${noExecuteOwner}", langList)
+		local text = parseFormat("${noExecuteOwner}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsBot(data.message) then
-		local text = parseFormat("${noExecuteBot}", langList)
+		local text = parseFormat("${noExecuteBot}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsSelf(data.message) then
-		local text = parseFormat("${noExecuteSelf}", langList)
+		local text = parseFormat("${noExecuteSelf}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -50,7 +50,7 @@ local _function = function(data)
 	local member = user and data.guild:getMember(user)
 
 	if not user or not member then
-		local text = parseFormat("${userNotFound}", langList)
+		local text = parseFormat("${userNotFound}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -62,7 +62,7 @@ local _function = function(data)
 
 	if member.highestRole.position >= data.guild.me.highestRole.position
 	or member.highestRole.position >= author.highestRole.position then
-		local text = parseFormat("${mentionedHigher}", langList)
+		local text = parseFormat("${mentionedHigher}", langData)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -92,21 +92,21 @@ local _function = function(data)
 			local nextRoleObject = data.guild:getRole(nextRole)
 
 			if not highestRoleObject then
-				local text = parseFormat("${roleNotFound}", langList, "<highestRoleObject>")
+				local text = parseFormat("${roleNotFound}", langData, "<highestRoleObject>")
 				local embed = replyEmbed(text, data.message, "error")
 
 				bird:post(nil, embed:raw(), data.channel)
 
 				return false
 			elseif not nextRoleObject then
-				local text = parseFormat("${roleNotFound}", langList, "<nextRoleObject>")
+				local text = parseFormat("${roleNotFound}", langData, "<nextRoleObject>")
 				local embed = replyEmbed(text, data.message, "error")
 
 				bird:post(nil, embed:raw(), data.channel)
 
 				return false
 			elseif highestRole.position == author.highestRole.position then
-				local text = parseFormat("${mentionedHigher}", langList)
+				local text = parseFormat("${mentionedHigher}", langData)
 				local embed = replyEmbed(text, data.message, "error")
 
 				bird:post(nil, embed:raw(), data.channel)
@@ -114,7 +114,7 @@ local _function = function(data)
 				return false
 			elseif nextRoleObject.position >= data.guild.me.highestRole.position
 				or nextRoleObject.position >= author.highestRole.position then
-					local text = parseFormat("${noPromoteEqual}", langList)
+					local text = parseFormat("${noPromoteEqual}", langData)
 					local embed = replyEmbed(text, data.message, "warn")
 
 					bird:post(nil, embed:raw(), data.channel)
@@ -122,7 +122,7 @@ local _function = function(data)
 					return false
 				end
 
-				local text = parseFormat("${userPromoted}", langList, member.tag, nextRoleObject.name)
+				local text = parseFormat("${userPromoted}", langData, member.tag, nextRoleObject.name)
 				local embed = replyEmbed(text, data.message, "ok")
 
 				-- this gives the user the "feel" of no lag whilst promoting
@@ -132,7 +132,7 @@ local _function = function(data)
 
 				return true
 			else
-				local text = parseFormat("${cannotPromoteUser}", langList, member.tag)
+				local text = parseFormat("${cannotPromoteUser}", langData, member.tag)
 				local embed = replyEmbed(text, data.message, "warn")
 
 				bird:post(nil, embed:raw(), data.channel)
@@ -145,7 +145,7 @@ local _function = function(data)
 			local role = roleId and getRole(roleId, "id", data.guild)
 
 			if not role then
-				local text = parseFormat("${modRoleNotFound}; ${modRoleTip}", langList, data.prefix)
+				local text = parseFormat("${modRoleNotFound}; ${modRoleTip}", langData, data.prefix)
 				local embed = replyEmbed(text, data.message, "error")
 
 				bird:post(nil, embed:raw(), data.channel)
@@ -154,7 +154,7 @@ local _function = function(data)
 			end
 
 			if role.position >= data.guild.me.highestRole.position then
-				local text = parseFormat("${roleSelectedHigher}", langList, role.name)
+				local text = parseFormat("${roleSelectedHigher}", langData, role.name)
 				local embed = replyEmbed(text, data.message, "warn")
 
 				bird:post(nil, embed:raw(), data.channel)
@@ -162,7 +162,7 @@ local _function = function(data)
 				return false
 			end
 
-			local text = parseFormat("${userModed}", langList, member.tag)
+			local text = parseFormat("${userModed}", langData, member.tag)
 			local embed = replyEmbed(text, data.message, "ok")
 
 			-- this gives the user the "feel" of no lag whilst promoting

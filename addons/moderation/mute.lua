@@ -13,32 +13,32 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	if not specifiesUser(data.message) then
-		local text = parseFormat("${specifyUser}", langList)
+		local text = parseFormat("${specifyUser}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsOwner(data.message) then
-		local text = parseFormat("${noExecuteOwner}", langList)
+		local text = parseFormat("${noExecuteOwner}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsBot(data.message) then
-		local text = parseFormat("${noExecuteBot}", langList)
+		local text = parseFormat("${noExecuteBot}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsSelf(data.message) then
-		local text = parseFormat("${noExecuteSelf}", langList)
+		local text = parseFormat("${noExecuteSelf}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -50,7 +50,7 @@ local _function = function(data)
 	local role = roleId and getRole(roleId, "id", data.guild)
 
 	if not role then
-		local text = parseFormat("${muteRoleNotFound}; ${mutedRoleTip}", langList, data.prefix)
+		local text = parseFormat("${muteRoleNotFound}; ${mutedRoleTip}", langData, data.prefix)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -59,7 +59,7 @@ local _function = function(data)
 	end
 
 	if role.position >= data.guild.me.highestRole.position then
-		local text = parseFormat("${roleSelectedHigher}", langList, role.name)
+		local text = parseFormat("${roleSelectedHigher}", langData, role.name)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -78,7 +78,7 @@ local _function = function(data)
 	muteTime = muteTime and clamp(interpTime(muteTime), config.time.second * 5, config.time.month)
 	or config.time.hour
 
-	local formalMuteTime = parseFormat(timeLong(muteTime), langList)
+	local formalMuteTime = parseFormat(timeLong(muteTime), langData)
 	local reason = data.content:match(config.patterns.quotes.capture)
 
 	for _, user in next, data.message.mentionedUsers:toArray() do
@@ -161,9 +161,9 @@ local _function = function(data)
 		end
 
 		if mutedAmount == 1 then
-			text = format("%s%s", text, parseFormat("${followingUserBeenMuted}", langList, mutedUsers, formalMuteTime))
+			text = format("%s%s", text, parseFormat("${followingUserBeenMuted}", langData, mutedUsers, formalMuteTime))
 		else
-			text = format("%s%s", text, parseFormat("${followingUsersBeenMuted}", langList, mutedUsers, formalMuteTime))
+			text = format("%s%s", text, parseFormat("${followingUsersBeenMuted}", langData, mutedUsers, formalMuteTime))
 		end
 	end
 
@@ -173,9 +173,9 @@ local _function = function(data)
 		end
 
 		if alreadyMutedAmount == 1 then
-			text = format("%s%s", text, parseFormat("${followingUserAlreadyMuted}", langList, alreadyMutedUsers))
+			text = format("%s%s", text, parseFormat("${followingUserAlreadyMuted}", langData, alreadyMutedUsers))
 		else
-			text = format("%s%s", text, parseFormat("${followingUsersAlreadyMuted}", langList, alreadyMutedUsers))
+			text = format("%s%s", text, parseFormat("${followingUsersAlreadyMuted}", langData, alreadyMutedUsers))
 		end
 	end
 
@@ -185,9 +185,9 @@ local _function = function(data)
 		end
 
 		if notMutedAmount == 1 then
-			text = format("%s%s", text, parseFormat("${followingUserCannotMute}", langList, notMutedUsers))
+			text = format("%s%s", text, parseFormat("${followingUserCannotMute}", langData, notMutedUsers))
 		else
-			text = format("%s%s", text, parseFormat("${followingUsersCannotMute}", langList, notMutedUsers))
+			text = format("%s%s", text, parseFormat("${followingUsersCannotMute}", langData, notMutedUsers))
 		end
 	end
 

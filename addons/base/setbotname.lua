@@ -1,8 +1,8 @@
 local _config = {
-	name = "botname",
+	name = "setbotname",
 	desc = "${setsUsername}",
 	usage = "${messageKey}",
-	aliases = {"bname"},
+	aliases = {"sbname", "sbn", "botname"},
 	cooldown = 0,
 	level = 5,
 	direct = true,
@@ -12,11 +12,11 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langList = langs[guildLang]
+	local langData = langs[guildLang]
 	local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}", langList)
+		local text = parseFormat("${missingArg}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -24,10 +24,9 @@ local _function = function(data)
 		return false
 	end
 
-	local value = data.content:sub(#args[1] + 2)
-	client:setUsername(value)
+	client:setUsername(data.content:sub(#args[1] + 2))
 
-	local text = parseFormat("${usernameSet}", langList, text)
+	local text = parseFormat("${usernameSet}", langData, text)
 	local embed = replyEmbed(embed, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)
