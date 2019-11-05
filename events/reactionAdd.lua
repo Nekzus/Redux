@@ -1,9 +1,18 @@
+--[[
+	Parte responsável por administrar reações sendo adicionadas ou clicadas
+	em uma mensagem. Esse evento irá redirecionar as informações necessárias
+	conforme o que for registrado na table reactionsCallback
+]]
+
 client:on("reactionAdd",
 	function(reaction, userId)
+		-- Registra ou retorna a table responsável por segurar as informações
+		-- das reações e permissões
+		reactionsCallback = reactionsCallback or {}
+
+		-- Pega as informações mais importantes
 		local message = reaction.message
 		local blinkData = message and reactionsCallback[message.id]
-
-		reactionsCallback = reactionsCallback or {}
 
 		if not blinkData then
 			return
