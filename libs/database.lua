@@ -2,7 +2,7 @@
 local main = {}
 
 -- Carrega os dados da modula serpent que converte um vetor em texto
-serpent = serpent or require("./core/libs/serpent.lua")
+serpent = serpent or require("./libs/serpent.lua")
 
 -- Função local para checar se o caminho para um arquivo é válido
 local function isFile(path)

@@ -318,7 +318,7 @@ reflect.references = {
 	["me %a+"] = phrasesYesNo,
 	["sou %a+"] = phrasesYesNo,
 	["[ao] [%z\1-\127\194-\244][\128-\191]"] = phrasesYesNo,
-	["[ao] dev"] = phrasesYesNo,
+	["[ao] dev[%a*]%s"] = phrasesYesNo,
 	["[ao] %a+ [%z\1-\127\194-\244][\128-\191]"] = phrasesYesNo,
 	["vai ser"] = phrasesYesNo,
 }
