@@ -10,33 +10,33 @@ client:on("reactionAdd",
 		-- das reações e permissões
 		reactionsCallback = reactionsCallback or {}
 
-		-- Pega as informações mais importantes
+		-- Pega as informações mais importantes referentes aos objetos
+		-- relacionados à reação que foi clicada
 		local message = reaction.message
 		local blinkData = message and reactionsCallback[message.id]
-
-		if not blinkData then
-			return
-		end
-
 		local active = blinkData and blinkData:raw()
 
+		-- Verifica a atividade da mensagem dentre os callbacks e relaciona
+		-- com a lista de permissões para ver se o usuário que clicou na
+		-- reação pode dar inicio em uma função registrada de callback
 		if not active then
 			return
-		end
-
-		if not inList(userId, blinkData.whitelist) then
+		elseif not inList(userId, blinkData.whitelist) then
 			return
 		end
 
-		for id, func in next, active do
-			if id == reaction.emojiId then
+		-- Verifica entre os callbacks registrados qual emoji para as reações
+		-- tem um callback, assim o executando e atualizando a última vez que
+		-- a função que engloba as reações da mensagem foi utilizada
+		for emojiId, callback in next, active do
+			if emojiId == reaction.emojiId then
 				local timeout = blinkData.timeout
 				local lastUse = blinkData.lastUse
 				local now = os.time()
 
 				if (now - lastUse) <= timeout then
 					blinkData.lastUse = os.time()
-					func(userId)
+					callback(userId)
 				else
 					reactionsCallback[message.id] = {}
 				end

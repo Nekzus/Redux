@@ -1,12 +1,25 @@
+--[[
+	Parte responsável por iniciar tarefas específicas do bot para o Discord
+	assim que for retornada uma resposta positiva por parte da API de conexão
+	aos servidores
+]]
+
 client:on("ready",
 	function()
+		-- Define o status do bot, assim facilitando para pessoas saberem
+		-- como utilizá-lo
 		client:setGame {
 			type = 2,
 			name = format("%shelp", config.defaultGuild.prefix)
 		}
+
+		-- Inicio do log de report para o console
 		print("\n")
 		print("Framework and modules ready")
 
+		-- Re-inicializa todas as contagens de mutes que foram feitas desde
+		-- a última vez que o bot foi utilizado, assim, garantindo a persistência
+		-- para os mutes temporizados
 		coroutine.wrap(
 			function()
 				print("Persistent mutes enabled")
@@ -17,6 +30,9 @@ client:on("ready",
 			end
 		)()
 
+		-- Inicializa o processo de saving das informações armazenadas pelo bot
+		-- assim, garantindo que todos os dados de guildas e usuários sejam
+		-- persistentes
 		coroutine.wrap(
 			function()
 				if config.saver.enabled then
@@ -35,6 +51,9 @@ client:on("ready",
 			end
 		)()
 
+		-- Inicializa uma rotina de limpeza à dados utilizados pelo bot, pois
+		-- de outra forma, o bot eventualmente armazenaria muito "lixo" de
+		-- usuários inativos e comandos
 		coroutine.wrap(
 			function()
 				if config.cleaner.enabled then
