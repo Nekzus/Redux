@@ -12,6 +12,7 @@ config.apiPoints = {
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
 	exchangeRate = "https://api.exchangeratesapi.io/latest?base=%s",
 	urbanDictionary = "https://api.urbandictionary.com/v0/define?term=%s",
+	smartIp = "https://api.smartip.io/%s?api_key=%s",
 
 	robloxGetUserHeadShot = "https://www.roblox.com/search/users/avatar?isHeadshot=%s&userIds=%s",
 	robloxGetUserFriends = "https://www.roblox.com/users/friends/list-json?friendsType=AllFriends&pageSize=%s&userId=%s",
