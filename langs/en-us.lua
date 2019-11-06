@@ -52,6 +52,9 @@ langs["en-us"] = {
 	["sourceLanguage"] = "Source Language",
 	["translationCodes"] = "Translation Codes",
 	["guilds"] = "Guilds",
+	["urbanDictionary"] = "Urban Dictionary",
+	["rating"] = "Rating",
+	["example"] = "Example",
 
 	["inventory"] = "Inventory",
 	["social"] = "Social",
@@ -276,7 +279,7 @@ langs["en-us"] = {
 	["storeItemAwardRole"] = "Award role",
 	["storeItemAwardCash"] = "Award cash",
 	["storeItemRequiredRole"] = "Required role",
-	["googleNotFoundTerms"] = "Could not find anything with '%s'",
+	["couldNotFindTerms"] = "Could not find anything with '%s'",
 	["messageTooLong"] = "Your message is too long!",
 	["googleTranslationNotFound"] = "Could not translate your message, try again later or with different terms!",
 	["missingThesePerms"] = "In order to continue, I must be able to %s",
@@ -316,6 +319,7 @@ langs["en-us"] = {
 	["categoryDescFun"] = "fun and games.",
 	["categoryDescModeration"] = "moderation tools.",
 
+	["getsDefinition"] = "gets the definition for the word or phrase given.",
 	["showsMutes"] = "shows the currently muted user or users.",
 	["givesItemToSomeone"] = "gives the mentioned item to the mentioned person or more.",
 	["showsRobloxProfile"] = "shows the ROBLOX profile of the mentioned user.",

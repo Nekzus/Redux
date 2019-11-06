@@ -1,9 +1,9 @@
 local _config = {
-	name = "youtube",
-	desc = "${searchesYoutubeVideo}",
+	name = "urban",
+	desc = "${getsDefinition}",
 	usage = "${messageKey}",
-	aliases = {"yt", "video"},
-	cooldown = 15,
+	aliases = {"urb"},
+	cooldown = 5,
 	level = 0,
 	direct = true,
 }
@@ -15,7 +15,7 @@ local _function = function(data)
 	local langData = langs[guildLang]
 	local args = data.args
 
-	if not args[2] then
+	if not (args[2]) then
 		local text = parseFormat("${missingArg}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
@@ -30,15 +30,14 @@ local _function = function(data)
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
-	local searchResult = apiYoutubeVideo(searchTerms)
-	local youtubeLink = "https://www.youtube.com/watch?v=%s"
+	local searchResult = apiUrban(searchTerms)
 	local list = searchResult and searchResult.list
 
 	local page = 1
 	local pages = list and #list or 1
 
-	if searchResult == nil or searchResult.items == nil then
-		local text = parseFormat("${videoNotFoundTerms}", langData, searchTerms)
+	if searchResult == nil or searchResult.list == nil then
+		local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		decoyBird:update(nil, embed:raw())
@@ -50,7 +49,7 @@ local _function = function(data)
 		local item = list[page]
 
 		if not item then
-			local text = parseFormat("${videoNotFoundTerms}", langData, searchTerms)
+			local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
 			local embed = replyEmbed(text, data.message, "error")
 
 			decoyBird:update(nil, embed:raw())
@@ -58,7 +57,28 @@ local _function = function(data)
 			return false
 		end
 
-		decoyBird:update(format(youtubeLink, item.id.videoId), nil)
+		local embed = newEmbed()
+		embed:author(parseFormat("${urbanDictionary}"))
+		embed:authorImage(config.images.urbanDictionary)
+		embed:authorUrl(item.permalink)
+
+		embed:field({
+			name = item.word,
+			value = item.definition,
+			inline = true,
+		})
+		embed:field({
+			name = parseFormat("${example}", langData),
+			value = item.example,
+			inline = true,
+		})
+		embed:field({
+			name = parseFormat("${rating}", langData),
+			value = format("%s %s\n%s %s", ":+1:", item.thumbs_up, ":-1:", item.thumbs_down)
+			inline = true,
+		})
+
+		decoyBird:update(nil, embed:raw())
 
 		if firstTime == true then
 			firstTime = false

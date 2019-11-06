@@ -216,7 +216,7 @@ local _function = function(data)
 		local translateResult = apiGoogleTranslate(translateLang, translateTerms:gsub("\n", "%%0A"):gsub(" ", "%%20"))
 
 		if translateResult == nil or translateResult.data == nil then
-			local text = parseFormat("${googleNotFoundTerms}", langData, translateLang)
+			local text = parseFormat("${couldNotFindTerms}", langData, translateLang)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			decoyBird:update(nil, embed:raw())
@@ -230,7 +230,7 @@ local _function = function(data)
 		local detectedSourceLanguage = translation.detectedSourceLanguage
 
 		if not translatedText then
-			local text = parseFormat("${googleNotFoundTerms}", langData, translateLang)
+			local text = parseFormat("${couldNotFindTerms}", langData, translateLang)
 			local embed = replyEmbed(text, data.message, "error")
 
 			decoyBird:update(nil, embed:raw())
