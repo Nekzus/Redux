@@ -1,5 +1,5 @@
-function apiUrban()
-	local data, request = httpGet("urbanDictionary")
+function apiUrban(text)
+	local data, request = httpGet("urbanDictionary", {text})
 	local decode = json.decode(request)
 
 	if not decode then

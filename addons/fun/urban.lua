@@ -58,25 +58,23 @@ local _function = function(data)
 		end
 
 		local embed = newEmbed()
-		embed:author(parseFormat("${urbanDictionary}"))
+		embed:author(parseFormat("${urbanDictionary}", langData))
 		embed:authorImage(config.images.urbanDictionary)
 		embed:authorUrl(item.permalink)
 
-		embed:field({
-			name = item.word,
-			value = item.definition,
-			inline = true,
-		})
-		embed:field({
-			name = parseFormat("${example}", langData),
-			value = item.example,
-			inline = true,
-		})
-		embed:field({
-			name = parseFormat("${rating}", langData),
-			value = format("%s %s\n%s %s", ":+1:", item.thumbs_up, ":-1:", item.thumbs_down)
-			inline = true,
-		})
+		embed:description(parseFormat(
+			":book: **%s**\n%s\n\n:pencil: **${example}**\n%s\n\n:star: **${rating}**\n%s %s %s %s",
+			langData,
+			item.word,
+			item.definition,
+			item.example,
+			":+1:", affixNum(item.thumbs_up),
+			":-1:", affixNum(item.thumbs_down)
+		))
+
+		embed:color(config.colors.blue)
+		embed:footerIcon(config.images.info)
+		signFooter(embed, data.author, guildLang)
 
 		decoyBird:update(nil, embed:raw())
 

@@ -356,6 +356,9 @@ langs["pt-br"] = {
 	["followingUserNotMuted"] = "**%s** não está mutado",
 	["followingUsersNotMuted"] = "**%s** não estão mutados",
 
+	["peopleAgree"] = "Pessoas concordam",
+	["peopleDisagree"] = "Pessoas discordam",
+
 	-- Discord Error Codes
 	["discordError50034"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 

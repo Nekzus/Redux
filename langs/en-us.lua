@@ -356,6 +356,9 @@ langs["en-us"] = {
 	["followingUserNotMuted"] = "**%s** is not muted",
 	["followingUsersNotMuted"] = "**%s** are not muted",
 
+	["peopleAgree"] = "People agree",
+	["peopleDisagree"] = "People disagree",
+
 	-- Discord Error Codes
 	["discordError50034"] = "You can only bulk delete messages that are under 14 days old.",
 

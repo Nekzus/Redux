@@ -128,7 +128,7 @@ local _function = function(data)
 		})
 		embed:field({
 			name = parseFormat("${rating}", langData),
-			value = format("%s %s\n%s %s", ":+1:", item.thumbs_up, ":-1:", item.thumbs_down)
+			value = format("%s %s\n%s %s", ":+1:", item.thumbs_up, ":-1:", item.thumbs_down),
 			inline = true,
 		})
 
