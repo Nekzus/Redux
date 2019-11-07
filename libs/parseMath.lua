@@ -150,6 +150,11 @@ function replaceConstants(text)
 	return replaced:sub(2, - 2)
 end
 
+local operations = {
+	DIV = function(text)
+
+	end
+}
 
 
 
