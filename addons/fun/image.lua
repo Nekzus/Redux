@@ -31,12 +31,12 @@ local _function = function(data)
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
 	local searchResult = apiGoogleSearchImage(searchTerms)
-	local list = searchResult and searchResult.list
+	local list = searchResult and searchResult.items
 
 	local page = 1
 	local pages = list and #list or 1
 
-	if searchResult == nil or searchResult.items == nil then
+	if list == nil then
 		local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
