@@ -56,6 +56,7 @@ floor = math.floor -- Retorna o inteiro inferior ao número decimal
 fmod = math.fmod -- Retorna o restante da divisão de x por y
 huge = math.huge -- Retorna um número infinito representado por math.huge
 log = math.log -- Retorna o logaritmo natural de x
+log10 = math.log10 -- Retorna a base-10 do logaritmo de x
 max = math.max -- Retorna o maior número dentre os que forem passados
 min = math.min -- Retorna o menor número dentre os que forem passados
 modf = math.modf -- Retorna a parte integral e fracional de x
