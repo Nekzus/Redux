@@ -34,57 +34,45 @@ local _function = function(data)
 	local list = {}
 
 	if searchResult["status-code"] == 200 then
-		local geoEmbed = newEmbed()
-		geoEmbed:title(parseFormat("${geo}", langData))
-
 		local geoData = searchResult["geo"]
 		local geoDesc = ""
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${isMetric}", langData), geoData["is-metric"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${isInEurope}", langData), geoData["is-in-europe"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${latitude}", langData), geoData["latitude"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${zipCode}", langData), geoData["zip-code"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${city}", langData), geoData["city"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${regionCode}", langData), geoData["region-code"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${regionName}", langData), geoData["region-name"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${continentCode}", langData), geoData["continent-code"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${continentName}", langData), geoData["continent-code"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${capital}", langData), geoData["capital"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${countryName}", langData), geoData["country-name"])
-		geoDesc = format("%s\n%s: %s", geoDesc, parseFormat("${countryISOCode}", langData), geoData["country-iso-code"])
+		geoDesc = parseFormat("%s\n${latitude}: %s", langData, geoDesc, geoData["latitude"])
+		geoDesc = parseFormat("%s\n${longitude}: %s", langData, geoDesc, geoData["longitude"])
+		geoDesc = parseFormat("%s\n${zipCode}: %s", langData, geoDesc, geoData["zip-code"])
+		geoDesc = parseFormat("%s\n${city}: %s", langData, geoDesc, geoData["city"])
+		geoDesc = parseFormat("%s\n${regionCode}: %s", langData, geoDesc, geoData["region-code"])
+		geoDesc = parseFormat("%s\n${regionName}: %s", langData, geoDesc, geoData["region-name"])
+		geoDesc = parseFormat("%s\n${continentCode}: %s", langData, geoDesc, geoData["continent-code"])
+		geoDesc = parseFormat("%s\n${continentName}: %s", langData, geoDesc, geoData["continent-name"])
+		geoDesc = parseFormat("%s\n${capital}: %s", langData, geoDesc, geoData["capital"])
+		geoDesc = parseFormat("%s\n${countryName}: %s", langData, geoDesc, geoData["country-name"])
+		geoDesc = parseFormat("%s\n${countryISOCode}: %s", langData, geoDesc, geoData["country-iso-code"])
+		insert(list, geoDesc)
 
-		geoEmbed:description(geoDesc)
-		insert(list, geoEmbed)
+		local asnData = searchResult["asn"]
+		local asnDesc = ""
+		asnDesc = parseFormat("%s\n${name}: %s", langData, asnDesc, asnData["name"])
+		asnDesc = parseFormat("%s\n${type}: %s", langData, asnDesc, asnData["type"])
+		asnDesc = parseFormat("%s\n${domain}: %s", langData, asnDesc, asnData["domain"])
+		asnDesc = parseFormat("%s\n${organization}: %s", langData, asnDesc, asnData["organization"])
+		asnDesc = parseFormat("%s\n${asn}: %s", langData, asnDesc, asnData["asn"])
+		insert(list, asnDesc)
 
-		local countryEmbed = newEmbed()
-		countryEmbed:title(parseFormat("${country}", langData))
+		local currencyData = searchResult["currency"]
+		local currencyDesc = ""
+		currencyDesc = parseFormat("%s\n${nativeName}: %s", langData, currencyDesc, currencyData["native-name"])
+		currencyDesc = parseFormat("%s\n${code}: %s", langData, currencyDesc, currencyData["code"])
+		currencyDesc = parseFormat("%s\n${name}: %s", langData, currencyDesc, currencyData["name"])
+		currencyDesc = parseFormat("%s\n${symbol}: %s", langData, currencyDesc, currencyData["symbol"])
+		insert(list, currencyDesc)
 
-		local countryData = searchResult["country"]
-		local countryDesc = ""
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${isMetric}", langData), countryData["is-metric"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${isInEurope}", langData), countryData["is-in-europe"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${regionGeoId}", langData), countryData["region-geo-id"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${continentGeoId}", langData), countryData["continent-geo-id"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${countryGeoId}", langData), countryData["country-geo-id"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${regionCode}", langData), countryData["region-code"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${regionName}", langData), countryData["region-name"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${continentCode}", langData), countryData["continent-code"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${continentName}", langData), countryData["continent-name"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${capital}", langData), countryData["capital"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${countryName}", langData), countryData["country-name"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${countryTwoLetterISOCode}", langData), countryData["country-two-letter-iso-code"])
-		countryDesc = format("%s\n%s: %s", countryDesc, parseFormat("${countryISOCode}", langData), countryData["country-iso-code"])
-
-		countryEmbed:description(countryDesc)
-		insert(list, countryData)
-
-		local locationEmbed = newEmbed()
-		locationEmbed:title(parseFormat("${location}", langData))
-
-		locationData = searchResult["location"]
-		locationDesc = ""
-		locationDesc = format("%s\n%s: %s", locationDesc, parseFormat("${isMetric}", langData), countryData["is-metric"])
-
-		-- https://api.smartip.io/201.16.189.129?api_key=e4e5b09e-8550-4ac3-a1ec-9111e95b3886
+		local tzData = searchResult["timezone"]
+		local tzDesc = ""
+		tzDesc = parseFormat("%s\n${isDaylightSaving}: %s", langData, tzDesc, tzData["is-daylight-saving"])
+		tzDesc = parseFormat("%s\n${gmtOffset}: %s", langData, tzDesc, tzData["gmt-offset"])
+		tzDesc = parseFormat("%s\n${microsoftName}: %s", langData, tzDesc, tzData["microsoft-name"])
+		tzDesc = parseFormat("%s\n${iana}: %s", langData, tzDesc, tzData["iana-name"])
+		insert(list, tzDesc)
 	end
 
 	local page = 1
@@ -112,25 +100,12 @@ local _function = function(data)
 		end
 
 		local embed = newEmbed()
-		embed:author(parseFormat("${urbanDictionary}"))
-		embed:authorImage(config.images.urbanDictionary)
-		embed:authorUrl(item.permalink)
+		embed:title(parseFormat("${ipInfo}: %s", langData, searchResult["ip"]))
+		embed:description(item)
 
-		embed:field({
-			name = item.word,
-			value = item.definition,
-			inline = true,
-		})
-		embed:field({
-			name = parseFormat("${example}", langData),
-			value = item.example,
-			inline = true,
-		})
-		embed:field({
-			name = parseFormat("${rating}", langData),
-			value = format("%s %s\n%s %s", ":+1:", item.thumbs_up, ":-1:", item.thumbs_down),
-			inline = true,
-		})
+		embed:color(config.colors.blue)
+		embed:footerIcon(config.images.info)
+		signFooter(embed, data.author, guildLang)
 
 		decoyBird:update(nil, embed:raw())
 

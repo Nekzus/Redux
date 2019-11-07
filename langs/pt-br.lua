@@ -131,6 +131,7 @@ langs["pt-br"] = {
 	["reason"] = "Motivo",
 	["timeLeft"] = "Tempo Restante",
 
+	["ipInfo"] = "Informações de IP",
 	["security"] = "Segurança",
 	["geo"] = "Geolocalização",
 	["latitude"] = "Latitude",
@@ -148,6 +149,8 @@ langs["pt-br"] = {
 	["ipType"] = "Tipo de IP",
 	["requesterIp"] = "IP Solicitante",
 	["ip"] = "IP",
+	["domain"] = "Domínio",
+	["organization"] = "Organização",
 
 	["isMetric"] = "É Métrico",
 	["isInEurope"] = "Está na Europa",
