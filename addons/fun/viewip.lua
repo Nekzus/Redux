@@ -33,6 +33,15 @@ local _function = function(data)
 	local searchResult = apiSmartIp(searchTerms)
 	local list = {}
 
+	if searchResult == nil or searchResult.list == nil then
+		local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
+		local embed = replyEmbed(text, data.message, "warn")
+
+		decoyBird:update(nil, embed:raw())
+
+		return false
+	end
+
 	if searchResult["status-code"] == 200 then
 		local geoData = searchResult["geo"]
 		local geoDesc = ""
@@ -77,15 +86,6 @@ local _function = function(data)
 
 	local page = 1
 	local pages = list and #list or 1
-
-	if searchResult == nil or searchResult.list == nil then
-		local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
-		local embed = replyEmbed(text, data.message, "warn")
-
-		decoyBird:update(nil, embed:raw())
-
-		return false
-	end
 
 	local function showPage()
 		local item = list[page]
