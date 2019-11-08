@@ -56,7 +56,7 @@ local _function = function(data)
 		geoDesc = parseFormat("%s\n${capital}: %s", langData, geoDesc, geoData["capital"])
 		geoDesc = parseFormat("%s\n${countryName}: %s", langData, geoDesc, geoData["country-name"])
 		geoDesc = parseFormat("%s\n${countryISOCode}: %s", langData, geoDesc, geoData["country-iso-code"])
-		insert(list, geoDesc)
+		list[1] = geoDesc
 
 		local asnData = searchResult["asn"]
 		local asnDesc = ""
@@ -65,7 +65,7 @@ local _function = function(data)
 		asnDesc = parseFormat("%s\n${domain}: %s", langData, asnDesc, asnData["domain"])
 		asnDesc = parseFormat("%s\n${organization}: %s", langData, asnDesc, asnData["organization"])
 		asnDesc = parseFormat("%s\n${asn}: %s", langData, asnDesc, asnData["asn"])
-		insert(list, asnDesc)
+		list[2] = asnDesc
 
 		local currencyData = searchResult["currency"]
 		local currencyDesc = ""
@@ -73,7 +73,7 @@ local _function = function(data)
 		currencyDesc = parseFormat("%s\n${code}: %s", langData, currencyDesc, currencyData["code"])
 		currencyDesc = parseFormat("%s\n${name}: %s", langData, currencyDesc, currencyData["name"])
 		currencyDesc = parseFormat("%s\n${symbol}: %s", langData, currencyDesc, currencyData["symbol"])
-		insert(list, currencyDesc)
+		list[3] = currencyDesc
 
 		local tzData = searchResult["timezone"]
 		local tzDesc = ""
@@ -81,7 +81,7 @@ local _function = function(data)
 		tzDesc = parseFormat("%s\n${gmtOffset}: %s", langData, tzDesc, tzData["gmt-offset"])
 		tzDesc = parseFormat("%s\n${microsoftName}: %s", langData, tzDesc, tzData["microsoft-name"])
 		tzDesc = parseFormat("%s\n${iana}: %s", langData, tzDesc, tzData["iana-name"])
-		insert(list, tzDesc)
+		list[4] = tzDesc
 	end
 
 	local page = 1

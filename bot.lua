@@ -69,32 +69,32 @@ sqrt = math.sqrt -- Retorna a raiz quadrada de x
 tan = math.tan -- Retorna a tangente de x
 
 -- Atalhos table
-concat = table.concat
-copy = table.copy
-insert = table.insert
-remove = table.remove
-unpack = table.unpack
-sort = table.sort
-deepCopy = table.deepcopy
-deepCount = table.deepcount
-slice = table.slice
-randomPair = table.randompair
-randomIpair = table.randomipair
-reverse = table.reverse
-reversed = table.reversed
-keys = table.keys
-values = table.values
-sorted = table.sorted
-search = table.search
+concat = table.concat -- Concatena uma table x conforme um padrão passado y
+copy = table.copy -- Retorna a copia de uma table, fundo em até uma camada
+insert = table.insert -- Insere em uma table um valor ou item
+remove = table.remove -- Remove de uma table o item com posição passado
+unpack = table.unpack -- Retorna em multiplos argumentos os itens de uma table
+sort = table.sort -- Ordena uma table; Caso uma função for passada, usa ela como base
+deepCopy = table.deepcopy -- Retorna a copia completa de uma table
+deepCount = table.deepcount -- Retorna a contagem completa de itens de uma table
+slice = table.slice -- Retorna a table cortada de x a y
+randomPair = table.randompair -- Retorna uma chave e valor de ordem aleatória
+randomIpair = table.randomipair -- Retorna uma chave e valor de ordem aleatória
+reverse = table.reverse -- Inverte a table passada
+reversed = table.reversed -- Retorna uma copia invertida da table passada
+keys = table.keys -- Retorna uma table array onde todos os valores são chaves da table original
+values = table.values -- Retorna uma table array onde todos os valores são valores da table original
+sorted = table.sorted -- Retorna uma copia da table original utilizando sort
+search = table.search -- Procura dentre todos os valores de uma table até encontrar o item mencionado
 
 -- Extensões principais
-fs = require("fs")
-query = require("querystring")
-http = require("coro-http")
-json = require("json")
-timer = require("timer")
-parse = require("url").parse
-spawn = require("coro-spawn")
+fs = require("fs") -- Extensão responsável por administrar o acesso à caminhos do sistema
+query = require("querystring") -- Extensão para embutir chaves e valores em uma URL HTTP
+http = require("coro-http") -- Extensão para fazer pedidos HTTP
+json = require("json") -- Extensão de utilidades para encodificar e decodificar JSON
+timer = require("timer") -- Extensão para fazer uso do sistema de tempo do Luvit
+parse = require("url").parse -- Extensão para parsing de URL
+spawn = require("coro-spawn") -- Extensão para executar funções dentro de novas threads
 
 -- Pontos pricipais de acesso
 bot = {}
