@@ -6,62 +6,62 @@ local function newMask(...)
 	return format(rep("%s", #args), unpack(args))
 end
 
-local numberMask = newMask("%-?%d+%.?%d*")
+main.numberMask = newMask("%-?%d+%.?%d*")
 
-local exponentMask = newMask(numberMask, "%s-%*%*%s-", numberMask)
-local luaExponentialMask = newMask(numberMask, "%s-%^%s-", numberMask)
+main.exponentMask = newMask(main.numberMask, "%s-%*%*%s-", main.numberMask)
+main.luaExponentialMask = newMask(main.numberMask, "%s-%^%s-", main.numberMask)
 
-local divMask = newMask(numberMask, "%s+div%s+", numberMask)
-local modMask = newMask(numberMask, "%s+mod%s+", numberMask)
-local divMaskC = newMask(numberMask, "%s-%/%/%s-", numberMask)
-local modMaskC = newMask(numberMask, "%s-%%%s-", numberMask)
+main.divMask = newMask(main.numberMask, "%s+div%s+", main.numberMask)
+main.modMask = newMask(main.numberMask, "%s+mod%s+", main.numberMask)
+main.divMaskC = newMask(main.numberMask, "%s-%/%/%s-", main.numberMask)
+main.modMaskC = newMask(main.numberMask, "%s-%%%s-", main.numberMask)
 
-local multiplyMask = newMask(numberMask, "%s-%*%s-", numberMask)
-local divideMask = newMask(numberMask, "%s-%/%s-", numberMask)
-local addMask = newMask(numberMask, "%s-%+%s-", numberMask)
-local subtractMask = newMask(numberMask, "%s-%-%s-", numberMask)
+main.multiplyMask = newMask(main.numberMask, "%s-%*%s-", main.numberMask)
+main.divideMask = newMask(main.numberMask, "%s-%/%s-", main.numberMask)
+main.addMask = newMask(main.numberMask, "%s-%+%s-", main.numberMask)
+main.subtractMask = newMask(main.numberMask, "%s-%-%s-", main.numberMask)
 
-local andMask = newMask(numberMask, "%s+and%s+", numberMask)
-local orMask = newMask(numberMask, "%s+or%s+", numberMask)
-local xorMask = newMask(numberMask, "%s+xor%s+", numberMask)
-local shlMask = newMask(numberMask, "%s+shl%s+", numberMask)
-local shrMask = newMask(numberMask, "%s+shr%s+", numberMask)
-local equalMask = newMask(numberMask, "%s-%=%s-", numberMask)
-local notMask = newMask("not%s+", numberMask)
+main.andMask = newMask(main.numberMask, "%s+and%s+", main.numberMask)
+main.orMask = newMask(main.numberMask, "%s+or%s+", main.numberMask)
+main.xorMask = newMask(main.numberMask, "%s+xor%s+", main.numberMask)
+main.shlMask = newMask(main.numberMask, "%s+shl%s+", main.numberMask)
+main.shrMask = newMask(main.numberMask, "%s+shr%s+", main.numberMask)
+main.equalMask = newMask(main.numberMask, "%s-%=%s-", main.numberMask)
+main.notMask = newMask("not%s+", main.numberMask)
 
-local andMaskC = newMask(numberMask, "%s-&%s-", numberMask)
-local orMaskC = newMask(numberMask, "%s-|%s-", numberMask)
-local xorMaskC = newMask(numberMask, "%s-~^%s-", numberMask)
-local shlMaskC = newMask(numberMask, "%s-<<%s-", numberMask)
-local shrMaskC = newMask(numberMask, "%s->>%s-", numberMask)
-local equalMaskC = newMask(numberMask, "%s-%=%=%s-", numberMask)
-local notMaskC = newMask("~%s-", numberMask)
+main.andMaskC = newMask(main.numberMask, "%s-&%s-", main.numberMask)
+main.orMaskC = newMask(main.numberMask, "%s-|%s-", main.numberMask)
+main.xorMaskC = newMask(main.numberMask, "%s-~^%s-", main.numberMask)
+main.shlMaskC = newMask(main.numberMask, "%s-<<%s-", main.numberMask)
+main.shrMaskC = newMask(main.numberMask, "%s->>%s-", main.numberMask)
+main.equalMaskC = newMask(main.numberMask, "%s-%=%=%s-", main.numberMask)
+main.notMaskC = newMask("~%s-", main.numberMask)
 
-local boolAndMaskC = newMask(numberMask, "%s-&&%s-", numberMask)
-local boolOrMaskC = newMask(numberMask, "%s-||%s-", numberMask)
-local boolXorMaskC = newMask(numberMask, "%s-!%^%s-", numberMask)
-local boolNotMaskC = newMask("!%s-", numberMask)
+main.boolAndMaskC = newMask(main.numberMask, "%s-&&%s-", main.numberMask)
+main.boolOrMaskC = newMask(main.numberMask, "%s-||%s-", main.numberMask)
+main.boolXorMaskC = newMask(main.numberMask, "%s-!%^%s-", main.numberMask)
+main.boolNotMaskC = newMask("!%s-", main.numberMask)
 
-local functionMask = "%w[%w%d_]*%b[]"
+main.functionMask = "%w[%w%d_]*%b[]"
 
-local function extractNumbers(text)
+function main.extractNumbers(text)
 	local result = {}
 
-	for cap in text:gmatch(numberMask) do
+	for cap in gmatch(text, main.numberMask) do
 		local num = tonumber(cap)
 
 		if num then
 			insert(result, num)
-			--else
-			--printf("Could not transform number: %s", cap)
+		else
+			printf("Could not transform number: %s", cap)
 		end
 	end
 
 	return result
 end
 
-local function resolveString(text)
-	return gsub(text, functionMask,
+function main.resolveString(text)
+	return gsub(text, main.functionMask,
 		function(text)
 			local name = ""
 
@@ -150,249 +150,250 @@ function replaceConstants(text)
 	return replaced:sub(2, - 2)
 end
 
-local operations = {
-	DIV = function(text)
+function main.div(text)
+	return gsub(text, main.divMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return floor(arg[1] / arg[2])
+		end
+	)
+end
 
-	end
-}
-
-
-
-function HMathP.DIV(str)
-	return str:gsub(HMathP.DivMask,
+function main.DIV(str)
+	return str:gsub(main.divMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (math.floor(Arr[1] / Arr[2]));
 	end);
 end;
 
-function HMathP.MOD(str)
-	return str:gsub(HMathP.ModMask,
+function main.MOD(str)
+	return str:gsub(main.ModMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (Arr[1] % Arr[2]);
 	end);
 end;
 
-function HMathP.DIVC(str)
-	return str:gsub(HMathP.DivMaskC,
+function main.DIVC(str)
+	return str:gsub(main.DivMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (math.floor(Arr[1] / Arr[2]));
 	end);
 end;
 
-function HMathP.EXP(str)
-	return str:gsub(HMathP.ExponentMask,
+function main.EXP(str)
+	return str:gsub(main.ExponentMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (math.pow(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.LuaEXP(str)
-	return str:gsub(HMathP.LuaExponentialMask,
+function main.LuaEXP(str)
+	return str:gsub(main.LuaExponentialMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return math.pow(Arr[1], Arr[2]);
 	end);
 end;
 
-function HMathP.MODC(str)
-	return str:gsub(HMathP.ModMaskC,
+function main.MODC(str)
+	return str:gsub(main.ModMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (Arr[1] % Arr[2]);
 	end);
 end;
 
-function HMathP.AND(str)
-	return str:gsub(HMathP.ANDMask,
+function main.AND(str)
+	return str:gsub(main.ANDMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.band(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.OR(str)
-	return str:gsub(HMathP.ORMask,
+function main.OR(str)
+	return str:gsub(main.ORMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.bor(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.XOR(str)
-	return str:gsub(HMathP.XORMask,
+function main.XOR(str)
+	return str:gsub(main.XORMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.bxor(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.NOT(str)
-	return str:gsub(HMathP.NOTMask,
+function main.NOT(str)
+	return str:gsub(main.NOTMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.bnot(Arr[1]));
 	end);
 end;
 
-function HMathP.SHL(str)
-	return str:gsub(HMathP.SHLMask,
+function main.SHL(str)
+	return str:gsub(main.SHLMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.lshift(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.SHR(str)
-	return str:gsub(HMathP.SHRMask,
+function main.SHR(str)
+	return str:gsub(main.SHRMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.rshift(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.EQUAL(str)
-	return str:gsub(HMathP.EqualMask,
+function main.EQUAL(str)
+	return str:gsub(main.EqualMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return ((Arr[1] == Arr[2]) and 1 or 0);
 	end);
 end;
 
-function HMathP.ANDC(str)
-	return str:gsub(HMathP.ANDMaskC,
+function main.ANDC(str)
+	return str:gsub(main.ANDMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.band(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.BoolANDC(str)
-	return str:gsub(HMathP.BoolANDMaskC,
+function main.BoolANDC(str)
+	return str:gsub(main.BoolANDMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return ((Arr[1] ~= 0) and (Arr[2] ~= 0)) and 1 or 0;
 	end);
 end;
 
-function HMathP.ORC(str)
-	return str:gsub(HMathP.ORMaskC,
+function main.ORC(str)
+	return str:gsub(main.ORMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.bor(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.BoolORC(str)
-	return str:gsub(HMathP.BoolORMaskC,
+function main.BoolORC(str)
+	return str:gsub(main.BoolORMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return ((Arr[1] ~= 0) or (Arr[2] ~= 0)) and 1 or 0;
 	end);
 end;
 
-function HMathP.XORC(str)
-	return str:gsub(HMathP.XORMaskC,
+function main.XORC(str)
+	return str:gsub(main.XORMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.bxor(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.BoolXORC(str)
-	return str:gsub(HMathP.BoolXORMaskC,
+function main.BoolXORC(str)
+	return str:gsub(main.BoolXORMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return ((Arr[1] ~= 0) ~= (Arr[2] ~= 0)) and 1 or 0;
 	end);
 end;
 
-function HMathP.NOTC(str)
-	return str:gsub(HMathP.NOTMaskC,
+function main.NOTC(str)
+	return str:gsub(main.NOTMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.bnot(Arr[1]));
 	end);
 end;
 
-function HMathP.BoolNOTC(str)
-	return str:gsub(HMathP.BoolNOTMaskC,
+function main.BoolNOTC(str)
+	return str:gsub(main.BoolNOTMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (not (Arr[1] ~= 0)) and 1 or 0;
 	end);
 end;
 
-function HMathP.SHLC(str)
-	return str:gsub(HMathP.SHLMaskC,
+function main.SHLC(str)
+	return str:gsub(main.SHLMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.lshift(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.SHRC(str)
-	return str:gsub(HMathP.SHRMaskC,
+function main.SHRC(str)
+	return str:gsub(main.SHRMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (bit.rshift(Arr[1], Arr[2]));
 	end);
 end;
 
-function HMathP.EQUALC(str)
-	return str:gsub(HMathP.EqualMaskC,
+function main.EQUALC(str)
+	return str:gsub(main.EqualMaskC,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return ((Arr[1] == Arr[2]) and 1 or 0);
 	end);
 end;
 
-function HMathP.Multiply(str)
-	return str:gsub(HMathP.MultiplyMask,
+function main.Multiply(str)
+	return str:gsub(main.MultiplyMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (Arr[1] * Arr[2]);
 	end);
 end;
 
-function HMathP.Divide(str)
-	return str:gsub(HMathP.DivideMask,
+function main.Divide(str)
+	return str:gsub(main.DivideMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (Arr[1] / Arr[2]);
 	end);
 end;
 
-function HMathP.Add(str)
-	return str:gsub(HMathP.AddMask,
+function main.Add(str)
+	return str:gsub(main.AddMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (Arr[1] + Arr[2]);
 	end);
 end;
 
-function HMathP.Subtract(str)
-	return str:gsub(HMathP.SubtractMask,
+function main.Subtract(str)
+	return str:gsub(main.SubtractMask,
 		function(s)
-			local Arr = HMathP.ExtractNumbers(s);
+			local Arr = main.ExtractNumbers(s);
 			return (Arr[1] - Arr[2]);
 	end);
 end;
 
-function HMathP.Calculate(str)
-	local num = HMathP.SubstituteConstants(str);
+function main.Calculate(str)
+	local num = main.SubstituteConstants(str);
 	local count = 0;
 	local Prefixed = {
-		HMathP.NOT;
-		HMathP.NOTC;
-		HMathP.BoolNOTC;
+		main.NOT;
+		main.NOTC;
+		main.BoolNOTC;
 	};
 
 	repeat
-		num, count = HMathP.FUNC(num);
+		num, count = main.FUNC(num);
 	until (count == 0) or not count;
 
 	local Used = { };
@@ -423,39 +424,39 @@ function HMathP.Calculate(str)
 
 	local Arr = 
 	{
-		HMathP.AND;
-		HMathP.ANDC;
+		main.AND;
+		main.ANDC;
 
-		HMathP.OR;
-		HMathP.ORC;
+		main.OR;
+		main.ORC;
 
-		HMathP.XOR;
-		HMathP.XORC;
+		main.XOR;
+		main.XORC;
 
-		HMathP.SHL;
-		HMathP.SHLC;
-		HMathP.SHR;
-		HMathP.SHRC;
+		main.SHL;
+		main.SHLC;
+		main.SHR;
+		main.SHRC;
 
-		HMathP.EXP;
-		HMathP.LuaEXP;
+		main.EXP;
+		main.LuaEXP;
 
-		HMathP.DIV;
-		HMathP.DIVC;
-		HMathP.MOD;
-		HMathP.MODC;
+		main.DIV;
+		main.DIVC;
+		main.MOD;
+		main.MODC;
 
-		HMathP.Multiply;
-		HMathP.Divide;
-		HMathP.Add;
-		HMathP.Subtract;
+		main.Multiply;
+		main.Divide;
+		main.Add;
+		main.Subtract;
 
-		HMathP.EQUAL;
-		HMathP.EQUALC;
+		main.EQUAL;
+		main.EQUALC;
 
-		HMathP.BoolANDC;
-		HMathP.BoolORC;
-		HMathP.BoolXORC;
+		main.BoolANDC;
+		main.BoolORC;
+		main.BoolXORC;
 	};
 	for i = 1, #Arr do
 		repeat
@@ -465,14 +466,14 @@ function HMathP.Calculate(str)
 	return tonumber(num) or error('Invalid number: ' .. num);
 end;
 
-function HMathP.ProcessEquation(equa)
+function main.ProcessEquation(equa)
 	local frms = equa:gsub('%b()',
 		function(str)
-			return HMathP.ProcessEquation(str:sub(2, - 2));
+			return main.ProcessEquation(str:sub(2, - 2));
 	end);
-	return HMathP.Calculate(frms);
+	return main.Calculate(frms);
 end;
 
-HMathP.Evaluate = HMathP.ProcessEquation;
+main.Evaluate = main.ProcessEquation;
 
 return HMathP;
