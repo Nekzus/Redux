@@ -32,12 +32,12 @@ local _function = function(data)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
 	local searchResult = apiYoutubeVideo(searchTerms)
 	local youtubeLink = "https://www.youtube.com/watch?v=%s"
-	local list = searchResult and searchResult.list
+	local list = searchResult and searchResult.items
 
 	local page = 1
 	local pages = list and #list or 1
 
-	if searchResult == nil or searchResult.items == nil then
+	if list == nil then
 		local text = parseFormat("${videoNotFoundTerms}", langData, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
