@@ -1,12 +1,25 @@
+--[[
+	Parte responsável por iniciar tarefas específicas do bot para o Discord
+	assim que for retornada uma resposta positiva por parte da API de conexão
+	aos servidores
+]]
+
 client:on("ready",
 	function()
+		-- Define o status do bot, assim facilitando para pessoas saberem
+		-- como utilizá-lo
 		client:setGame {
 			type = 2,
-			name = format("%shelp", config.default.prefix)
+			name = format("%shelp", config.defaultGuild.prefix)
 		}
+
+		-- Inicio do log de report para o console
 		print("\n")
 		print("Framework and modules ready")
 
+		-- Re-inicializa todas as contagens de mutes que foram feitas desde
+		-- a última vez que o bot foi utilizado, assim, garantindo a persistência
+		-- para os mutes temporizados
 		coroutine.wrap(
 			function()
 				print("Persistent mutes enabled")
@@ -17,15 +30,18 @@ client:on("ready",
 			end
 		)()
 
+		-- Inicializa o processo de saving das informações armazenadas pelo bot
+		-- assim, garantindo que todos os dados de guildas e usuários sejam
+		-- persistentes
 		coroutine.wrap(
 			function()
-				if config.saving.enabled then
+				if config.saver.enabled then
 					print("Auto-save routine enabled")
 
 					while true do
-						wait(config.saving.delay)
+						wait(config.saver.delay)
 
-						if config.saving.enabled then
+						if config.saver.enabled then
 							saveAllData()
 						end
 					end
@@ -35,15 +51,18 @@ client:on("ready",
 			end
 		)()
 
+		-- Inicializa uma rotina de limpeza à dados utilizados pelo bot, pois
+		-- de outra forma, o bot eventualmente armazenaria muito "lixo" de
+		-- usuários inativos e comandos
 		coroutine.wrap(
 			function()
-				if config.clean.enabled then
+				if config.cleaner.enabled then
 					print("Cleanser routine enabled")
 
 					reactionsCallback = reactionsCallback or {}
 
 					while true do
-						wait(config.clean.delay)
+						wait(config.cleaner.delay)
 
 						for messageId, blinkData in next, reactionsCallback do
 							local timeout = blinkData.timeout

@@ -1,2 +1,2 @@
 @echo off
-.\luvit\luvit.exe main.lua
+.\luvit.exe bot.lua
