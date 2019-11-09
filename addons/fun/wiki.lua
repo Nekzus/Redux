@@ -36,7 +36,7 @@ local _function = function(data)
 	local page = 1
 	local pages = list and #list or 1
 
-	if not list or list.result == nil then
+	if not list or list.definition == nil then
 		local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
