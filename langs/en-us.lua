@@ -56,7 +56,7 @@ langs["en-us"] = {
 	["sourceLanguage"] = "Source Language",
 	["translationCodes"] = "Translation Codes",
 	["guilds"] = "Guilds",
-	["urbanDictionary"] = "Urban Dictionary",
+	["wikipedia"] = "Wikipedia",
 	["rating"] = "Rating",
 	["example"] = "Example",
 

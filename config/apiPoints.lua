@@ -11,7 +11,7 @@ config.apiPoints = {
 	truthYesNoForce = "https://yesno.wtf/api?force=%s",
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
 	exchangeRate = "https://api.exchangeratesapi.io/latest?base=%s",
-	urbanDictionary = "https://api.urbandictionary.com/v0/define?term=%s",
+	wikipedia = "https://%s.wikipedia.org/w/api.php?action=opensearch&search=%s&limit=1&namespace=0&format=json",
 	smartIp = "https://api.smartip.io/%s?api_key=%s",
 
 	robloxGetUserHeadShot = "https://www.roblox.com/search/users/avatar?isHeadshot=%s&userIds=%s",

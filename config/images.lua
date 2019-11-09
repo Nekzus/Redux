@@ -10,5 +10,5 @@ config.images = {
 	robloxLogo = "https://cdn.discordapp.com/attachments/605826739842711562/637839253572681788/robloxLogo.png",
 	onlineIcon = "https://cdn.discordapp.com/attachments/605826739842711562/638112174950055973/onlineIcon.png",
 	offlineIcon = "https://cdn.discordapp.com/attachments/605826739842711562/638112177072373800/offlineIcon.png",
-	urbanDictionary = "https://cdn.discordapp.com/attachments/605826739842711562/641703785428680705/urbanDictionary.png",
+	wikipediaLogo = "https://cdn.discordapp.com/attachments/605826739842711562/642632009960652800/wikipediaLogo.png",
 }

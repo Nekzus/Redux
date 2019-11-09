@@ -27,9 +27,11 @@ local _function = function(data)
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 	local success, response = loadCode(data.content:sub(#args[1] + 2), data.message, {os = os, data = data})
 
-	local embed = replyEmbed(response, data.message, (success and "ok" or "error"))
+	--local embed = replyEmbed(response, data.message, (success and "ok" or "error"))
 
-	decoy:update(nil, embed:raw())
+	decoy:update(response, nil)
+
+	--decoy:update(nil, embed:raw())
 
 	return true
 end

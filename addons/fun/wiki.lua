@@ -1,8 +1,8 @@
 local _config = {
-	name = "urban",
+	name = "wiki",
 	desc = "${getsDefinition}",
 	usage = "${messageKey}",
-	aliases = {"urb"},
+	aliases = {},
 	cooldown = 5,
 	level = 0,
 	direct = true,
@@ -30,13 +30,13 @@ local _function = function(data)
 	local firstTime = true
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
-	local searchResult = apiUrban(searchTerms)
-	local list = searchResult and searchResult.list
+	local searchResult = apiWiki(searchTerms, sub(guildLang, 1, 2))
+	local list = searchResult
 
 	local page = 1
 	local pages = list and #list or 1
 
-	if searchResult == nil or searchResult.list == nil then
+	if not list or list.result == nil then
 		local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
@@ -46,7 +46,7 @@ local _function = function(data)
 	end
 
 	local function showPage()
-		local item = list[page]
+		local item = list--list[page]
 
 		if not item then
 			local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
@@ -58,18 +58,15 @@ local _function = function(data)
 		end
 
 		local embed = newEmbed()
-		embed:author(parseFormat("${urbanDictionary}", langData))
-		embed:authorImage(config.images.urbanDictionary)
-		embed:authorUrl(item.permalink)
+		embed:author(parseFormat("${wikipedia}", langData))
+		embed:authorImage(config.images.wikipediaLogo)
+		embed:authorUrl(item.link)
 
 		embed:description(parseFormat(
-			":book: **%s**\n%s\n\n:pencil: **${example}**\n%s\n\n:star: **${rating}**\n%s %s %s %s",
+			":book: **%s**\n%s\n\n",
 			langData,
-			item.word,
-			item.definition,
-			item.example,
-			":+1:", affixNum(item.thumbs_up),
-			":-1:", affixNum(item.thumbs_down)
+			item.result,
+			item.definition
 		))
 
 		embed:color(config.colors.blue)
@@ -77,34 +74,6 @@ local _function = function(data)
 		signFooter(embed, data.author, guildLang)
 
 		decoyBird:update(nil, embed:raw())
-
-		if firstTime == true then
-			firstTime = false
-			blinker = blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
-
-			decoyBird:addReaction(arwDown)
-			decoyBird:addReaction(arwUp)
-
-			blinker:on(arwDown.id, function()
-				page = min(pages, page + 1)
-
-				if not private then
-					decoyBird:removeReaction(arwDown, data.user.id)
-				end
-
-				showPage()
-			end)
-
-			blinker:on(arwUp.id, function()
-				page = max(1, page - 1)
-
-				if not private then
-					decoyBird:removeReaction(arwUp, data.user.id)
-				end
-
-				showPage()
-			end)
-		end
 	end
 
 	showPage()
