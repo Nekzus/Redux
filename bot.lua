@@ -224,4 +224,4 @@ end
 
 -- Inicializa o processo principal
 loadBot()
-client:run(format("Bot %s", config.main.botToken))
+--client:run(format("Bot %s", config.main.botToken))

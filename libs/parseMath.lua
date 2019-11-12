@@ -1,3 +1,69 @@
+--[[
+(...) - All between brackets will be evaluated recursively
+<Function_Name>[<Argument1>, <Argument2>; <Argument3>] - Then any functions will be evaluated. Note: there is no space between <Function_Name> and [, but other whitespace characters are ignored.
+pow[ a, b ] - Raises a to the exponent of b;
+sqrt[ a ] - Calculates square root out of a;
+abs[ a ] - Returns non-negative representation of a;
+sin[ a ] - Returns sine of a;
+cos[ a ] - Returns cosine of a;
+tan[ a ] - Returns tangent of a;
+log[ a ] - Returns natural logarithm of a;
+log10[ a ] - Returns ten-based logarithm of a;
+pi[] - Returns pi number;
+floor[ a ] - Returns floor-rounded representation of a;
+ceil[ a ] - Returns ceil-rounded representation of a;
+rad[ a ] - Returns converted to radians a;
+deg[ a ] - Returns converted to degrees a;
+bits[ a, b ] - Casts a to b amount of bits;
+bit[ a ] - Casts a to one bit;
+byte[ a ] - Casts a to one byte;
+word[ a ] - Casts a to two bytes;
+int[ a ] - Casts a to four bytes;
+Logical operators, all operators are bit-based (All is shown in priority decreasing order)
+not a - NOT operator;
+~a - NOT operator (C-style);
+a and b - AND operator;
+a & b - AND operator (C-style);
+a or b - OR operator;
+a | b - OR operator (C-style);
+a xor b - XOR operator;
+a ~^ b - XOR operator (C-style);
+a shl b - Shift Left operator;
+a << b - Shift Left operator (C-style);
+a shr b - Shift Right operator;
+a >> b - Shift Right operator (C-style);
+a ** b/a ^ b - Exponential operator: Raises a to the exponent of b. Same as pow[ a, b ];
+Integer division operators:
+a div b - DIV operator;
+a // b - DIV operator (C-style);
+Modulus operators:
+a mod b - MOD operator;
+a % b - MOD operator (C-style);
+Arithmetic operators:
+a * b - Multiplication operator
+a / b - Division operator
+a + b - Sum operator
+a - b - Subtraction operator
+Equality operators (return 1 if equal, 0 otherwise):
+a = b - Equality operator;
+a == b - Equality operator (C-style);
+Boolean logic operators
+!a - NOT operator
+a && b - AND operator
+a || b - OR operator
+a !^ b - XOR operator
+Constants
+$pi = math.pi;
+$e = math.exp(1);
+Usage example
+floor[ sqrt[ pow[ 2, log[ 154 ] ] ] ] - Useless math
+sqrt[ 3**2 + 4**2 ] - Pythagoras rule
+(238 && 156) == (238 and 156) - Test logic
+((238 && 156) == (238 and 156)) << (2 xor 1) = ((154 || 12) == (154 or 12)) shl (1 ^ 2) - Advanced logic test
+((23 ** 2 div 2) == (23 ** 2 // 2)) && (((15 mod 2 << 1) >> 2) == ((15 % 2 shl 1) shr 2)) - Logic and arithmetics
+]]
+
+
 local main = {}
 local bit = require("bit") or require("bit32")
 
@@ -60,7 +126,7 @@ function main.extractNumbers(text)
 	return result
 end
 
-function main.resolveString(text)
+function main.resolve(text)
 	return gsub(text, main.functionMask,
 		function(text)
 			local name = ""
@@ -83,7 +149,7 @@ function main.resolveString(text)
 					local c = sub(equat, 1, 1) -- Char
 					equat = sub(equat, 2)
 
-					if (c == "," or c == ";") and opd == 0 then
+					if (c == "," or c == ",") and opd == 0 then
 						insert(result, processEquation(arg))
 						arg = ""
 					else
@@ -150,7 +216,7 @@ function replaceConstants(text)
 	return replaced:sub(2, - 2)
 end
 
-function main.div(text)
+function main.DIV(text)
 	return gsub(text, main.divMask,
 		function(c)
 			local arg = main.extractNumbers(c)
@@ -159,321 +225,350 @@ function main.div(text)
 	)
 end
 
-function main.DIV(str)
-	return str:gsub(main.divMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (math.floor(Arr[1] / Arr[2]));
-	end);
-end;
+function main.MOD(text)
+	return gsub(text, main.modMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (arg[1] % arg[2])
+		end
+	)
+end
 
-function main.MOD(str)
-	return str:gsub(main.ModMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (Arr[1] % Arr[2]);
-	end);
-end;
+function main.DIVC(text)
+	return gsub(text, main.divMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (math.floor(arg[1] / arg[2]))
+		end
+	)
+end
 
-function main.DIVC(str)
-	return str:gsub(main.DivMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (math.floor(Arr[1] / Arr[2]));
-	end);
-end;
+function main.exp(text)
+	return gsub(text, main.exponentMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (math.pow(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.EXP(str)
-	return str:gsub(main.ExponentMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (math.pow(Arr[1], Arr[2]));
-	end);
-end;
+function main.luaExp(text)
+	return gsub(text, main.luaExponentialMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return math.pow(arg[1], arg[2])
+		end
+	)
+end
 
-function main.LuaEXP(str)
-	return str:gsub(main.LuaExponentialMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return math.pow(Arr[1], Arr[2]);
-	end);
-end;
+function main.modc(text)
+	return gsub(text, main.modMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (arg[1] % arg[2])
+		end
+	)
+end
 
-function main.MODC(str)
-	return str:gsub(main.ModMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (Arr[1] % Arr[2]);
-	end);
-end;
+function main.AND(text)
+	return gsub(text, main.andMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.band(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.AND(str)
-	return str:gsub(main.ANDMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.band(Arr[1], Arr[2]));
-	end);
-end;
+function main.OR(text)
+	return gsub(text, main.orMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.bor(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.OR(str)
-	return str:gsub(main.ORMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.bor(Arr[1], Arr[2]));
-	end);
-end;
+function main.XOR(text)
+	return gsub(text, main.xorMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.bxor(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.XOR(str)
-	return str:gsub(main.XORMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.bxor(Arr[1], Arr[2]));
-	end);
-end;
+function main.NOT(text)
+	return gsub(text, main.notMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.bnot(arg[1]))
+		end
+	)
+end
 
-function main.NOT(str)
-	return str:gsub(main.NOTMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.bnot(Arr[1]));
-	end);
-end;
+function main.shl(text)
+	return gsub(text, main.shlMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.lshift(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.SHL(str)
-	return str:gsub(main.SHLMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.lshift(Arr[1], Arr[2]));
-	end);
-end;
+function main.shr(text)
+	return gsub(text, main.shrMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.rshift(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.SHR(str)
-	return str:gsub(main.SHRMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.rshift(Arr[1], Arr[2]));
-	end);
-end;
+function main.equal(text)
+	return gsub(text, main.equalMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return ((arg[1] == arg[2]) and 1 or 0)
+		end
+	)
+end
 
-function main.EQUAL(str)
-	return str:gsub(main.EqualMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return ((Arr[1] == Arr[2]) and 1 or 0);
-	end);
-end;
+function main.andC(text)
+	return gsub(text, main.andMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.band(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.ANDC(str)
-	return str:gsub(main.ANDMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.band(Arr[1], Arr[2]));
-	end);
-end;
+function main.boolAndC(text)
+	return gsub(text, main.boolAndMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return ((arg[1] ~= 0) and (arg[2] ~= 0)) and 1 or 0
+		end
+	)
+end
 
-function main.BoolANDC(str)
-	return str:gsub(main.BoolANDMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return ((Arr[1] ~= 0) and (Arr[2] ~= 0)) and 1 or 0;
-	end);
-end;
+function main.orC(text)
+	return gsub(text, main.orMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.bor(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.ORC(str)
-	return str:gsub(main.ORMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.bor(Arr[1], Arr[2]));
-	end);
-end;
+function main.boolOrC(text)
+	return gsub(text, main.boolOrMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return ((arg[1] ~= 0) or (arg[2] ~= 0)) and 1 or 0
+		end
+	)
+end
 
-function main.BoolORC(str)
-	return str:gsub(main.BoolORMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return ((Arr[1] ~= 0) or (Arr[2] ~= 0)) and 1 or 0;
-	end);
-end;
+function main.xorC(text)
+	return gsub(text, main.xorMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.bxor(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.XORC(str)
-	return str:gsub(main.XORMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.bxor(Arr[1], Arr[2]));
-	end);
-end;
+function main.boolXorC(text)
+	return gsub(text, main.boolXorMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return ((arg[1] ~= 0) ~= (arg[2] ~= 0)) and 1 or 0
+		end
+	)
+end
 
-function main.BoolXORC(str)
-	return str:gsub(main.BoolXORMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return ((Arr[1] ~= 0) ~= (Arr[2] ~= 0)) and 1 or 0;
-	end);
-end;
+function main.notC(text)
+	return gsub(text, main.notMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.bnot(arg[1]))
+		end
+	)
+end
 
-function main.NOTC(str)
-	return str:gsub(main.NOTMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.bnot(Arr[1]));
-	end);
-end;
+function main.boolNotC(text)
+	return gsub(text, main.boolNotMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (not (arg[1] ~= 0)) and 1 or 0,
+		end
+	)
+end
 
-function main.BoolNOTC(str)
-	return str:gsub(main.BoolNOTMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (not (Arr[1] ~= 0)) and 1 or 0;
-	end);
-end;
+function main.shlC(text)
+	return gsub(text, main.shlMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.lshift(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.SHLC(str)
-	return str:gsub(main.SHLMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.lshift(Arr[1], Arr[2]));
-	end);
-end;
+function main.shrC(text)
+	return gsub(text, main.shrMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (bit.rshift(arg[1], arg[2]))
+		end
+	)
+end
 
-function main.SHRC(str)
-	return str:gsub(main.SHRMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (bit.rshift(Arr[1], Arr[2]));
-	end);
-end;
+function main.equalC(text)
+	return gsub(text, main.equalMaskC,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return ((arg[1] == arg[2]) and 1 or 0)
+		end
+	)
+end
 
-function main.EQUALC(str)
-	return str:gsub(main.EqualMaskC,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return ((Arr[1] == Arr[2]) and 1 or 0);
-	end);
-end;
+function main.multiply(text)
+	return gsub(text, main.multiplyMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (arg[1] * arg[2])
+		end
+	)
+end
 
-function main.Multiply(str)
-	return str:gsub(main.MultiplyMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (Arr[1] * Arr[2]);
-	end);
-end;
+function main.divide(text)
+	return gsub(text, main.divideMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (arg[1] / arg[2])
+		end
+	)
+end
 
-function main.Divide(str)
-	return str:gsub(main.DivideMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (Arr[1] / Arr[2]);
-	end);
-end;
+function main.add(text)
+	return gsub(text, main.addMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (arg[1] + arg[2])
+		end
+	)
+end
 
-function main.Add(str)
-	return str:gsub(main.AddMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (Arr[1] + Arr[2]);
-	end);
-end;
+function main.subtract(text)
+	return gsub(text, main.subtractMask,
+		function(c)
+			local arg = main.extractNumbers(c)
+			return (arg[1] - arg[2])
+		end
+	)
+end
 
-function main.Subtract(str)
-	return str:gsub(main.SubtractMask,
-		function(s)
-			local Arr = main.ExtractNumbers(s);
-			return (Arr[1] - Arr[2]);
-	end);
-end;
-
-function main.Calculate(str)
-	local num = main.SubstituteConstants(str);
-	local count = 0;
-	local Prefixed = {
-		main.NOT;
-		main.NOTC;
-		main.BoolNOTC;
-	};
+function main.calculate(text)
+	local num = main.replaceConstants(text)
+	local count = 0
+	local prefixed = {
+		main.not,
+		main.notc,
+		main.boolNotC,
+	},
 
 	repeat
-		num, count = main.FUNC(num);
-	until (count == 0) or not count;
+		num, count = main.resolve(num)
+	until (count == 0) or not count
 
-	local Used = { };
+	local used = {}
+	local len = #prefixed
 
-	local Len = #Prefixed;
 	while true do
-		for i = 1, Len do Used[i] = 0; end;
+		for i = 1, len do
+			used[i] = 0
+		end
 
-		local Count = 0;
-		for i = 1, Len do
+		local count = 0
+
+		for i = 1, len do
 			repeat
-				num, Count = Prefixed[i](num);
-				Used[i] = Used[i] + (Count or 0);
-			until not Count or (Count == 0);
-		end;
+				num, count = prefixed[i](num)
+				used[i] = used[i] + (count or 0)
+			until not count or (count == 0)
+		end
 
-		local Check = true;
-		for i = 1, Len do
-			if not (Used[i] == 0) then
-				Check = false;
-				break;
-			end;
-		end;
-		if Check then
-			break;
-		end;
-	end;
+		local check = true
+		for i = 1, len do
+			if not (used[i] == 0) then
+				check = false
+				break
+			end
+		end
+		if check then
+			break
+		end
+	end
 
-	local Arr = 
-	{
-		main.AND;
-		main.ANDC;
+	local arg = {
+		main.and,
+		main.andC,
 
-		main.OR;
-		main.ORC;
+		main.or,
+		main.orC,
 
-		main.XOR;
-		main.XORC;
+		main.xor,
+		main.xorC,
 
-		main.SHL;
-		main.SHLC;
-		main.SHR;
-		main.SHRC;
+		main.shl,
+		main.shlC,
+		main.shr,
+		main.shrC,
 
-		main.EXP;
-		main.LuaEXP;
+		main.exp,
+		main.luaExp,
 
-		main.DIV;
-		main.DIVC;
-		main.MOD;
-		main.MODC;
+		main.div,
+		main.divC,
+		main.mod,
+		main.modC,
 
-		main.Multiply;
-		main.Divide;
-		main.Add;
-		main.Subtract;
+		main.multiply,
+		main.divide,
+		main.add,
+		main.subtract,
 
-		main.EQUAL;
-		main.EQUALC;
+		main.equal,
+		main.equalC,
 
-		main.BoolANDC;
-		main.BoolORC;
-		main.BoolXORC;
-	};
-	for i = 1, #Arr do
+		main.boolAndC,
+		main.boolOrC,
+		main.boolXorC,
+	}
+
+	for i = 1, #arg do
 		repeat
-			num, count = Arr[i](num);
-		until (count == 0) or (not count);
-	end;
-	return tonumber(num) or error('Invalid number: ' .. num);
-end;
+			num, count = arg[i](num)
+		until (count == 0) or (not count)
+	end
 
-function main.ProcessEquation(equa)
+	return tonumber(num) or error('Invalid number: ' .. num)
+end
+
+function main.processEquation(equa)
 	local frms = equa:gsub('%b()',
-		function(str)
-			return main.ProcessEquation(str:sub(2, - 2));
-	end);
-	return main.Calculate(frms);
-end;
+		function(text)
+			return main.processEquation(text:sub(2, - 2))
+		end
+	)
+	return main.calculate(frms)
+end
 
-main.Evaluate = main.ProcessEquation;
+main.evaluate = main.processEquation
+main.eval = main.processEquation
 
-return HMathP;
+local eval = main.eval
+local res = eval("((238 && 156) == (238 and 156)) << (2 xor 1) = ((154 || 12) == (154 or 12)) shl (1 ^ 2)")
+print(res)
+
+return main
