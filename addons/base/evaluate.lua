@@ -110,7 +110,6 @@ local _function = function(data)
 	end
 
 	signFooter(embed, data.author, guildLang)
-
 	bird:post(nil, embed:raw(), data.channel)
 
 	return true
