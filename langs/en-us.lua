@@ -343,6 +343,7 @@ langs["en-us"] = {
 	["itemUseMustHaveRole"] = "You must have the **%s** role in order to use this item!",
 	["itemDoesNotHave"] = "You don't have this item!",
 	["successGaveItem"] = "Successfully gave the item!",
+	["ctxClearedDone"] = "Context has been cleared successfully",
 
 	["followingUserBeenMuted"] = "**%s** has been muted for **%s**",
 	["followingUsersBeenMuted"] = "**%s** have been muted for **%s**",

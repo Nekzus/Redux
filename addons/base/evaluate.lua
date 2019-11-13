@@ -1,8 +1,8 @@
 local _config = {
 	name = "evaluate",
 	desc = "${evalsMath}",
-	usage = "${pageKey}",
-	aliases = {"eval", "exp", "lua", "math"},
+	usage = "${numKey}",
+	aliases = {"eval", "exp", "lua", "math", "ev"},
 	cooldown = 0,
 	level = 0,
 	direct = true,
@@ -12,6 +12,7 @@ local function getCtxDefault()
 	return {
 		-- Reserved words
 		huge = math.huge,
+		inf = math.huge,
 		pi = math.pi,
 
 		-- Reserved functions
@@ -98,6 +99,11 @@ local _function = function(data)
 	if inList(args[2]:lower(), {"reset", "new", "restart", "clear"}) then
 		evalContext[data.author.id] = getCtxDefault()
 
+		local text = parseFormat("${ctxClearedDone}", langData)
+		local embed = replyEmbed(text, data.message, "ok")
+
+		bird:post(nil, embed:raw(), data.channel)
+
 		return true
 	end
 
@@ -109,7 +115,7 @@ local _function = function(data)
 	end
 
 	local input = data.content:sub(#args[1] + 2)
-	local result, err = pcall(luaxp.evaluate, tostring(input), userContext)
+	local success, result, err = pcall(luaxp.evaluate, tostring(input), userContext)
 	local embed = replyEmbed(nil, data.message, "ok")
 
 	embed:field({
@@ -119,7 +125,7 @@ local _function = function(data)
 	})
 	embed:field({
 		name = parseFormat("${outputResult}", langData),
-		value = format("```%s```", result or err and err.message),
+		value = format("```%s```", err and err.message or result),
 		inline = true
 	})
 
