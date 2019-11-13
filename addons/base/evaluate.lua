@@ -59,7 +59,7 @@ local _function = function(data)
 		__newindex = function(list, key, value)
 			if list == self then
 				if count >= 100 then
-					remove(self, 1)
+					remove(self)
 					count = count - 1
 				end
 
