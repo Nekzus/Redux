@@ -1,33 +1,18 @@
-function loadCode(code, message, extra)
-	if not message then
-		print("Message not found for loadCode()")
-	end
-
-	if not code then
-		return("Missing argument")
-	end
-
+function loadCode(code, level, extra)
 	local output = {}
 	local result = {}
 
-	if message.author.id == client.owner.id then
+	if level == "dev" then
 		result = getfenv()
 	else
-		result.enums = enums
 		result.math = math
 		result.string = string
-		result.eval = eval
-		result.type = type
 		result.tostring = tostring
 		result.tonumber = tonumber
 	end
 
-	result.message = message
-
-	if extra then
-		for key, value in next, extra do
-			result[key] = value
-		end
+	for key, value in next, extra do
+		result[key] = value
 	end
 
 	function result.print(...)

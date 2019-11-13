@@ -8,6 +8,12 @@ local _config = {
 	direct = true,
 }
 
+function setExecutionContext(userId, level)
+	if userId == config.main.ownerId then
+		executionContext = level or "user"
+	end
+end
+
 local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
@@ -25,13 +31,16 @@ local _function = function(data)
 	end
 
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
-	local success, response = loadCode(data.content:sub(#args[1] + 2), data.message, {os = os, data = data})
-
-	--local embed = replyEmbed(response, data.message, (success and "ok" or "error"))
+	local success, response = loadCode(
+		data.content:sub(#args[1] + 2),
+		(_config.level == 5 or data.author.id == config.main.ownerId and "dev") or "user",
+		{
+			os = os,
+			data = data,
+		}
+	)
 
 	decoy:update(response, nil)
-
-	--decoy:update(nil, embed:raw())
 
 	return true
 end

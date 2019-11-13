@@ -95,6 +95,7 @@ json = require("json") -- Extensão de utilidades para encodificar e decodificar
 timer = require("timer") -- Extensão para fazer uso do sistema de tempo do Luvit
 parse = require("url").parse -- Extensão para parsing de URL
 spawn = require("coro-spawn") -- Extensão para executar funções dentro de novas threads
+luaxp = require("luaxp") -- Extensão para permitir a avaliação de uma string
 
 -- Pontos pricipais de acesso
 bot = {}
