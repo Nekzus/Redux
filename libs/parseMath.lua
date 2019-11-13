@@ -491,8 +491,8 @@ function main.processEquation(equation)
 	return main.calculate(formulas)
 end
 
-main.evaluate = main.processEquation
-main.eval = main.processEquation
+parseMath = main.processEquation
+evalMath = main.processEquation
 
 local eq = main.eval("7^6*(1+1*(5/2))")
 
