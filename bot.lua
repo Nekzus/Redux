@@ -9,12 +9,12 @@
 ]]
 
 -- Agrupa as principais funcionalidades para o bot
-discordia = require("discordia")
-emitter = discordia.Emitter()
-time = discordia.Time()
-enums = discordia.enums
-discordia.extensions()
-client = discordia.Client({
+discordia = require("discordia") -- Carrega as funcionalidades da biblioteca Discordia
+emitter = discordia.Emitter() -- Função para inscrever callbacks conforme sinais forem ativados
+time = discordia.Time() -- Biblioteca com funções relacionadas à tempo
+enums = discordia.enums -- Dicionário de valores enumerados para serem usados via Discordia
+discordia.extensions() -- Carrega as extensões disponíveis pelo autor do Discordia na memória
+client = discordia.Client({ -- Inicializa o cliente conforme as configurações
 	cacheAllMembers = true,
 	logLevel = 3,
 	logFile = ""
@@ -47,6 +47,7 @@ abs = math.abs -- Retorna o absoluto ou valor não negativo
 acos = math.acos -- Retorna o cosseno inverso
 asin = math.asin -- Retorna o seno em radianos
 atan = math.atan -- Retorna a tangente inversa em radianos
+atan2 = math.atan2 -- Retorna o arco tangente de y/x em radianos
 ceil = math.ceil -- Retorna o inteiro superior ao número decimal
 cos = math.cos -- Retorna o cosseno do valor
 clamp = math.clamp -- Retorna o valor dentro dos limites de x e y
@@ -54,7 +55,9 @@ deg = math.deg -- Converte radianos para gráus
 exp = math.exp -- Retorna o exponencial do número
 floor = math.floor -- Retorna o inteiro inferior ao número decimal
 fmod = math.fmod -- Retorna o restante da divisão de x por y
+frexp = math.frexp -- Retorna m e n de forma que x = m2^6 e o valor de m = 0.5-1
 huge = math.huge -- Retorna um número infinito representado por math.huge
+ldexp = math.ldexp -- Retorna m2^6 (m deve ser inteiro)
 log = math.log -- Retorna o logaritmo natural de x
 log10 = math.log10 -- Retorna a base-10 do logaritmo de x
 max = math.max -- Retorna o maior número dentre os que forem passados
@@ -65,8 +68,10 @@ rad = math.rad -- Converte gráus para radianos
 random = math.random -- Retorna um número aleatório de 0-1 (ou entre dois)
 randomSeed = math.randomseed -- Define x como a seed para o pseudo-aleatório
 sin = math.sin -- Retorna o seno de x
+sinh = math.sinh -- Retorna o seno hiberbólico de x
 sqrt = math.sqrt -- Retorna a raiz quadrada de x
 tan = math.tan -- Retorna a tangente de x
+tanh = math.tanh -- Retorna a tangente hiberbólica de x
 
 -- Atalhos table
 concat = table.concat -- Concatena uma table x conforme um padrão passado y
@@ -95,13 +100,14 @@ json = require("json") -- Extensão de utilidades para encodificar e decodificar
 timer = require("timer") -- Extensão para fazer uso do sistema de tempo do Luvit
 parse = require("url").parse -- Extensão para parsing de URL
 spawn = require("coro-spawn") -- Extensão para executar funções dentro de novas threads
+luaxp = require("luaxp") -- Extensão para avaliar expressões numéricas
 
 -- Pontos pricipais de acesso
-bot = {}
-saves = {}
-config = {}
+bot = {} -- Registro de informações à serem usadas para registros do bot
+saves = {} -- Table que constitui todos os databases salvos
+config = {} -- Pré-registro de configurações
 
-config.time = {
+config.time = { -- Registra configurações relacionadas à tempo
 	second = 1,
 	minute = 60,
 	hour = 3600,
@@ -111,10 +117,10 @@ config.time = {
 	year = 31536000,
 }
 
-randomSeed(os.time())
+randomSeed(os.time()) -- Gera um novo pseudo para aleatorização de valores
 
 -- Funções facilitadoras essenciais
-function wait(num) -- wait baseado no timer.sleep que não para o processo de execução principal do Luvit (como loops)
+function wait(num) -- Baseado no timer.sleep que não para o processo de execução principal do Luvit (loops, while)
 	return timer.sleep(num * 1000)
 end
 
@@ -224,4 +230,4 @@ end
 
 -- Inicializa o processo principal
 loadBot()
-client:run(format("Bot %s", config.main.botToken))
+--client:run(format("Bot %s", config.main.botToken))
