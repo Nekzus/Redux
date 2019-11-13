@@ -225,37 +225,4 @@ end
 
 -- Inicializa o processo principal
 loadBot()
---client:run(format("Bot %s", config.main.botToken))
---[[
-function setn(t,n)
-    setmetatable(t,{__len=function() return n end})
-end
-local t = setmetatable({
-	count = 0
-}, {
-	__newindex = function(list, key, value)
-		if list == self then
-			if count >= 3 then
-				remove(self)
-				count = count - 1
-			end
-
-			list[key] = value
-			count = count + 1
-		else
-			list[key] = value
-		end
-	end
-})
-
-for i = 1,5 do
-	t['a'] = 1
-	t['b'] = 2
-	t['c'] = 3
-end
-
-setn(t, 3)
-t['d'] = 4
-
-for k,v in next, t do print(k,v) end
-]]
+client:run(format("Bot %s", config.main.botToken))
