@@ -231,14 +231,3 @@ end
 -- Inicializa o processo principal
 loadBot()
 --client:run(format("Bot %s", config.main.botToken))
-
-local ev = function(f)
-	return luaxp.evaluate(f, ctx)
-end
-
-for k,v in next, math do
-	printf("\nTrying %s", k)
-	local s, e = ev(k.."(1,2,3,4,5)")
-
-	print(e and e.message or s)
-end
