@@ -10,9 +10,11 @@ local _config = {
 
 local function getCtxDefault()
 	return {
+		-- Reserved words
 		huge = math.huge,
 		pi = math.pi,
 
+		-- Reserved functions
 		acos = function(args)
 			return acos(args[1])
 		end,
