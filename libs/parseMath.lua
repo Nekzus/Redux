@@ -144,7 +144,7 @@ function replaceConstants(text)
 	return replaced:sub(2, - 2)
 end
 
-function main["div"](text)
+main["div"] = function(text)
 	return gsub(text, main.divMask,
 		function(s)
 			local arg = main.extractNumbers(s)
@@ -153,7 +153,7 @@ function main["div"](text)
 	)
 end
 
-function main["mod"](text)
+main["mod"] = function(text)
 	return gsub(text, main.modMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -162,7 +162,7 @@ function main["mod"](text)
 	)
 end
 
-function main["divC"](text)
+main["divC"] = function(text)
 	return gsub(text, main.divMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -171,7 +171,7 @@ function main["divC"](text)
 	)
 end
 
-function main["exp"](text)
+main["exp"] = function(text)
 	return gsub(text, main.exponentMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -180,7 +180,7 @@ function main["exp"](text)
 	)
 end
 
-function main["luaExp"](text)
+main["luaExp"] = function(text)
 	return gsub(text, main.luaExponentialMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -189,7 +189,7 @@ function main["luaExp"](text)
 	)
 end
 
-function main["modC"](text)
+main["modC"] = function(text)
 	return gsub(text, main.modMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -198,7 +198,7 @@ function main["modC"](text)
 	)
 end
 
-function main["and"](text)
+main["and"] = function(text)
 	return gsub(text, main.andMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -207,7 +207,7 @@ function main["and"](text)
 	)
 end
 
-function main["or"](text)
+main["or"] = function(text)
 	return gsub(text, main.orMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -216,7 +216,7 @@ function main["or"](text)
 	)
 end
 
-function main["xor"](text)
+main["xor"] = function(text)
 	return gsub(text, main.xorMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -225,7 +225,7 @@ function main["xor"](text)
 	)
 end
 
-function main["not"](text)
+main["not"] = function(text)
 	return gsub(text, main.notMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -234,7 +234,7 @@ function main["not"](text)
 	)
 end
 
-function main["shl"](text)
+main["shl"] = function(text)
 	return gsub(text, main.shlMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -243,7 +243,7 @@ function main["shl"](text)
 	)
 end
 
-function main["shr"](text)
+main["shr"] = function(text)
 	return gsub(text, main.shrMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -252,7 +252,7 @@ function main["shr"](text)
 	)
 end
 
-function main["equal"](text)
+main["equal"] = function(text)
 	return gsub(text, main.equalMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -261,7 +261,7 @@ function main["equal"](text)
 	)
 end
 
-function main["andC"](text)
+main["andC"] = function(text)
 	return gsub(text, main.andMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -270,7 +270,7 @@ function main["andC"](text)
 	)
 end
 
-function main["boolAndC"](text)
+main["boolAndC"] = function(text)
 	return gsub(text, main.BoolANDMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -279,7 +279,7 @@ function main["boolAndC"](text)
 	)
 end
 
-function main["orC"](text)
+main["orC"] = function(text)
 	return gsub(text, main.orMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -288,7 +288,7 @@ function main["orC"](text)
 	)
 end
 
-function main["boolOrC"](text)
+main["boolOrC"] = function(text)
 	return gsub(text, main.boolOrMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -297,7 +297,7 @@ function main["boolOrC"](text)
 	)
 end
 
-function main["xorC"](text)
+main["xorC"] = function(text)
 	return gsub(text, main.xorMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -306,7 +306,7 @@ function main["xorC"](text)
 	)
 end
 
-function main["boolXorC"](text)
+main["boolXorC"] = function(text)
 	return gsub(text, main.boolXorMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -315,7 +315,7 @@ function main["boolXorC"](text)
 	)
 end
 
-function main["notC"](text)
+main["notC"] = function(text)
 	return gsub(text, main.notMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -324,7 +324,7 @@ function main["notC"](text)
 	)
 end
 
-function main["boolNotC"](text)
+main["boolNotC"] = function(text)
 	return gsub(text, main.boolNotMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -333,7 +333,7 @@ function main["boolNotC"](text)
 	)
 end
 
-function main["shlC"](text)
+main["shlC"] = function(text)
 	return gsub(text, main.shlMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -342,7 +342,7 @@ function main["shlC"](text)
 	)
 end
 
-function main["shrC"](text)
+main["shrC"] = function(text)
 	return gsub(text, main.shrMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -351,7 +351,7 @@ function main["shrC"](text)
 	)
 end
 
-function main["equalC"](text)
+main["equalC"] = function(text)
 	return gsub(text, main.equalMaskC,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -360,7 +360,7 @@ function main["equalC"](text)
 	)
 end
 
-function main["multiply"](text)
+main["multiply"] = function(text)
 	return gsub(text, main.multiplyMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -369,7 +369,7 @@ function main["multiply"](text)
 	)
 end
 
-function main["divide"](text)
+main["divide"] = function(text)
 	return gsub(text, main.divideMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -378,7 +378,7 @@ function main["divide"](text)
 	)
 end
 
-function main["add"](text)
+main["add"] = function(text)
 	return gsub(text, main.addMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -387,7 +387,7 @@ function main["add"](text)
 	)
 end
 
-function main["subtract"](text)
+main["subtract"] = function(text)
 	return gsub(text, main.subtractMask,
 		function(s)
 			local args = main.extractNumbers(s)
@@ -493,5 +493,7 @@ end
 
 main.evaluate = main.processEquation
 main.eval = main.processEquation
+
+local eq = main.eval("7^6*(1+1*(5/2))")
 
 return main
