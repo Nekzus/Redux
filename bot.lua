@@ -47,6 +47,7 @@ abs = math.abs -- Retorna o absoluto ou valor não negativo
 acos = math.acos -- Retorna o cosseno inverso
 asin = math.asin -- Retorna o seno em radianos
 atan = math.atan -- Retorna a tangente inversa em radianos
+atan2 = math.atan2 -- Retorna o arco tangente de y/x em radianos
 ceil = math.ceil -- Retorna o inteiro superior ao número decimal
 cos = math.cos -- Retorna o cosseno do valor
 clamp = math.clamp -- Retorna o valor dentro dos limites de x e y
@@ -54,7 +55,9 @@ deg = math.deg -- Converte radianos para gráus
 exp = math.exp -- Retorna o exponencial do número
 floor = math.floor -- Retorna o inteiro inferior ao número decimal
 fmod = math.fmod -- Retorna o restante da divisão de x por y
+frexp = math.frexp -- Retorna m e n de forma que x = m2^6 e o valor de m = 0.5-1
 huge = math.huge -- Retorna um número infinito representado por math.huge
+ldexp = math.ldexp -- Retorna m2^6 (m deve ser inteiro)
 log = math.log -- Retorna o logaritmo natural de x
 log10 = math.log10 -- Retorna a base-10 do logaritmo de x
 max = math.max -- Retorna o maior número dentre os que forem passados
@@ -65,8 +68,10 @@ rad = math.rad -- Converte gráus para radianos
 random = math.random -- Retorna um número aleatório de 0-1 (ou entre dois)
 randomSeed = math.randomseed -- Define x como a seed para o pseudo-aleatório
 sin = math.sin -- Retorna o seno de x
+sinh = math.sinh -- Retorna o seno hiberbólico de x
 sqrt = math.sqrt -- Retorna a raiz quadrada de x
 tan = math.tan -- Retorna a tangente de x
+tanh = math.tanh -- Retorna a tangente hiberbólica de x
 
 -- Atalhos table
 concat = table.concat -- Concatena uma table x conforme um padrão passado y
@@ -225,4 +230,15 @@ end
 
 -- Inicializa o processo principal
 loadBot()
-client:run(format("Bot %s", config.main.botToken))
+--client:run(format("Bot %s", config.main.botToken))
+
+local ev = function(f)
+	return luaxp.evaluate(f, ctx)
+end
+
+for k,v in next, math do
+	printf("\nTrying %s", k)
+	local s, e = ev(k.."(1,2,3,4,5)")
+
+	print(e and e.message or s)
+end

@@ -10,30 +10,68 @@ local _config = {
 
 local function getCtxDefault()
 	return {
-		abs = math.abs,
-		acos = math.acos,
-		asin = math.asin,
-		atan = math.atan,
-		ceil = math.ceil,
-		cos = math.cos,
-		clamp = math.clamp,
-		deg = math.deg,
-		exp = math.exp,
-		floor = math.floor,
-		fmod = math.fmod,
 		huge = math.huge,
-		log = math.log,
-		log10 = math.log10,
-		max = math.max,
-		min = math.min,
-		modf = math.modf,
 		pi = math.pi,
-		rad = math.rad,
-		random = math.random,
-		randomSeed = math.randomseed,
-		sin = math.sin,
-		sqrt = math.sqrt,
-		tan = math.tan,
+
+		acos = function(args)
+			return acos(args[1])
+		end,
+
+		atan = function(args)
+			return atan(args[1])
+		end,
+
+		atan2 = function(args)
+			return atan2(args[1])
+		end,
+
+		deg = function(args)
+			return deg(args[1])
+		end,
+
+		asin = function(args)
+			return asin(args[1])
+		end,
+
+		clamp = function(args)
+			return max(args[2], min(args[1], args[3]))
+		end,
+
+		cosh = function(args)
+			return max(args[1])
+		end,
+
+		fmod = function(args)
+			return fmod(args[1], args[2])
+		end,
+
+		frexp = function(args)
+			return frexp(args[1])
+		end,
+
+		ldexp = function(args)
+			return ldexp(args[1], args[2])
+		end,
+
+		log10 = function(args)
+			return log10(args[1])
+		end,
+
+		modf = function(args)
+			return fmod(args[1], args[2])
+		end,
+
+		rad = function(args)
+			return rad(args[1])
+		end,
+
+		sinh = function(args)
+			return sinh(args[1])
+		end,
+
+		tanh = function(args)
+			return tanh(args[1])
+		end,
 	}
 end
 
@@ -52,24 +90,6 @@ local _function = function(data)
 
 		return false
 	end
-
-	--[[evalContext = evalContext or setmetatable({
-		count = 0
-	}, {
-		__newindex = function(list, key, value)
-			if list == self then
-				if count >= 100 then
-					remove(self)
-					count = count - 1
-				end
-
-				list[key] = value
-				count = count + 1
-			else
-				list[key] = value
-			end
-		end
-	})]]
 
 	evalContext = evalContext or {}
 
