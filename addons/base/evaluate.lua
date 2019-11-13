@@ -10,30 +10,30 @@ local _config = {
 
 local function getCtxDefault()
 	return {
-		abs = math.abs
-		acos = math.acos
-		asin = math.asin
-		atan = math.atan
-		ceil = math.ceil
-		cos = math.cos
-		clamp = math.clamp
-		deg = math.deg
-		exp = math.exp
-		floor = math.floor
-		fmod = math.fmod
-		huge = math.huge
-		log = math.log
-		log10 = math.log10
-		max = math.max
-		min = math.min
-		modf = math.modf
-		pi = math.pi
-		rad = math.rad
-		random = math.random
-		randomSeed = math.randomseed
-		sin = math.sin
-		sqrt = math.sqrt
-		tan = math.tan
+		abs = math.abs,
+		acos = math.acos,
+		asin = math.asin,
+		atan = math.atan,
+		ceil = math.ceil,
+		cos = math.cos,
+		clamp = math.clamp,
+		deg = math.deg,
+		exp = math.exp,
+		floor = math.floor,
+		fmod = math.fmod,
+		huge = math.huge,
+		log = math.log,
+		log10 = math.log10,
+		max = math.max,
+		min = math.min,
+		modf = math.modf,
+		pi = math.pi,
+		rad = math.rad,
+		random = math.random,
+		randomSeed = math.randomseed,
+		sin = math.sin,
+		sqrt = math.sqrt,
+		tan = math.tan,
 	}
 end
 
