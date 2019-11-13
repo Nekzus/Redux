@@ -9,12 +9,12 @@
 ]]
 
 -- Agrupa as principais funcionalidades para o bot
-discordia = require("discordia")
-emitter = discordia.Emitter()
-time = discordia.Time()
-enums = discordia.enums
-discordia.extensions()
-client = discordia.Client({
+discordia = require("discordia") -- Carrega as funcionalidades da biblioteca Discordia
+emitter = discordia.Emitter() -- Função para inscrever callbacks conforme sinais forem ativados
+time = discordia.Time() -- Biblioteca com funções relacionadas à tempo
+enums = discordia.enums -- Dicionário de valores enumerados para serem usados via Discordia
+discordia.extensions() -- Carrega as extensões disponíveis pelo autor do Discordia na memória
+client = discordia.Client({ -- Inicializa o cliente conforme as configurações
 	cacheAllMembers = true,
 	logLevel = 3,
 	logFile = ""
@@ -95,14 +95,14 @@ json = require("json") -- Extensão de utilidades para encodificar e decodificar
 timer = require("timer") -- Extensão para fazer uso do sistema de tempo do Luvit
 parse = require("url").parse -- Extensão para parsing de URL
 spawn = require("coro-spawn") -- Extensão para executar funções dentro de novas threads
-luaxp = require("luaxp") -- Extensão para permitir a avaliação de uma string
+luaxp = require("luaxp") -- Extensão para avaliar expressões numéricas
 
 -- Pontos pricipais de acesso
-bot = {}
-saves = {}
-config = {}
+bot = {} -- Registro de informações à serem usadas para registros do bot
+saves = {} -- Table que constitui todos os databases salvos
+config = {} -- Pré-registro de configurações
 
-config.time = {
+config.time = { -- Registra configurações relacionadas à tempo
 	second = 1,
 	minute = 60,
 	hour = 3600,
@@ -112,10 +112,10 @@ config.time = {
 	year = 31536000,
 }
 
-randomSeed(os.time())
+randomSeed(os.time()) -- Gera um novo pseudo para aleatorização de valores
 
 -- Funções facilitadoras essenciais
-function wait(num) -- wait baseado no timer.sleep que não para o processo de execução principal do Luvit (como loops)
+function wait(num) -- Baseado no timer.sleep que não para o processo de execução principal do Luvit (loops, while)
 	return timer.sleep(num * 1000)
 end
 
