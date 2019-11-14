@@ -4,12 +4,12 @@ function loadCode(code, level, extra)
 
 	if level == "dev" then
 		result = getfenv()
-	else
-		result.math = math
-		result.string = string
-		result.tostring = tostring
-		result.tonumber = tonumber
 	end
+
+	result.math = math
+	result.string = string
+	result.tostring = tostring
+	result.tonumber = tonumber
 
 	for key, value in next, extra do
 		result[key] = value

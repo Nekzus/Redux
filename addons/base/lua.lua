@@ -33,7 +33,7 @@ local _function = function(data)
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 	local success, response = loadCode(
 		data.content:sub(#args[1] + 2),
-		(_config.level == 5 or data.author.id == config.main.ownerId and "dev") or "user",
+		((_config.level == 5 or data.author.id == config.main.ownerId) and "dev") or "user",
 		{
 			os = os,
 			data = data,

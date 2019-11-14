@@ -69,7 +69,7 @@ local _function = function(data)
 			return a.name < b.name
 		end)
 
-		local perPage = 8
+		local perPage = 10
 		local page = tonumber(args[2]) or 1
 		local pages = listTotal / perPage
 		local message
@@ -80,9 +80,6 @@ local _function = function(data)
 			local result = ""
 
 			local embed = newEmbed()
-
-			embed:title(client.user.name)
-			embed:description(parseFormat("${botDesc}", langData, client.user.name))
 
 			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
@@ -106,10 +103,8 @@ local _function = function(data)
 				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:field({
-				name = parseFormat("${commands} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages),
-				value = (result ~= "" and result or parseFormat("${noResults}", langData)), inline = true
-			})
+			embed:title(parseFormat("${commands} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages))
+			embed:description(result ~= "" and result or parseFormat("${noResults}", langData))
 
 			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
@@ -414,7 +409,7 @@ local _function = function(data)
 			return a.name < b.name
 		end)
 
-		local perPage = 8
+		local perPage = 10
 		local page = tonumber(args[2]) or 1
 
 		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)

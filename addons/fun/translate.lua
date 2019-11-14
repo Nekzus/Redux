@@ -31,7 +31,7 @@ local _function = function(data)
 			return a.name < b.name
 		end)
 
-		local perPage = 8
+		local perPage = 10
 		local page = tonumber(args[2]) or 1
 
 		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
@@ -134,7 +134,7 @@ local _function = function(data)
 			return a.name < b.name
 		end)
 
-		local perPage = 8
+		local perPage = 10
 		local page = tonumber(args[2]) or 1
 
 		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
