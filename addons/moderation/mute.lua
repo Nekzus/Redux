@@ -21,28 +21,27 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
+
 	elseif mentionsOwner(data.message) then
 		local text = parseFormat("${noExecuteOwner}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
+
 	elseif mentionsBot(data.message) then
 		local text = parseFormat("${noExecuteBot}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
+
 	elseif mentionsSelf(data.message) then
 		local text = parseFormat("${noExecuteSelf}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -54,7 +53,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -63,16 +61,12 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
-	local mutedUsers = ""
-	local notMutedUsers = ""
-	local alreadyMutedUsers = ""
-	local mutedAmount = 0
-	local notMutedAmount = 0
-	local alreadyMutedAmount = 0
+	local muted = {}
+	local notMuted = {}
+	local alreadyMuted = {}
 
 	local muteTime = data.content:match("%w+$")
 	muteTime = muteTime and clamp(interpTime(muteTime), config.time.second * 5, config.time.month)
@@ -87,8 +81,7 @@ local _function = function(data)
 
 		if not user or not member then
 			canMute = false
-			notMutedAmount = notMutedAmount + 1
-			notMutedUsers = format("%s, %s", notMutedUsers, member.name)
+			insert(notMuted, member.name)
 		end
 
 		local tempMutes = saves.temp:get("mutes")
@@ -97,13 +90,7 @@ local _function = function(data)
 		if muteData then
 			if member:hasRole(role) then
 				canMute = false
-
-				if alreadyMutedUsers ~= "" then
-					alreadyMutedUsers = format("%s, ", alreadyMutedUsers, member.name)
-				end
-
-				alreadyMutedAmount = alreadyMutedAmount + 1
-				alreadyMutedUsers = format("%s%s", alreadyMutedUsers, member.name)
+				insert(alreadyMuted, member.name)
 			else
 				if tempMutes:raw()[muteData.guid] then
 					tempMutes:set(muteData.guid, nil)
@@ -116,13 +103,7 @@ local _function = function(data)
 		if member.highestRole.position >= data.guild.me.highestRole.position
 		or member.highestRole.position >= author.highestRole.position then
 			canMute = false
-
-			if notMutedUsers ~= "" then
-				notMutedUsers = format("%s, ")
-			end
-
-			notMutedAmount = notMutedAmount + 1
-			notMutedUsers = format("%s%s", notMutedUsers, member.name)
+			insert(notMuted, member.name)
 		end
 
 		if canMute then
@@ -143,52 +124,46 @@ local _function = function(data)
 			guildData:get("mutes"):set(member.id, muteData)
 			handleMuteData(muteData)
 			member:addRole(role)
-
-			if mutedUsers ~= "" then
-				mutedUsers = format("%s, ", mutedUsers)
-			end
-
-			mutedAmount = mutedAmount + 1
-			mutedUsers = format("%s%s", mutedUsers, member.name)
+			insert(muted, member.name)
 		end
 	end
 
 	local text = ""
 
-	if mutedAmount > 0 then
-		if text ~= "" then
-			text = format("%s\n", text)
-		end
-
-		if mutedAmount == 1 then
-			text = format("%s%s", text, parseFormat("${followingUserBeenMuted}", langData, mutedUsers, formalMuteTime))
-		else
-			text = format("%s%s", text, parseFormat("${followingUsersBeenMuted}", langData, mutedUsers, formalMuteTime))
-		end
+	if #muted > 0 then
+		text = text ~= "" and format("%s\n", text) or text
+		text = format(
+			"%s%s",
+			text,
+			parseFormat(
+				(#muted == 1 and "${followingUserBeenMuted}") or "${followingUsersBeenMuted}",
+				langData, concat(muted, ", "), formalMuteTime
+			)
+		)
 	end
 
-	if alreadyMutedAmount > 0 then
-		if text ~= "" then
-			text = format("%s\n", text)
-		end
-
-		if alreadyMutedAmount == 1 then
-			text = format("%s%s", text, parseFormat("${followingUserAlreadyMuted}", langData, alreadyMutedUsers))
-		else
-			text = format("%s%s", text, parseFormat("${followingUsersAlreadyMuted}", langData, alreadyMutedUsers))
-		end
+	if #alreadyMuted > 0 then
+		text = text ~= "" and format("%s\n", text) or text
+		text = format(
+			"%s%s",
+			text,
+			parseFormat(
+				(#alreadyMuted == 1 and "${followingUserAlreadyMuted}") or "${followingUsersAlreadyMuted}",
+				langData, concat(alreadyMuted, ", ")
+			)
+		)
 	end
 
-	if notMutedAmount > 0 then
-		if text ~= "" then
-			text = format("%s\n", text)
-		end
-
-		if notMutedAmount == 1 then
-			text = format("%s%s", text, parseFormat("${followingUserCannotMute}", langData, notMutedUsers))
-		else
-			text = format("%s%s", text, parseFormat("${followingUsersCannotMute}", langData, notMutedUsers))
-		end
+	if #notMuted > 0 then
+		text = text ~= "" and format("%s\n", text) or text
+		text = format(
+			"%s%s",
+			text,
+			parseFormat(
+				(#notMuted == 1 and "${followingUserCannotMute}") or "${followingUsersCannotMute}",
+				langData, concat(notMuted, ", ")
+			)
+		)
 	end
 
 	local embed = replyEmbed(text, data.message, "ok")

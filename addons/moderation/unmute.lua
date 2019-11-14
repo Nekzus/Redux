@@ -67,11 +67,8 @@ local _function = function(data)
 		return false
 	end
 
-	local unmutedUsers = ""
-	local alreadyUnmutedUsers = ""
-
-	local unmutedAmount = 0
-	local alreadyUnmutedAmount = 0
+	local unmuted = {}
+	local alreadyUnmuted = {}
 
 	for _, user in next, data.message.mentionedUsers:toArray() do
 		local member = user and data.guild:getMember(user)
@@ -79,12 +76,7 @@ local _function = function(data)
 		local canUnmute = true
 
 		if not muteData then
-			if alreadyUnmutedUsers ~= "" then
-				alreadyUnmutedUsers = format("%s, ", alreadyUnmutedUsers)
-			end
-
-			alreadyUnmutedAmount = alreadyUnmutedAmount + 1
-			alreadyUnmutedUsers = format("%s%s", alreadyUnmutedUsers, member.name)
+			insert(alreadyUnmuted, member.name)
 		else
 			local tempMutes = saves.temp:get("mutes")
 			local timerProcess = muteTimers[muteData.guid]
@@ -101,39 +93,34 @@ local _function = function(data)
 				member:removeRole(role)
 			end
 
-			if unmutedUsers ~= "" then
-				unmutedUsers = format("%s, ", unmutedUsers)
-			end
-
-			unmutedAmount = unmutedAmount + 1
-			unmutedUsers = format("%s%s", unmutedUsers, member.name)
+			insert(unmuted, member.name)
 		end
 	end
 
 	local text = ""
 
-	if unmutedAmount > 0 then
-		if text ~= "" then
-			text = format("%s\n", text)
-		end
-
-		if unmutedAmount == 1 then
-			text = format("%s%s", text, parseFormat("${followingUserBeenUnmuted}", langData, unmutedUsers))
-		else
-			text = format("%s%s", text, parseFormat("${followingUsersBeenUnmuted}", langData, unmutedUsers))
-		end
+	if #unmuted > 0 then
+		text = text ~= "" and format("%s\n", text) or text
+		text = format(
+			"%s%s",
+			text,
+			parseFormat(
+				(#unmuted == 1 and "${followingUserBeenUnmuted}") or "${followingUsersBeenUnmuted}",
+				langData, concat(unmuted, ", ")
+			)
+		)
 	end
 
-	if alreadyUnmutedAmount > 0 then
-		if text ~= "" then
-			text = format("%s\n", text)
-		end
-
-		if alreadyUnmutedAmount == 1 then
-			text = format("%s%s", text, parseFormat("${followingUserNotMuted}", langData, alreadyUnmutedUsers))
-		else
-			text = format("%s%s", text, parseFormat("${followingUsersNotMuted}", langData, alreadyUnmutedUsers))
-		end
+	if #alreadyUnmuted > 0 then
+		text = text ~= "" and format("%s\n", text) or text
+		text = format(
+			"%s%s",
+			text,
+			parseFormat(
+				(#alreadyUnmuted == 1 and "${followingUserNotMuted}") or "${followingUsersNotMuted}",
+				langData, concat(alreadyUnmuted, ", ")
+			)
+		)
 	end
 
 	local embed = replyEmbed(text, data.message, "ok")
