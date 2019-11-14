@@ -77,9 +77,6 @@ local _function = function(data)
 			decoyBird = bird:post(nil, embed:raw(), data.channel)
 			blinker = blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
 
-			decoyBird:addReaction(arwDown)
-			decoyBird:addReaction(arwUp)
-
 			blinker:on(arwDown.id, function()
 				page = min(pages, page + 1)
 
@@ -99,6 +96,9 @@ local _function = function(data)
 
 				showPage()
 			end)
+
+			decoyBird:addReaction(arwDown)
+			decoyBird:addReaction(arwUp)
 		else
 			decoyBird:update(nil, embed:raw())
 		end

@@ -64,9 +64,6 @@ local _function = function(data)
 			firstTime = false
 			blinker = blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
 
-			decoyBird:addReaction(arwDown)
-			decoyBird:addReaction(arwUp)
-
 			blinker:on(arwDown.id, function()
 				page = min(pages, page + 1)
 
@@ -86,6 +83,9 @@ local _function = function(data)
 
 				showPage()
 			end)
+
+			decoyBird:addReaction(arwDown)
+			decoyBird:addReaction(arwUp)
 		end
 	end
 

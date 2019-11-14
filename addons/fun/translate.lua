@@ -79,9 +79,6 @@ local _function = function(data)
 				message = decoyBird.message
 				blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
-				message:addReaction(arwUp)
-				message:addReaction(arwDown)
-
 				blinker:on(arwUp.id, function()
 					page = max(1, page - 1)
 
@@ -101,6 +98,9 @@ local _function = function(data)
 
 					showPage()
 				end)
+
+				decoyBird:addReaction(arwDown)
+				decoyBird:addReaction(arwUp)
 			else
 				decoyBird:update(nil, embed:raw())
 			end

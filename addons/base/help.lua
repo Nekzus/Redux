@@ -41,9 +41,11 @@ local _function = function(data)
 	local menuSwaping
 	local renderCategory
 	local renderMenu
+	local counter = 0
 
 	menuSwaping = function()
 		active = false
+		counter = counter + 1
 		blinker:clear()
 		decoyBird:clearReacts()
 	end
@@ -126,10 +128,6 @@ local _function = function(data)
 
 		showPage()
 
-		decoyBird:addReaction(arwLeft)
-		decoyBird:addReaction(arwDown)
-		decoyBird:addReaction(arwUp)
-
 		blinker = blinker or blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
 
 		blinker:on(arwLeft.id, function()
@@ -158,6 +156,21 @@ local _function = function(data)
 
 			showPage()
 		end)
+
+		local currentCounter = counter
+		local reactions = {
+			[1] = arwLeft,
+			[2] = arwDown,
+			[3] = arwUp,
+		}
+
+		for i = 1, #reactions do
+			if currentCounter ~= counter then
+				break
+			end
+
+			decoyBird:addReaction(reactions[i])
+		end
 	end
 
 	renderMenu = function()
@@ -198,10 +211,6 @@ local _function = function(data)
 		end
 
 		decoyBird:clearReacts()
-		decoyBird:addReaction(baseEmoji)
-		decoyBird:addReaction(economyEmoji)
-		decoyBird:addReaction(entertainmentEmoji)
-		decoyBird:addReaction(moderationEmoji)
 
 		blinker = blinker or blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
 
@@ -250,6 +259,22 @@ local _function = function(data)
 		)
 
 		active = true
+
+		local currentCounter = counter
+		local reactions = {
+			[1] = baseEmoji,
+			[2] = economyEmoji,
+			[3] = entertainmentEmoji,
+			[4] = moderationEmoji,
+		}
+
+		for i = 1, #reactions do
+			if currentCounter ~= counter then
+				break
+			end
+
+			decoyBird:addReaction(reactions[i])
+		end
 
 		return true
 	end
