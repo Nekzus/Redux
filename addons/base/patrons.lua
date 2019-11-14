@@ -59,10 +59,8 @@ local _function = function(data)
 			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:field({
-			name = parseFormat("${patrons} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages),
-			value = (result ~= "" and result or parseFormat("${noResults}", langData))
-		})
+		embed:title(parseFormat("${patrons} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages))
+		embed:description(result ~= "" and result or parseFormat("${noResults}", langData))
 
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
