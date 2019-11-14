@@ -48,7 +48,7 @@ local _function = function(data)
 			local guildName = obj.name
 
 			if #guildName > 15 then
-				guildName = format("%s...", sub(guildName, 1, 15))
+				guildName = format("%s...", sub(guildName, 1, 18))
 			end
 
 			result = parseFormat("%s%s **%s**: `%s`", langData, result, topicEmoji.mentionString, guildName, obj.id)
