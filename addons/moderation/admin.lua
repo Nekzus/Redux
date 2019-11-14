@@ -49,7 +49,7 @@ local _function = function(data)
 	local user = data.message.mentionedUsers.first
 	local member = user and data.guild:getMember(user)
 
-	if not user or not member then
+	if not member then
 		local text = parseFormat("${userNotFound}", langData)
 		local embed = replyEmbed(text, data.message, "error")
 
