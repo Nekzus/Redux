@@ -8,6 +8,22 @@ local _config = {
 	direct = true,
 }
 
+local function bhaskara(args)
+	local a = args[1]
+	local b = args[2]
+	local c = args[3]
+	local delta = pow(b, 2) - 4 * a * c
+
+	if delta < 0 then
+		return format("delta = %s", delta)
+	else
+		local x1 = (-b + pow(delta, (1 / 2))) / (2 * a)
+		local x2 = (-b - pow(delta, (1 / 2))) / (2 * a)
+
+		return format("x1 = %s\nx2 = %s\ndelta = %s", x1, x2, delta)
+	end
+end
+
 local function getCtxDefault()
 	return {
 		-- Reserved words
@@ -75,6 +91,9 @@ local function getCtxDefault()
 		tanh = function(args)
 			return tanh(args[1])
 		end,
+
+		bhaskara = bhaskara,
+		bha = bhaskara,
 	}
 end
 

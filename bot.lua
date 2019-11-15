@@ -63,6 +63,7 @@ log10 = math.log10 -- Retorna a base-10 do logaritmo de x
 max = math.max -- Retorna o maior número dentre os que forem passados
 min = math.min -- Retorna o menor número dentre os que forem passados
 modf = math.modf -- Retorna a parte integral e fracional de x
+pow = math.pow -- Retorna o número à potencia
 pi = math.pi -- Retorna pi (3.1415..)
 rad = math.rad -- Converte gráus para radianos
 random = math.random -- Retorna um número aleatório de 0-1 (ou entre dois)
