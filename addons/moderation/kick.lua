@@ -13,32 +13,31 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	if not specifiesUser(data.message) then
-		local text = parseFormat("${specifyUser}", langData)
+		local text = localize("${specifyUser}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsOwner(data.message) then
-		local text = parseFormat("${noExecuteOwner}", langData)
+		local text = localize("${noExecuteOwner}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsBot(data.message) then
-		local text = parseFormat("${noExecuteBot}", langData)
+		local text = localize("${noExecuteBot}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	elseif mentionsSelf(data.message) then
-		local text = parseFormat("${noExecuteSelf}", langData)
+		local text = localize("${noExecuteSelf}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -50,7 +49,7 @@ local _function = function(data)
 	local member = user and data.guild:getMember(user)
 
 	if not user or not member then
-		local text = parseFormat("${userNotFound}", langData)
+		local text = localize("${userNotFound}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -62,7 +61,7 @@ local _function = function(data)
 
 	if member.highestRole.position >= data.guild.me.highestRole.position
 	or member.highestRole.position >= author.highestRole.position then
-		local text = parseFormat("${mentionedHigher}", langData)
+		local text = localize("${mentionedHigher}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -77,14 +76,14 @@ local _function = function(data)
 	end
 
 	if not reason then
-		-- member:send(parseFormat("${beenKicked}", langData, data.guild.name, parseFormat("${noReason}", langData)))
-		member:kick(parseFormat("[%s]: ${noReason}", langData, author.tag))
+		-- member:send(localize("${beenKicked}", guildLang, data.guild.name, localize("${noReason}", guildLang)))
+		member:kick(localize("[%s]: ${noReason}", guildLang, author.tag))
 	else
-		-- member:send(parseFormat("${beenKicked}", langData, data.guild.name, reason))
+		-- member:send(localize("${beenKicked}", guildLang, data.guild.name, reason))
 		member:kick(format("[%s]: %s", author.tag, reason))
 	end
 
-	local text = parseFormat("${userKicked}", langData, member.tag)
+	local text = localize("${userKicked}", guildLang, member.tag)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)

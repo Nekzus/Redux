@@ -12,11 +12,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -24,21 +23,21 @@ local _function = function(data)
 	end
 
 	if not specifiesUser(data.message) then
-		local text = parseFormat("${specifyUser}", langData)
+		local text = localize("${specifyUser}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 		return false
 
 	elseif mentionsBot(data.message) then
-		local text = parseFormat("${noExecuteBot}", langData)
+		local text = localize("${noExecuteBot}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 		return false
 
 	elseif mentionsOtherBot(data.message) then
-		local text = parseFormat("${noExecuteOtherBot}", langData)
+		local text = localize("${noExecuteOtherBot}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -50,7 +49,7 @@ local _function = function(data)
 	if giveAmount == nil then
 		giveAmount = 1
 	elseif (type(giveAmount) == "number" and giveAmount < 1) then
-		local text = parseFormat("${missingArg}: giveAmount", langData)
+		local text = localize("${missingArg}: giveAmount", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -62,7 +61,7 @@ local _function = function(data)
 	local itemData = itemName and getStoreItem(itemName, data.guild)
 
 	if not itemData then
-		local text = parseFormat("${itemNotFoundName}", langData)
+		local text = localize("${itemNotFoundName}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -94,7 +93,7 @@ local _function = function(data)
 		end
 	end
 
-	local text = parseFormat("${successGaveItem}", langData)
+	local text = localize("${successGaveItem}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)

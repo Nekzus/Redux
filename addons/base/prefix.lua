@@ -12,11 +12,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	if not args[2] then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -28,14 +27,14 @@ local _function = function(data)
 	local valueSet = guildData:set("prefix", args[2])
 
 	if valueSet then
-		local text = parseFormat("${beenDefined}", langData, "prefix", valueSet)
+		local text = localize("${beenDefined}", guildLang, "prefix", valueSet)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
 	else
-		local text = parseFormat("${noAllowEdit}", langData)
+		local text = localize("${noAllowEdit}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)

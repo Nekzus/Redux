@@ -13,8 +13,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	local listTotal = 0
 	local listItems = {}
@@ -50,7 +49,7 @@ local _function = function(data)
 				result = format("%s\n", result)
 			end
 
-			result = parseFormat("%s%s <@!%s>: `${level} %s`", langData, result, topicEmoji.mentionString, obj.id, obj.level)
+			result = localize("%s%s <@!%s>: `${level} %s`", guildLang, result, topicEmoji.mentionString, obj.id, obj.level)
 		end
 
 		local pages = listTotal / perPage
@@ -59,8 +58,8 @@ local _function = function(data)
 			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:title(parseFormat("${patrons} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages))
-		embed:description(result ~= "" and result or parseFormat("${noResults}", langData))
+		embed:title(localize("${patrons} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
+		embed:description(result ~= "" and result or localize("${noResults}", guildLang))
 
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)

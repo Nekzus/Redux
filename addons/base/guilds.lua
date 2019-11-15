@@ -13,8 +13,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	local perPage = 10
 	local page = tonumber(args[2]) or 1
@@ -51,7 +50,7 @@ local _function = function(data)
 				guildName = format("%s...", sub(guildName, 1, 18))
 			end
 
-			result = parseFormat("%s%s **%s**: `%s`", langData, result, topicEmoji.mentionString, guildName, obj.id)
+			result = localize("%s%s **%s**: `%s`", guildLang, result, topicEmoji.mentionString, guildName, obj.id)
 		end
 
 		local pages = nCount / perPage
@@ -60,7 +59,7 @@ local _function = function(data)
 			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:field({name = parseFormat("${guilds} (%s/%s) [${page} %s/%s]", langData, count, nCount, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langData))})
+		embed:field({name = localize("${guilds} (%s/%s) [${page} %s/%s]", guildLang, count, nCount, page, pages), value = (result ~= "" and result or localize("${noResults}", guildLang))})
 
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)

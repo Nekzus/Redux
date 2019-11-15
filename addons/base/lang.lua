@@ -8,15 +8,19 @@ local _config = {
 	direct = false,
 }
 
+local allowedLangs = {
+	"en-us",
+	"pt-br",
+}
+
 local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -24,8 +28,8 @@ local _function = function(data)
 		return false
 	end
 
-	if not langs[args[2]] then
-		local text = parseFormat("${langNotFound}", langData, args[2])
+	if not inList(args[2], allowedLangs) then
+		local text = localize("${langNotFound}", guildLang, args[2])
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -36,17 +40,17 @@ local _function = function(data)
 	local guildData = saves.global:get(data.guild.id)
 	local valueSet = guildData:set("lang", args[2])
 
-	langData = langs[args[2]]
+	guildLang = args[2]
 
 	if valueSet then
-		local text = parseFormat("${beenDefined}", langData, "lang", valueSet)
+		local text = localize("${beenDefined}", guildLang, "lang", valueSet)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
 	else
-		local text = parseFormat("${noAllowEdit}", langData)
+		local text = localize("${noAllowEdit}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)

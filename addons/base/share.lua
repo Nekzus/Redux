@@ -12,14 +12,13 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	local member = data.member
 	local voice = member.voiceChannel
 
 	if not voice then
-		local text = parseFormat("${mustBeInGuildVoice}", langData)
+		local text = localize("${mustBeInGuildVoice}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -32,8 +31,8 @@ local _function = function(data)
 
 	local embed = newEmbed()
 
-	embed:title(parseFormat("${shareLinkForVoice}", langData, voice.name))
-	embed:description(parseFormat("[${clickHereScreenshare}](%s)", langData, screenLink))
+	embed:title(localize("${shareLinkForVoice}", guildLang, voice.name))
+	embed:description(localize("[${clickHereScreenshare}](%s)", guildLang, screenLink))
 
 	embed:color(config.colors.blue)
 	embed:footerIcon(config.images.info)

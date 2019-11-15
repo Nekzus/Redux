@@ -13,14 +13,13 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	local roleName = data.content:sub(#data.args[1] + 2)
 	local role = getRole(roleName, "name", data.guild)
 
 	if role then
-		local text = parseFormat("${roleRemovedMuted}", langData, roleName)
+		local text = localize("${roleRemovedMuted}", guildLang, roleName)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		guildData:get("roles"):set(role.id, nil)
@@ -28,7 +27,7 @@ local _function = function(data)
 
 		return true
 	else
-		local text = parseFormat("${roleNotFound}", langData, roleName)
+		local text = localize("${roleNotFound}", guildLang, roleName)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)

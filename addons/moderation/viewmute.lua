@@ -12,7 +12,6 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	local tempMutes = guildData:get("mutes")
@@ -28,7 +27,7 @@ local _function = function(data)
 		local muteData = guildData:get("mutes"):raw()[user.id]
 
 		if not muteData then
-			local text = parseFormat("${followingUserNotMuted}", langData, user.name)
+			local text = localize("${followingUserNotMuted}", guildLang, user.name)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -40,25 +39,25 @@ local _function = function(data)
 
 		local newTime = os.time()
 		local elapsedTime = newTime - muteData.added
-		local formalMuteTime = parseFormat(timeLong(muteData.duration - elapsedTime), langData)
+		local formalMuteTime = localize(timeLong(muteData.duration - elapsedTime), guildLang)
 
 		embed:title(mentioned.tag)
 
 		embed:field({
-			name = parseFormat("${timeLeft}", langData),
+			name = localize("${timeLeft}", guildLang),
 			value = formalMuteTime,
 			inline = true
 		})
 
 		embed:field({
-			name = parseFormat("${mod}", langData),
+			name = localize("${mod}", guildLang),
 			value = format("<@!%s>", muteData.moderator),
 			inline = true
 		})
 
 		embed:field({
-			name = parseFormat("${reason}", langData),
-			value = muteData.reason or parseFormat("${noReason}", langData),
+			name = localize("${reason}", guildLang),
+			value = muteData.reason or localize("${noReason}", guildLang),
 			inline = true
 		})
 
@@ -106,19 +105,19 @@ local _function = function(data)
 
 				local newTime = os.time()
 				local elapsedTime = newTime - obj.added
-				local formalMuteTime = parseFormat(timeLong(obj.duration - elapsedTime), langData)
+				local formalMuteTime = localize(timeLong(obj.duration - elapsedTime), guildLang)
 
-				result = parseFormat("%s%s <@!%s>: %s", langData, result, topicEmoji.mentionString, obj.userId, formalMuteTime)
+				result = localize("%s%s <@!%s>: %s", guildLang, result, topicEmoji.mentionString, obj.userId, formalMuteTime)
 			end
 
 			local pages = listTotal / perPage
 
 			if tostring(pages):match("%.%d+") then
-				pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
+				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:title(parseFormat("${mutedUsers} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages))
-			embed:description(result ~= "" and result or parseFormat("${noResults}", langData))
+			embed:title(localize("${mutedUsers} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
+			embed:description(result ~= "" and result or localize("${noResults}", guildLang))
 
 			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)

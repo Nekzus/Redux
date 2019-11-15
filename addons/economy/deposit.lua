@@ -12,11 +12,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	if not args[2] then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -48,7 +47,7 @@ local _function = function(data)
 
 	if value and type(value) == "number" then
 		if value <= memberCash then
-			local text = parseFormat("${cashDeposited}", langData, format("%s %s", symbol, affixNum(value)))
+			local text = localize("${cashDeposited}", guildLang, format("%s %s", symbol, affixNum(value)))
 			local embed = replyEmbed(text, data.message, "ok")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -57,7 +56,7 @@ local _function = function(data)
 
 			return true
 		else
-			local text = parseFormat("${insufficientFunds}; ${currentCashAmount}", langData, format("%s %s", symbol, memberBank))
+			local text = localize("${insufficientFunds}; ${currentCashAmount}", guildLang, format("%s %s", symbol, memberBank))
 			local embed = replyEmbed(text, data.message, "error")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -65,7 +64,7 @@ local _function = function(data)
 			return false
 		end
 	else
-		local text = parseFormat("${cashValueInvalid}", langData, data.author.tag, value)
+		local text = localize("${cashValueInvalid}", guildLang, data.author.tag, value)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)

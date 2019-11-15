@@ -12,11 +12,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -26,7 +25,7 @@ local _function = function(data)
 
 	client:setGame(data.content:sub(#args[1] + 2))
 
-	local text = parseFormat("${playingStatusSet}", langData, text)
+	local text = localize("${playingStatusSet}", guildLang, text)
 	local embed = replyEmbed(embed, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)

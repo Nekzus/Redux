@@ -12,8 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	local guildEconomy = saves.economy:get(data.guild.id)
 
@@ -51,7 +50,7 @@ local _function = function(data)
 				result = format("%s\n", result)
 			end
 
-			result = parseFormat("%s%s <@!%s>: %s %s", langData, result, topicEmoji.mentionString, itemData.id, guildEconomy:get("symbol"), affixNum(itemData.cash + itemData.bank))
+			result = localize("%s%s <@!%s>: %s %s", guildLang, result, topicEmoji.mentionString, itemData.id, guildEconomy:get("symbol"), affixNum(itemData.cash + itemData.bank))
 		end
 
 		local pages = listTotal / perPage
@@ -60,7 +59,7 @@ local _function = function(data)
 			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:field({name = parseFormat("${economy} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langData))})
+		embed:field({name = localize("${economy} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages), value = (result ~= "" and result or localize("${noResults}", guildLang))})
 
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)

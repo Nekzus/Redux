@@ -40,8 +40,7 @@ client:on("messageCreate",
 		local guildMutes = guildData:get("mutes")
 		local guildLang = not private and guildData and guildData:get("lang") or config.defaultGuild.lang
 		local muteData = not private and guildMutes:raw()[data.member.id]
-		local langData = langs[guildLang]
-		local botMember = not private and data.guild:getMember(client.user.id)
+				local botMember = not private and data.guild:getMember(client.user.id)
 
 		-- Verifica se o usuário está mutado
 		if muteData then
@@ -101,13 +100,13 @@ client:on("messageCreate",
 			if not commandPermit then
 				-- Informa caso o comando for reservado apenas para patronos
 				if commandPatron then
-					local text = parseFormat("${noPerm}; ${patronsOnlyCommand}", langData)
+					local text = localize("${noPerm}; ${patronsOnlyCommand}", guildLang)
 					local embed = replyEmbed(text, message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
 					-- Informe caso por algum outro motivo o usuário não tiver permissão
 				else
-					local text = parseFormat("${noPerm}", langData)
+					local text = localize("${noPerm}", guildLang)
 					local embed = replyEmbed(text, message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
@@ -116,7 +115,7 @@ client:on("messageCreate",
 				return false
 				-- Valida se o comando está reestrito apenas para guildas definidas
 			elseif isCommandRestrict(commandData, guildLang) then
-				local text = parseFormat("${notAvailableLang}", langData)
+				local text = localize("${notAvailableLang}", guildLang)
 				local embed = replyEmbed(text, message, "warn")
 
 				return bird:post(nil, embed:raw(), data.channel)
@@ -124,7 +123,7 @@ client:on("messageCreate",
 
 			-- Valida se o comando só pode ser executado em mensagens privadas
 			if private and not commandData.direct then
-				local text = parseFormat("${executeFromGuild}", langData)
+				local text = localize("${executeFromGuild}", guildLang)
 				local embed = replyEmbed(text, message, "error")
 
 				return bird:post(nil, embed:raw(), data.channel)
@@ -158,8 +157,8 @@ client:on("messageCreate",
 				-- Se o bot não tiver permissões, retorna quais estão faltando
 				-- em formato adaptado e traduzido para a guilda atual
 				if not hasPerms then
-					local formatted = parseFormat(format("**%s**", permsData.text), langData):lower()
-					local text = parseFormat("${missingThesePerms}", langData, formatted)
+					local formatted = localize(format("**%s**", permsData.text), guildLang):lower()
+					local text = localize("${missingThesePerms}", guildLang, formatted)
 
 					if inList("embedLinks", permsData.list) then
 						return bird:post(text, nil, data.channel)
@@ -182,7 +181,7 @@ client:on("messageCreate",
 						local canUse, timeLeft = canUseEconomyCommand(commandName, data.user, data.guild)
 
 						if not canUse then
-							local text = parseFormat("${commandCooldownFor}", langData, timeLeft)
+							local text = localize("${commandCooldownFor}", guildLang, timeLeft)
 							local embed = replyEmbed(text, data.message, "warn")
 
 							return bird:post(nil, embed:raw(), data.channel)
@@ -195,7 +194,7 @@ client:on("messageCreate",
 					if canUse then
 						updateCommandCooldown(commandName, data.user)
 					else
-						local text = parseFormat("${commandCooldownFor}", langData, timeLeft)
+						local text = localize("${commandCooldownFor}", guildLang, timeLeft)
 						local embed = replyEmbed(text, data.message, "warn")
 
 						return bird:post(nil, embed:raw(), data.channel)

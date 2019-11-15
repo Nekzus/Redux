@@ -12,11 +12,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -43,7 +42,7 @@ local _function = function(data)
 	end
 
 	if not (itemLocalData and itemStoreData) then
-		local text = parseFormat("${itemNotFoundName}", langData)
+		local text = localize("${itemNotFoundName}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -52,7 +51,7 @@ local _function = function(data)
 	end
 
 	if itemLocalData.itemAmount <= 0 then
-		local text = parseFormat("${itemDoesNotHave}", langData)
+		local text = localize("${itemDoesNotHave}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -68,7 +67,7 @@ local _function = function(data)
 
 	if reqRoleId and reqRole then
 		if not data.member:hasRole(reqRoleId) then
-			local text = parseFormat("${itemUseMustHaveRole}", langData, reqRole.name)
+			local text = localize("${itemUseMustHaveRole}", guildLang, reqRole.name)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -92,7 +91,7 @@ local _function = function(data)
 		memberCash = memberEconomy:set("cash", memberCash + giveCash)
 	end
 
-	local text = parseFormat("${inventoryItemUsed}", langData)
+	local text = localize("${inventoryItemUsed}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)

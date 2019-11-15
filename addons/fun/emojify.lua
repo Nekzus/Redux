@@ -12,7 +12,6 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	local replaces = {
@@ -71,7 +70,7 @@ local _function = function(data)
 	end
 
 	if not result:find(":") then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -80,7 +79,7 @@ local _function = function(data)
 	end
 
 	if #result > 2047 then
-		local text = parseFormat("${messageTooLong}", langData)
+		local text = localize("${messageTooLong}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)

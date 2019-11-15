@@ -654,7 +654,6 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	local phrase = data.content:sub(#args[1] + 2):lower()

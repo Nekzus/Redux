@@ -13,11 +13,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	if not args[2] then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -35,7 +34,7 @@ local _function = function(data)
 	end
 
 	if bool == nil then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -52,13 +51,13 @@ local _function = function(data)
 	end
 
 	if success then
-		local text = parseFormat("${beenDefined}", langData, "NSFW", success)
+		local text = localize("${beenDefined}", guildLang, "NSFW", success)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
 		return true
 	else
-		local text = parseFormat("${noAllowEdit}", langData)
+		local text = localize("${noAllowEdit}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)

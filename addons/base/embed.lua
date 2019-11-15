@@ -12,8 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	embedTempData = embedTempData or {}
 
@@ -43,8 +42,8 @@ local _function = function(data)
 
 		if lastData.guild.id ~= data.guild.id then
 			local finishCommand = format("%s done", data.command)
-			local editLostMessage = parseFormat("${userEmbedEditLost} ${embedFinishTip2}", langData, data.user.username, finishCommand)
-			local jumpTo = parseFormat("[${jumpToMessage}](%s)", langData, botEmbed:getMessage().link)
+			local editLostMessage = localize("${userEmbedEditLost} ${embedFinishTip2}", guildLang, data.user.username, finishCommand)
+			local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, botEmbed:getMessage().link)
 			local embed = newEmbed()
 
 			embed:description(format("%s\n\n%s", editLostMessage, jumpTo))
@@ -58,7 +57,7 @@ local _function = function(data)
 		end
 
 		if args[2] == nil or args[3] == nil then
-			local text = parseFormat("${missingArg}", langData)
+			local text = localize("${missingArg}", guildLang)
 			local embed = replyEmbed(text, data.message, "error")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -74,7 +73,7 @@ local _function = function(data)
 		embed:timestamp(discordia.Date():toISO("T", "Z"))
 		embedTempData[data.author.id] = {embed = embed, data = data}
 
-		local text = parseFormat("${editModeResult}", langData, data.author.tag)
+		local text = localize("${editModeResult}", guildLang, data.author.tag)
 
 		botEmbed = bird:post(text, embed:raw(), data.channel)
 		embedTempData[data.author.id].botEmbed = botEmbed
@@ -125,7 +124,7 @@ local _function = function(data)
 				end
 			end
 
-			local text = parseFormat("${luaNotSupported}; \n`%s`", langData, err)
+			local text = localize("${luaNotSupported}; \n`%s`", guildLang, err)
 			local embed = replyEmbed(text, data.message, "error")
 			local errorEmbed = bird:post(nil, embed:raw(), data.channel)
 
@@ -136,7 +135,7 @@ local _function = function(data)
 	if botEmbed then
 		local finishCommand = format("%s done", data.command)
 
-		botEmbed:update(parseFormat("${editModeResult}; ${embedFinishTip}", langData, data.author.tag, finishCommand), embed:raw())
+		botEmbed:update(localize("${editModeResult}; ${embedFinishTip}", guildLang, data.author.tag, finishCommand), embed:raw())
 		embedTempData[data.author.id].botEmbed = botEmbed
 	else
 		embedTempData[data.author.id] = nil

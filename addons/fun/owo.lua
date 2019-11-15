@@ -12,7 +12,6 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	local text = data.content:sub(#args[1] + 2):lower()
@@ -30,11 +29,11 @@ local _function = function(data)
 		["ay"] = "yay",
 		["o"] = "w",
 		["uta"] = "wuta",
-		["!"] = " " .. increment[math.random(#increment)]
+		["!"] = " " .. increment[random(#increment)]
 	}
 
 	if isFiltered(text, {"http://", "https://"}) then
-		local text = parseFormat("${linksNotSupported}", langData)
+		local text = localize("${linksNotSupported}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -44,7 +43,7 @@ local _function = function(data)
 
 	for word, replace in pairs(replaces) do
 		text = text:gsub(word, replace)
-		replaces["!"] = " " .. increment[math.random(#increment)]
+		replaces["!"] = " " .. increment[random(#increment)]
 	end
 
 	--local embed = replyEmbed(text, data.message, "ok")

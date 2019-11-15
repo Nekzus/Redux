@@ -13,32 +13,31 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	if not specifiesUser(data.message) then
-		local text = parseFormat("${specifyUser}", langData)
+		local text = localize("${specifyUser}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 		return false
 
 	elseif mentionsOwner(data.message) then
-		local text = parseFormat("${noExecuteOwner}", langData)
+		local text = localize("${noExecuteOwner}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 		return false
 
 	elseif mentionsBot(data.message) then
-		local text = parseFormat("${noExecuteBot}", langData)
+		local text = localize("${noExecuteBot}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
 		return false
 
 	elseif mentionsSelf(data.message) then
-		local text = parseFormat("${noExecuteSelf}", langData)
+		local text = localize("${noExecuteSelf}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -49,7 +48,7 @@ local _function = function(data)
 	local role = roleId and getRole(roleId, "id", data.guild)
 
 	if not role then
-		local text = parseFormat("${muteRoleNotFound}; ${mutedRoleTip}", langData, data.prefix)
+		local text = localize("${muteRoleNotFound}; ${mutedRoleTip}", guildLang, data.prefix)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -57,7 +56,7 @@ local _function = function(data)
 	end
 
 	if role.position >= data.guild.me.highestRole.position then
-		local text = parseFormat("${roleSelectedHigher}", langData, role.name)
+		local text = localize("${roleSelectedHigher}", guildLang, role.name)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -72,7 +71,7 @@ local _function = function(data)
 	muteTime = muteTime and clamp(interpTime(muteTime), config.time.second * 5, config.time.month)
 	or config.time.hour
 
-	local formalMuteTime = parseFormat(timeLong(muteTime), langData)
+	local formalMuteTime = localize(timeLong(muteTime), guildLang)
 	local reason = data.content:match(config.patterns.quotes.capture)
 
 	for _, user in next, data.message.mentionedUsers:toArray() do
@@ -135,9 +134,9 @@ local _function = function(data)
 		text = format(
 			"%s%s",
 			text,
-			parseFormat(
+			localize(
 				(#muted == 1 and "${followingUserBeenMuted}") or "${followingUsersBeenMuted}",
-				langData, concat(muted, ", "), formalMuteTime
+				guildLang, concat(muted, ", "), formalMuteTime
 			)
 		)
 	end
@@ -147,9 +146,9 @@ local _function = function(data)
 		text = format(
 			"%s%s",
 			text,
-			parseFormat(
+			localize(
 				(#alreadyMuted == 1 and "${followingUserAlreadyMuted}") or "${followingUsersAlreadyMuted}",
-				langData, concat(alreadyMuted, ", ")
+				guildLang, concat(alreadyMuted, ", ")
 			)
 		)
 	end
@@ -159,9 +158,9 @@ local _function = function(data)
 		text = format(
 			"%s%s",
 			text,
-			parseFormat(
+			localize(
 				(#notMuted == 1 and "${followingUserCannotMute}") or "${followingUsersCannotMute}",
-				langData, concat(notMuted, ", ")
+				guildLang, concat(notMuted, ", ")
 			)
 		)
 	end

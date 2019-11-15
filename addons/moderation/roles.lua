@@ -12,7 +12,6 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	local guildRoles = guildData:get("roles")
@@ -64,18 +63,18 @@ local _function = function(data)
 
 			local roleTitle = getMatchingRoleTitle(obj.level)
 
-			result = format("%s%s %s@%s: `%s`", result, topicEmoji.mentionString, obj.primary and parseFormat("**[${initial}]** ", langData) or "", getRole(obj.id, "id", data.guild).name, (obj.level and roleTitle and parseFormat(roleTitle, langData)))
+			result = format("%s%s %s@%s: `%s`", result, topicEmoji.mentionString, obj.primary and localize("**[${initial}]** ", guildLang) or "", getRole(obj.id, "id", data.guild).name, (obj.level and roleTitle and localize(roleTitle, guildLang)))
 		end
 
 		local pages = listTotal / perPage
 
 		if tostring(pages):match("%.%d+") then
-			pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
+			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
 		embed:field({
-			name = parseFormat("${roles} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages),
-			value = (result ~= "" and result or parseFormat("${noResults}", langData))
+			name = localize("${roles} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages),
+			value = (result ~= "" and result or localize("${noResults}", guildLang))
 		})
 
 		embed:color(config.colors.blue)

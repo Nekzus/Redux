@@ -12,11 +12,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -37,7 +36,7 @@ local _function = function(data)
 	local pages = list and #list or 1
 
 	if not list or list.definition == nil then
-		local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
+		local text = localize("${couldNotFindTerms}", guildLang, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		decoyBird:update(nil, embed:raw())
@@ -49,7 +48,7 @@ local _function = function(data)
 		local item = list--list[page]
 
 		if not item then
-			local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
+			local text = localize("${couldNotFindTerms}", guildLang, searchTerms)
 			local embed = replyEmbed(text, data.message, "error")
 
 			decoyBird:update(nil, embed:raw())
@@ -58,13 +57,13 @@ local _function = function(data)
 		end
 
 		local embed = newEmbed()
-		embed:author(parseFormat("${wikipedia}", langData))
+		embed:author(localize("${wikipedia}", guildLang))
 		embed:authorImage(config.images.wikipediaLogo)
 		embed:authorUrl(item.link)
 
-		embed:description(parseFormat(
+		embed:description(localize(
 			":book: **%s**\n%s\n\n",
-			langData,
+			guildLang,
 			item.result,
 			item.definition
 		))

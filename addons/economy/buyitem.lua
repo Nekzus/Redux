@@ -12,11 +12,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -31,7 +30,7 @@ local _function = function(data)
 		buyAmount = 1
 		itemName = data.content:sub(#args[1] + 2)
 	elseif (type(buyAmount) == "number" and buyAmount < 1) then
-		local text = parseFormat("${missingArg}: buyAmount", langData)
+		local text = localize("${missingArg}: buyAmount", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -44,7 +43,7 @@ local _function = function(data)
 	local itemData = getStoreItem(itemName, data.guild)
 
 	if not itemData then
-		local text = parseFormat("${itemNotFoundName}", langData)
+		local text = localize("${itemNotFoundName}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -66,7 +65,7 @@ local _function = function(data)
 	local buyTotal = itemPrice * buyAmount
 
 	if itemStock == 0 then
-		local text = parseFormat("${storeItemOutStock}", langData)
+		local text = localize("${storeItemOutStock}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -74,7 +73,7 @@ local _function = function(data)
 		return false
 	elseif itemStock ~= -1 then
 		if buyAmount > itemStock then
-			local text = parseFormat("${stockItemBuyMax}", langData, itemStock)
+			local text = localize("${stockItemBuyMax}", guildLang, itemStock)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -84,7 +83,7 @@ local _function = function(data)
 	end
 
 	if buyTotal > memberTotal then
-		local text = parseFormat("${storeItemCashNeeded}", langData, format("%s %s", symbol, affixNum(buyTotal - memberTotal)))
+		local text = localize("${storeItemCashNeeded}", guildLang, format("%s %s", symbol, affixNum(buyTotal - memberTotal)))
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -135,7 +134,7 @@ local _function = function(data)
 		memberInventory:set(guid, newItemData)
 	end
 
-	local text = parseFormat("${successBoughtItem}", langData)
+	local text = localize("${successBoughtItem}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)

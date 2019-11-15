@@ -12,7 +12,6 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	local translateLang = data.args[2]
@@ -52,7 +51,7 @@ local _function = function(data)
 					result = format("%s\n", result)
 				end
 
-				result = parseFormat("%s%s **%s** `%s`", langData, result, topicEmoji.mentionString, obj.name, obj.code)
+				result = localize("%s%s **%s** `%s`", guildLang, result, topicEmoji.mentionString, obj.name, obj.code)
 			end
 
 			local pages = listTotal / perPage
@@ -61,7 +60,7 @@ local _function = function(data)
 				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:field({name = parseFormat("${translationCodes} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langData))})
+			embed:field({name = localize("${translationCodes} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages), value = (result ~= "" and result or localize("${noResults}", guildLang))})
 
 			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
@@ -155,7 +154,7 @@ local _function = function(data)
 					result = format("%s\n", result)
 				end
 
-				result = parseFormat("%s%s **%s** `%s`", langData, result, topicEmoji.mentionString, obj.name, obj.code)
+				result = localize("%s%s **%s** `%s`", guildLang, result, topicEmoji.mentionString, obj.name, obj.code)
 			end
 
 			local pages = listTotal / perPage
@@ -164,7 +163,7 @@ local _function = function(data)
 				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:field({name = parseFormat("${translationCodes} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages), value = (result ~= "" and result or parseFormat("${noResults}", langData))})
+			embed:field({name = localize("${translationCodes} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages), value = (result ~= "" and result or localize("${noResults}", guildLang))})
 
 			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
@@ -216,7 +215,7 @@ local _function = function(data)
 		local translateResult = apiGoogleTranslate(translateLang, translateTerms:gsub("\n", "%%0A"):gsub(" ", "%%20"))
 
 		if translateResult == nil or translateResult.data == nil then
-			local text = parseFormat("${couldNotFindTerms}", langData, translateLang)
+			local text = localize("${couldNotFindTerms}", guildLang, translateLang)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			decoyBird:update(nil, embed:raw())
@@ -230,7 +229,7 @@ local _function = function(data)
 		local detectedSourceLanguage = translation.detectedSourceLanguage
 
 		if not translatedText then
-			local text = parseFormat("${couldNotFindTerms}", langData, translateLang)
+			local text = localize("${couldNotFindTerms}", guildLang, translateLang)
 			local embed = replyEmbed(text, data.message, "error")
 
 			decoyBird:update(nil, embed:raw())
@@ -243,13 +242,13 @@ local _function = function(data)
 		signFooter(embed, data.author, guildLang)
 
 		embed:field({
-			name = parseFormat("${translation}", langData),
+			name = localize("${translation}", guildLang),
 			value = format("```%s```", translatedText),
 			inline = true,
 		})
 
 		embed:field({
-			name = parseFormat("${sourceLanguage}", langData),
+			name = localize("${sourceLanguage}", guildLang),
 			value = format("```%s```", detectedSourceLanguage),
 			inline = true,
 		})

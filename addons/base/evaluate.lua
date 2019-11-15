@@ -27,9 +27,9 @@ end
 local function getCtxDefault()
 	return {
 		-- Reserved words
-		huge = math.huge,
-		inf = math.huge,
-		pi = math.pi,
+		huge = huge,
+		inf = huge,
+		pi = pi,
 
 		-- Reserved functions
 		acos = function(args)
@@ -101,11 +101,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -118,7 +117,7 @@ local _function = function(data)
 	if inList(args[2]:lower(), {"reset", "new", "restart", "clear"}) then
 		evalContext[data.author.id] = getCtxDefault()
 
-		local text = parseFormat("${ctxClearedDone}", langData)
+		local text = localize("${ctxClearedDone}", guildLang)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -138,12 +137,12 @@ local _function = function(data)
 	local embed = replyEmbed(nil, data.message, "ok")
 
 	embed:field({
-		name = parseFormat("${inputResult}", langData),
+		name = localize("${inputResult}", guildLang),
 		value = format("```%s```", input),
 		inline = true
 	})
 	embed:field({
-		name = parseFormat("${outputResult}", langData),
+		name = localize("${outputResult}", guildLang),
 		value = format("```%s```", err and err.message or result),
 		inline = true
 	})

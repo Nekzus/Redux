@@ -12,8 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	local guildEconomy = getGuildEconomy(data.guild)
 	local guildStore = guildEconomy:get("store")
@@ -59,7 +58,7 @@ local _function = function(data)
 				result = format("%s\n", result)
 			end
 
-			result = format("%s%s%s %s - **%s** %s", result, topicEmoji.mentionString, symbol, affixNum(obj.price), parseFormat(obj.name, langData), parseFormat(obj.desc, langData))
+			result = format("%s%s%s %s - **%s** %s", result, topicEmoji.mentionString, symbol, affixNum(obj.price), localize(obj.name, guildLang), localize(obj.desc, guildLang))
 		end
 
 		local pages = listTotal / perPage
@@ -70,8 +69,8 @@ local _function = function(data)
 		end
 
 		embed:field({
-			name = parseFormat("${store} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages),
-			value = (result ~= "" and result or parseFormat("${noResults}", langData))
+			name = localize("${store} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages),
+			value = (result ~= "" and result or localize("${noResults}", guildLang))
 		})
 
 		embed:color(config.colors.blue)

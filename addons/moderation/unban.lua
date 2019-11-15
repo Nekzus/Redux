@@ -13,11 +13,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	if not args[2] then
-		local text = parseFormat("${specifyUser}", langData)
+		local text = localize("${specifyUser}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -32,7 +31,7 @@ local _function = function(data)
 	if args[3] and #args[3] > 2 then
 		reason = data.content:sub(#args[1] + #args[2] + 3)
 	else
-		reason = parseFormat("${noReason}", langData)
+		reason = localize("${noReason}", guildLang)
 	end
 
 	for ban in data.guild:getBans():iter() do
@@ -44,7 +43,7 @@ local _function = function(data)
 	end
 
 	if count == 0 or lastTag == nil then
-		local text = parseFormat("${userNotFound}", langData)
+		local text = localize("${userNotFound}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -53,21 +52,21 @@ local _function = function(data)
 	end
 
 	if count == 1 then
-		local text = parseFormat("${userUnbanned}", langData, lastTag)
+		local text = localize("${userUnbanned}", guildLang, lastTag)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
 	elseif count > 1 then
-		local text = parseFormat("${usersUnbanned}", langData, count)
+		local text = localize("${usersUnbanned}", guildLang, count)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
 	else
-		local text = parseFormat("${userNotFound}", langData, count)
+		local text = localize("${userNotFound}", guildLang, count)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)

@@ -12,7 +12,6 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
@@ -30,7 +29,7 @@ local _function = function(data)
 
 		return true
 	else
-		embed:description(parseFormat("${couldNotProcess}", langData))
+		embed:description(localize("${couldNotProcess}", guildLang))
 		embed:color(config.colors.red)
 		embed:footerIcon(config.images.error)
 

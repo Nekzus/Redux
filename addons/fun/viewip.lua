@@ -12,11 +12,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -34,7 +33,7 @@ local _function = function(data)
 	local list = {}
 
 	if searchResult == nil or searchResult.list == nil then
-		local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
+		local text = localize("${couldNotFindTerms}", guildLang, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		decoyBird:update(nil, embed:raw())
@@ -45,42 +44,42 @@ local _function = function(data)
 	if searchResult["status-code"] == 200 then
 		local geoData = searchResult["geo"]
 		local geoDesc = ""
-		geoDesc = parseFormat("%s\n${latitude}: %s", langData, geoDesc, geoData["latitude"])
-		geoDesc = parseFormat("%s\n${longitude}: %s", langData, geoDesc, geoData["longitude"])
-		geoDesc = parseFormat("%s\n${zipCode}: %s", langData, geoDesc, geoData["zip-code"])
-		geoDesc = parseFormat("%s\n${city}: %s", langData, geoDesc, geoData["city"])
-		geoDesc = parseFormat("%s\n${regionCode}: %s", langData, geoDesc, geoData["region-code"])
-		geoDesc = parseFormat("%s\n${regionName}: %s", langData, geoDesc, geoData["region-name"])
-		geoDesc = parseFormat("%s\n${continentCode}: %s", langData, geoDesc, geoData["continent-code"])
-		geoDesc = parseFormat("%s\n${continentName}: %s", langData, geoDesc, geoData["continent-name"])
-		geoDesc = parseFormat("%s\n${capital}: %s", langData, geoDesc, geoData["capital"])
-		geoDesc = parseFormat("%s\n${countryName}: %s", langData, geoDesc, geoData["country-name"])
-		geoDesc = parseFormat("%s\n${countryISOCode}: %s", langData, geoDesc, geoData["country-iso-code"])
+		geoDesc = localize("%s\n${latitude}: %s", guildLang, geoDesc, geoData["latitude"])
+		geoDesc = localize("%s\n${longitude}: %s", guildLang, geoDesc, geoData["longitude"])
+		geoDesc = localize("%s\n${zipCode}: %s", guildLang, geoDesc, geoData["zip-code"])
+		geoDesc = localize("%s\n${city}: %s", guildLang, geoDesc, geoData["city"])
+		geoDesc = localize("%s\n${regionCode}: %s", guildLang, geoDesc, geoData["region-code"])
+		geoDesc = localize("%s\n${regionName}: %s", guildLang, geoDesc, geoData["region-name"])
+		geoDesc = localize("%s\n${continentCode}: %s", guildLang, geoDesc, geoData["continent-code"])
+		geoDesc = localize("%s\n${continentName}: %s", guildLang, geoDesc, geoData["continent-name"])
+		geoDesc = localize("%s\n${capital}: %s", guildLang, geoDesc, geoData["capital"])
+		geoDesc = localize("%s\n${countryName}: %s", guildLang, geoDesc, geoData["country-name"])
+		geoDesc = localize("%s\n${countryISOCode}: %s", guildLang, geoDesc, geoData["country-iso-code"])
 		list[1] = geoDesc
 
 		local asnData = searchResult["asn"]
 		local asnDesc = ""
-		asnDesc = parseFormat("%s\n${name}: %s", langData, asnDesc, asnData["name"])
-		asnDesc = parseFormat("%s\n${type}: %s", langData, asnDesc, asnData["type"])
-		asnDesc = parseFormat("%s\n${domain}: %s", langData, asnDesc, asnData["domain"])
-		asnDesc = parseFormat("%s\n${organization}: %s", langData, asnDesc, asnData["organization"])
-		asnDesc = parseFormat("%s\n${asn}: %s", langData, asnDesc, asnData["asn"])
+		asnDesc = localize("%s\n${name}: %s", guildLang, asnDesc, asnData["name"])
+		asnDesc = localize("%s\n${type}: %s", guildLang, asnDesc, asnData["type"])
+		asnDesc = localize("%s\n${domain}: %s", guildLang, asnDesc, asnData["domain"])
+		asnDesc = localize("%s\n${organization}: %s", guildLang, asnDesc, asnData["organization"])
+		asnDesc = localize("%s\n${asn}: %s", guildLang, asnDesc, asnData["asn"])
 		list[2] = asnDesc
 
 		local currencyData = searchResult["currency"]
 		local currencyDesc = ""
-		currencyDesc = parseFormat("%s\n${nativeName}: %s", langData, currencyDesc, currencyData["native-name"])
-		currencyDesc = parseFormat("%s\n${code}: %s", langData, currencyDesc, currencyData["code"])
-		currencyDesc = parseFormat("%s\n${name}: %s", langData, currencyDesc, currencyData["name"])
-		currencyDesc = parseFormat("%s\n${symbol}: %s", langData, currencyDesc, currencyData["symbol"])
+		currencyDesc = localize("%s\n${nativeName}: %s", guildLang, currencyDesc, currencyData["native-name"])
+		currencyDesc = localize("%s\n${code}: %s", guildLang, currencyDesc, currencyData["code"])
+		currencyDesc = localize("%s\n${name}: %s", guildLang, currencyDesc, currencyData["name"])
+		currencyDesc = localize("%s\n${symbol}: %s", guildLang, currencyDesc, currencyData["symbol"])
 		list[3] = currencyDesc
 
 		local tzData = searchResult["timezone"]
 		local tzDesc = ""
-		tzDesc = parseFormat("%s\n${isDaylightSaving}: %s", langData, tzDesc, tzData["is-daylight-saving"])
-		tzDesc = parseFormat("%s\n${gmtOffset}: %s", langData, tzDesc, tzData["gmt-offset"])
-		tzDesc = parseFormat("%s\n${microsoftName}: %s", langData, tzDesc, tzData["microsoft-name"])
-		tzDesc = parseFormat("%s\n${iana}: %s", langData, tzDesc, tzData["iana-name"])
+		tzDesc = localize("%s\n${isDaylightSaving}: %s", guildLang, tzDesc, tzData["is-daylight-saving"])
+		tzDesc = localize("%s\n${gmtOffset}: %s", guildLang, tzDesc, tzData["gmt-offset"])
+		tzDesc = localize("%s\n${microsoftName}: %s", guildLang, tzDesc, tzData["microsoft-name"])
+		tzDesc = localize("%s\n${iana}: %s", guildLang, tzDesc, tzData["iana-name"])
 		list[4] = tzDesc
 	end
 
@@ -91,7 +90,7 @@ local _function = function(data)
 		local item = list[page]
 
 		if not item then
-			local text = parseFormat("${couldNotFindTerms}", langData, searchTerms)
+			local text = localize("${couldNotFindTerms}", guildLang, searchTerms)
 			local embed = replyEmbed(text, data.message, "error")
 
 			decoyBird:update(nil, embed:raw())
@@ -100,7 +99,7 @@ local _function = function(data)
 		end
 
 		local embed = newEmbed()
-		embed:title(parseFormat("${ipInfo}: %s", langData, searchResult["ip"]))
+		embed:title(localize("${ipInfo}: %s", guildLang, searchResult["ip"]))
 		embed:description(item)
 
 		embed:color(config.colors.blue)

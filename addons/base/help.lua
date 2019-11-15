@@ -13,7 +13,6 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
@@ -95,9 +94,9 @@ local _function = function(data)
 				end
 
 				if command.data.usage == "" or command.data.usage == nil then
-					result = format("%s%s**%s** %s", result, topicEmoji.mentionString, command.name, parseFormat(command.data.desc, langData))
+					result = format("%s%s**%s** %s", result, topicEmoji.mentionString, command.name, localize(command.data.desc, guildLang))
 				else
-					result = format("%s%s**%s** `%s` %s", result, topicEmoji.mentionString, command.name, parseFormat(command.data.usage, langData), parseFormat(command.data.desc, langData))
+					result = format("%s%s**%s** `%s` %s", result, topicEmoji.mentionString, command.name, localize(command.data.usage, guildLang), localize(command.data.desc, guildLang))
 				end
 			end
 
@@ -105,8 +104,8 @@ local _function = function(data)
 				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:title(parseFormat("${commands} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages))
-			embed:description(result ~= "" and result or parseFormat("${noResults}", langData))
+			embed:title(localize("${commands} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
+			embed:description(result ~= "" and result or localize("${noResults}", guildLang))
 
 			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
@@ -177,30 +176,30 @@ local _function = function(data)
 		local embed = newEmbed()
 
 		embed:title(client.user.name)
-		embed:description(parseFormat("${botDesc}", langData, client.user.name))
+		embed:description(localize("${botDesc}", guildLang, client.user.name))
 
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
 		embed:field({
-			name = format("%s %s (base)", baseEmoji.mentionString, parseFormat("${base}", langData)),
-			value = parseFormat("${categoryDescBase}", langData),
+			name = format("%s %s (base)", baseEmoji.mentionString, localize("${base}", guildLang)),
+			value = localize("${categoryDescBase}", guildLang),
 			inline = true,
 		})
 		embed:field({
-			name = format("%s %s (economy)", economyEmoji.mentionString, parseFormat("${economy}", langData)),
-			value = parseFormat("${categoryDescEconomy}", langData),
+			name = format("%s %s (economy)", economyEmoji.mentionString, localize("${economy}", guildLang)),
+			value = localize("${categoryDescEconomy}", guildLang),
 			inline = true,
 		})
 		embed:field({
-			name = format("%s %s (fun)", entertainmentEmoji.mentionString, parseFormat("${fun}", langData)),
-			value = parseFormat("${categoryDescFun}", langData),
+			name = format("%s %s (fun)", entertainmentEmoji.mentionString, localize("${fun}", guildLang)),
+			value = localize("${categoryDescFun}", guildLang),
 			inline = true,
 		})
 		embed:field({
-			name = format("%s %s (moderation)", moderationEmoji.mentionString, parseFormat("${moderation}", langData)),
-			value = parseFormat("${categoryDescModeration}", langData),
+			name = format("%s %s (moderation)", moderationEmoji.mentionString, localize("${moderation}", guildLang)),
+			value = localize("${categoryDescModeration}", guildLang),
 			inline = true,
 		})
 
@@ -292,9 +291,9 @@ local _function = function(data)
 		local embed = newEmbed()
 
 		--[[embed:title(client.user.name)
-		embed:description(parseFormat("${botDesc}", langData, client.user.name))]]
+		embed:description(localize("${botDesc}", guildLang, client.user.name))]]
 		embed:title(format("%s", value:lower()))
-		embed:description(format("%s", parseFormat(command.desc, langData)))
+		embed:description(format("%s", localize(command.desc, guildLang)))
 
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
@@ -302,22 +301,22 @@ local _function = function(data)
 
 		if command.usage ~= nil and command.usage ~= "" then
 			embed:field({
-				name = parseFormat("${params}", langData),
-				value = format("`%s`", parseFormat(command.usage, langData)), inline = true
+				name = localize("${params}", guildLang),
+				value = format("`%s`", localize(command.usage, guildLang)), inline = true
 			})
 		end
 
-		local roleTitle = parseFormat(getMatchingLevelTitle(command.level or 0), langData)
-		local levelParsed = parseFormat("${roleAndAbove}", langData, roleTitle)
+		local roleTitle = localize(getMatchingLevelTitle(command.level or 0), guildLang)
+		local levelParsed = localize("${roleAndAbove}", guildLang, roleTitle)
 
 		embed:field({
-			name = parseFormat("${level}", langData),
+			name = localize("${level}", guildLang),
 			value = levelParsed, inline = true
 		})
 
 		embed:field({
-			name = parseFormat("${aliases}", langData),
-			value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or parseFormat("${none}", langData)), inline = true
+			name = localize("${aliases}", guildLang),
+			value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or localize("${none}", guildLang)), inline = true
 		})
 
 		embed:color(config.colors.blue)
@@ -349,8 +348,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
 	local value
@@ -376,26 +374,26 @@ local _function = function(data)
 			end
 
 			embed:title(format("%s", value:lower()))
-			embed:description(format("%s", parseFormat(command.desc, langData)))
+			embed:description(format("%s", localize(command.desc, guildLang)))
 
 			if command.usage ~= nil and command.usage ~= "" then
 				embed:field({
-					name = parseFormat("${params}", langData),
-					value = format("`%s`", parseFormat(command.usage, langData)), inline = true
+					name = localize("${params}", guildLang),
+					value = format("`%s`", localize(command.usage, guildLang)), inline = true
 				})
 			end
 
-			local roleTitle = parseFormat(getMatchingLevelTitle(command.level or 0), langData)
-			local levelParsed = parseFormat("${roleAndAbove}", langData, roleTitle)
+			local roleTitle = localize(getMatchingLevelTitle(command.level or 0), guildLang)
+			local levelParsed = localize("${roleAndAbove}", guildLang, roleTitle)
 
 			embed:field({
-				name = parseFormat("${level}", langData),
+				name = localize("${level}", guildLang),
 				value = levelParsed, inline = true
 			})
 
 			embed:field({
-				name = parseFormat("${aliases}", langData),
-				value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or parseFormat("${none}", langData)), inline = true
+				name = localize("${aliases}", guildLang),
+				value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or localize("${none}", guildLang)), inline = true
 			})
 
 			embed:color(config.colors.blue)
@@ -406,7 +404,7 @@ local _function = function(data)
 
 			return true
 		else
-			local text = parseFormat("${commandNotFound}", langData, value)
+			local text = localize("${commandNotFound}", guildLang, value)
 			local embed = replyEmbed(text, data.message, "error")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -450,7 +448,7 @@ local _function = function(data)
 			local result = ""
 
 			embed:title(client.user.name)
-			embed:description(parseFormat("${botDesc}", langData, client.user.name))
+			embed:description(localize("${botDesc}", guildLang, client.user.name))
 
 			for _, command in next, paginate(listItems, perPage, page) do
 				inPage = inPage + 1
@@ -460,9 +458,9 @@ local _function = function(data)
 				end
 
 				if command.data.usage == "" or command.data.usage == nil then
-					result = format("%s%s**%s** %s", result, topicEmoji.mentionString, command.name, parseFormat(command.data.desc, langData))
+					result = format("%s%s**%s** %s", result, topicEmoji.mentionString, command.name, localize(command.data.desc, guildLang))
 				else
-					result = format("%s%s**%s** `%s` %s", result, topicEmoji.mentionString, command.name, parseFormat(command.data.usage, langData), parseFormat(command.data.desc, langData))
+					result = format("%s%s**%s** `%s` %s", result, topicEmoji.mentionString, command.name, localize(command.data.usage, guildLang), localize(command.data.desc, guildLang))
 				end
 			end
 
@@ -473,8 +471,8 @@ local _function = function(data)
 			end
 
 			embed:field({
-				name = parseFormat("${commands} (%s/%s) [${page} %s/%s]", langData, inPage, listTotal, page, pages),
-				value = (result ~= "" and result or parseFormat("${noResults}", langData)), inline = true
+				name = localize("${commands} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages),
+				value = (result ~= "" and result or localize("${noResults}", guildLang)), inline = true
 			})
 
 			embed:color(config.colors.blue)

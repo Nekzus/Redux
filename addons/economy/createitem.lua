@@ -12,8 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
-	local args = data.args
+		local args = data.args
 
 	storeTempData = storeTempData or {}
 
@@ -36,7 +35,7 @@ local _function = function(data)
 		if inList(args[2], config.terms.cancel) then
 			storeTempData[data.user.id] = nil
 
-			local text = parseFormat("${newItemCanceled}", langData)
+			local text = localize("${newItemCanceled}", guildLang)
 			local embed = replyEmbed(text, data.message, "info")
 
 			decoyBird:update(nil, embed:raw())
@@ -59,7 +58,7 @@ local _function = function(data)
 			end
 
 			if missingValues ~= "" then
-				local text = parseFormat("${newItemMissing}", langData, missingValues)
+				local text = localize("${newItemMissing}", guildLang, missingValues)
 				local embed = replyEmbed(text, data.message, "warn")
 
 				bird:post(nil, embed:raw(), data.channel)
@@ -72,7 +71,7 @@ local _function = function(data)
 			local guildEconomy = getGuildEconomy(lastData.guild.id)
 			local guildStore = guildEconomy:get("store", {})
 
-			local text = parseFormat("${newItemCreated}", langData)
+			local text = localize("${newItemCreated}", guildLang)
 			local embed = replyEmbed(text, data.message, "ok")
 			local guid = newGuid()
 
@@ -86,8 +85,8 @@ local _function = function(data)
 
 		if lastData.guild.id ~= data.guild.id then
 			local finishCommand = format("%s cancel", data.command)
-			local editLostMessage = parseFormat("${userItemEditLost} ${itemFinishTip2}", langData, data.user.username, finishCommand)
-			local jumpTo = parseFormat("[${jumpToMessage}](%s)", langData, decoyBird.message.link)
+			local editLostMessage = localize("${userItemEditLost} ${itemFinishTip2}", guildLang, data.user.username, finishCommand)
+			local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, decoyBird.message.link)
 			local embed = newEmbed()
 
 			embed:description(format("%s\n\n%s", editLostMessage, jumpTo))
@@ -179,7 +178,7 @@ local _function = function(data)
 			if inList(key, {"name", "itemname", "item name", "n"}) then -- Base item-data
 				for itemGuid, item in next, guildStore:raw() do
 					if item.itemName:lower() == value:lower() then
-						local text = parseFormat("${itemNameSpecifiedExists}: %s", langData, item.itemName)
+						local text = localize("${itemNameSpecifiedExists}: %s", guildLang, item.itemName)
 						local embed = replyEmbed(text, data.message, "warn")
 
 						bird:post(nil, embed:raw(), data.channel)
@@ -197,7 +196,7 @@ local _function = function(data)
 				local price = realNum(value)
 
 				if not price then
-					local text = parseFormat("${missingArg}: itemPrice", langData)
+					local text = localize("${missingArg}: itemPrice", guildLang)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
@@ -211,7 +210,7 @@ local _function = function(data)
 				local stock = realNum(value)
 
 				if not stock then
-					local text = parseFormat("${missingArg}: itemStock", langData)
+					local text = localize("${missingArg}: itemStock", guildLang)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
@@ -225,7 +224,7 @@ local _function = function(data)
 				local role = getRole(value, "name", lastData.guild)
 
 				if not role then
-					local text = parseFormat("${missingArg}: giveRole", langData)
+					local text = localize("${missingArg}: giveRole", guildLang)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
@@ -239,7 +238,7 @@ local _function = function(data)
 				value = realNum(value)
 
 				if not value then
-					local text = parseFormat("${missingArg}: giveCash", langData)
+					local text = localize("${missingArg}: giveCash", guildLang)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
@@ -253,7 +252,7 @@ local _function = function(data)
 				local role = getRole(value, "name", lastData.guild)
 
 				if not role then
-					local text = parseFormat("${missingArg}: reqRole", langData)
+					local text = localize("${missingArg}: reqRole", guildLang)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
@@ -276,33 +275,33 @@ local _function = function(data)
 
 		-- Base item-data
 		local itemName = itemData.itemName
-		itemName = itemName and parseFormat(itemName, langData) or "-"
+		itemName = itemName and localize(itemName, guildLang) or "-"
 
 		--[[if #itemName > charLimit then
 			itemName = format("%s...", itemName:sub(1, charLimit))
 		end]]
 
 		embed:field({
-			name = parseFormat("${storeItemName} (itemName)", langData),
+			name = localize("${storeItemName} (itemName)", guildLang),
 			value = itemName or "-",
 			inline = true,
 		})
 
 		local itemDesc = itemData.itemDesc
-		itemDesc = itemDesc and parseFormat(itemDesc, langData) or "-"
+		itemDesc = itemDesc and localize(itemDesc, guildLang) or "-"
 
 		--[[if #itemDesc > charLimit then
 			itemDesc = format("%s...", itemDesc:sub(1, charLimit))
 		end]]
 
 		embed:field({
-			name = parseFormat("${storeItemDesc} (itemDesc)", langData),
+			name = localize("${storeItemDesc} (itemDesc)", guildLang),
 			value = itemDesc or "-",
 			inline = true,
 		})
 
 		embed:field({
-			name = parseFormat("${storeItemPrice} (itemPrice)", langData),
+			name = localize("${storeItemPrice} (itemPrice)", guildLang),
 			value = affixNum(itemData.itemPrice) or "-",
 			inline = true,
 		})
@@ -316,7 +315,7 @@ local _function = function(data)
 		end
 
 		embed:field({
-			name = parseFormat("${storeItemStock} (itemStock)", langData),
+			name = localize("${storeItemStock} (itemStock)", guildLang),
 			value = itemStock or "-",
 			inline = true,
 		})
@@ -325,13 +324,13 @@ local _function = function(data)
 		local giveRole = getRole(itemData.giveRole, "id", lastData.guild)
 
 		embed:field({
-			name = parseFormat("${storeItemAwardRole} (giveRole)", langData),
+			name = localize("${storeItemAwardRole} (giveRole)", guildLang),
 			value = giveRole and giveRole.name or "-",
 			inline = true,
 		})
 
 		embed:field({
-			name = parseFormat("${storeItemAwardCash} (giveCash)", langData),
+			name = localize("${storeItemAwardCash} (giveCash)", guildLang),
 			value = affixNum(itemData.giveCash) or "-",
 			inline = true,
 		})
@@ -340,7 +339,7 @@ local _function = function(data)
 		local reqRole = getRole(itemData.reqRole, "id", lastData.guild)
 
 		embed:field({
-			name = parseFormat("${storeItemRequiredRole} (reqRole)", langData),
+			name = localize("${storeItemRequiredRole} (reqRole)", guildLang),
 			value = reqRole and reqRole.name or "-",
 			inline = true,
 		})
@@ -350,7 +349,7 @@ local _function = function(data)
 
 	local finishCommand = format("%s done", data.command)
 	local cancelCommand = format("%s cancel", data.command)
-	local tipText = parseFormat("${editModeResult}; ${itemFinishTip}", langData, data.author.tag, finishCommand, cancelCommand)
+	local tipText = localize("${editModeResult}; ${itemFinishTip}", guildLang, data.author.tag, finishCommand, cancelCommand)
 
 	if decoyBird == nil then
 		local embed = renderItemPreviewEmbed()

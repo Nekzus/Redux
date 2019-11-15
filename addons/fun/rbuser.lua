@@ -12,11 +12,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	if not (args[2]) then
-		local text = parseFormat("${missingArg}: userName", langData)
+		local text = localize("${missingArg}: userName", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -33,7 +32,7 @@ local _function = function(data)
 	local user = apiRobloxGetUser(name, "name")
 
 	if not user.Id then
-		local text = parseFormat("${userNotFound}: %s", langData, name)
+		local text = localize("${userNotFound}: %s", guildLang, name)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		decoyBird:update(nil, embed:raw())
@@ -78,13 +77,13 @@ local _function = function(data)
 	embed:authorUrl(format("https://www.roblox.com/users/%s/profile", user.Id))
 	embed:description(status)
 	embed:field({
-		name = parseFormat("%s ${social}", langData, ":raising_hand:"),
-		value = parseFormat("**${friends}:** %s\n**${following}:** %s\n**${followers}:** %s", langData, affixNum(friends), affixNum(followings), affixNum(followers)),
+		name = localize("%s ${social}", guildLang, ":raising_hand:"),
+		value = localize("**${friends}:** %s\n**${following}:** %s\n**${followers}:** %s", guildLang, affixNum(friends), affixNum(followings), affixNum(followers)),
 		inline = true,
 	})
 	embed:field({
-		name = parseFormat("%s ${investments}", langData, ":moneybag:"),
-		value = parseFormat("**${recentAveragePriceTag}:** %s\n**${limiteds}:** %s\n**${userVisits}:** %s", langData, affixNum(limitedsRAP), affixNum(limitedsCount), affixNum(placeVisits)),
+		name = localize("%s ${investments}", guildLang, ":moneybag:"),
+		value = localize("**${recentAveragePriceTag}:** %s\n**${limiteds}:** %s\n**${userVisits}:** %s", guildLang, affixNum(limitedsRAP), affixNum(limitedsCount), affixNum(placeVisits)),
 		inline = true,
 	})
 

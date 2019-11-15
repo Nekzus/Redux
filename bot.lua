@@ -196,7 +196,6 @@ function loadBot()
 	loadAllFiles("./config/") -- Carrega todos os arquivos de configuração
 	loadAllFiles("./libs/") -- Carrega as extensões de facilitação
 	loadAllFiles("./utils/") -- Carrega os pontos de utilidade do bot
-	loadAllFiles("./langs/") -- Carrega os dicionários de tradução
 	loadAllFiles("./events/") -- Carrega os eventos direcionados
 
 	-- Carrega todos os comandos

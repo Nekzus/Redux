@@ -13,11 +13,10 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-	local langData = langs[guildLang]
 	local args = data.args
 
 	if args[2] == nil then
-		local text = parseFormat("${missingArg}", langData)
+		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -38,13 +37,13 @@ local _function = function(data)
 		toDelete = v1
 
 		if toDelete > maxBulk then
-			local text = parseFormat("${cannotDeleteMoreThanXMessages}; ${defaultAmountSetTo}", langData, maxBulk, maxBulk)
+			local text = localize("${cannotDeleteMoreThanXMessages}; ${defaultAmountSetTo}", guildLang, maxBulk, maxBulk)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			toDelete = maxBulk
 
 			for i = 5, 1, - 1 do
-				local countdown = parseFormat("${startingIn}", langData, i)
+				local countdown = localize("${startingIn}", guildLang, i)
 				decoy:update(countdown, embed:raw(), data.channel)
 				wait(1)
 			end
@@ -59,7 +58,7 @@ local _function = function(data)
 			local success, err = data.channel:bulkDelete(list)
 
 			if not success then
-				local knownError = getMatchingDiscordError(err:match("%d+"), langData)
+				local knownError = getMatchingDiscordError(err:match("%d+"), guildLang)
 				local noticeType
 				local text
 
@@ -68,10 +67,10 @@ local _function = function(data)
 				end
 
 				if deleted > 0 then
-					text = parseFormat("${failedContinueDetails} ${successDeletedXMessages}", langData, err, deleted)
+					text = localize("${failedContinueDetails} ${successDeletedXMessages}", guildLang, err, deleted)
 					noticeType = "warn"
 				else
-					text = parseFormat("${failedContinueDetails}", langData, err)
+					text = localize("${failedContinueDetails}", guildLang, err)
 					noticeType = "error"
 				end
 
@@ -85,7 +84,7 @@ local _function = function(data)
 			deleted = deleted + take
 
 			if v1 > 100 then
-				local text = parseFormat("${deletedCurrentXMessages}", langData, deleted)
+				local text = localize("${deletedCurrentXMessages}", guildLang, deleted)
 				local embed = replyEmbed(text, data.message, "info")
 
 				decoy:update(getLoadingEmoji(), embed:raw(), data.channel)
@@ -96,7 +95,7 @@ local _function = function(data)
 			wait(3)
 		end
 
-		local text = parseFormat("${successDeletedXMessages}", langData, deleted)
+		local text = localize("${successDeletedXMessages}", guildLang, deleted)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		decoy:update(nil, embed:raw(), data.channel)
