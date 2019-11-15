@@ -237,6 +237,14 @@ local _function = function(data)
 			return false
 		end
 
+		local replaces = {
+			["&#39;"] = "'",
+		}
+
+		for key, value in next, replaces do
+			translatedText = translatedText:gsub(key, value)
+		end
+
 		local embed = newEmbed()
 
 		signFooter(embed, data.author, guildLang)
