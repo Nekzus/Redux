@@ -59,7 +59,8 @@ local _function = function(data)
 			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:field({name = localize("${guilds} (%s/%s) [${page} %s/%s]", guildLang, count, nCount, page, pages), value = (result ~= "" and result or localize("${noResults}", guildLang))})
+		embed:title(localize("${guilds} (%s/%s) [${page} %s/%s]", guildLang, count, nCount, page, pages))
+		embed:description(result ~= "" and result or localize("${noResults}", guildLang))
 
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
