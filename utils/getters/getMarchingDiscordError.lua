@@ -1,7 +1,7 @@
-function getMatchingDiscordError(text, list)
-	for errorKey, errorMessage in next, list do
+function getMatchingDiscordError(text, lang)
+	for errorKey, errorMessage in next, langs do
 		if errorKey:find(text) then
-			return errorMessage
+			return errorMessage[lang]
 		end
 	end
 

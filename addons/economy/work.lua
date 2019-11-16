@@ -29,9 +29,9 @@ local _function = function(data)
 
 	local responses = {}
 
-	for k, v in next, guildLang do
+	for k, v in next, langs do
 		if k:match("workedAs%a+") then
-			insert(responses, v)
+			insert(responses, v[guildLang])
 		end
 	end
 
