@@ -23,7 +23,7 @@ local _function = function(data)
 		guild = data.guild
 	end
 
-	embed:thumbnail(data.guild.iconURL)
+	embed:thumbnail(guild.iconURL)
 	embed:field({name = localize("${name}", guildLang), value = guild.name, inline = true})
 	embed:field({name = localize("${id}", guildLang), value = guild.id, inline = true})
 	embed:field({name = localize("${owner}", guildLang), value = guild.owner.tag, inline = true})
