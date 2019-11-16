@@ -16,7 +16,7 @@ client:on("messageCreate",
 
 		-- Coleta os recursos da guilda base
 		if baseGuild == nil then
-			baseGuild = client:getGuild(config.main.baseGuildId)
+			baseGuild = client:getGuild(config.main.guilds.home.id)
 			timer.sleep(1000)
 		end
 
@@ -180,6 +180,10 @@ client:on("messageCreate",
 					if config.defaultEconomy.actions[commandName] then
 						local canUse, timeLeft = canUseEconomyCommand(commandName, data.user, data.guild)
 
+						if timeLeft then
+							timeLeft = localize(timeLong(timeLeft), guildLang)
+						end
+
 						if not canUse then
 							local text = localize("${commandCooldownFor}", guildLang, timeLeft)
 							local embed = replyEmbed(text, data.message, "warn")
@@ -190,6 +194,10 @@ client:on("messageCreate",
 				else
 					-- De outra forma, aplica os cooldowns padrões de cada comando
 					local canUse, timeLeft = canUseCommand(commandName, data.author)
+
+					if timeLeft then
+						timeLeft = localize(timeLong(timeLeft), guildLang)
+					end
 
 					if canUse then
 						updateCommandCooldown(commandName, data.user)

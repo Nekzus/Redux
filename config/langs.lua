@@ -1,5 +1,6 @@
 -- Words
 langs = {
+	-- Palavras
 	["commands"] = {
 		["en-us"] = "Commands",
 		["pt-br"] = "Comandos",
@@ -928,7 +929,12 @@ langs = {
 		["pt-br"] = "Clique aqui para ativar o compartilhamento",
 	},
 
-	-- Frases de resposta
+	-- Frases e Respostas
+	["feedbackSubmitted"] = {
+		["en-us"] = "Feedback submitted",
+		["pt-br"] = "Feedback submetido",
+	},
+
 	["missingArg"] = {
 		["en-us"] = "Missing argument",
 		["pt-br"] = "Argumento ausente",
