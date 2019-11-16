@@ -1,6 +1,6 @@
 local _config = {
 	name = "feedback",
-	desc = "${saysPong}",
+	desc = "${sendsFeedbackCreator}",
 	usage = "",
 	aliases = {"fb", "suggest"},
 	cooldown = 60 * 15,

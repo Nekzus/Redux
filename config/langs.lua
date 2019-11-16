@@ -1676,7 +1676,12 @@ langs = {
 		["pt-br"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 	},
 
-	-- Descrições de comandos
+	-- Descrições de Comandos
+	["sendsFeedbackCreator"] = {
+		["en-us"] = "submits a feedback to the development team.",
+		["pt-br"] = "envia um feedback para o time de desenvolvimento.",
+	},
+
 	["categoryDescBase"] = {
 		["en-us"] = "main and essential.",
 		["pt-br"] = "principal e essencial.",
