@@ -29,10 +29,12 @@ local _function = function(data)
 		return false
 	end
 
+	local level = inList(data.author.id, config.main.ownerList) and "dev" or "user"
+
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 	local success, response = loadCode(
 		data.content:sub(#args[1] + 2),
-		(_config.level == 5 or inList(data.author.id, config.main.ownerList) and "dev") or "user",
+		level,
 		{
 			os = os,
 			data = data,

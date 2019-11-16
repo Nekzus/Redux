@@ -1,3 +1,30 @@
+local function parsed(text)
+	local replaces = { -- https://ascii.cl/htmlcodes.htm
+		["&#32;"] = " ",
+		["&#33;"] = "!",
+		["&#34;"] = "\"",
+		["&#35;"] = "#",
+		["&#36;"] = "$",
+		["&#37;"] = "%",
+		["&#38;"] = "&",
+		["&#39;"] = "'",
+		["&#40;"] = "(",
+		["&#41;"] = ")",
+		["&#42;"] = "*",
+		["&#43;"] = "+",
+		["&#44;"] = ",",
+		["&#45;"] = "-",
+		["&#46;"] = ".",
+		["&#47;"] = "/",
+	}
+
+	for key, value in next, replaces do
+		text = text:gsub(key, value)
+	end
+
+	return text
+end
+
 function apiRobloxGetUserProfileCustom(id)
 	local data, request = httpGet("robloxGetUserProfile", {id})
 
@@ -15,7 +42,7 @@ function apiRobloxGetUserProfileCustom(id)
 	local userHeadShot = request:match(config.patterns.rbUserProfileHeadShot.capture)
 
 	return {
-		status = status or "-",
+		status = parsed(status) or "-",
 		created = created or "-",
 		placeVisits = placeVisits and placeVisits:gsub(",", "") or "-",
 		friendsCount = friendsCount and realNum(friendsCount) or "-",

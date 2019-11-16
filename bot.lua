@@ -95,13 +95,21 @@ search = table.search -- Procura dentre todos os valores de uma table até encon
 
 -- Extensões principais
 fs = require("fs") -- Extensão responsável por administrar o acesso à caminhos do sistema
-query = require("querystring") -- Extensão para embutir chaves e valores em uma URL HTTP
 http = require("coro-http") -- Extensão para fazer pedidos HTTP
 json = require("json") -- Extensão de utilidades para encodificar e decodificar JSON
 timer = require("timer") -- Extensão para fazer uso do sistema de tempo do Luvit
 parse = require("url").parse -- Extensão para parsing de URL
 spawn = require("coro-spawn") -- Extensão para executar funções dentro de novas threads
 luaxp = require("luaxp") -- Extensão para avaliar expressões numéricas
+url = require("url") -- Extensão para utilizar funções de encodificação e parsing para HTTP
+urlParse = url.parse
+urlFormat = url.format
+urlResolveObject = url.resolveObject
+urlResolve = url.resolve
+query = require("querystring") -- Extensão para embutir chaves e valores em uma URL HTTP
+urlEncode = query.urlencode
+urlDecode = query.urldecode
+urlStringify = query.stringify
 
 -- Pontos pricipais de acesso
 bot = {} -- Registro de informações à serem usadas para registros do bot

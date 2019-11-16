@@ -4,10 +4,12 @@ function loadCode(code, level, extra)
 
 	if level == "dev" then
 		result = getfenv()
+		result.getfenv = getfenv
+		result.setfenv = setfenv
 	end
 
-	result.math = math
-	result.string = string
+	--result.math = math
+	--result.string = string
 	result.tostring = tostring
 	result.tonumber = tonumber
 
