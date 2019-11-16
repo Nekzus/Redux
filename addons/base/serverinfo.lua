@@ -17,7 +17,7 @@ local _function = function(data)
 	local guild
 	local embed = newEmbed()
 
-	if data.user.id == config.main.ownerId and args[2] and type(args[2]) == "string" and #args[2] == 18 and tonumber(args[2]) then
+	if inList(data.user.id, config.main.ownerList) and args[2] and type(args[2]) == "string" and #args[2] == 18 and tonumber(args[2]) then
 		guild = client:getGuild(args[2])
 	else
 		guild = data.guild
