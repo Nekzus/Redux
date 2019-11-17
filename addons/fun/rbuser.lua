@@ -83,7 +83,7 @@ local _function = function(data)
 	})
 	embed:field({
 		name = localize("%s ${primaryGroup}", guildLang, ":beginner:"),
-		value = primaryGroup and primaryGroup.name or localize("${none}"),
+		value = primaryGroup and primaryGroup.name or localize("${none}", guildLang),
 	})
 	embed:field({
 		name = localize("%s ${social}", guildLang, ":raising_hand:"),
