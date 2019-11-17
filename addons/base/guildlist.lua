@@ -1,8 +1,8 @@
 local _config = {
-	name = "guilds",
+	name = "guildlist",
 	desc = "${showsGlobalGuildsList}",
 	usage = "${pageKey}",
-	aliases = {"glist", "gs"},
+	aliases = {"guilds", "glist", "gs"},
 	cooldown = 0,
 	level = 5,
 	direct = true,
