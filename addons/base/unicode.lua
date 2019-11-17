@@ -23,9 +23,10 @@ local _function = function(data)
 		return false
 	end
 
+	local sentence = data.content:sub(#args[1] + 2):gsub("::", ": :")
 	local list = {}
 
-	for _, item in next, args do
+	for _, item in next, sentence:split(" ")
 		insert(list, format("\\%s ", item))
 	end
 
