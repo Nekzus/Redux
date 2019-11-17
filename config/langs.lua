@@ -1,6 +1,11 @@
 -- Words
 langs = {
 	-- Palavras
+	["unicode"] = {
+		["en-us"] = "Unicode",
+		["pt-br"] = "Unicode",
+	},
+
 	["commands"] = {
 		["en-us"] = "Commands",
 		["pt-br"] = "Comandos",
@@ -874,11 +879,6 @@ langs = {
 	},
 
 	-- Resultados
-	["unicodeResult"] = {
-		["en-us"] = "Unicode: \\%s",
-		["pt-br"] = "Unicode: \\%s",
-	},
-
 	["inputResult"] = {
 		["en-us"] = "Input: ",
 		["pt-br"] = "Entrada: ",

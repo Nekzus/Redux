@@ -23,9 +23,22 @@ local _function = function(data)
 		return false
 	end
 
-	local value = data.content:sub(#args[1] + 2)
-	local text = localize("${unicodeResult}", guildLang, value)
-	local embed = replyEmbed(text, data.message, "ok")
+	local list = {}
+
+	for _, item in next, args do
+		insert(list, format("\\%s ", item))
+	end
+
+	remove(list, 1)
+
+	local embed = newEmbed()
+
+	embed:title(localize("${unicode}", guildLang))
+	embed:description(append(unpack(list)))
+
+	embed:color(config.colors.blue)
+	embed:footerIcon(config.images.info)
+	signFooter(embed, data.author, guildLang)
 
 	bird:post(nil, embed:raw(), data.channel)
 
