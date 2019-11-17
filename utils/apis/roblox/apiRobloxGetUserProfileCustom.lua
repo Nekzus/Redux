@@ -42,7 +42,7 @@ function apiRobloxGetUserProfileCustom(id)
 	local userHeadShot = request:match(config.patterns.rbUserProfileHeadShot.capture)
 
 	return {
-		status = parsed(status) or "-",
+		status = status and parsed(status) or "-",
 		created = created or "-",
 		placeVisits = placeVisits and placeVisits:gsub(",", "") or "-",
 		friendsCount = friendsCount and realNum(friendsCount) or "-",
