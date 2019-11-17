@@ -5,7 +5,7 @@ function getStoreItem(value, guild)
 	value = value:lower()
 
 	for itemGuid, itemData in next, guildStore:raw() do
-		if itemGuid:lower() == value or itemData.itemName:lower() == value then
+		if itemGuid:lower() == value or find(itemData.itemName:lower(), value) then
 			return itemData
 		end
 	end

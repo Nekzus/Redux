@@ -35,7 +35,7 @@ local _function = function(data)
 	for itemGuid, item in next, memberInventory:raw() do
 		local storeItem = guildInventory:raw()[itemGuid]
 
-		if storeItem and storeItem.itemName:lower() == itemName:lower() then
+		if storeItem and find(storeItem.itemName:lower(), itemName:lower()) then
 			itemLocalData = item
 			itemStoreData = storeItem
 		end

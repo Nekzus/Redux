@@ -1687,6 +1687,11 @@ langs = {
 	},
 
 	-- Descrições de Comandos
+	["editsStoreItem"] = {
+		["en-us"] = "edits an item from the store.",
+		["pt-br"] = "edita um item da loja.",
+	},
+
 	["sendsFeedbackCreator"] = {
 		["en-us"] = "submits a feedback to the development team.",
 		["pt-br"] = "envia um feedback para o time de desenvolvimento.",
