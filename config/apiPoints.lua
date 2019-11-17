@@ -7,6 +7,7 @@ config.apiPoints = {
 	googleSearch = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&q=%s",
 	googleSearchImage = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&searchType=image&q=%s",
 	googleTranslate = "https://translation.googleapis.com/language/translate/v2?key=%s&target=%s&format=text&q=%s",
+	googleTranslateLangs = "https://translation.googleapis.com/language/translate/v2/languages?key=%s&target=%s",
 	truthYesNo = "https://yesno.wtf/api",
 	truthYesNoForce = "https://yesno.wtf/api?force=%s",
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
@@ -21,6 +22,7 @@ config.apiPoints = {
 	robloxGetUserProfile = "https://www.roblox.com/users/%s/profile",
 	robloxGetUserCollectibles = "https://inventory.roblox.com/v1/users/%s/assets/collectibles?sortOrder=Desc&limit=%s&cursor=%s",
 	robloxGetUserAccessories = "https://inventory.roblox.com/v2/users/%s/inventory/%s?sortOrder=Desc&limit=%s&cursor=%s",
+	robloxGetUserPrimaryGroup = "https://groups.roblox.com/v1/users/%s/groups/primary/role",
 
 	robloxGetUserAvatar = "https://avatar.roblox.com/v1/users/%s/avatar", -- User ID
 	robloxGetUserFromId = "https://api.roblox.com/users/%s", -- User ID

@@ -2,10 +2,10 @@ function timeLong(seconds)
 	seconds = seconds and tonumber(seconds) or 0
 
 	local result = ""
-	local days = floor(seconds / config.time.day)
-	local hours = floor(fmod(seconds, config.time.day) / config.time.hour)
-	local minutes = floor(fmod(seconds, config.time.hour) / config.time.minute)
-	local seconds = floor(fmod(seconds, config.time.minute))
+	local days = floor(seconds / timeUnit.day)
+	local hours = floor(fmod(seconds, timeUnit.day) / timeUnit.hour)
+	local minutes = floor(fmod(seconds, timeUnit.hour) / timeUnit.minute)
+	local seconds = floor(fmod(seconds, timeUnit.minute))
 
 	if days > 0 then
 		result = format("%s%s %s", result, tostring(days), days == 1 and "$<day>, " or "$<days>, ")

@@ -80,8 +80,11 @@ local _function = function(data)
 		signFooter(embed, data.author, guildLang)
 
 		if listTotal <= perPage then
-			decoyBird = decoyBird == nil and bird:post(nil, embed:raw(), data.channel)
-			or decoyBird:update(nil, embed:raw())
+			if decoyBird == nil then
+				decoyBird = bird:post(nil, embed:raw(), data.channel)
+			else
+				decoyBird:update(nil, embed:raw())
+			end
 
 			return true
 		end

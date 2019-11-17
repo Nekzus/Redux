@@ -68,8 +68,8 @@ local _function = function(data)
 	local alreadyMuted = {}
 
 	local muteTime = data.content:match("%w+$")
-	muteTime = muteTime and clamp(interpTime(muteTime), config.time.second * 5, config.time.month)
-	or config.time.hour
+	muteTime = muteTime and clamp(interpTime(muteTime), timeUnit.second * 5, timeUnit.month)
+	or timeUnit.hour
 
 	local formalMuteTime = localize(timeLong(muteTime), guildLang)
 	local reason = data.content:match(config.patterns.quotes.capture)

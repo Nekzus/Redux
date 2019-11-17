@@ -116,7 +116,7 @@ bot = {} -- Registro de informações à serem usadas para registros do bot
 saves = {} -- Table que constitui todos os databases salvos
 config = {} -- Pré-registro de configurações
 
-config.time = { -- Registra configurações relacionadas à tempo
+timeUnit = { -- Registra variáveis relacionadas à tempo
 	second = 1,
 	minute = 60,
 	hour = 3600,
@@ -135,6 +135,11 @@ end
 
 function printf(text, ...) -- Print formatado que permite exibir um texto ao mesmo tempo que há a formatação
 	return print(format(text, ...))
+end
+
+function append(...)
+    local args = {...}
+    return format(rep("%s", #args), ...)
 end
 
 function loadFile(path) -- Função principal para carregar arquivos que estão presentes em um caminho pré-definido

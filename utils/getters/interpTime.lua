@@ -11,7 +11,7 @@ function interpTime(text)
 		local num, key = formula:match(config.patterns.time.capture)
 
 		if key then
-			for timeKey, timeNum in next, config.time do
+			for timeKey, timeNum in next, timeUnit do
 				if timeKey:sub(1, #key) == key then
 					totalTime = totalTime + num * timeNum
 					break
@@ -24,7 +24,7 @@ function interpTime(text)
 		local match = text:match("%d+")
 
 		if match then
-			totalTime = (totalTime + (tonumber(match))) * config.time.hour
+			totalTime = (totalTime + (tonumber(match))) * timeUnit.hour
 		else
 			totalTime = 60 * 60
 		end

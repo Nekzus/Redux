@@ -41,6 +41,7 @@ local _function = function(data)
 	end
 
 	local profileCustom = apiRobloxGetUserProfileCustom(user.Id)
+	local primaryGroup = apiRobloxGetUserPrimaryGroup(user.Id)
 
 	local headShot = profileCustom.userHeadShot
 	local status = profileCustom.status
@@ -76,6 +77,14 @@ local _function = function(data)
 	embed:authorImage(config.images.robloxLogo)
 	embed:authorUrl(format("https://www.roblox.com/users/%s/profile", user.Id))
 	embed:description(status)
+	embed:field({
+		name = localize("%s ${createdIn}", guildLang, ":date:"),
+		value = created,
+	})
+	embed:field({
+		name = localize("%s ${primaryGroup}", guildLang, ":beginner:"),
+		value = primaryGroup and primaryGroup.name or localize("${none}"),
+	})
 	embed:field({
 		name = localize("%s ${social}", guildLang, ":raising_hand:"),
 		value = localize("**${friends}:** %s\n**${following}:** %s\n**${followers}:** %s", guildLang, affixNum(friends), affixNum(followings), affixNum(followers)),

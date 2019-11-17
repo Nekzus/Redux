@@ -21,8 +21,16 @@ local _function = function(data)
 		local listTotal = 0
 		local listItems = {}
 
-		for langName, langCode in pairs(config.locale) do
-			insert(listItems, {name = langName, code = langCode})
+		local supportedLangs = apiGoogleTranslateLangs(guildLang)
+
+		if not supportedLangs then
+			print("Could not find languages list")
+
+			return false
+		end
+
+		for _, item in pairs(supportedLangs) do
+			insert(listItems, {name = item.name, code = item.language})
 			listTotal = listTotal + 1
 		end
 
@@ -36,7 +44,8 @@ local _function = function(data)
 		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
 		local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
 		local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
-		local decoyBird
+		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
+		local firstTime = true
 		local message
 
 		local function showPage()
@@ -68,14 +77,18 @@ local _function = function(data)
 			signFooter(embed, data.author, guildLang)
 
 			if listTotal <= perPage then
-				decoyBird = decoyBird == nil and bird:post(nil, embed:raw(), data.channel)
-				or decoyBird:update(nil, embed:raw())
+				if decoyBird == nil then
+					decoyBird = bird:post(nil, embed:raw(), data.channel)
+				else
+					decoyBird:update(nil, embed:raw())
+				end
 
 				return true
 			end
 
-			if decoyBird == nil then
-				decoyBird = bird:post(nil, embed:raw(), data.channel)
+			if firstTime == true then
+				firstTime = false
+				decoyBird:update(nil, embed:raw())
 				message = decoyBird.message
 				blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
@@ -140,7 +153,8 @@ local _function = function(data)
 		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
 		local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
 		local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
-		local decoyBird
+		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
+		local firstTime = true
 		local message
 
 		local function showPage()
@@ -164,21 +178,25 @@ local _function = function(data)
 				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
-			embed:field({name = localize("${translationCodes} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages), value = (result ~= "" and result or localize("${noResults}", guildLang))})
-
+			embed:title(localize("${translationCodes} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
+			embed:description(result ~= "" and result or localize("${noResults}", guildLang))
 			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
 			if listTotal <= perPage then
-				decoyBird = decoyBird == nil and bird:post(nil, embed:raw(), data.channel)
-				or decoyBird:update(nil, embed:raw())
+				if decoyBird == nil then
+					decoyBird = bird:post(nil, embed:raw(), data.channel)
+				else
+					decoyBird:update(nil, embed:raw())
+				end
 
 				return true
 			end
 
-			if decoyBird == nil then
-				decoyBird = bird:post(nil, embed:raw(), data.channel)
+			if firstTime == true then
+				firstTime = false
+				decoyBird:update(nil, embed:raw())
 				message = decoyBird.message
 				blinker = blink(message, config.timeouts.reaction, {data.user.id})
 

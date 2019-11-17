@@ -66,6 +66,11 @@ langs = {
 		["pt-br"] = "Criado",
 	},
 
+	["createdIn"] = {
+		["en-us"] = "Created in",
+		["pt-br"] = "Criado em",
+	},
+
 	["members"] = {
 		["en-us"] = "Members",
 		["pt-br"] = "Membros",
@@ -244,6 +249,11 @@ langs = {
 	["answer"] = {
 		["en-us"] = "Answer",
 		["pt-br"] = "Resposta",
+	},
+
+	["primaryGroup"] = {
+		["en-us"] = "Primary Group",
+		["pt-br"] = "Grupo Primário",
 	},
 
 	["googleSearch"] = {
