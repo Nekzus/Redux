@@ -1041,8 +1041,8 @@ langs = {
 	},
 
 	["commandCooldownFor"] = {
-		["en-us"] = "Command in cooldown for **%s** more seconds!",
-		["pt-br"] = "Comando em cooldown por **%s** segundo(s)!",
+		["en-us"] = "Command in cooldown for **%s**!",
+		["pt-br"] = "Comando em cooldown por **%s**!",
 	},
 
 	["cashValueInvalid"] = {
