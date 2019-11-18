@@ -13,7 +13,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	local listTotal = 0
 	local listItems = {}

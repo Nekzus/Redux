@@ -3,7 +3,7 @@ local _config = {
 	desc = "${sendsFeedbackCreator}",
 	usage = "",
 	aliases = {"fb", "suggest"},
-	cooldown = 60 * 15,
+	cooldown = 60 * 10,
 	level = 0,
 	direct = true,
 }

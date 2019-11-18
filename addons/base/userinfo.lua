@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.user == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	local guild = data.guild
 	local embed = newEmbed()

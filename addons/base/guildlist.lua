@@ -13,7 +13,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	local perPage = 10
 	local page = tonumber(args[2]) or 1

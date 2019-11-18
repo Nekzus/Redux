@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	if not args[2] then
 		return replyEmbed(localize("${missingArg}", guildLang), data.message, "error")
