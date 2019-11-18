@@ -2,8 +2,8 @@ local _config = {
 	name = "reload",
 	desc = "${reloadsBotModules}",
 	usage = "",
-	aliases = {"rel", "reboot", "restart", "res"},
-	cooldown = 3,
+	aliases = {"update", "up", "rel", "reboot", "restart", "res"},
+	cooldown = 5,
 	level = 5,
 	direct = true,
 }
@@ -17,6 +17,14 @@ local _function = function(data)
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 
 	saveAllData()
+
+	local result, action, code = os.execute(format([[
+		git add --all &&
+		git commit "Upload automatico da base de dados (%s)" &&
+		git fetch origin &&
+		git pull
+	]], os.date("%m/%d/%Y %I:%M %p")))
+
 	commands:flushList()
 	loadBot()
 
