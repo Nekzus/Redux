@@ -17,7 +17,7 @@ local _function = function(data)
 	local embed = newEmbed()
 
 	if not specifiesUser(data.message) then
-		embed:title(format("${avatarFor}", data.author.tag))
+		embed:title(localize("${avatarFor}", guildLang, data.author.tag))
 		embed:image(data.guild:getMember(data.author.id):getAvatarURL())
 
 	bird:post(nil, embed:raw(), data.channel)
