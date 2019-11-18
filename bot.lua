@@ -258,10 +258,10 @@ function loadBot()
 end
 
 -- Verifica se há atualizações disponíveis no repositório
---[[runDOS("color 06")
+runDOS("color 06")
 print("Checking for Repository Updates...")
 runDOS("cls")
-printf("Project status: %s", runDOS("git pull"))]]
+printf("Project status: %s", runDOS("git pull"))
 
 -- Inicializa o processo principal
 loadBot()
