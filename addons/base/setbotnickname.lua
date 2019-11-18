@@ -15,8 +15,11 @@ local _function = function(data)
 	local args = data.args
 
 	if not (args[2]) then
-		local text = localize("${missingArg}", guildLang)
-		local embed = replyEmbed(text, data.message, "error")
+
+		data.guild:getMember(client.user.id):setNickname(nil)
+
+		local text = localize("${nicknameSet}", guildLang, text)
+		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
 
