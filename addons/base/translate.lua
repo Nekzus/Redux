@@ -256,7 +256,7 @@ local _function = function(data)
 			return false
 		end
 
-		local reply = format("%s [%s -> %s] %s", data.author.mentionString, detectedSourceLanguage, data.args[2], urlDecode(translatedText))
+		local reply = format("%s [``%s`` -> ``%s``] %s", data.author.mentionString, detectedSourceLanguage, data.args[2], urlDecode(translatedText))
 
 		decoyBird:update(reply, nil)
 	end
