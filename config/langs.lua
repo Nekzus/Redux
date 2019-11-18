@@ -1300,6 +1300,16 @@ langs = {
 		["pt-br"] = "Falha ao definir nome de usuário para '**%s**'",
 	},
 
+	["nicknameSet"] = {
+		["en-us"] = "Nickname has been set to '**%s**'",
+		["pt-br"] = "O apelido foi definido para '**%s**'",
+	},
+
+	["nicknameFailed"] = {
+		["en-us"] = "Failed to set nickname to '**%s**'",
+		["pt-br"] = "Falha ao definir apelido para '**%s**'",
+	},
+
 	["playingStatusSet"] = {
 		["en-us"] = "Playing status has been set to '**%s**'",
 		["pt-br"] = "O status de jogando foi definido para '**%s**'",
@@ -2060,6 +2070,11 @@ langs = {
 	["setsUsername"] = {
 		["en-us"] = "sets the bot's username.",
 		["pt-br"] = "modifica o nome do bot.",
+	},
+
+	["setsNickname"] = {
+		["en-us"] = "sets the bot's nickname.",
+		["pt-br"] = "modifica o apelido do bot.",
 	},
 
 	["checksBalance"] = {
