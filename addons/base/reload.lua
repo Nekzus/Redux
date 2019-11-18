@@ -14,11 +14,11 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local args = data.args
 
-	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
-
-	saveAllData()
 	bot.loaded = false
 	client:removeAllListeners()
+	saveAllData()
+
+	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 
 	if not (args[2] and inList(args[2], {"local", "1", "l"})) then
 		runDOS("git add --all")
