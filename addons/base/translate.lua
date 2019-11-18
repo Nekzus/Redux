@@ -39,7 +39,7 @@ local _function = function(data)
 		end)
 
 		local perPage = 10
-		local page = tonumber(data.args[2]) or 1
+		local page = tonumber(args[2]) or 1
 
 		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
 		local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
