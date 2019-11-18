@@ -142,6 +142,23 @@ function append(...)
     return format(rep("%s", #args), ...)
 end
 
+function runDOS(cmd, raw) -- Função para rodar comandos no console e retornar os resultados
+  local func = assert(io.popen(cmd, 'r'))
+  local result = assert(func:read('*a'))
+
+  func:close()
+
+  if raw then
+	  return result
+  end
+
+  result = gsub(result, '^%s+', '')
+  result = gsub(result, '%s+$', '')
+  result = gsub(result, '[\n\r]+', ' ')
+
+  return result
+end
+
 function loadFile(path) -- Função principal para carregar arquivos que estão presentes em um caminho pré-definido
 	local file = fs.readFileSync(path)
 	local fileName = path:split("/")
@@ -242,10 +259,10 @@ function loadBot()
 end
 
 -- Verifica se há atualizações disponíveis no repositório
-runDOS("color 06")
+--[[runDOS("color 06")
 print("Checking for Repository Updates...")
 runDOS("cls")
-printf("Project status: %s", runDOS("git pull"))
+printf("Project status: %s", runDOS("git pull"))]]
 
 -- Inicializa o processo principal
 loadBot()
