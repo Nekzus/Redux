@@ -18,7 +18,7 @@ local _function = function(data)
 
 		data.guild:getMember(client.user.id):setNickname(nil)
 
-		local text = localize("${nicknameSet}", guildLang, text)
+		local text = localize("${nilNickname}", guildLang, text)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)

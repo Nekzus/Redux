@@ -1305,6 +1305,11 @@ langs = {
 		["pt-br"] = "O apelido foi definido para '**%s**'",
 	},
 
+	["nilNickname"] = {
+		["en-us"] = "Nickname removed",
+		["pt-br"] = "Apelido removido",
+	},
+
 	["nicknameFailed"] = {
 		["en-us"] = "Failed to set nickname to '**%s**'",
 		["pt-br"] = "Falha ao definir apelido para '**%s**'",
