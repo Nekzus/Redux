@@ -17,6 +17,7 @@ local _function = function(data)
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 
 	saveAllData()
+	client:removeAllListeners()
 
 	if not (args[2] and inList(args[2], {"local", "1", "l"})) then
 		os.execute("git add --all")
