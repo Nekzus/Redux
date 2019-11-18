@@ -19,20 +19,20 @@ local _function = function(data)
 
 	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 
-	local text = localize("${botDataSaved}", guildLang)
-	local embed = replyEmbed(text, data.message, "ok")
-
-	decoy:update(nil, embed:raw())
-
 	client:setGame {
 		type = 2,
 		name = "Shutting down..."
 	}
 
-	client:stop()
 	runDOS("git add --all")
 	runDOS(format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
 	runDOS("git push")
+
+	local text = localize("${botDataSaved}", guildLang)
+	local embed = replyEmbed(text, data.message, "ok")
+	decoy:update(nil, embed:raw())
+
+	client:stop()
 	os.exit(0)
 end
 
