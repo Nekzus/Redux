@@ -23,7 +23,9 @@ local _function = function(data)
 		return false
 	end
 
-	client:setUsername(data.content:sub(#args[1] + 2))
+	local sentence = data.content:sub(#args[1] + 2)
+
+	client:setUsername(sentence)
 
 	local text = localize("${usernameSet}", guildLang, text)
 	local embed = replyEmbed(text, data.message, "ok")
