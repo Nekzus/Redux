@@ -13,8 +13,10 @@ function loadCode(code, level, extra)
 	result.tostring = tostring
 	result.tonumber = tonumber
 
-	for key, value in next, extra do
-		result[key] = value
+	if extra then
+		for key, value in next, extra do
+			result[key] = value
+		end
 	end
 
 	function result.print(...)
