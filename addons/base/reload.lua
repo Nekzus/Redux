@@ -19,12 +19,10 @@ local _function = function(data)
 	saveAllData()
 
 	if not (args[2] and inList(args[2], "local", "1", "l")) then
-		local result, action, code = os.execute(format([[
-			git add --all &&
-			git commit "Upload da base de dados (%s)" &&
-			git push &&
-			git pull
-		]], os.date("%m/%d/%Y %I:%M %p")))
+		os.execute("git add --all")
+		os.execute(format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
+		os.execute("git push")
+		os.execute("git pull")
 	end
 
 	commands:flushList()
