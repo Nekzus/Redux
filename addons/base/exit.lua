@@ -17,10 +17,12 @@ local _function = function(data)
 	client:removeAllListeners()
 	saveAllData()
 
+	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
+
 	local text = localize("${botDataSaved}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
 
-	bird:post(nil, embed:raw(), data.channel)
+	decoy:update(nil, embed:raw())
 
 	client:setGame {
 		type = 2,
