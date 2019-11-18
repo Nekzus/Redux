@@ -12,6 +12,8 @@ client:on("messageCreate",
 			-- Ignorar quando outro bot também estiver enviando mensagens
 		elseif message.author.bot then
 			return
+		elseif not bot.loaded then
+			return
 		end
 
 		-- Coleta os recursos da guilda base
@@ -88,13 +90,6 @@ client:on("messageCreate",
 		if commandData and (data.command:lower() == format("%s%s", commandPrefix, commandName:lower())) then
 			local userData = saves.temp:get(format("users/%s", data.user.id))
 			local commandPermit, commandPatron = canRunCommand(data)
-
-			-- Caso o bot estiver em processo de reinicialização
-			-- notifica o usuário para tentar novamente em alguns segundos
-			if not bot.loaded then
-				data.channel:reply("Bot is restarting, please try again in a few seconds..")
-				return false
-			end
 
 			-- Verifica se o usuário pode executar o comando
 			if not commandPermit then
