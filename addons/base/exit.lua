@@ -14,6 +14,7 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local args = data.args
 
+	client:removeAllListeners()
 	saveAllData()
 
 	local text = localize("${botDataSaved}", guildLang)
@@ -25,7 +26,11 @@ local _function = function(data)
 		type = 2,
 		name = "Shutting down..."
 	}
+
 	client:stop()
+	runDOS("git add --all")
+	runDOS(format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
+	runDOS("git push")
 	os.exit(0)
 end
 
