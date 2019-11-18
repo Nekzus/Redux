@@ -19,6 +19,7 @@ local _function = function(data)
 	saveAllData()
 	bot.loaded = false
 	client:removeAllListeners()
+	wait(1)
 
 	if not (args[2] and inList(args[2], {"local", "1", "l"})) then
 		os.execute("git add --all")
@@ -27,6 +28,7 @@ local _function = function(data)
 		os.execute("git pull")
 	end
 
+	print("Resumed")
 	commands:flushList()
 	loadBot()
 
