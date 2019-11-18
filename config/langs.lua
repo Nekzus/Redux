@@ -945,6 +945,11 @@ langs = {
 		["pt-br"] = "Feedback submetido",
 	},
 
+	["avatarFor"] = {
+		["en-us"] = "Avatar for %s",
+		["pt-br"] = "Avatar de %s",
+	},
+
 	["missingArg"] = {
 		["en-us"] = "Missing argument",
 		["pt-br"] = "Argumento ausente",

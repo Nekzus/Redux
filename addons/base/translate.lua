@@ -155,7 +155,8 @@ local _function = function(data)
 		local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 		local firstTime = true
-		
+		local message
+
 		local function showPage()
 			local embed = newEmbed()
 			local inPage = 0
