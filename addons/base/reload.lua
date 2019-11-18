@@ -19,23 +19,22 @@ local _function = function(data)
 	saveAllData()
 	bot.loaded = false
 	client:removeAllListeners()
-	wait(1)
 
 	if not (args[2] and inList(args[2], {"local", "1", "l"})) then
-		os.execute("git add --all")
-		os.execute(format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
-		os.execute("git push")
-		os.execute("git pull")
+		runDOS("git add --all")
+		runDOS(format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
+		runDOS("git push")
+		runDOS("git pull")
 	end
 
-	print("Resumed")
 	commands:flushList()
-	loadBot()
 
 	local text = localize("${botModulesReloaded}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	decoy:update(nil, embed:raw())
+
+	loadBot()
 
 	return true
 end
