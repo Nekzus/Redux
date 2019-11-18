@@ -13,7 +13,6 @@ local _function = function(data)
 	local guildData = data.guildData
 	local guildLang = data.guildLang
 	local args = data.args
-	local member = data.guild:getMember(client.user.id)
 
 	if not (args[2]) then
 		local text = localize("${missingArg}", guildLang)
@@ -24,7 +23,7 @@ local _function = function(data)
 		return false
 	end
 
-	member:setNickname(data.content:sub(#args[1] + 2))
+	data.guild:getMember(client.user.id):setNickname(data.content:sub(#args[1] + 2))
 
 	local text = localize("${nicknameSet}", guildLang, text)
 	local embed = replyEmbed(embed, data.message, "ok")
