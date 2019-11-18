@@ -14,10 +14,12 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local args = data.args
 
-	if not (args[2]) then
-		data.guild:getMember(client.user.id):setNickname(nil)
+	local member = data.guild:getMember(client.user.id)
 
-		local text = localize("${nilNickname}", guildLang, text)
+	if not (args[2]) then
+		member:setNickname(nil)
+
+		local text = localize("${nilNickname}", guildLang)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -25,9 +27,11 @@ local _function = function(data)
 		return false
 	end
 
-	data.guild:getMember(client.user.id):setNickname(data.content:sub(#args[1] + 2))
+	local sentence = data.content:sub(#args[1] + 2)
 
-	local text = localize("${nicknameSet}", guildLang, text)
+	member:setNickname(sentence)
+
+	local text = localize("${nicknameSet}", guildLang, sentence)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)
