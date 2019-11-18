@@ -3,7 +3,6 @@ function handleMuteData(muteData)
 
 	if not muteData.guild then
 		print("Guild for muteData not found")
-
 		return false
 	end
 
@@ -28,7 +27,6 @@ function handleMuteData(muteData)
 
 	if not role then
 		guildData:get("mutes"):set(member.id, nil)
-
 		return false
 	end
 

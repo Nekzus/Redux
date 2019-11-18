@@ -12,12 +12,12 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
-	embedTempData = embedTempData or {}
+	embedBuilderData = embedBuilderData or {}
 
 	local sentence = data.content:sub(#args[1] + 2)
-	local activeEdit = embedTempData[data.user.id]
+	local activeEdit = embedBuilderData[data.user.id]
 	local embed, botEmbed, errorEmbed, lastData
 
 	if activeEdit then
@@ -29,7 +29,7 @@ local _function = function(data)
 		if inList(args[2], config.terms.done) then
 			local toChannel = args[3] and getTextChannel(args[3], "name", data.guild)
 
-			embedTempData[data.user.id] = nil
+			embedBuilderData[data.user.id] = nil
 
 			if toChannel then
 				bird:post(nil, embed:raw(), toChannel)
@@ -71,12 +71,12 @@ local _function = function(data)
 	else
 		embed = newEmbed() --replyEmbed(nil, data.message, "info")
 		embed:timestamp(discordia.Date():toISO("T", "Z"))
-		embedTempData[data.author.id] = {embed = embed, data = data}
+		embedBuilderData[data.author.id] = {embed = embed, data = data}
 
 		local text = localize("${editModeResult}", guildLang, data.author.tag)
 
 		botEmbed = bird:post(text, embed:raw(), data.channel)
-		embedTempData[data.author.id].botEmbed = botEmbed
+		embedBuilderData[data.author.id].botEmbed = botEmbed
 	end
 
 	if match(sentence, config.patterns.keyValue.base) then
@@ -128,7 +128,7 @@ local _function = function(data)
 			local embed = replyEmbed(text, data.message, "error")
 			local errorEmbed = bird:post(nil, embed:raw(), data.channel)
 
-			embedTempData[data.author.id].errorEmbed = errorEmbed
+			embedBuilderData[data.author.id].errorEmbed = errorEmbed
 		end
 	end
 
@@ -136,9 +136,9 @@ local _function = function(data)
 		local finishCommand = format("%s done", data.command)
 
 		botEmbed:update(localize("${editModeResult}; ${embedFinishTip}", guildLang, data.author.tag, finishCommand), embed:raw())
-		embedTempData[data.author.id].botEmbed = botEmbed
+		embedBuilderData[data.author.id].botEmbed = botEmbed
 	else
-		embedTempData[data.author.id] = nil
+		embedBuilderData[data.author.id] = nil
 	end
 end
 

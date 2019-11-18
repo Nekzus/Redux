@@ -26,12 +26,12 @@ end
 
 local function getCtxDefault()
 	return {
-		-- Reserved words
+		-- Variáveis reservadas
 		huge = huge,
 		inf = huge,
 		pi = pi,
 
-		-- Reserved functions
+		-- Funções reservadas
 		acos = function(args)
 			return acos(args[1])
 		end,
@@ -101,7 +101,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	if not (args[2]) then
 		local text = localize("${missingArg}", guildLang)
