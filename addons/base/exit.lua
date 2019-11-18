@@ -23,7 +23,7 @@ local _function = function(data)
 
 	client:setGame {
 		type = 2,
-		name = "Restarting..."
+		name = "Shutting down..."
 	}
 	client:stop()
 	os.exit(0)
