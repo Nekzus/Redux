@@ -18,7 +18,7 @@ local _function = function(data)
 
 	saveAllData()
 
-	if not (args[2] and inList(args[2], "local", "1", "l")) then
+	if not (args[2] and inList(args[2], {"local", "1", "l"})) then
 		os.execute("git add --all")
 		os.execute(format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
 		os.execute("git push")

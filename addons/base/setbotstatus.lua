@@ -26,7 +26,7 @@ local _function = function(data)
 	client:setGame(data.content:sub(#args[1] + 2))
 
 	local text = localize("${playingStatusSet}", guildLang, text)
-	local embed = replyEmbed(embed, data.message, "ok")
+	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)
 

@@ -15,7 +15,6 @@ local _function = function(data)
 	local args = data.args
 
 	if not (args[2]) then
-
 		data.guild:getMember(client.user.id):setNickname(nil)
 
 		local text = localize("${nilNickname}", guildLang, text)
@@ -29,7 +28,7 @@ local _function = function(data)
 	data.guild:getMember(client.user.id):setNickname(data.content:sub(#args[1] + 2))
 
 	local text = localize("${nicknameSet}", guildLang, text)
-	local embed = replyEmbed(embed, data.message, "ok")
+	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)
 
