@@ -1,8 +1,8 @@
 local _config = {
-	name = "ata",
+	name = "roleinfo",
 	desc = "${saysPong}",
 	usage = "",
-	aliases = {"ata"},
+	aliases = {"roleinfo"},
 	cooldown = 3,
 	level = 5,
 	direct = false,
