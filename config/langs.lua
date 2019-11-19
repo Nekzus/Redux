@@ -951,8 +951,8 @@ langs = {
 	},
 
 	["clickOpenInBrowser"] = {
-		["en-us"] = "Click [here](%s) to open in browser"
-		["pt-br"] = "Clique [aqui](%s) para abrir no navegador"
+		["en-us"] = "Click [here](%s) to open in browser",
+		["pt-br"] = "Clique [aqui](%s) para abrir no navegador",
 	},
 
 	["missingArg"] = {
@@ -1722,11 +1722,6 @@ langs = {
 		["pt-br"] = "envia um feedback para o time de desenvolvimento.",
 	},
 
-	["seesUserAvatar"] = {
-		["en-us"] = "show your avatar or the mentioned user's avatar.",
-		["pt-br"] = "mostra o seu avatar ou o avatar do usuário mencionado.",
-	},
-
 	["categoryDescBase"] = {
 		["en-us"] = "main and essential.",
 		["pt-br"] = "principal e essencial.",
@@ -2095,6 +2090,11 @@ langs = {
 	["setsNickname"] = {
 		["en-us"] = "sets the bot's nickname.",
 		["pt-br"] = "modifica o apelido do bot.",
+	},
+
+	["seesUserAvatar"] = {
+		["en-us"] = "show your avatar or the mentioned user's avatar.",
+		["pt-br"] = "mostra o seu avatar ou o avatar do usuário mencionado.",
 	},
 
 	["checksBalance"] = {

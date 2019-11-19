@@ -14,11 +14,19 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local args = data.args
 	local authorAvatar = data.guild:getMember(data.author.id):getAvatarURL()
-	local mentionedUserAvatar = data.message.mentionedUsers.first
+	local user = data.message.mentionedUsers.first
+	local member = user and data.guild:getMember(user)
 
 	local embed = newEmbed()
 
-	if not specifiesUser(data.message) then
+	if specifiesUser(data.message) then
+		embed:title(localize("${avatarFor}", guildLang, member.tag))
+		embed:description(localize("${clickOpenInBrowser}", guildLang, member:getAvatarURL()))
+		embed:image(member:getAvatarURL())
+		embed:color(config.colors.blue)
+		embed:footerIcon(config.images.info)
+		signFooter(embed, data.author, guildLang)
+	else
 		embed:title(localize("${avatarFor}", guildLang, data.author.tag))
 		embed:description(localize("${clickOpenInBrowser}", guildLang, authorAvatar))
 		embed:image(authorAvatar)
