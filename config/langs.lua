@@ -945,6 +945,36 @@ langs = {
 		["pt-br"] = "Este cargo não existe",
 	},
 
+	["roleName"] = {
+		["en-us"] = "Name",
+		["pt-br"] = "Nome",
+	},
+
+	["roleUsers"] = {
+		["en-us"] = "Users",
+		["pt-br"] = "Usuários",
+	},
+
+	["roleMentionable"] = {
+		["en-us"] = "Mentionable",
+		["pt-br"] = "Mencionável",
+	},
+
+	["roleCreatedAt"] = {
+		["en-us"] = "Created at",
+		["pt-br"] = "Criado em",
+	},
+
+	["roleColor"] = {
+		["en-us"] = "Color",
+		["pt-br"] = "Cor",
+	},
+
+	["roleHoisted"] = {
+		["en-us"] = "Hoisted",
+		["pt-br"] = "Visível",
+	},
+
 	["feedbackSubmitted"] = {
 		["en-us"] = "Feedback submitted",
 		["pt-br"] = "Feedback submetido",
