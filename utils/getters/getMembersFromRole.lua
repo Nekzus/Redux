@@ -1,11 +1,8 @@
-function getMembersFromRole(role)
+function getMembersFromRole(guild, role)
+	local guild = type(guild) == "string" and client:getGuild(guild) or guild
+	local role = type(role) == "string" and guild:getRole(role) or role
 
-	for k, v in next, data.guild:getRole(role).members:toArray() do
-		return k, v
-		k = k + 1
-	end
-
-	return nil
+	return role.members:toArray()
 end
 
 return getMembersFromRole
