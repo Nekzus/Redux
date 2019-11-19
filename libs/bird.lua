@@ -42,6 +42,8 @@ function main:update(content, embed)
 	if embed ~= true then
 		self.message:setEmbed(embed)
 	end
+
+	return self
 end
 
 -- Deleta o conteúdo do objeto

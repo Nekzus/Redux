@@ -192,14 +192,10 @@ local _function = function(data)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
-			print(decoyBird)
-
 			if listTotal <= perPage then
 				if decoyBird == nil then
-					print'is nil'
 					decoyBird = bird:post(nil, embed:raw(), data.channel)
 				else
-					print'is new'
 					decoyBird:update(nil, embed:raw())
 				end
 
@@ -208,7 +204,6 @@ local _function = function(data)
 
 			if firstTime == true then
 				firstTime = false
-				print'updated'
 				decoyBird:update(nil, embed:raw())
 				message = decoyBird.message
 				blinker = blink(message, config.timeouts.reaction, {data.user.id})
