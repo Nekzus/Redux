@@ -940,6 +940,11 @@ langs = {
 	},
 
 	-- Frases e Respostas
+	["roleDoesNotExist"] = {
+		["en-us"] = "This role does note exist"
+		["pt-br"] = "Este cargo não existe"
+	},
+	
 	["feedbackSubmitted"] = {
 		["en-us"] = "Feedback submitted",
 		["pt-br"] = "Feedback submetido",
