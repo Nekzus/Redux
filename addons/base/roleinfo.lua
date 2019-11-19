@@ -34,6 +34,9 @@ local _function = function(data)
 		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z"), inline = true})
 		embed:field({name = localize("${roleColor}", guildLang), value = format("%s, %s, %s", role:getColor():toRGB())}, inline = true)
 		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
+		embed:color(config.colors.blue)
+		embed:footerIcon(config.images.info)
+		signFooter(embed, data.author, guildLang)
 
 		data.channel:send{embed = embed:raw()}
 	elseif getRole(args[2], "id", data.guild) then
@@ -46,7 +49,10 @@ local _function = function(data)
 		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
 		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z"), inline = true})
 		embed:field({name = localize("${roleColor}", guildLang), value = format("%s, %s, %s", role:getColor():toRGB())}, inline = true)
-		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
+		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true
+		embed:color(config.colors.blue)
+		embed:footerIcon(config.images.info)
+		signFooter(embed, data.author, guildLang)
 
 		data.channel:send{embed = embed:raw()}
 	else
