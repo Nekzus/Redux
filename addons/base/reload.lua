@@ -21,10 +21,10 @@ local _function = function(data)
 	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 
 	if not (args[2] and inList(args[2], {"local", "1", "l"})) then
+		runDOS("git pull")
 		runDOS("git add --all")
 		runDOS(format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
 		runDOS("git push")
-		runDOS("git pull")
 	end
 
 	local text = localize("${botModulesReloaded}", guildLang)
