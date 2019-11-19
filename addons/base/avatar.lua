@@ -1,6 +1,6 @@
 local _config = {
 	name = "avatar",
-	desc = "${seeUserAvatar}",
+	desc = "${seesUserAvatar}",
 	usage = "",
 	aliases = {"a"},
 	cooldown = 3,
