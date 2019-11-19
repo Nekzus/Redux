@@ -124,20 +124,27 @@ local _function = function(data)
 	elseif translateTerms == nil then
 		local listTotal = 0
 		local listItems = {}
+		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
+		local supportedLangs = apiGoogleTranslateLangs(guildLang)
+
+		if not supportedLangs then
+			print("Could not find languages list")
+			return false
+		end
 
 		if sub(translateLang, 1, 1) == "\"" or sub(translateLang, 1,1) == "'" then
 			translateLang = translateLang:match("%w+")
 
-			for langName, langCode in next, config.locale do
-				if langName:lower() == translateLang or langCode:lower() == translateLang then
-					insert(listItems, {name = langName, code = langCode})
+			for _, item in next, supportedLangs do
+				if item.name:lower() == translateLang or item.language:lower() == translateLang then
+					insert(listItems, {name = item.name, code = item.language})
 					listTotal = listTotal + 1
 				end
 			end
 		else
-			for langName, langCode in next, config.locale do
-				if langName:lower():find(translateLang) or langCode:lower():find(translateLang) then
-					insert(listItems, {name = langName, code = langCode})
+			for _, item in next, supportedLangs do
+				if item.name:lower():find(translateLang) or item.language:lower():find(translateLang) then
+					insert(listItems, {name = item.name, code = item.language})
 					listTotal = listTotal + 1
 				end
 			end
@@ -153,7 +160,6 @@ local _function = function(data)
 		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
 		local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
 		local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
-		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 		local firstTime = true
 		local message
 
@@ -186,8 +192,10 @@ local _function = function(data)
 
 			if listTotal <= perPage then
 				if decoyBird == nil then
+					print'is nil'
 					decoyBird = bird:post(nil, embed:raw(), data.channel)
 				else
+					print'is new'
 					decoyBird:update(nil, embed:raw())
 				end
 
@@ -196,6 +204,7 @@ local _function = function(data)
 
 			if firstTime == true then
 				firstTime = false
+				print'updated'
 				decoyBird:update(nil, embed:raw())
 				message = decoyBird.message
 				blinker = blink(message, config.timeouts.reaction, {data.user.id})
@@ -223,6 +232,7 @@ local _function = function(data)
 					showPage()
 				end)
 			else
+				print'updated 2'
 				decoyBird:update(nil, embed:raw())
 			end
 		end
