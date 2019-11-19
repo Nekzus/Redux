@@ -1,9 +1,9 @@
 local _config = {
-	name = "roleinfo",
-	desc = "${getRoleInfo}",
-	usage = "${messageKey}",
-	aliases = {"rinfo"},
-	cooldown = 0,
+	name = "ata",
+	desc = "${saysPong}",
+	usage = "",
+	aliases = {"ata"},
+	cooldown = 3,
 	level = 5,
 	direct = false,
 }
