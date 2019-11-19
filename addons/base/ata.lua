@@ -23,7 +23,7 @@ local _function = function(data)
 		return false
 	end
 
-	if data.guild, getRole(args[2], "name", data.guild)) then
+	if getRole(args[2], "name", data.guild) then
 		local embed = newEmbed()
 		local role = getRole(args[2], "name", data.guild)
 
@@ -36,7 +36,7 @@ local _function = function(data)
 		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
 
 		data.channel:send{embed = embed:raw()}
-	elseif data.guild, getRole(args[2], "id", data.guild)) then
+	elseif getRole(args[2], "id", data.guild) then
 		local embed = newEmbed()
 		local role = getRole(args[2], "id", data.guild)
 
