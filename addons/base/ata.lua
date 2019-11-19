@@ -1,5 +1,5 @@
 local _config = {
-	name = "roleinfo",
+	name = "ata",
 	desc = "${saysPong}",
 	usage = "",
 	aliases = {"ata"},
