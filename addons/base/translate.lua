@@ -127,6 +127,8 @@ local _function = function(data)
 		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 		local supportedLangs = apiGoogleTranslateLangs(guildLang)
 
+		print(decoyBird)
+
 		if not supportedLangs then
 			print("Could not find languages list")
 			return false
@@ -189,6 +191,8 @@ local _function = function(data)
 			embed:color(config.colors.blue)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
+
+			print(decoyBird)
 
 			if listTotal <= perPage then
 				if decoyBird == nil then
