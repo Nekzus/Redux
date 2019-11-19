@@ -944,7 +944,7 @@ langs = {
 		["en-us"] = "This role does note exist"
 		["pt-br"] = "Este cargo não existe"
 	},
-	
+
 	["feedbackSubmitted"] = {
 		["en-us"] = "Feedback submitted",
 		["pt-br"] = "Feedback submetido",
@@ -1840,6 +1840,11 @@ langs = {
 	["createsScreenshare"] = {
 		["en-us"] = "creates a screenshare link for your voice-channel.",
 		["pt-br"] = "cria um link de compartilhamento de tela para o seu canal-de-voz.",
+	},
+
+	["getRoleInfo"] = {
+		["en-us"] = "gets information about a role.",
+		["pt-br"] = "pega informações de um cargo.",
 	},
 
 	["setsLang"] = {
