@@ -26,29 +26,29 @@ local _function = function(data)
 	if data.guild, getRole(args[2], "name", data.guild)) then
 		local embed = newEmbed()
 		local role = getRole(args[2], "name", data.guild)
-		local color = role:getColor()
 
 		embed:field({name = localize("${roleName}", guildLang), value = role.name, inline = true})
 		embed:field({name = "ID", value = role.id, inline = true})
-		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z")})
 		embed:field({name = localize("${roleUsers}", guildLang), value = #role.members:toArray(), inline = true})
 		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
-		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
+		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z"), inline = true})
+		embed:field({name = localize("${roleColor}", guildLang), value = format("%s, %s, %s", role:getColor():toRGB())})
+		embed:field({name = localize("${roleVisible}", guildLang), value = role.hoisted, inline = true})
 
-		bird:post(nil, embed:raw(), data.channel)
+		data.channel:send{embed = embed:raw()}
 	elseif data.guild, getRole(args[2], "id", data.guild)) then
 		local embed = newEmbed()
 		local role = getRole(args[2], "id", data.guild)
-		local color = role:getColor()
 
 		embed:field({name = localize("${roleName}", guildLang), value = role.name, inline = true})
 		embed:field({name = "ID", value = role.id, inline = true})
-		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z")})
 		embed:field({name = localize("${roleUsers}", guildLang), value = #role.members:toArray(), inline = true})
 		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
-		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
+		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z"), inline = true})
+		embed:field({name = localize("${roleColor}", guildLang), value = format("%s, %s, %s", role:getColor():toRGB())})
+		embed:field({name = localize("${roleVisible}", guildLang), value = role.hoisted, inline = true})
 
-		bird:post(nil, embed:raw(), data.channel)
+		data.channel:send{embed = embed:raw()}
 	else
 		local text = localize("${roleDoesNotExist}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")

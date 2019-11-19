@@ -966,8 +966,8 @@ langs = {
 	},
 
 	["roleColor"] = {
-		["en-us"] = "Color",
-		["pt-br"] = "Cor",
+		["en-us"] = "Color (RGB)",
+		["pt-br"] = "Cor (RGB)",
 	},
 
 	["roleHoisted"] = {
