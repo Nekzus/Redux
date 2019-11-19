@@ -940,6 +940,11 @@ langs = {
 	},
 
 	-- Frases e Respostas
+	["scriptErrorFor"] = {
+		["en-us"] = "Script error for: %s"
+		["pt-br"] = "Erro de script para: %s"
+	},
+	
 	["roleDoesNotExist"] = {
 		["en-us"] = "This role does note exist",
 		["pt-br"] = "Este cargo não existe",
