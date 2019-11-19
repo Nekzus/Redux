@@ -1,10 +1,10 @@
 function getMembersFromRole(role)
 
 	for k, v in next, data.guild:getRole(role).members:toArray() do
-		MembersFromRole = k, v
+		return k, v
 	end
 
-	return MembersFromRole
+	return nil
 end
 
 return getMembersFromRole

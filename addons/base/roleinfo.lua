@@ -24,7 +24,7 @@ local _function = function(data)
 	end
 
 	if data.guild:getRole(format("%s", args[2])) then
-		local roleMembers = getMembersFromRole(#args[1] + 2)
+		local roleMembers = getMembersFromRole(format("%s", args[2]))
 		local text = roleMembers
 		local embed = replyEmbed(text, data.message, "info")
 
