@@ -2,7 +2,7 @@ local _config = {
 	name = "roleinfo",
 	desc = "${getRoleInfo}",
 	usage = "${messageKey}",
-	aliases = {"ri"},
+	aliases = {"rolei", "rinfo"},
 	cooldown = 0,
 	level = 5,
 	direct = false,
@@ -25,7 +25,6 @@ local _function = function(data)
 
 	if data.guild, getRole(args[2], "name", data.guild)) then
 		local embed = newEmbed()
-		local members = getMembersFromRole(data.guild, getRole(args[2], "name", data.guild))
 		local role = getRole(args[2], "name", data.guild)
 		local color = role:getColor()
 
@@ -40,7 +39,6 @@ local _function = function(data)
 		bird:post(nil, embed:raw(), data.channel)
 	elseif data.guild, getRole(args[2], "id", data.guild)) then
 		local embed = newEmbed()
-		local members = getMembersFromRole(data.guild, getRole(args[2], "id", data.guild))
 		local role = getRole(args[2], "id", data.guild)
 		local color = role:getColor()
 
