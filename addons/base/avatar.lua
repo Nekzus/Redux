@@ -21,7 +21,6 @@ local _function = function(data)
 
 	if not specifiesUser(data.message) then
 		embed:title(localize("${avatarFor}", guildLang, data.author.tag))
-		embed:description(localize("${clickOpenInBrowser}", guildLang, authorAvatar))
 		embed:image(authorAvatar)
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
