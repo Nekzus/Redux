@@ -127,8 +127,6 @@ local _function = function(data)
 		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 		local supportedLangs = apiGoogleTranslateLangs(guildLang)
 
-		print(decoyBird)
-
 		if not supportedLangs then
 			print("Could not find languages list")
 			return false
@@ -231,7 +229,6 @@ local _function = function(data)
 					showPage()
 				end)
 			else
-				print'updated 2'
 				decoyBird:update(nil, embed:raw())
 			end
 		end
