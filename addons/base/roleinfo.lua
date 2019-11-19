@@ -18,7 +18,7 @@ local _function = function(data)
 		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
-		bird:post(nil, embed:raw(), data.channel)
+		data.channel:send{embed = embed:raw()}
 
 		return false
 	end
