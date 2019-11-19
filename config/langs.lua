@@ -1723,8 +1723,8 @@ langs = {
 	},
 
 	["seeUserAvatar"] = {
-		["en-us"] = "show your avatar or the mentioned user's avatar",
-		["pt-br"] = "mostra o seu avatar ou o avatar do usuário mencionado",
+		["en-us"] = "show your avatar or the mentioned user's avatar.",
+		["pt-br"] = "mostra o seu avatar ou o avatar do usuário mencionado.",
 	},
 
 	["categoryDescBase"] = {
