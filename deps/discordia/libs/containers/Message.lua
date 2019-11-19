@@ -163,6 +163,7 @@ end
 
 --[=[
 @m setContent
+@t http
 @p content string
 @r boolean
 @d Sets the message's content. The message must be authored by the current user
@@ -175,6 +176,7 @@ end
 
 --[=[
 @m setEmbed
+@t http
 @p embed table
 @r boolean
 @d Sets the message's embed. The message must be authored by the current user.
@@ -185,7 +187,26 @@ function Message:setEmbed(embed)
 end
 
 --[=[
+@m update
+@t http
+@p data table
+@r boolean
+@d Sets multiple properties of the message at the same time using a table similar
+to the one supported by `TextChannel.send`, except only `content` and `embed`
+are valid fields; `mention(s)`, `file(s)`, etc are not supported. The message
+must be authored by the current user. (ie: you cannot change the embed of messages
+sent by other users).
+]=]
+function Message:update(data)
+	return self:_modify({
+		content = data.content or null,
+		embed = data.embed or null,
+	})
+end
+
+--[=[
 @m pin
+@t http
 @r boolean
 @d Pins the message in the channel.
 ]=]
@@ -201,6 +222,7 @@ end
 
 --[=[
 @m unpin
+@t http
 @r boolean
 @d Unpins the message in the channel.
 ]=]
@@ -216,6 +238,7 @@ end
 
 --[=[
 @m addReaction
+@t http
 @p emoji Emoji-Resolvable
 @r boolean
 @d Adds a reaction to the message. Note that this does not return the new reaction
@@ -233,6 +256,7 @@ end
 
 --[=[
 @m removeReaction
+@t http
 @p emoji Emoji-Resolvable
 @op id User-ID-Resolvable
 @r boolean
@@ -258,6 +282,7 @@ end
 
 --[=[
 @m clearReactions
+@t http
 @r boolean
 @d Removes all reactions from the message.
 ]=]
@@ -272,6 +297,7 @@ end
 
 --[=[
 @m delete
+@t http
 @r boolean
 @d Permanently deletes the message. This cannot be undone!
 ]=]
@@ -290,6 +316,7 @@ end
 
 --[=[
 @m reply
+@t http
 @p content string/table
 @r Message
 @d Equivalent to `Message.channel:send(content)`.

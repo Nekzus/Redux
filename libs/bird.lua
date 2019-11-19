@@ -35,15 +35,19 @@ end
 function main:update(content, embed)
 	assert(self.message, "Must create main context with :post() first")
 
-	if content then
-		self.message:setContent(content)
+	local reply = {}
+
+	if text then
+		assert(type(text) == "string", "Text must be a string")
+		reply.content = text
 	end
 
 	if embed then
-		self.message:setEmbed(embed)
+		assert(type(embed) == "table", "Embed must be a table")
+		reply.embed = embed
 	end
 
-	return self
+	self.message:update(reply)
 end
 
 -- Deleta o conteúdo do objeto
