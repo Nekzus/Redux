@@ -13,8 +13,6 @@ local _function = function(data)
 	local guildData = data.guildData
 	local guildLang = data.guildLang
 	local args = data.args
-	local role = #args[1] + 2
-	local roleMembers = getMembersFromRole(role)
 
 	if not (args[2]) then
 		local text = localize("${missingArg}", guildLang)
@@ -25,7 +23,8 @@ local _function = function(data)
 		return false
 	end
 
-	if data.guild:getRole(role) then
+	if data.guild:getRole(#args[1] + 2) then
+		local roleMembers = getMembersFromRole(#args[1] + 2)
 		local text = roleMembers
 		local embed = replyEmbed(text, data.message, "info")
 
