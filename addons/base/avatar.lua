@@ -21,7 +21,7 @@ local _function = function(data)
 		embed:image(data.guild:getMember(data.author.id):getAvatarURL())
 		embed:color(config.colors.blue)
 		embed:footerIcon("https://cdn.discordapp.com/attachments/605826739842711562/605827616368230411/Information.png")
-		signFooter(embed, message.author, guildLang)
+		signFooter(embed, data.author, guildLang)
 
 	bird:post(nil, embed:raw(), data.channel)
 
