@@ -30,9 +30,9 @@ local _function = function(data)
 		embed:field({name = localize("${roleName}", guildLang), value = role.name, inline = true})
 		embed:field({name = "ID", value = role.id, inline = true})
 		embed:field({name = localize("${roleUsers}", guildLang), value = #role.members:toArray(), inline = true})
-		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
 		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z"), inline = true})
 		embed:field({name = localize("${roleColor}", guildLang), value = format("%s, %s, %s", role:getColor():toRGB()), inline = true})
+		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
 		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
 
 		data.channel:send{embed = embed:raw()}
@@ -43,9 +43,9 @@ local _function = function(data)
 		embed:field({name = localize("${roleName}", guildLang), value = role.name, inline = true})
 		embed:field({name = "ID", value = role.id, inline = true})
 		embed:field({name = localize("${roleUsers}", guildLang), value = #role.members:toArray(), inline = true})
-		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
 		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z"), inline = true})
 		embed:field({name = localize("${roleColor}", guildLang), value = format("%s, %s, %s", role:getColor():toRGB()), inline = true})
+		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
 		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
 
 		data.channel:send{embed = embed:raw()}
