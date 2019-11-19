@@ -950,6 +950,11 @@ langs = {
 		["pt-br"] = "Avatar de %s",
 	},
 
+	["clickOpenInBrowser"] = {
+		["en-us"] = "Click [here](%s) to open in browser"
+		["pt-br"] = "Clique [aqui](%s) para abrir no navegador"
+	},
+
 	["missingArg"] = {
 		["en-us"] = "Missing argument",
 		["pt-br"] = "Argumento ausente",
@@ -1715,6 +1720,11 @@ langs = {
 	["sendsFeedbackCreator"] = {
 		["en-us"] = "submits a feedback to the development team.",
 		["pt-br"] = "envia um feedback para o time de desenvolvimento.",
+	},
+
+	["seeUserAvatar"] = {
+		["en-us"] = "show your avatar or the mentioned user's avatar",
+		["pt-br"] = "mostra o seu avatar ou o avatar do usuário mencionado",
 	},
 
 	["categoryDescBase"] = {

@@ -13,14 +13,25 @@ local _function = function(data)
 	local guildData = data.guildData
 	local guildLang = data.guildLang
 	local args = data.args
+	local authorAvatar = data.guild:getMember(data.author.id):getAvatarURL()
+	local mentionedUserTag = data.message.mentionedUsers.first.tag
+	local mentionedUserAvatar = data.message.mentionedUsers.first:getAvatar()
 
 	local embed = newEmbed()
 
 	if not specifiesUser(data.message) then
 		embed:title(localize("${avatarFor}", guildLang, data.author.tag))
-		embed:image(data.guild:getMember(data.author.id):getAvatarURL())
+		embed:description(localize("${clickOpenInBrowser}", guildLang, authorAvatar))
+		embed:image(authorAvatar)
 		embed:color(config.colors.blue)
-		embed:footerIcon("https://cdn.discordapp.com/attachments/605826739842711562/605827616368230411/Information.png")
+		embed:footerIcon(config.images.info)
+		signFooter(embed, data.author, guildLang)
+	else
+		embed:title(localize("${avatarFor}", guildLang, mentionedUserTag))
+		embed:description(localize("${clickOpenInBrowser}", guildLang, mentionedUserAvatar))
+		embed:image(mentionedUserAvatar)
+		embed:color(config.colors.blue)
+		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
 	bird:post(nil, embed:raw(), data.channel)
