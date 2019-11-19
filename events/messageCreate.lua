@@ -212,13 +212,22 @@ client:on("messageCreate",
 
 			-- Cria o relatório de erro
 			if not success then
+				local embed = newEmbed()
+
+				embed:title(localize("${scriptErrorFor}", guildLang, commandName))
+				embed:description(commandError)
+				signFooter(embed, data.author, guildLang)
+				embed:color(config.colors.red)
+				embed:footerIcon(config.images.error)
+
+				bird:post(nil, embed:raw(), data.channel)
+
 				printf(
-					"\nCommand Error: %s | %s\nInformation: %s | %s\nError Stack: %s",
+					"\nCommand Error: %s | %s\nInformation: %s",
 					commandName, -- Retorna o nome do comando
 					commandError, -- Retorna o erro que deu no comando
 					data.author.tag, -- Retorna o usuário que executou
-					data.message.content, -- Os argumentos utilizados
-					debug.traceback() -- Um log de onde ocorreu o erro
+					data.message.content -- Os argumentos utilizados
 				)
 			end
 		end
