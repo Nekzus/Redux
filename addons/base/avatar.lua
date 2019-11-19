@@ -26,6 +26,9 @@ local _function = function(data)
 		embed:color(config.colors.blue)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
+
+		bird:post(nil, embed:raw(), data.channel)
+		
 	else
 		embed:title(localize("${avatarFor}", guildLang, data.author.tag))
 		embed:description(localize("${clickOpenInBrowser}", guildLang, authorAvatar))
