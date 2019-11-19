@@ -27,13 +27,11 @@ local _function = function(data)
 		runDOS("git pull")
 	end
 
-	commands:flushList()
-
 	local text = localize("${botModulesReloaded}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	decoyBird:update(nil, embed:raw())
-
+	commands:flushList()
 	loadBot()
 
 	return true
