@@ -13,6 +13,7 @@ local _function = function(data)
 	local guildData = data.guildData
 	local guildLang = data.guildLang
 	local args = data.args
+	local ata = data.content:sub(#args[1] + 2)
 
 	if not (args[2]) then
 		local text = localize("${missingArg}", guildLang)
@@ -23,9 +24,9 @@ local _function = function(data)
 		return false
 	end
 
-	if getRole(#args[1] + 2, "name", data.guild) then
+	if getRole(ata, "name", data.guild) then
 		local embed = newEmbed()
-		local role = getRole(#args[1] + 2, "name", data.guild)
+		local role = getRole(ata, "name", data.guild)
 
 		embed:field({name = localize("${roleName}", guildLang), value = role.name, inline = true})
 		embed:field({name = "ID", value = role.id, inline = true})
