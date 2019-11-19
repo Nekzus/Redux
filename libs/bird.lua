@@ -35,11 +35,11 @@ end
 function main:update(content, embed)
 	assert(self.message, "Must create main context with :post() first")
 
-	if content ~= true then
+	if content then
 		self.message:setContent(content)
 	end
 
-	if embed ~= true then
+	if embed then
 		self.message:setEmbed(embed)
 	end
 
