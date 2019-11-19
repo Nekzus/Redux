@@ -1722,7 +1722,7 @@ langs = {
 		["pt-br"] = "envia um feedback para o time de desenvolvimento.",
 	},
 
-	["seeUserAvatar"] = {
+	["seesUserAvatar"] = {
 		["en-us"] = "show your avatar or the mentioned user's avatar.",
 		["pt-br"] = "mostra o seu avatar ou o avatar do usuário mencionado.",
 	},
