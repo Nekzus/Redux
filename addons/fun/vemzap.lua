@@ -209,7 +209,6 @@ local partialMatchAny = {
 	["corno"] = {"🐂"},
 	["baiano"] = {"🛌", "😴"},
 	["gado"] = {"🐂"},
-	["eis que"] = {"🤔"},
 }
 
 local partialMatchPrefix = {
