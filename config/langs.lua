@@ -935,7 +935,7 @@ langs = {
 	},
 
 	["clickHereScreenshare"] = {
-		["en-us"] = "Click here to enable Screenshare",
+		["en-us"] = "Click here to enable screenshare",
 		["pt-br"] = "Clique aqui para ativar o compartilhamento",
 	},
 
