@@ -1390,6 +1390,11 @@ langs = {
 		["pt-br"] = "Por favor, certifique-se de que o bot tem um cargo acima de **%s**",
 	},
 
+	["higherRole"] = {
+		["en-us"] = "You cannot select a role greater than or equal to your",
+		["pt-br"] = "Você não pode selecionar um cargo maior ou igual ao seu",
+	},
+
 	["userPromoted"] = {
 		["en-us"] = "**%s** has been promoted to **%s**",
 		["pt-br"] = "**%s** foi promovido para **%s**",
