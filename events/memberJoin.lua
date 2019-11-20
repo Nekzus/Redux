@@ -13,7 +13,7 @@ client:on("memberJoin",
 		local guildData = getGuildData(guild)
 		local muteData = guildData:get("mutes"):raw()[member.id]
 		local autoRoleId = getPrimaryRoleIndex(0, guildData:get("roles"):raw())
-		local autoRole = roleId and getRole(autoRoleId, "id", guild)
+		local autoRole = autoRoleId and getRole(autoRoleId, "id", guild)
 
 		if autoRole then
 			member:addRole(autoRole)
