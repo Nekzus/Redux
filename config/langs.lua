@@ -2053,8 +2053,8 @@ langs = {
 	},
 
 	["addsAutoRole"] = {
-		["en-us"] = "gives `Auto Role` for new members.",
-		["pt-br"] = "dá `Cargo Automático` para novos membros.",
+		["en-us"] = "set up an `Auto Role` for new members.",
+		["pt-br"] = "configura um `Cargo Automático` para novos membros.",
 	},
 
 	["removesAutoRole"] = {
