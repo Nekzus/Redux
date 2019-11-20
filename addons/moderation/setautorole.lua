@@ -28,7 +28,6 @@ local _function = function(data)
 	end
 
 	if role then
-
 		local text = localize("${roleAddedAuto}", guildLang, roleName)
 		local embed = replyEmbed(text, data.message, "ok")
 		local perms = {level = level, added = os.time()}
