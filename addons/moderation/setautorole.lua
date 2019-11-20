@@ -18,7 +18,18 @@ local _function = function(data)
 	local role = getRole(roleName, "name", data.guild)
 	local level = 0
 
-	if role.position >= data.guild.me.highestRole.position then
+	-- Verifica se o cargo existe
+	if not role then
+		local text = localize("${roleNotFound}", guildLang, roleName)
+		local embed = replyEmbed(text, data.message, "error")
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return false
+	end
+
+	-- Verifica se a posição do cargo é superior ou igual ao do autor
+	if role.position >= data.member.highestRole.position then
 		local text = localize("${roleSelectedHigher}", guildLang, role.name)
 		local embed = replyEmbed(text, data.message, "warn")
 
@@ -27,23 +38,14 @@ local _function = function(data)
 		return false
 	end
 
-	if role then
-		local text = localize("${roleAddedAuto}", guildLang, roleName)
-		local embed = replyEmbed(text, data.message, "ok")
-		local perms = {level = level, added = os.time()}
+	local text = localize("${roleAddedAuto}", guildLang, roleName)
+	local embed = replyEmbed(text, data.message, "ok")
+	local perms = {level = level, added = os.time()}
 
-		guildData:get("roles"):set(role.id, perms)
-		bird:post(nil, embed:raw(), data.channel)
+	guildData:get("roles"):set(role.id, perms)
+	bird:post(nil, embed:raw(), data.channel)
 
-		return true
-	else
-		local text = localize("${roleNotFound}", guildLang, roleName)
-		local embed = replyEmbed(text, data.message, "error")
-
-		bird:post(nil, embed:raw(), data.channel)
-
-		return false
-	end
+	return true
 end
 
 return {config = _config, func = _function}
