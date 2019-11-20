@@ -15,7 +15,7 @@ client:on("memberJoin",
 		local autoRoleId = getPrimaryRoleIndex(0, guildData:get("roles"):raw())
 		local autoRole = roleId and getRole(autoRoleId, "id", guild)
 
-		if autoRole and not member:hasRole(autoRole) then
+		if autoRole then 
 			member:addedRole(autoRole)
 		end
 
