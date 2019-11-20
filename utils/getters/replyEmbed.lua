@@ -3,21 +3,21 @@ function replyEmbed(text, message, method)
 	local private = isPrivateChannel(message.channel)
 	local guildData = not private and getGuildData(message.guild)
 	local guildLang = guildData and guildData:get("lang") or config.defaultGuild.lang
-	local color
+	local r, g, b
 
 	if method == "ok" then
-		color = config.colors.green
+		r, g, b = paint("green")
 	elseif method == "warn" then
-		color = config.colors.yellow
+		r, g, b = paint("yellow")
 	elseif method == "error" then
-		color = config.colors.red
+		r, g, b = paint("red")
 	elseif method == "no" then
-		color = config.colors.red2
+		r, g, b = paint("red2")
 	elseif method == "info" then
-		color = config.colors.blue
+		r, g, b = paint("blue")
 	end
 
-	embed:color(color)
+	embed:color(r, g, b)
 	embed:footerIcon(config.images[method] or message.author.avatarURL)
 	signFooter(embed, message.author, guildLang)
 
