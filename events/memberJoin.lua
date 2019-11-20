@@ -15,8 +15,8 @@ client:on("memberJoin",
 		local autoRoleId = getPrimaryRoleIndex(0, guildData:get("roles"):raw())
 		local autoRole = roleId and getRole(autoRoleId, "id", guild)
 
-		if autoRole then 
-			member:addedRole(autoRole)
+		if autoRole then
+			member:addRole(autoRole)
 		end
 
 		-- Verifica se o usuário que entrou estava mutado (ocorre quando um
