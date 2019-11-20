@@ -12,6 +12,12 @@ client:on("memberJoin",
 		local guild = member.guild
 		local guildData = getGuildData(guild)
 		local muteData = guildData:get("mutes"):raw()[member.id]
+		local autoRoleId = getPrimaryRoleIndex(0, guildData:get("roles"):raw())
+		local autoRole = roleId and getRole(autoRoleId, "id", guild)
+
+		if autoRole and not member:hasRole(autoRole) then
+			member:addedRole(autoRole)
+		end
 
 		-- Verifica se o usuário que entrou estava mutado (ocorre quando um
 		-- usuário mutado sai da guilda e re-entra para perder o cargo)

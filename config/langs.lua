@@ -1260,6 +1260,16 @@ langs = {
 		["pt-br"] = "O cargo `@%s` foi removido de `Mutado`",
 	},
 
+	["roleAddedAuto"] = {
+		["en-us"] = "Role `@%s` has been added as `Auto Role`",
+		["pt-br"] = "O cargo `@%s` foi adicionado como `Cargo Automático`"
+	},
+
+	["roleRemovedAuto"] = {
+		["en-us"] = "Role `@%s` has been removed as `Auto Role`",
+		["pt-br"] = "O cargo `@%s` foi removido de `Cargo Automático`"
+	},
+
 	["mutedRoleTip"] = {
 		["en-us"] = "Don't forget to set a `Muted` role with **%ssetmute**",
 		["pt-br"] = "Não se esqueça de definir um cargo de `Mutado` com **%ssetmute**",
@@ -2040,6 +2050,16 @@ langs = {
 	["updatesBotData"] = {
 		["en-us"] = "forcefully updates the bot data.",
 		["pt-br"] = "atualiza as informações do bot à força.",
+	},
+
+	["addsAutoRole"] = {
+		["en-us"] = "gives `Auto Role` for new members.",
+		["pt-br"] = "dá `Cargo Automático` para novos membros.",
+	},
+
+	["removesAutoRole"] = {
+		["en-us"] = "removes `Auto Role` for new members.",
+		["pt-br"] = "remove `Cargo Automático` para novos membros.",
 	},
 
 	["addsRoleMod"] = {
