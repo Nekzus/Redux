@@ -39,7 +39,7 @@ local _function = function(data)
 		}
 	)
 
-	decoy:bird(response, nil, data.channel)
+	bird:post(response, nil, data.channel)
 
 	return true
 end
