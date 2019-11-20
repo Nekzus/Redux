@@ -22,7 +22,7 @@ local _function = function(data)
 
 	if result then
 		embed:image(result)
-		embed:color(paint("blue")
+		embed:color(paint("blue"))
 		embed:footerIcon(config.images.info)
 
 		decoyBird:update(nil, embed:raw())
@@ -30,7 +30,7 @@ local _function = function(data)
 		return true
 	else
 		embed:description(localize("${couldNotProcess}", guildLang))
-		embed:color(paint("red")
+		embed:color(paint("red"))
 		embed:footerIcon(config.images.error)
 
 		decoyBird:update(nil, embed:raw())

@@ -47,7 +47,7 @@ local _function = function(data)
 			local embed = newEmbed()
 
 			embed:description(format("%s\n\n%s", editLostMessage, jumpTo))
-			embed:color(paint("blue")
+			embed:color(paint("blue"))
 			embed:footerIcon(config.images.info)
 			signFooter(embed, lastData.author, guildLang)
 

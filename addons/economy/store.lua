@@ -71,7 +71,7 @@ local _function = function(data)
 		embed:title(localize("${store} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
 		embed:description(result ~= "" and result or localize("${noResults}", guildLang))
 
-		embed:color(paint("blue")
+		embed:color(paint("blue"))
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 

@@ -49,13 +49,10 @@ function main:authorUrl(text)
 end
 
 -- Define a cor do tema do embed conforme a cor que for passada em text
-function main:color(text)
+function main:color(r, g, b)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
-	assert(text and type(text) == "string", "Text must be a color-resolvable (r0g0b0)")
 
 	-- Quebra o texto em partes conforme o padrão de cores em config.patterns.colorRGB
-	local r, g, b = text:match(config.patterns.colorRGB.capture)
-
 	embed.color = discordia.Color.fromRGB(r, g, b).value
 
 	return self

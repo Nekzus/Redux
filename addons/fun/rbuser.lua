@@ -96,7 +96,7 @@ local _function = function(data)
 		inline = true,
 	})
 
-	embed:color(paint("red3")
+	embed:color(paint("red3"))
 	signFooter(embed, data.author, guildLang)
 
 	decoyBird:update(nil, embed:raw())

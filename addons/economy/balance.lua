@@ -36,7 +36,7 @@ local _function = function(data)
 	embed:field({name = localize("${bank}", guildLang), value = format("%s %s", symbol, affixNum(memberBank or 0)), inline = true})
 	embed:field({name = localize("${networth}", guildLang), value = format("%s %s", symbol, affixNum((memberCash or 0) + (memberBank or 0))), inline = true})
 
-	embed:color(paint("blue")
+	embed:color(paint("blue"))
 	embed:footerIcon(config.images.info)
 	signFooter(embed, data.author, guildLang)
 
