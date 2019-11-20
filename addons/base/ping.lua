@@ -14,7 +14,7 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local args = data.args
 
-	local text = localize("${pong}!", guildLang)
+	local text = localize("${pong}! :ping_pong:", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)
