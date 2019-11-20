@@ -30,7 +30,7 @@ local _function = function(data)
 
 	-- Verifica se a posição do cargo é superior ou igual ao do autor
 	if role.position >= data.member.highestRole.position then
-		local text = localize("${roleSelectedHigher}", guildLang, role.name)
+		local text = localize("${higherRole}", guildLang, role.name)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
