@@ -5,7 +5,7 @@ function getBytes(text)
 		local bytes = {byte(char, 1, - 1)}
 
 		for _, charByte in next, bytes do
-			result = format("%s[\\%s]*", result, charByte)
+			result = format("%s[\\%s]", result, charByte)
 		end
 	end
 
