@@ -148,10 +148,10 @@ local _function = function(data)
 	})
 
 	if result then
-		embed:color(config.colors.blue)
+		embed:color(paint("blue")
 		embed:footerIcon(config.images.info)
 	elseif err then
-		embed:color(config.colors.red)
+		embed:color(paint("red")
 		embed:footerIcon(config.images.error)
 	end
 

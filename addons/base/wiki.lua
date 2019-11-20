@@ -68,7 +68,7 @@ local _function = function(data)
 			item.definition
 		))
 
-		embed:color(config.colors.blue)
+		embed:color(paint("blue")
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 

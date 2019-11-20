@@ -37,7 +37,7 @@ local _function = function(data)
 	embed:author(data.author.tag)
 	embed:authorImage(data.author.avatarURL)
 	embed:description(text)
-	embed:color(config.colors.blue)
+	embed:color(paint("blue")
 	signFooter(embed, data.author, guildLang)
 	embed:footer() -- Apaga  a mensagem padrão do signFooter
 
