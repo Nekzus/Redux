@@ -19,6 +19,15 @@ local _function = function(data)
 	local level = 0
 
 	if role then
+		if role.position >= data.guild.me.highestRole.position then
+			local text = localize("${roleSelectedHigher}", guildLang, role.name)
+			local embed = replyEmbed(text, data.message, "warn")
+
+			bird:post(nil, embed:raw(), data.channel)
+
+			return false
+		end
+		
 		local text = localize("${roleAddedAuto}", guildLang, roleName)
 		local embed = replyEmbed(text, data.message, "ok")
 		local perms = {level = level, added = os.time()}
