@@ -18,7 +18,6 @@ local _function = function(data)
 		return replyEmbed(localize("${missingArg}", guildLang), data.message, "error")
 	end
 
-	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 	local tries = 20
 	local terms = data.content:sub(#args[1] + 2)
 	local isNum = tonumber(terms)
@@ -71,14 +70,14 @@ local _function = function(data)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
-		decoy:update(nil, embed:raw())
+		bird:post(nil, embed:raw(), data.channel)
 
 		return true
 	else
 		local text = localize("${messageWithTermsNotFound}", guildLang, terms)
 		local embed = replyEmbed(text, data.message, "warn")
 
-		decoy:update(nil, embed:raw())
+		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	end

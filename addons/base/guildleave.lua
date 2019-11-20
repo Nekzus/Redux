@@ -23,7 +23,6 @@ local _function = function(data)
 		return false
 	end
 
-	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
 	local mentionedGuild = client:getGuild(args[2])
 
 	if not mentionedGuild then
@@ -39,7 +38,7 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		mentionedGuild:leave()
-		decoy:update(nil, embed:raw())
+		bird:post(nil, embed:raw(), data.channel)
 
 		return true
 	end

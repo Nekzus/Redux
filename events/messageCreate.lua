@@ -205,6 +205,11 @@ client:on("messageCreate",
 				end
 			end
 
+			-- Cria um indicador no chat para sinalizar que o bot está digitando
+			-- o que na verdade serve para deixar explícito que o comando em
+			-- questão está sendo processado
+			data.channel:broadcastTyping()
+
 			-- Por fim, executa o comando com suporte à erro para garantir que
 			-- não ocorram problemas com a thread principal, e caso ocorrer,
 			-- retorna um log detalhado no console para análise e tratativa

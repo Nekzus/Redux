@@ -16,6 +16,7 @@ local _function = function(data)
 
 	local translateLang = data.args[2]
 	local translateTerms = data.args[3] and data.content:sub(#args[1] + #args[2] + 3)
+	local decoy
 
 	if translateLang == nil or tonumber(translateLang) then
 		local listTotal = 0
@@ -44,7 +45,6 @@ local _function = function(data)
 		local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
 		local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
 		local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
-		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 		local firstTime = true
 		local message
 
@@ -76,20 +76,20 @@ local _function = function(data)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
-			if listTotal <= perPage then
-				if decoyBird == nil then
-					decoyBird = bird:post(nil, embed:raw(), data.channel)
-				else
-					decoyBird:update(nil, embed:raw())
-				end
+			if decoy == nil then
+				decoy = bird:post(nil, embed:raw(), data.channel)
+			else
+				decoy:update(nil, embed:raw())
+			end
 
+			if listTotal <= perPage then
 				return true
 			end
 
 			if firstTime == true then
 				firstTime = false
-				decoyBird:update(nil, embed:raw())
-				message = decoyBird.message
+				decoy:update(nil, embed:raw())
+				message = decoy.message
 				blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
 				blinker:on(arwUp.id, function()
@@ -112,10 +112,10 @@ local _function = function(data)
 					showPage()
 				end)
 
-				decoyBird:addReaction(arwDown)
-				decoyBird:addReaction(arwUp)
+				decoy:addReaction(arwDown)
+				decoy:addReaction(arwUp)
 			else
-				decoyBird:update(nil, embed:raw())
+				decoy:update(nil, embed:raw())
 			end
 		end
 
@@ -124,7 +124,6 @@ local _function = function(data)
 	elseif translateTerms == nil then
 		local listTotal = 0
 		local listItems = {}
-		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 		local supportedLangs = apiGoogleTranslateLangs(guildLang)
 
 		if not supportedLangs then
@@ -190,20 +189,20 @@ local _function = function(data)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
-			if listTotal <= perPage then
-				if decoyBird == nil then
-					decoyBird = bird:post(nil, embed:raw(), data.channel)
-				else
-					decoyBird:update(nil, embed:raw())
-				end
+			if decoy == nil then
+				decoy = bird:post(nil, embed:raw(), data.channel)
+			else
+				decoy:update(nil, embed:raw())
+			end
 
+			if listTotal <= perPage then
 				return true
 			end
 
 			if firstTime == true then
 				firstTime = false
-				decoyBird:update(nil, embed:raw())
-				message = decoyBird.message
+				decoy:update(nil, embed:raw())
+				message = decoy.message
 				blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
 				message:addReaction(arwUp)
@@ -229,21 +228,20 @@ local _function = function(data)
 					showPage()
 				end)
 			else
-				decoyBird:update(nil, embed:raw())
+				decoy:update(nil, embed:raw())
 			end
 		end
 
 		showPage()
 
 	else
-		local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 		local translateResult = apiGoogleTranslate(translateLang, urlEncode(translateTerms))
 
 		if translateResult == nil or translateResult.data == nil then
 			local text = localize("${couldNotFindTerms}", guildLang, translateLang)
 			local embed = replyEmbed(text, data.message, "warn")
 
-			decoyBird:update(nil, embed:raw())
+			decoy:update(nil, embed:raw())
 
 			return false
 		end
@@ -257,14 +255,14 @@ local _function = function(data)
 			local text = localize("${couldNotFindTerms}", guildLang, translateLang)
 			local embed = replyEmbed(text, data.message, "error")
 
-			decoyBird:update(nil, embed:raw())
+			decoy:update(nil, embed:raw())
 
 			return false
 		end
 
 		local reply = format("%s ``%s`` -> ``%s`` %s", data.author.mentionString, detectedSourceLanguage, data.args[2], urlDecode(translatedText))
 
-		decoyBird:update(reply, nil)
+		bird:post(reply, nil, data.channel)
 	end
 
 	return true

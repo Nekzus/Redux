@@ -26,8 +26,6 @@ local _function = function(data)
 	local sentence = data.content:sub(#args[1] + 2)
 	local name = trim(sentence:match("%S+"))
 
-	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
-
 	-- Informações base
 	local user = apiRobloxGetUser(name, "name")
 
@@ -35,7 +33,7 @@ local _function = function(data)
 		local text = localize("${userNotFound}: %s", guildLang, name)
 		local embed = replyEmbed(text, data.message, "warn")
 
-		decoyBird:update(nil, embed:raw())
+		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	end
@@ -99,7 +97,7 @@ local _function = function(data)
 	embed:color(paint("red3"))
 	signFooter(embed, data.author, guildLang)
 
-	decoyBird:update(nil, embed:raw())
+	bird:post(nil, embed:raw(), data.channel)
 
 	return true
 end

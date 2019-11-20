@@ -21,7 +21,7 @@ local _function = function(data)
 
 	local lastData = data
 	local itemData
-	local decoyBird
+	local decoy
 
 	local guildEconomy = getGuildEconomy(lastData.guild.id)
 	local guildStore = guildEconomy:get("store", {})
@@ -30,7 +30,7 @@ local _function = function(data)
 		lastData = edit.data
 		itemData = edit.itemData
 		tempData = edit.tempData
-		decoyBird = edit.decoyBird
+		decoy = edit.decoy
 
 		if inList(args[2], config.terms.cancel) then
 			storeTempData[data.user.id] = nil
@@ -38,7 +38,7 @@ local _function = function(data)
 			local text = localize("${newItemCanceled}", guildLang)
 			local embed = replyEmbed(text, data.message, "info")
 
-			decoyBird:update(nil, embed:raw())
+			decoy:update(nil, embed:raw())
 
 			return true
 
@@ -75,7 +75,7 @@ local _function = function(data)
 			local embed = replyEmbed(text, data.message, "ok")
 			local guid = itemData.guid
 
-			decoyBird:update(nil, embed:raw())
+			decoy:update(nil, embed:raw())
 			guildStore:set(guid, itemData)
 
 			return true
@@ -84,7 +84,7 @@ local _function = function(data)
 		if lastData.guild.id ~= data.guild.id then
 			local finishCommand = format("%s cancel", data.command)
 			local editLostMessage = localize("${userItemEditLost} ${itemFinishTip2}", guildLang, data.user.username, finishCommand)
-			local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, decoyBird.message.link)
+			local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, decoy.message.link)
 			local embed = newEmbed()
 
 			embed:description(format("%s\n\n%s", editLostMessage, jumpTo))
@@ -175,7 +175,7 @@ local _function = function(data)
 			data = data,
 			itemData = itemData,
 			tempData = tempData,
-			decoyBird = decoyBird
+			decoy = decoy
 		}
 	end
 
@@ -362,17 +362,17 @@ local _function = function(data)
 	local cancelCommand = format("%s cancel", data.command)
 	local tipText = localize("${editModeResult}; ${itemFinishTip}", guildLang, data.author.tag, finishCommand, cancelCommand)
 
-	if decoyBird == nil then
+	if decoy == nil then
 		local embed = renderItemPreviewEmbed()
 
-		decoyBird = bird:post(tipText, embed:raw(), lastData.channel)
-		storeTempData[data.author.id].decoyBird = decoyBird
+		decoy = bird:post(tipText, embed:raw(), lastData.channel)
+		storeTempData[data.author.id].decoy = decoy
 
 		return true
 	else
 		local embed = renderItemPreviewEmbed()
 
-		decoyBird:update(tipText, embed:raw())
+		decoy:update(tipText, embed:raw())
 
 		return true
 	end

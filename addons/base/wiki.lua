@@ -27,7 +27,6 @@ local _function = function(data)
 	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 
 	local firstTime = true
-	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
 	local searchResult = apiWiki(searchTerms, sub(guildLang, 1, 2))
 	local list = searchResult
@@ -39,7 +38,7 @@ local _function = function(data)
 		local text = localize("${couldNotFindTerms}", guildLang, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
-		decoyBird:update(nil, embed:raw())
+		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	end
@@ -51,7 +50,7 @@ local _function = function(data)
 			local text = localize("${couldNotFindTerms}", guildLang, searchTerms)
 			local embed = replyEmbed(text, data.message, "error")
 
-			decoyBird:update(nil, embed:raw())
+			bird:post(nil, embed:raw(), data.channel)
 
 			return false
 		end
@@ -72,7 +71,7 @@ local _function = function(data)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
-		decoyBird:update(nil, embed:raw())
+		bird:post(nil, embed:raw(), data.channel)
 	end
 
 	showPage()

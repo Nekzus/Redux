@@ -43,7 +43,7 @@ local _function = function(data)
 	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
 	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 
-	local decoyBird
+	local decoy
 	local message
 
 	local function showPage()
@@ -76,27 +76,27 @@ local _function = function(data)
 		signFooter(embed, data.author, guildLang)
 
 		if listTotal <= perPage then
-			if decoyBird == nil then
-				decoyBird = bird:post(nil, embed:raw(), data.channel)
+			if decoy == nil then
+				decoy = bird:post(nil, embed:raw(), data.channel)
 			else
-				decoyBird:update(nil, embed:raw())
+				decoy:update(nil, embed:raw())
 			end
 
 			return true
 		end
 
-		if decoyBird == nil then
-			decoyBird = bird:post(nil, embed:raw(), data.channel)
-			blinker = blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
+		if decoy == nil then
+			decoy = bird:post(nil, embed:raw(), data.channel)
+			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
-			decoyBird:addReaction(arwDown)
-			decoyBird:addReaction(arwUp)
+			decoy:addReaction(arwDown)
+			decoy:addReaction(arwUp)
 
 			blinker:on(arwDown.id, function()
 				page = min(pages, page + 1)
 
 				if not private then
-					decoyBird:removeReaction(arwDown, data.user.id)
+					decoy:removeReaction(arwDown, data.user.id)
 				end
 
 				showPage()
@@ -106,13 +106,13 @@ local _function = function(data)
 				page = max(1, page - 1)
 
 				if not private then
-					decoyBird:removeReaction(arwUp, data.user.id)
+					decoy:removeReaction(arwUp, data.user.id)
 				end
 
 				showPage()
 			end)
 		else
-			decoyBird:update(nil, embed:raw())
+			decoy:update(nil, embed:raw())
 		end
 	end
 

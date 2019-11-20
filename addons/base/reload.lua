@@ -18,8 +18,6 @@ local _function = function(data)
 	client:removeAllListeners()
 	saveAllData()
 
-	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
-
 	if not (args[2] and inList(args[2], {"local", "1", "l"})) then
 		runDOS("git pull")
 		runDOS("git add --all")
@@ -30,7 +28,7 @@ local _function = function(data)
 	local text = localize("${botModulesReloaded}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
 
-	decoyBird:update(nil, embed:raw())
+	bird:post(nil, embed:raw(), data.channel)
 	commands:flushList()
 	loadBot()
 

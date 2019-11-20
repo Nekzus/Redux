@@ -17,8 +17,6 @@ local _function = function(data)
 	client:removeAllListeners()
 	saveAllData()
 
-	local decoy = bird:post(getLoadingEmoji(), nil, data.channel)
-
 	client:setGame {
 		type = 2,
 		name = "Shutting down..."
@@ -30,8 +28,8 @@ local _function = function(data)
 
 	local text = localize("${botDataSaved}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
-	decoy:update(nil, embed:raw())
-
+	
+	bird:post(nil, embed:raw(), data.channel)
 	client:stop()
 	os.exit(0)
 end

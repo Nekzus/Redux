@@ -26,8 +26,8 @@ local _function = function(data)
 	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
 	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 
+	local decoy
 	local firstTime = true
-	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
 	local searchResult = apiYoutubeVideo(searchTerms)
 	local youtubeLink = "https://www.youtube.com/watch?v=%s"
@@ -40,7 +40,7 @@ local _function = function(data)
 		local text = localize("${videoNotFoundTerms}", guildLang, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
-		decoyBird:update(nil, embed:raw())
+		bird:post(nil, embed:raw(), data.channel)
 
 		return false
 	end
@@ -52,22 +52,26 @@ local _function = function(data)
 			local text = localize("${videoNotFoundTerms}", guildLang, searchTerms)
 			local embed = replyEmbed(text, data.message, "error")
 
-			decoyBird:update(nil, embed:raw())
+			bird:post(nil, embed:raw(), data.channel)
 
 			return false
 		end
 
-		decoyBird:update(format(youtubeLink, item.id.videoId), nil)
+		if decoy then
+			decoy:update(format(youtubeLink, item.id.videoId), nil)
+		else
+			decoy = bird:post(format(youtubeLink, item.id.videoId), nil, data.channel)
+		end
 
 		if firstTime == true then
 			firstTime = false
-			blinker = blink(decoyBird:getMessage(), config.timeouts.reaction, {data.user.id})
+			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
 			blinker:on(arwDown.id, function()
 				page = min(pages, page + 1)
 
 				if not private then
-					decoyBird:removeReaction(arwDown, data.user.id)
+					decoy:removeReaction(arwDown, data.user.id)
 				end
 
 				showPage()
@@ -77,14 +81,14 @@ local _function = function(data)
 				page = max(1, page - 1)
 
 				if not private then
-					decoyBird:removeReaction(arwUp, data.user.id)
+					decoy:removeReaction(arwUp, data.user.id)
 				end
 
 				showPage()
 			end)
 
-			decoyBird:addReaction(arwDown)
-			decoyBird:addReaction(arwUp)
+			decoy:addReaction(arwDown)
+			decoy:addReaction(arwUp)
 		end
 	end
 

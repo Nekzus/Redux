@@ -30,8 +30,6 @@ local _function = function(data)
 	end
 
 	local level = inList(data.author.id, config.main.ownerList) and "dev" or "user"
-
-	local decoyBird = bird:post(getLoadingEmoji(), nil, data.channel)
 	local success, response = loadCode(
 		data.content:sub(#args[1] + 2),
 		level,
@@ -41,7 +39,7 @@ local _function = function(data)
 		}
 	)
 
-	decoyBird:update(response, nil)
+	decoy:bird(response, nil, data.channel)
 
 	return true
 end
