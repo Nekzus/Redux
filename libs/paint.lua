@@ -17,6 +17,8 @@ function main:__call(text)
 
 	if color then
 		return unpack(color)
+	else
+		return 177, 177, 177
 	end
 end
 
