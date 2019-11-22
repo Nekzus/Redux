@@ -4,7 +4,7 @@ local _config = {
 	usage = "${userKey}",
 	aliases = {"pro", "prom"},
 	cooldown = 0,
-	level = 5, -- 2
+	level = 2,
 	direct = false,
 	perms = {"manageRoles"},
 }
@@ -41,10 +41,10 @@ local _function = function(data)
 		return false
 	end
 
-	local user = data.message.mentionedUsers.first
-	local member = user and data.guild:getMember(user)
+	local targetUser = data.message.mentionedUsers.first
+	local targetMember = targetUser and data.guild:getMember(targetUser)
 
-	if not member then
+	if not targetMember then
 		local text = localize("${userNotFound}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
@@ -53,10 +53,10 @@ local _function = function(data)
 		return false
 	end
 
-	local author = data.member
+	local member = data.member
 
-	if member.highestRole.position >= data.guild.me.highestRole.position
-	or member.highestRole.position >= author.highestRole.position then
+	if targetMember.highestRole.position >= data.guild.me.highestRole.position
+	or targetMember.highestRole.position >= member.highestRole.position then
 		local text = localize("${mentionedHigher}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
@@ -65,30 +65,30 @@ local _function = function(data)
 		return false
 	end
 
-	local userRoles = getUserDefinedRoles(member, data.guild)
+	local userRoles = getUserDefinedRoles(targetMember, data.guild)
 	local guildRoles = guildData:get("roles"):raw()
-	local userRole = userRoles[1]
+	local userRoleData = userRoles[1] -- Retorna o cargo mais alto definido atualmente que o usuário tem
+	local userRole = userRoleData and data.guild:getRole(userRoleData.id)
+	local nextRole
 
 	-- Caso o usuário já tiver um cargo, teremos que subir ele de nível
-	if userRole then
-		local result = {}
+	if userRoleData then
+		local nextRoleId = getRoleIndexHigherThan(userRoleData.level, guildRoles, userRoleData.added)
 
-		-- Procura por um cargo do mesmo nível com um index superior
-		for _, roleData in next, guildRoles do
-			if roleData.level == userRole.level then
-				insert(result, roleData)
+		-- Procura pelo primeiro cargo do próximo nível
+		if not nextRoleId then
+			for i = 1, 5 do
+				nextRoleId = getPrimaryRoleIndex(userRoleData.level + i, guildRoles)
+
+				if nextRoleId then
+					break
+				end
 			end
 		end
 
-		if #result == 0 then
+		nextRole = nextRoleId and data.guild:getRole(nextRoleId)
+	else
 
-		end
-
-		sort(result, function(a, b)
-			return a.level > b.level or (a.level == b.level and a.added > b.added)
-		end)
-
-		local roleData = result[1]
 	end
 end
 

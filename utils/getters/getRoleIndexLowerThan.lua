@@ -1,11 +1,11 @@
-function getPrimaryRoleIndex(level, list)
+function getRoleIndexLowerThan(level, list, added)
 	local result = false
 	local lastAdded
 
 	for roleId, roleData in next, list do
 		if roleData.level and roleData.level == level then
 			if roleData.added
-			and (lastAdded == nil or (roleData.added < lastAdded)) then
+			and (lastAdded == nil or (roleData.added < added and roleData.added > lastAdded)) then
 				lastAdded = roleData.added
 				result = roleId
 			end
@@ -15,4 +15,4 @@ function getPrimaryRoleIndex(level, list)
 	return result
 end
 
-return getPrimaryRoleIndex
+return getRoleIndexLowerThan

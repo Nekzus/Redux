@@ -4,7 +4,7 @@ local _config = {
 	usage = "",
 	aliases = {"rls"},
 	cooldown = 0,
-	level = 5, -- 3
+	level = 2,
 	direct = false,
 }
 
