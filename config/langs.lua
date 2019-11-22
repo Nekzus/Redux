@@ -1041,8 +1041,8 @@ langs = {
 	},
 
 	["roleNotFound"] = {
-		["en-us"] = "`@%s` role not found",
-		["pt-br"] = "Cargo `@%s` não encontrado",
+		["en-us"] = "**%s** role not found",
+		["pt-br"] = "Cargo **%s** não encontrado",
 	},
 
 	["luaNotSupported"] = {
@@ -1178,36 +1178,6 @@ langs = {
 	["userUnmuted"] = {
 		["en-us"] = "**%s** has been unmuted",
 		["pt-br"] = "**%s** foi desmutado",
-	},
-
-	["userModed"] = {
-		["en-us"] = "**%s** has been given the `Moderator` role",
-		["pt-br"] = "**%s** recebeu o cargo `Moderador`",
-	},
-
-	["userUnmoded"] = {
-		["en-us"] = "**%s** had the `Moderator` role taken away",
-		["pt-br"] = "**%s** teve o cargo `Moderador` removido",
-	},
-
-	["userAdmined"] = {
-		["en-us"] = "**%s** has been given the `Administrator` role",
-		["pt-br"] = "**%s** recebeu o cargo `Administrador`",
-	},
-
-	["userUnadmined"] = {
-		["en-us"] = "**%s** had the `Administrator` role taken away",
-		["pt-br"] = "**%s** teve o cargo `Administrador` removido",
-	},
-
-	["userOrganizered"] = {
-		["en-us"] = "**%s** has been given the `Organizer` role",
-		["pt-br"] = "**%s** recebeu o cargo `Organizador`",
-	},
-
-	["userUnorged"] = {
-		["en-us"] = "**%s** had the `Organizer` role taken away",
-		["pt-br"] = "**%s** teve o cargo `Organizador` removido",
 	},
 
 	["beenDefined"] = {
