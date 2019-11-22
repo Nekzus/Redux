@@ -1,11 +1,12 @@
 local _config = {
-	name = "removeautorole",
+	name = "removemember",
 	desc = "${removesAutoRole}",
 	usage = "${nameKey}",
-	aliases = {"remautorole", "rautorole"},
+	aliases = {"rmember", "removeauto", "rauto"},
 	cooldown = 0,
 	level = 3,
 	direct = false,
+	perms = {"manageRoles"},
 }
 
 local _function = function(data)

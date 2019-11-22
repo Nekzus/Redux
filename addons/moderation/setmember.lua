@@ -1,11 +1,12 @@
 local _config = {
-	name = "setautorole",
+	name = "setmember",
 	desc = "${addsAutoRole}",
 	usage = "${nameKey}",
-	aliases = {"sautorole", "sarole"},
+	aliases = {"smember", "setauto", "sauto"},
 	cooldown = 0,
 	level = 3,
 	direct = false,
+	perms = {"manageRoles"},
 }
 
 local _function = function(data)

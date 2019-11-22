@@ -77,7 +77,7 @@ local _function = function(data)
 		local nextRole = getRoleIndexHigherThan(highestRole.level, guildRoles, highestRole.added)
 
 		if not nextRole then
-			for i = 1, 5 do
+			for i = 0, 5 do
 				nextRole = getPrimaryRoleIndex(highestRole.level + i, guildRoles)
 
 				if nextRole then
@@ -124,7 +124,10 @@ local _function = function(data)
 				local text = localize("${userPromoted}", guildLang, member.tag, nextRoleObject.name)
 				local embed = replyEmbed(text, data.message, "ok")
 
-				-- this gives the user the "feel" of no lag whilst promoting
+				-- Aqui a resposta é retornada antes para dar ao usuário a
+				-- sensação de que o comando foi processado na hora
+				-- Isso acontece pois o tempo para adicionar o cargo adiciona
+				-- um tempo de delay até completar
 				bird:post(nil, embed:raw(), data.channel)
 				member:addRole(nextRoleObject.id)
 				member:removeRole(highestRoleObject.id)
