@@ -1375,6 +1375,11 @@ langs = {
 		["pt-br"] = "**%s** foi rebaixado para **%s**",
 	},
 
+	["noDefinedRoleFound"] = {
+		["en-us"] = "Could not find any pre-defined role",
+		["pt-br"] = "Nenhum cargo pré-definido pôde ser encontrado",
+	},
+
 	["notEnoughCash"] = {
 		["en-us"] = "You don't have enough cash for that",
 		["pt-br"] = "Você não tem dinheiro suficiente para isso",
