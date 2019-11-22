@@ -261,7 +261,7 @@ local _function = function(data)
 		end
 
 		local arrow = getEmoji(config.emojis.arrowIcon, "name", baseGuild)
-		local reply = format("%s ``%s``%s``%s`` \n%s", data.author.mentionString, detectedSourceLanguage, arrow.mentionString,data.args[2], urlDecode(translatedText))
+		local reply = format("%s ``%s``%s``%s`` \n```%s```", data.author.mentionString, detectedSourceLanguage, arrow.mentionString,data.args[2], urlDecode(translatedText))
 
 		bird:post(reply, nil, data.channel)
 	end
