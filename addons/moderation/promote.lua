@@ -72,12 +72,14 @@ local _function = function(data)
 	local userRoles = getUserDefinedRoles(member, data.guild)
 	local guildRoles = guildData:get("roles"):raw()
 
+	-- Caso o usuário já tiver um cargo dos que estão definidos, o procedimento
+	-- é procurar um cargo superior ao atual para substituir
 	if #userRoles > 0 then
 		local highestRole = userRoles[1]
 		local nextRole = getRoleIndexHigherThan(highestRole.level, guildRoles, highestRole.added)
 
 		if not nextRole then
-			for i = 0, 5 do
+			for i = 1, 5 do
 				nextRole = getPrimaryRoleIndex(highestRole.level + i, guildRoles)
 
 				if nextRole then
@@ -143,7 +145,10 @@ local _function = function(data)
 			end
 		else
 			local guildRoles = guildData:get("roles"):raw()
-			local roleId = getPrimaryRoleIndex(1, guildRoles)
+			local roleId = getPrimaryRoleIndex(0, guildRoles)
+			or getPrimaryRoleIndex(1, guildRoles)
+			or getPrimaryRoleIndex(2, guildRoles)
+			or getPrimaryRoleIndex(3, guildRoles)
 			local role = roleId and getRole(roleId, "id", data.guild)
 
 			if not role then
@@ -164,7 +169,7 @@ local _function = function(data)
 				return false
 			end
 
-			local text = localize("${userModed}", guildLang, member.tag)
+			local text = localize("${userPromoted}", guildLang, member.tag, role.name)
 			local embed = replyEmbed(text, data.message, "ok")
 
 			-- this gives the user the "feel" of no lag whilst promoting

@@ -86,7 +86,7 @@ local _function = function(data)
 		local nextRole = getRoleIndexLowerThan(highestRole.level, guildRoles, highestRole.added)
 
 		if not nextRole then
-			for i = 0, 5 do
+			for i = 1, 5 do
 				nextRole = getHighestRoleIndex(max(0, highestRole.level - i), guildRoles)
 
 				if nextRole then

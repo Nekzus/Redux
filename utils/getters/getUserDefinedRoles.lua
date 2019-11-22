@@ -1,16 +1,16 @@
 function getUserDefinedRoles(member, guild)
 	local guild = type(guild) == "string" and client:getGuild(guild) or guild
+	local member = type(member) == "string" and guild:getMember(member) or member
 	local guildData = getGuildData(guild)
 
 	if not guildData then
 		printf("Could not find guildData for guild '%s'", guild.name)
-
 		return false
 	end
 
 	local result = {}
 
-	for obj in member.roles:iter() do
+	for obj in member.roles:toArray() do
 		local roleExists = getRole(obj.id, "id", guild)
 		local guildRoles = guildData:get("roles"):raw()
 		local guildRole = guildRoles[obj.id]

@@ -17,7 +17,12 @@ function getGuildDefinedRoles(guild)
 		if roleExists then
 			local isPrimary = getPrimaryRoleIndex(roleData.level, guildRoles) == roleId
 
-			insert(result, {id = roleId, level = roleData.level, primary = isPrimary, added = roleData.added})
+			insert(result, {
+				id = roleId,
+				level = roleData.level,
+				primary = isPrimary,
+				added = roleData.added
+			})
 		end
 	end
 
