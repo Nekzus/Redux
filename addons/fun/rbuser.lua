@@ -66,6 +66,8 @@ local _function = function(data)
 
 	local embed = newEmbed()
 	local robloxLogo = getEmoji(config.emojis.robloxLogo, "name", baseGuild)
+	local robux = getEmoji(config.emojis.robuxIcon, "name", baseGuild)
+	local social = getEmoji(config.emojis.socialIcon, "name", baseGuild)
 
 	if headShot then
 		embed:thumbnail(headShot)
@@ -84,12 +86,12 @@ local _function = function(data)
 		value = primaryGroup and primaryGroup.name or localize("${none}", guildLang),
 	})
 	embed:field({
-		name = localize("%s ${social}", guildLang, ":raising_hand:"),
+		name = localize("%s ${social}", guildLang, "%s", social.mentionString),
 		value = localize("**${friends}:** %s\n**${following}:** %s\n**${followers}:** %s", guildLang, affixNum(friends), affixNum(followings), affixNum(followers)),
 		inline = true,
 	})
 	embed:field({
-		name = localize("%s ${investments}", guildLang, ":moneybag:"),
+		name = localize("%s ${investments}", guildLang, "%s", robux.mentionString),
 		value = localize("**${recentAveragePriceTag}:** %s\n**${limiteds}:** %s\n**${userVisits}:** %s", guildLang, affixNum(limitedsRAP), affixNum(limitedsCount), affixNum(placeVisits)),
 		inline = true,
 	})

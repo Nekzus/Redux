@@ -8,6 +8,7 @@ config.emojis = {
 	arwRight = "ArrowRight",
 	arwUp = "ArrowUp",
 	arwDown = "ArrowDown",
+	arrowIcon = "ArrowIcon", -- Usado no comando de translate
 	twoMoney = "TwoMoney",
 	book = "Book",
 	balloons = "Balloons",
@@ -16,4 +17,6 @@ config.emojis = {
 	cancel = "Cancel",
 	warning = "Warning",
 	prohibited = "Prohibited",
+	robuxIcon = "SocialIcon",
+	socialIcon = "RobuxIcon",
 }

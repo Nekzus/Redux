@@ -260,7 +260,8 @@ local _function = function(data)
 			return false
 		end
 
-		local reply = format("%s ``%s`` -> ``%s`` %s", data.author.mentionString, detectedSourceLanguage, data.args[2], urlDecode(translatedText))
+		local arrow = getEmoji(config.emojis.arrowIcon, "name", baseGuild)
+		local reply = format("%s ``%s`` %s ``%s`` %s", data.author.mentionString, detectedSourceLanguage, arrow.mentionString,data.args[2], urlDecode(translatedText))
 
 		bird:post(reply, nil, data.channel)
 	end
