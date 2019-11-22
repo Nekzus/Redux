@@ -10,7 +10,7 @@ function getUserDefinedRoles(member, guild)
 
 	local result = {}
 
-	for obj in member.roles:toArray() do
+	for obj in member.roles:iter() do
 		local roleExists = getRole(obj.id, "id", guild)
 		local guildRoles = guildData:get("roles"):raw()
 		local guildRole = guildRoles[obj.id]
