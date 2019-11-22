@@ -86,12 +86,12 @@ local _function = function(data)
 		value = primaryGroup and primaryGroup.name or localize("${none}", guildLang),
 	})
 	embed:field({
-		name = localize("%s ${social}", guildLang, "%s", social.mentionString),
+		name = localize("%s ${social}", guildLang, social.mentionString),
 		value = localize("**${friends}:** %s\n**${following}:** %s\n**${followers}:** %s", guildLang, affixNum(friends), affixNum(followings), affixNum(followers)),
 		inline = true,
 	})
 	embed:field({
-		name = localize("%s ${investments}", guildLang, "%s", robux.mentionString),
+		name = localize("%s ${investments}", guildLang, robux.mentionString),
 		value = localize("**${recentAveragePriceTag}:** %s\n**${limiteds}:** %s\n**${userVisits}:** %s", guildLang, affixNum(limitedsRAP), affixNum(limitedsCount), affixNum(placeVisits)),
 		inline = true,
 	})

@@ -17,6 +17,6 @@ config.emojis = {
 	cancel = "Cancel",
 	warning = "Warning",
 	prohibited = "Prohibited",
-	robuxIcon = "SocialIcon",
-	socialIcon = "RobuxIcon",
+	robuxIcon = "RobuxIcon",
+	socialIcon = "SocialIcon",
 }
