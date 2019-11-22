@@ -4,7 +4,7 @@ local _config = {
 	usage = "${userKey}",
 	aliases = {"de", "dem"},
 	cooldown = 0,
-	level = 2,
+	level = 5, -- 2
 	direct = false,
 	perms = {"manageRoles"},
 }
@@ -87,7 +87,7 @@ local _function = function(data)
 
 		if not nextRole then
 			for i = 1, 5 do
-				nextRole = getHighestRoleIndex(math.max(0, highestRole.level - i), guildRoles)
+				nextRole = getHighestRoleIndex(max(0, highestRole.level - i), guildRoles)
 
 				if nextRole then
 					break
