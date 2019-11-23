@@ -19,6 +19,15 @@ local _function = function(data)
 	local role = getRole(roleName, "name", data.guild)
 	local level = 0
 
+	if not (args[2]) then
+		local text = localize("${missingArg}", guildLang)
+		local embed = replyEmbed(text, data.message, "error")
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return false
+	end
+
 	-- Verifica se o cargo existe
 	if not role then
 		local text = localize("${roleNotFound}", guildLang, roleName)
