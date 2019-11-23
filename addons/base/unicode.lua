@@ -31,11 +31,12 @@ local _function = function(data)
 
 	remove(list, 1)
 
+	local text = data.content:sub(#args[1] + 2)
 	local embed = newEmbed()
 
 	embed:title(localize("${unicode}", guildLang))
 	-- embed:description(append(unpack(list)))
-	embed:description("```%s```", #args[1] + 2)
+	embed:description("```%s```", text)
 
 	embed:color(paint("blue"))
 	embed:footerIcon(config.images.info)
