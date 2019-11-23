@@ -91,8 +91,6 @@ local _function = function(data)
 		local currentRole = data.guild:getRole(currentRoleData.id)
 		local nextRole = data.guild:getRole(nextRoleId)
 
-		print(nextRole.name)
-
 		if not currentRole then
 			local text = localize("${roleNotFound}", guildLang, "<currentRole>")
 			local embed = replyEmbed(text, data.message, "error")

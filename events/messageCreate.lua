@@ -42,7 +42,7 @@ client:on("messageCreate",
 		local guildMutes = guildData:get("mutes")
 		local guildLang = not private and guildData and guildData:get("lang") or config.defaultGuild.lang
 		local muteData = not private and guildMutes:raw()[data.member.id]
-				local botMember = not private and data.guild:getMember(client.user.id)
+		local botMember = not private and data.guild:getMember(client.user.id)
 
 		-- Verifica se o usuário está mutado
 		if muteData then
@@ -77,6 +77,11 @@ client:on("messageCreate",
 			data.guildData = guildData
 			data.guildLang = guildLang
 			data.prefix = guildData:raw().prefix
+
+			if data.message.mentionedUsers.first == client.user then
+				bird:post(localize("${guildPrefix}", guildLang, guildData:raw().prefix), nil, data.channel)
+				return true
+			end
 		end
 
 		-- Coleta as informações mais relevantes do comando sendo executado
@@ -234,14 +239,6 @@ client:on("messageCreate",
 					data.author.tag, -- Retorna o usuário que executou
 					data.message.content -- Os argumentos utilizados
 				)
-			end
-
-			if (args[1]) then
-				if data.message.mentionedUsers.first = client.user then
-					local mensagem = data.channel:send(localize("${guildPrefix}", guildLang, guildData:raw().prefix))
-					wait(8)
-					data.message:delete(data.channel:getMessage(mensagem))
-				end
 			end
 		end
 	end
