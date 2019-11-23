@@ -235,6 +235,14 @@ client:on("messageCreate",
 					data.message.content -- Os argumentos utilizados
 				)
 			end
+
+			if (args[1]) then
+				if data.message.mentionedUsers.first = client.user then
+					local mensagem = data.channel:send(localize("${guildPrefix}", guildLang, guildData:raw().prefix))
+					wait(8)
+					data.message:delete(data.channel:getMessage(mensagem))
+				end
+			end
 		end
 	end
 )
