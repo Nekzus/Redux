@@ -18,6 +18,15 @@ local _function = function(data)
 	local roleName = data.content:sub(#data.args[1] + 2)
 	local role = getRole(roleName, "name", data.guild)
 
+	if not (args[2]) then
+		local text = localize("${missingArg}", guildLang)
+		local embed = replyEmbed(text, data.message, "error")
+
+		bird:post(nil, embed:raw(), data.channel)
+
+		return false
+	end
+
 	if role then
 		local text = localize("${roleRemovedAuto}", guildLang, roleName)
 		local embed = replyEmbed(text, data.message, "ok")
