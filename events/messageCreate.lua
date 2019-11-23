@@ -235,6 +235,11 @@ client:on("messageCreate",
 					data.message.content -- Os argumentos utilizados
 				)
 			end
+
+			local mention = data.message.mentionedUsers.first
+			if mention = client.user then
+				data.channel:send("Ata")
+			end
 		end
 	end
 )
