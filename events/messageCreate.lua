@@ -118,7 +118,7 @@ client:on("messageCreate",
 					local embed = replyEmbed(text, message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
-					-- Informe caso por algum outro motivo o usuário não tiver permissão
+				-- Informe caso por algum outro motivo o usuário não tiver permissão
 				else
 					local text = localize("${noPerm}", guildLang)
 					local embed = replyEmbed(text, message, "error")
@@ -127,7 +127,7 @@ client:on("messageCreate",
 				end
 
 				return false
-				-- Valida se o comando está reestrito apenas para guildas definidas
+			-- Valida se o comando está reestrito apenas para guildas definidas
 			elseif isCommandRestrict(commandData, guildLang) then
 				local text = localize("${notAvailableLang}", guildLang)
 				local embed = replyEmbed(text, message, "warn")

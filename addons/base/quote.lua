@@ -60,7 +60,7 @@ local _function = function(data)
 
 	if targetMessage then
 		local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, targetMessage.link)
-		local sentBy = localize("${messageSentBy}", langs[guildLang], targetMessage.author.tag)
+		local sentBy = localize("${messageSentBy}", guildLang, targetMessage.author.tag)
 		local embed = newEmbed()
 
 		embed:author(sentBy)
