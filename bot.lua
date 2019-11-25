@@ -92,7 +92,7 @@ keys = table.keys -- Retorna uma table array onde todos os valores são chaves d
 values = table.values -- Retorna uma table array onde todos os valores são valores da table original
 sorted = table.sorted -- Retorna uma copia da table original utilizando sort
 search = table.search -- Procura dentre todos os valores de uma table até encontrar o item mencionado
-last = local function(list) return list[#list] end -- Retorna o último elemento da table (array)
+last = function(list) return list[#list] end -- Retorna o último elemento da table (array)
 
 -- Extensões principais
 fs = require("fs") -- Extensão responsável por administrar o acesso à caminhos do sistema

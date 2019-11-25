@@ -9,6 +9,7 @@ main.map = {
 	yellow = {255, 202, 40},
 	blue = {33, 150, 243},
 	grey = {249, 239, 239},
+	grey2 = {177, 177, 177},
 	black = {0, 0, 0},
 }
 
@@ -18,7 +19,7 @@ function main:__call(text)
 	if color then
 		return unpack(color)
 	else
-		return 177, 177, 177
+		return unpack(self.map.grey2)
 	end
 end
 
