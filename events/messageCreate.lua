@@ -6,12 +6,13 @@
 
 client:on("messageCreate",
 	function(message)
-		-- Ignorar quando o próprio bot enviar uma mensagem
+		-- Ignora quando o próprio bot enviar uma mensagem
 		if message.author == client.user then
 			return
-			-- Ignorar quando outro bot também estiver enviando mensagens
+		-- Ignora quando outro bot também estiver enviando mensagens
 		elseif message.author.bot then
 			return
+		-- Ignora tudo caso o bot ainda estiver carregando (boot)
 		elseif not bot.loaded then
 			return
 		end
@@ -19,21 +20,21 @@ client:on("messageCreate",
 		-- Coleta os recursos da guilda base
 		if baseGuild == nil then
 			baseGuild = client:getGuild(config.main.guilds.home.id)
-			timer.sleep(1000)
+			wait(1)
 		end
 
 		-- Cria um pacote de informações relevantes para serem
-		-- enviados à função específica do comando
+		-- utilizados pelo ou pelos comandos que estiverem sendo chamados
 		local data = {
-			message = message,
-			content = message.content,
-			user = message.member or message.author,
-			author = message.author,
-			member = message.member,
-			channel = message.channel,
-			guild = message.guild,
-			args = message.content:split(" "),
-			command = message.content:split(" ")[1],
+			message = message, -- Objeto da mensagem
+			content = message.content, -- Texto da mensagem
+			user = message.member or message.author, -- Usuário ou membro
+			author = message.author, -- Objeto usuário do autor
+			member = message.member, -- Objeto membro do autor
+			channel = message.channel, -- Objeto canal da guilda (caso houver)
+			guild = message.guild, -- Objeto guilda (caso houver)
+			args = message.content:split(" "), -- Conteúdo da mensagem em array
+			command = message.content:split(" ")[1], -- Primeiro argumento de args
 		}
 
 		-- Coleta informações relevantes da guilda
@@ -43,30 +44,6 @@ client:on("messageCreate",
 		local guildLang = not private and guildData and guildData:get("lang") or config.defaultGuild.lang
 		local muteData = not private and guildMutes:raw()[data.member.id]
 		local botMember = not private and data.guild:getMember(client.user.id)
-
-		-- Verifica se o usuário está mutado
-		if muteData then
-			-- Coleta os dados do cargo de mute, caso houver
-			local roleId = getPrimaryRoleIndex(-1, guildData:get("roles"):raw())
-			local role = roleId and getRole(roleId, "id", data.guild)
-
-			-- Havendo o cargo, parte para verificar se o membro já tem o cargo
-			-- e caso a verificação for negativa, checa as permissões e por
-			-- fim atribui o cargo e deleta a mensagem do usuário
-			if role and not data.member:hasRole(role) then
-				-- Valida se o bot tem permissão de atribuir cargos
-				if hasPermissions(data.member, nil, {"manageRoles"}) then
-					data.member:addRole(role)
-				end
-
-				-- Valida se o bot tem permissão de deletar mensagens
-				if hasPermissions(data.member, nil, {"manageMessages"}) then
-					data.message:delete()
-				end
-
-				return false
-			end
-		end
 
 		-- Caso o bot estiver agindo em um canal privado (mensagens diretas)
 		if private then
@@ -78,9 +55,46 @@ client:on("messageCreate",
 			data.guildLang = guildLang
 			data.prefix = guildData:raw().prefix
 
+			-- Caso o bot for mencionado, retorna o prefixo definido no servidor
 			if data.message.mentionedUsers.first == client.user then
-				bird:post(localize("${guildPrefix}", guildLang, guildData:raw().prefix), nil, data.channel)
+				bird:post(localize("${guildPrefix}", guildLang, data.prefix), nil, data.channel)
 				return true
+			end
+
+			-- Verifica se o usuário está mutado
+			if muteData then
+				-- Coleta os dados do cargo de mute, caso houver
+				local roleId = getPrimaryRoleIndex(-1, guildData:get("roles"):raw())
+				local role = roleId and getRole(roleId, "id", data.guild)
+
+				-- Havendo o cargo, parte para verificar se o membro já tem o cargo
+				-- e caso a verificação for negativa, checa as permissões e por
+				-- fim atribui o cargo e deleta a mensagem do usuário
+				if role and not data.member:hasRole(role) then
+					-- Valida se o bot tem permissão de atribuir cargos
+					if hasPermissions(data.member, nil, {"manageRoles"}) then
+						data.member:addRole(role)
+					end
+
+					-- Valida se o bot tem permissão de deletar mensagens
+					if hasPermissions(data.member, nil, {"manageMessages"}) then
+						data.message:delete()
+					end
+
+					return false
+				end
+			end
+
+			-- Caso o membro não tiver o cargo inicial, atribui à ele
+			local memberRoles = getUserDefinedRoles(data.member, data.guild)
+
+			if #memberRoles == 0 then
+				local memberRoleId = getPrimaryRoleIndex(0, guildData:get("roles"):raw())
+				local memberRole = memberRoleId and getRole(memberRoleId, "id", guild)
+
+				if memberRole then
+					member:addRole(memberRole)
+				end
 			end
 		end
 
