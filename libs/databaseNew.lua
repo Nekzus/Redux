@@ -3,7 +3,7 @@ local main = {}
 main.__index = main
 
 -- Carrega os dados da modula serpent que converte um vetor em texto
-local msgPack = msgPack or require("./libs/msgpack.lua")
+local mp = mp or require("./libs/msgPack.lua")
 
 -- Função local para checar se o caminho para um arquivo é válido
 local function isFile(path)
@@ -11,20 +11,24 @@ local function isFile(path)
 
 	if file then
 		file:close()
+		return true
 	end
 
-	return file ~= nil
+	return false
 end
 
 -- Retorna o conteúdo de um arquivo
 local function loadFile(path)
-	assert(path and isFile(path), format("Path for file not found: %s", path))
+	assert(
+		path and isFile(path),
+		format("Path for file not found: %s", path)
+	)
 
 	local file = io.open(path, "rb")
 	local result
 
 	if file then
-		result = msgPack.unpack(file:read("*a"))
+		result = mp.unpack(file:read("*a"))
 		file:close()
 	end
 
@@ -39,9 +43,8 @@ local function saveFile(path, list)
 	local file = io.open(path, "wb")
 
 	if file then
-		file:write(msgPack.pack(list))
+		file:write(mp.pack(list))
 		file:close()
-
 		return true
 	end
 
@@ -51,17 +54,14 @@ end
 function main:__call(path)
 	return setmetatable({
 		path = path,
-		status = 0,
 		ticket = 0,
 	}, main)
 end
 
-function main:open(duration)
+function main:edit(duration)
 	duration = duration or 30
 	self.data = self.data or loadFile(self.path)
-	self.status = 1
 	self.ticket = self.ticket + 1
-
 	local ticket = self.ticket
 
 	if self.handler then
@@ -75,17 +75,16 @@ function main:open(duration)
 		end
 	end)
 
-	return data
+	return self.data
 end
 
-function main:close()
+function main:save()
 	local success = assert(
 		saveFile(self.data),
 		"Could not close connection to database"
 	)
 
 	self.data = nil
-	self.status = 0
 	self.ticket = self.ticket + 1
 
 	if self.handler then
@@ -96,18 +95,4 @@ function main:close()
 	self.handler = nil
 
 	return true
-end
-
-function main:edit()
-	self:open(60)
-
-	return self.data
-end
-
-function main:isOpen()
-	return self.status == 1
-end
-
-function main:isClosed()
-	return self.status == 0
 end
