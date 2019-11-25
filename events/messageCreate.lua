@@ -49,8 +49,8 @@ client:on("messageCreate",
 		if private then
 			data.guildLang = config.defaultGuild.lang
 			data.prefix = config.defaultGuild.prefix
+		-- Caso estiver agindo no canal de uma guilda
 		else
-			-- Caso estiver agindo no canal de uma guilda
 			data.guildData = guildData
 			data.guildLang = guildLang
 			data.prefix = guildData:raw().prefix
