@@ -39,7 +39,7 @@ client:on("messageCreate",
 
 		-- Coleta informações relevantes da guilda
 		local private = data.member == nil
-		local guildData = not private and getGuildData(data.guild)
+		local guildData = not private and getGuildData(data.guild, 0)
 		local guildMutes = guildData:get("mutes")
 		local guildLang = not private and guildData and guildData:get("lang") or config.defaultGuild.lang
 		local muteData = not private and guildMutes:raw()[data.member.id]
@@ -233,6 +233,12 @@ client:on("messageCreate",
 			-- não ocorram problemas com a thread principal, e caso ocorrer,
 			-- retorna um log detalhado no console para análise e tratativa
 			local success, commandError = pcall(commandData.func, data)
+
+			--[[
+			if guildData then
+				guildData:close()
+			end
+			]]
 
 			-- Cria o relatório de erro
 			if not success then

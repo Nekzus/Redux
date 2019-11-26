@@ -261,13 +261,9 @@ function loadBot()
 	bot.loaded = true
 end
 
--- Verifica se há atualizações disponíveis no repositório
---print("Checking for Repository Updates...")
---printf("Project status: %s", runDOS("git pull"))
-
 -- Inicializa o processo principal
 loadBot()
---client:run(format("Bot %s", config.main.botToken))
+client:run(format("Bot %s", config.main.botToken))
 
 --[[
 print("OPEN")

@@ -1,6 +1,6 @@
-function getGuildData(guild)
+function getGuildData(guild, duration)
 	local guild = type(guild) == "string" and client:getGuild(guild) or guild
-	local guildData = saves.global:get(guild.id)
+	local guildData = saves.global:get(guild.id) --ndb(format("./test/global/%s.bin", guild.id), duration)
 	local guildRoles = guildData:get("roles")
 	local guildMutes = guildData:get("mutes")
 
