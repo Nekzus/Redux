@@ -28,7 +28,7 @@ local _function = function(data)
 
 	local text = localize("${botDataSaved}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")
-	
+
 	bird:post(nil, embed:raw(), data.channel)
 	client:stop()
 	os.exit(0)
