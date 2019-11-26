@@ -58,19 +58,22 @@ function main:__call(path)
 	}, main)
 end
 
-function main:edit(duration)
+function main:open(duration)
+	print("OPENED EDIT")
 	duration = duration or 30
 	self.data = self.data or loadFile(self.path)
 	self.ticket = self.ticket + 1
 	local ticket = self.ticket
 
 	if self.handler then
+		print("RENEWING TIMER")
 		self.handler:stop()
 		self.handler:close()
 	end
 
 	self.handler = timer.setTimeout(duration * 1000, function()
 		if self.ticket == ticket then
+			print("LIFETIME REACHED, AUTO-SAVING")
 			self:close()
 		end
 	end)
@@ -78,7 +81,7 @@ function main:edit(duration)
 	return self.data
 end
 
-function main:save()
+function main:close()
 	local success = assert(
 		saveFile(self.data),
 		"Could not close connection to database"
@@ -88,11 +91,15 @@ function main:save()
 	self.ticket = self.ticket + 1
 
 	if self.handler then
+		print("ENDING LIFETIME")
 		self.handler:stop()
 		self.handler:close()
 	end
 
 	self.handler = nil
+	print("EDIT CLOSED")
 
 	return true
 end
+
+ndb = main
