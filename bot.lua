@@ -256,73 +256,9 @@ function loadBot()
 	saves.track = cache(db.load("track") or {}) -- Rastreadores globais de mutes e patronos
 	saves.temp = cache(db.load("temp") or {}) -- Informações temporárias de utilização de comandos
 
-	--saves.track = ndb("./test/track.bin")
-	--saves.temp = ndb("./test/track.bin")
 	bot.loaded = true
 end
 
 -- Inicializa o processo principal
 loadBot()
 client:run(format("Bot %s", config.main.botToken))
-
---[[
-print("OPEN")
-local gdata = ndb("./test/global/280874940171943936.bin", 0)
-
-for k,v in next, gdata:raw() do
-	print(k,v)
-end
-
-gdata:close()
-print("CLOSED")
-for k,v in next, gdata:raw() do
-	print(k,v)
-end
---]]
-
---[[
--- Conversores de dados antigos das guildas para o formato novo
--- Global
-for gid, gdata in next, saves.global:raw() do
-	local guild = ndb(format("./test/global/%s.bin", gid), 0)
-
-	for k,v in next, gdata do
-		guild:set(k, v)
-	end
-
-	guild:set("deleteCommand", nil)
-
-	guild:close()
-	print(format("Registered %s", gid))
-end
-
--- Economia
-for gid, gdata in next, saves.economy:raw() do
-	local guild = ndb(format("./test/economy/%s.bin", gid), 0)
-
-	for k,v in next, gdata do
-		guild:set(k, v)
-	end
-
-	guild:close()
-	print(format("Registered %s", gid))
-end
-
--- Temp
-local temp = ndb("./test/bot/temp.bin", 0)
-
-for k, v in next, saves.temp:raw() do
-	temp:set(k, v)
-end
-
-temp:close()
-
--- Track
-local temp = ndb("./test/bot/track.bin", 0)
-
-for k, v in next, saves.track:raw() do
-	temp:set(k, v)
-end
-
-temp:close()
---]]
