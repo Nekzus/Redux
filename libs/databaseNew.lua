@@ -127,7 +127,7 @@ function _db:open(duration)
 		self.handler = nil
 	end
 
-	if duration <= 0 then
+	if duration > 0 then
 		self.handler = timer.setTimeout(duration * 1000, function()
 			if self.ticket == ticket then
 				self:close()
@@ -162,7 +162,6 @@ function _db:delete()
 
 	if not success then
 		printf("Could not delete file at path %s because: %s", self.path, err)
-
 		return false
 	end
 
