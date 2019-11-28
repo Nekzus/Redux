@@ -55,8 +55,8 @@ client:on("messageCreate",
 			data.guildLang = guildLang
 			data.prefix = guildData:raw().prefix
 
-			-- Caso o bot for mencionado, retorna o prefixo definido no servidor
-		if args[1] then
+		-- Caso o bot for mencionado, retorna o prefixo definido no servidor
+		if not (data.args[2]) then
 			if data.message.mentionedUsers.first == client.user then
 				bird:post(localize("${guildPrefix}", guildLang, data.prefix), nil, data.channel)
 				return true
