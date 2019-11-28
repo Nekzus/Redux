@@ -39,7 +39,7 @@ client:on("messageCreate",
 
 		-- Coleta informações relevantes da guilda
 		local private = data.member == nil
-		local guildData = not private and getGuildData(data.guild, 0)
+		local guildData = not private and getGuildData(data.guild)
 		local guildMutes = guildData:get("mutes")
 		local guildLang = not private and guildData and guildData:get("lang") or config.defaultGuild.lang
 		local muteData = not private and guildMutes:raw()[data.member.id]

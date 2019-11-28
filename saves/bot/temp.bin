@@ -1,1 +1,1 @@
-do local _={mutes={},users={["280415970416394253"]=nil,commandsUsed={}}};local __={};_.users["280415970416394253"]=_.users;return _;end
+do local _={users={["280415970416394253"]=nil,commandsUsed={help={lastUse=1574973984}}},mutes={}};local __={};_.users["280415970416394253"]=_.users;return _;end
