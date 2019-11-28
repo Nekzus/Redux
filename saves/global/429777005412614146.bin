@@ -1,1 +1,1 @@
-do local _={mutes={},roles={},prefix=".",lang="pt-br"};return _;end
+do local _={mutes={},deleteCommand={},roles={},prefix=".",lang="pt-br"};return _;end

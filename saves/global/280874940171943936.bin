@@ -1,1 +1,1 @@
-do local _={mutes={},deleteCommand={},roles={["593984752483303436"]={level=1,added=1570999892},["568849719930126337"]={level=3,added=1574270309},["593979579916615690"]={level=1,added=1570999897},["593984628461928477"]={level=2,added=1570999903}},prefix=".",lang="pt-br"};return _;end
+do local _={mutes={},deleteCommand={},roles={["593984628461928477"]={level=2,added=1570999903},["568849719930126337"]={level=3,added=1574270309},["593979579916615690"]={level=1,added=1570999897},["593984752483303436"]={level=1,added=1570999892}},prefix=".",lang="pt-br"};return _;end

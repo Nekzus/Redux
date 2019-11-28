@@ -940,6 +940,11 @@ langs = {
 	},
 
 	-- Frases e Respostas
+	["guildPrefix"] = {
+		["en-us"] = "The prefix for this guild is: `%s`",
+		["pt-br"] = "O prefixo dessa guilda é: `%s`",
+	},
+
 	["scriptErrorFor"] = {
 		["en-us"] = "Script error for: %s",
 		["pt-br"] = "Erro de script para: %s",
