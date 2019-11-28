@@ -56,10 +56,12 @@ client:on("messageCreate",
 			data.prefix = guildData:raw().prefix
 
 			-- Caso o bot for mencionado, retorna o prefixo definido no servidor
+		if args = args[1] then
 			if data.message.mentionedUsers.first == client.user then
 				bird:post(localize("${guildPrefix}", guildLang, data.prefix), nil, data.channel)
 				return true
 			end
+		end
 
 			-- Verifica se o usuário está mutado
 			if muteData then
