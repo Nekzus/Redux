@@ -1,105 +1,189 @@
--- Cria um construtor para registrar os métodos
-local main = {}
+local pool = {}
+local methods = {}
+local metatable = {}
+local directory = "./test/"
+local extension = ".bin"
+local keepAlive = 30
 
--- Carrega os dados da modula serpent que converte um vetor em texto
-serpent = serpent or require("./libs/serpent.lua")
+-- Extensão para mapear subdiretórios de uma table
+local cache = cache or require("./libs/cache.lua")
 
--- Função local para checar se o caminho para um arquivo é válido
+-- Extensão para serializar uma table
+local serpent = serpent or require("./libs/serpent.lua")
+
+-- Função para serializar uma table
+local function serialize(data)
+	return serpent.dump(data)
+end
+
+-- Função para desserializar uma string
+local function deserialize(text)
+	return loadstring(text)()
+end
+
+-- Função para checar se o caminho para um arquivo é válido
 local function isFile(path)
-	local file = io.open(path, "rb")
+	assert(path and type(path) == "string", "Path must be a string")
 
-	if file then
-		file:close()
-	end
+	local file = io.open(path, "r")
 
-	return file ~= nil
+	return (file and file:close() and true) or false
 end
 
--- Lê o conteúdo de um arquivo
+-- Retorna o conteúdo de um arquivo
 local function readFile(path)
-	assert(
-		path and isFile(path),
-		format("Path for file not found: %s", path)
-	)
+	assert(path and type(path) == "string", "Path must be a string")
 
 	local file = io.open(path, "rb")
+	local result = file and file:read("*a")
 
-	if not file then
-		return nil
-	end
-
-	local content = file:read("*a")
-	file:close()
-
-	return content
+	return (file and file:close() and deserialize(result)) or nil
 end
 
-local function writeFile(path, text)
-	assert(
-		path and isFile(path),
-		format("Path for file not found: %s", path)
-	)
+-- Atualiza o conteúdo de um arquivo
+local function writeFile(path, list)
+	assert(path and type(path) == "string", "Path must be a string")
+	assert(list and type(list) == "table", "List must be a table")
 
-	assert(
-		text and type(text) == "string",
-		format("Text must be a string in writeFile for path: %s", path)
-	)
+	local file = io.open(path, "wb")
+	local data = file and serialize(list)
 
-	local file, err = io.open(path, "w")
-
-	if not file then
-		printf("Could not writeFile for path %s because: %s", path, err)
-		return nil
-	end
-
-	file:write(text)
-	file:close()
+	return (file and file:write(data) and file:close() and true) or false
 end
 
--- Carrega as informações de um arquivo que foi salvo no caminho específicado
-function main.load(filePath)
-	filePath = assert(
-		filePath and type(filePath) == "string" and format("./saves/%s.txt", filePath),
-		format("Could not parse file location in load() for: %s", filePath)
-	)
+-- Salva os dados do objeto atual
+function methods:save()
+	assert(self.path, "Must create data with constructor first")
 
-	if not isFile(filePath) then
-		printf("File path not found for: %s", filePath)
-	end
-
-	local file = assert(
-		readFile(filePath),
-		format("Could not open file: %s", filePath)
-	)
-
-	local result = loadstring(file)
-
-	return result()
+	return self.data and writeFile(self.path, self.data:raw())
 end
 
--- Salva as informações de um arquivo no caminho específicado
-function main.save(data, filePath)
-	assert(
-		data and type(data) == "table" and data,
-		"Data must be a table-type for save()"
-	)
+-- Carrega os dados do objeto atual
+function methods:load()
+	assert(self.path, "Must create data with constructor first")
 
-	filePath = assert(
-		filePath and format("./saves/%s.txt", filePath),
-		format("Could not parse file location in load() for: %s", filePath)
-	)
+	self.data = readFile(self.path)
 
-	if not isFile(filePath) then
-		printf("File path not found for: %s", filePath)
+	return self
+end
+
+-- Atualiza o último momento de utilização e carrega os dados caso não estiverem carregados
+function methods:update()
+	self.lastUpdate = os.time()
+	self.data = self.data or cache(readFile(self.path))
+end
+
+-- Modifica uma chave interna do objeto atual
+function methods:set(key, value)
+	assert(self.path, "Must create data with constructor first")
+
+	self:update()
+
+	return self.data:set(key, value)
+end
+
+-- Retorna uma chave interna do objeto atual
+function methods:get(paths, default)
+	assert(self.path, "Must create data with constructor first")
+
+	self:update()
+
+	return self.data:get(paths, default)
+end
+
+-- Retorna a table pura do objeto atual
+function methods:raw()
+	assert(self.path, "Must create data with constructor first")
+
+	self:update()
+
+	return self.data:raw()
+end
+
+-- Cria um rastreio para limpar os dados e salvá-los caso o objeto atual estiver
+-- inativo por muito tempo, assim, economizando memória
+function methods:track()
+	self.handler = timer.setTimeout(keepAlive * 1000, function()
+		self:save()
+
+		if ((os.time() - self.lastUpdate) > keepAlive) then
+			if not self.handler:is_closing() then
+				self.handler:close()
+				self.handler = nil
+			end
+
+			self.data = nil
+		else
+			if not self.handler:is_closing() then
+				self.handler:close()
+				self.handler = nil
+			end
+
+			self:track(keepAlive)
+		end
+	end)
+end
+
+-- Deleta os dados armazenados do objeto atual
+function methods:delete()
+	assert(self.path, "Must create data with constructor first")
+
+	local success, err = os.remove(self.path)
+
+	if not success then
+		printf("Could not delete file at path %s because: %s", self.path, err)
+		return false
 	end
-
-	writeFile(filePath, serpent.dump(data))
 
 	return true
 end
 
+-- Salva todos os dados armazenados na pool
+function methods:saveAllData()
+	for _, data in next, pool do
+		data:save()
+	end
+end
+
+-- Cria o construtor do objeto
+function metatable:__call(path)
+	if not isFile(path) then
+		writeFile(path, {})
+	end
+
+	if pool[path] then
+		return pool[path]
+	end
+
+	local result = setmetatable({
+		path = path,
+		lastUpdate = 0,
+	}, metatable)
+
+	pool[path] = result
+	result:update()
+	result:track()
+
+	return result
+end
+
+--
+function metatable:__index(key)
+	local method = rawget(methods, key)
+
+	if method then
+		return method
+	end
+
+	local register = rawget(pool, key)
+
+	if register then
+		return register
+	end
+end
+
 -- Registra o processo
-db = main
+db = setmetatable(methods, metatable)
 
 -- Retorna o processo para confirmar que houve a execução sem erros
 return db

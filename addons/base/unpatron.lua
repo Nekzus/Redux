@@ -51,7 +51,7 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "ok")
 
 		patrons:set(tostring(member.id), nil)
-		db.save(saves.track.bin, "track")
+		saves.track:save()
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true

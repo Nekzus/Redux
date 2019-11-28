@@ -15,7 +15,7 @@ local _function = function(data)
 	local args = data.args
 
 	client:removeAllListeners()
-	saveAllData()
+	db:saveAllData()
 
 	client:setGame {
 		type = 2,

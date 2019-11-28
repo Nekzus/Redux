@@ -22,8 +22,7 @@ local _function = function(data)
 
 		return false
 	end
-
-	local guildData = saves.global:get(data.guild.id)
+	
 	local valueSet = guildData:set("prefix", args[2])
 
 	if valueSet then

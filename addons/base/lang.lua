@@ -36,8 +36,7 @@ local _function = function(data)
 
 		return false
 	end
-
-	local guildData = saves.global:get(data.guild.id)
+	
 	local valueSet = guildData:set("lang", args[2])
 
 	guildLang = args[2]

@@ -208,13 +208,6 @@ function loadAllFiles(path, callback) -- Carrega todos os arquivos da pasta e su
 	end
 end
 
--- Salva todos os dados
-function saveAllData()
-	for name, data in next, saves do
-		db.save(data:raw(), name)
-	end
-end
-
 -- Inicializa a estrutura
 function loadBot()
 	-- Inicializa o bot
@@ -250,11 +243,9 @@ function loadBot()
 		end
 	end
 
-	-- Carrega todos os dados
-	saves.global = cache(db.load("global") or {}) -- Informações principais de guildas
-	saves.economy = cache(db.load("economy") or {}) -- Economia de servidores e itens das lojas virtuais
-	saves.track = cache(db.load("track") or {}) -- Rastreadores globais de mutes e patronos
-	saves.temp = cache(db.load("temp") or {}) -- Informações temporárias de utilização de comandos
+	-- Carrega os dados importantes do bot
+	saves.temp = saves.temp or db("./saves/bot/temp.bin")
+	saves.track = saves.track or db("./saves/bot/track.bin")
 
 	bot.loaded = true
 end

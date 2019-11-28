@@ -16,7 +16,7 @@ local _function = function(data)
 
 	bot.loaded = false
 	client:removeAllListeners()
-	saveAllData()
+	db:saveAllData()
 
 	if not (args[2] and inList(args[2], {"local", "1", "l"})) then
 		runDOS("git pull")

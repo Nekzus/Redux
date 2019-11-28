@@ -23,17 +23,10 @@ local _function = function(data)
 		return false
 	end
 
-	local canDelete = data.member and saves.global:get(data.guild.id):raw().deleteCommand
-	canDelete = canDelete == true
-
 	local value = data.content:sub(#args[1] + 2)
 	local embed = replyEmbed(value, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)
-
-	if not private and canDelete then
-		data.message:delete()
-	end
 
 	return true
 end

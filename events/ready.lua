@@ -33,7 +33,7 @@ client:on("ready",
 		-- Inicializa o processo de saving das informações armazenadas pelo bot
 		-- assim, garantindo que todos os dados de guildas e usuários sejam
 		-- persistentes
-		coroutine.wrap(
+		--[[coroutine.wrap(
 			function()
 				if config.saver.enabled then
 					print("Auto-save routine enabled")
@@ -49,7 +49,7 @@ client:on("ready",
 					print("Auto-save routine disabled")
 				end
 			end
-		)()
+		)()]]
 
 		-- Inicializa uma rotina de limpeza à dados utilizados pelo bot, pois
 		-- de outra forma, o bot eventualmente armazenaria muito "lixo" de
