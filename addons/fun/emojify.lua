@@ -91,7 +91,7 @@ local _function = function(data)
 		bird:post(result, nil, data.channel)
 
 		return true
-	end
+	-- end
 end
 
 return {config = _config, func = _function}
