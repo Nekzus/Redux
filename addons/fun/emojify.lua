@@ -78,17 +78,17 @@ local _function = function(data)
 		return false
 	end
 
-	if #result > 2047 then
+	--[[ if #result > 2047 then
 		local text = localize("${messageTooLong}", guildLang)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
 
 		return false
-	else
-		local embed = replyEmbed(result, data.message, "ok")
+	else ]]
+		-- local embed = replyEmbed(result, data.message, "ok")
 
-		bird:post(nil, embed:raw(), data.channel)
+		bird:post(result, nil, data.channel)
 
 		return true
 	end
