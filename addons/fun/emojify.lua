@@ -15,7 +15,7 @@ local _function = function(data)
 	local args = data.args
 
 	local replaces = {
-		[" "] = ":white_large_square:",
+		[" "] = "⠀",
 
 		["a"] = ":regional_indicator_a:",
 		["b"] = ":regional_indicator_b:",
