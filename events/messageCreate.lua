@@ -55,11 +55,13 @@ client:on("messageCreate",
 			data.guildLang = guildLang
 			data.prefix = guildData:raw().prefix
 
-			-- Caso o bot for mencionado, retorna o prefixo definido no servidor
+		-- Caso o bot for mencionado, retorna o prefixo definido no servidor
+		if not (data.args[2]) then
 			if data.message.mentionedUsers.first == client.user then
 				bird:post(localize("${guildPrefix}", guildLang, data.prefix), nil, data.channel)
 				return true
 			end
+		end
 
 			-- Verifica se o usuário está mutado
 			if muteData then
@@ -233,12 +235,6 @@ client:on("messageCreate",
 			-- não ocorram problemas com a thread principal, e caso ocorrer,
 			-- retorna um log detalhado no console para análise e tratativa
 			local success, commandError = pcall(commandData.func, data)
-
-			--[[
-			if guildData then
-				guildData:close()
-			end
-			]]
 
 			-- Cria o relatório de erro
 			if not success then

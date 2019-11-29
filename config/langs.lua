@@ -939,10 +939,10 @@ langs = {
 		["pt-br"] = "Clique aqui para ativar o compartilhamento",
 	},
 
-	-- Frases e Respostas
+	-- Frases e 
 	["guildPrefix"] = {
-		["en-us"] = "The prefix for this guild is: `%s`",
-		["pt-br"] = "O prefixo dessa guilda é: `%s`",
+		["en-us"] = "My prefix in this guild is: `%s`",
+		["pt-br"] = "Meu prefix nesta guild é: `%s`",
 	},
 
 	["scriptErrorFor"] = {

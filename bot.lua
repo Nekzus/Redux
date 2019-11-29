@@ -162,7 +162,7 @@ end
 
 function loadFile(path) -- Função principal para carregar arquivos que estão presentes em um caminho pré-definido
 	local file = fs.readFileSync(path)
-	local fileName = path:split("/")[-1]
+	local fileName = path:split("/")
 
 	if fileName then
 		fileName = fileName[#fileName]
