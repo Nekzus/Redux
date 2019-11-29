@@ -1,15 +1,22 @@
 --[[
 	Parte responsável por criar ou retornar caminhos conforme é feito o acesso
-	dentro de um vetor.
+	dentro de uma table.
+
 
 	Exemplo:
 
-	local recipes = cache() -- or cache({})
-	local cakeRecipe = receitas:get("cake/ingredients")
+	local crafting = cache() -- cache{}
+	local spear = crafting:get("spear/items")
 
-	cakeRecipe:set("milk", "1lt")
-	cakeRecipe:set("egg", "4un")
-	cakeRecipe:set("butter", "200g")
+	spear:set("stick", 2)
+	spear:set("stone", 1)
+
+	for key, value in next, spear:raw() do
+	print(key, value)
+	end
+
+	>> stick  2
+	>> stone  1
 ]]
 
 -- Cria um construtor para registrar os métodos e metamétodos
@@ -17,7 +24,107 @@ local _cache = {}
 _cache.__index = _cache
 
 -- Função para realizar o acesso e a criação dentro do vetor passado
-function access(list, paths, default, delete)
+function access(list, paths, default)
+	assert(list and type(list) == "table", "List must be a table in access")
+	assert(paths and type(paths) == "string", "Paths must be a string path for access")
+
+	local result = {}
+
+	for _, path in next, paths:split(";") do
+		local last = list
+
+		for _, dir in next, path:split("/") do
+			local inners = dir:split(",")
+
+			if #inners == 1 then
+				local inner = inners[1]
+
+				if last[inner] then
+					if last[inner] == false then
+						last[inner] = false
+					end
+				elseif default ~= nil then
+					last[inner] = default
+				end
+
+				last = last[inner]
+			else
+				for _, inner in next, inners do
+					if last[inner] then
+						last = last[inner]
+					else
+						last[inner] = {}
+						last = last[dir]
+					end
+				end
+			end
+		end
+
+		insert(result, last)
+	end
+
+	return unpack(result)
+end
+
+-- Função construtora que retorna ou cria os métodos dentro de uma table
+function _cache:__call(list)
+	assert(self.list == nil, "Thread already exists")
+	list = list and type(list) == "table" and list or {}
+
+	return setmetatable({
+		list = list
+	}, _cache)
+end
+
+-- Retorna o acesso dentro de uma table após a criação conforme passada a string
+function _cache:get(paths, default)
+	assert(self.list, "Must create thread first")
+	assert(paths, "Must provide a valid path")
+
+	local result = access(self.list, paths, default or {})
+
+	if result then
+		if type(result) == "table" then
+			return setmetatable({
+				list = result,
+			}, _cache)
+		else
+			return result
+		end
+	else
+		return false
+	end
+end
+
+-- Define uma chave e um valor dentro de uma table durante o acesso
+function _cache:set(key, value)
+	assert(self.list, "Must create thread first")
+	assert(key, "Must provide a valid key")
+
+	self.list[key] = value
+	return self.list[key] or value
+end
+
+-- Retorna a table principal que contém os dados modificados do objeto
+function _cache:raw()
+	assert(self.list, "Must create thread first")
+
+	return self.list
+end
+
+-- Registra o processo
+cache = setmetatable({}, _cache)
+
+-- Retorna o processo para confirmar que houve a execução sem erros
+return cache
+
+--[[
+-- Cria um construtor para registrar os métodos e metamétodos
+local _cache = {}
+_cache.__index = _cache
+
+-- Função para realizar o acesso e a criação dentro do vetor passado
+function access(list, paths, default)
 	assert(list and type(list) == "table", "List must be a table in access()")
 	assert(paths and type(paths) == "string", "Paths must be a string path for access()")
 
@@ -34,9 +141,7 @@ function access(list, paths, default, delete)
 			if #inners == 1 then
 				local inner = inners[1]
 
-				if delete then
-					last[inner] = nil
-				elseif last[inner] then
+				if last[inner] then
 					if last[inner] == false then
 						last[inner] = false
 					end
@@ -124,3 +229,4 @@ cache = setmetatable({}, _cache)
 
 -- Retorna o processo para confirmar que houve a execução sem erros
 return cache
+]]
