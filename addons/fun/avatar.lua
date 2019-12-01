@@ -22,17 +22,17 @@ local _function = function(data)
 	if specifiesUser(data.message) then
 		embed:title(localize("${avatarFor}", guildLang, member.tag))
 		embed:description(localize("${clickOpenInBrowser}", guildLang, member:getAvatarURL()))
-		embed:image(member:getAvatarURL())
+		embed:image(format("%s?size=1024"member:getAvatarURL()))
 		embed:color(paint("blue"))
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
 		bird:post(nil, embed:raw(), data.channel)
-		
+
 	else
 		embed:title(localize("${avatarFor}", guildLang, data.author.tag))
 		embed:description(localize("${clickOpenInBrowser}", guildLang, authorAvatar))
-		embed:image(authorAvatar)
+		embed:image(format("%s?size=1024", authorAvatar))
 		embed:color(paint("blue"))
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
