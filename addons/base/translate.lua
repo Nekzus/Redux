@@ -237,6 +237,12 @@ local _function = function(data)
 	else
 		local translateResult = apiGoogleTranslate(translateLang, urlEncode(translateTerms))
 
+		if decoy == nil then
+			decoy = bird:post(nil, embed:raw(), data.channel)
+		else
+			decoy:update(nil, embed:raw())
+		end
+
 		if translateResult == nil or translateResult.data == nil then
 			local text = localize("${couldNotFindTerms}", guildLang, translateLang)
 			local embed = replyEmbed(text, data.message, "warn")
