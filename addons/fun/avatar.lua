@@ -22,7 +22,7 @@ local _function = function(data)
 	if specifiesUser(data.message) then
 		embed:title(localize("${avatarFor}", guildLang, member.tag))
 		embed:description(localize("${clickOpenInBrowser}", guildLang, member:getAvatarURL()))
-		embed:image(format("%s?size=1024"member:getAvatarURL()))
+		embed:image(format("%s?size=1024", member:getAvatarURL()))
 		embed:color(paint("blue"))
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
