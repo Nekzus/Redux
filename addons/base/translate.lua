@@ -233,21 +233,14 @@ local _function = function(data)
 		end
 
 		showPage()
-
 	else
 		local translateResult = apiGoogleTranslate(translateLang, urlEncode(translateTerms))
-
-		if decoy == nil then
-			decoy = bird:post(nil, embed:raw(), data.channel)
-		else
-			decoy:update(nil, embed:raw())
-		end
 
 		if translateResult == nil or translateResult.data == nil then
 			local text = localize("${couldNotFindTerms}", guildLang, translateLang)
 			local embed = replyEmbed(text, data.message, "warn")
 
-			decoy:update(nil, embed:raw())
+			bird:post(nil, embed:raw(), data.channel)
 
 			return false
 		end
@@ -261,7 +254,7 @@ local _function = function(data)
 			local text = localize("${couldNotFindTerms}", guildLang, translateLang)
 			local embed = replyEmbed(text, data.message, "error")
 
-			decoy:update(nil, embed:raw())
+			bird:post(nil, embed:raw(), data.channel)
 
 			return false
 		end
