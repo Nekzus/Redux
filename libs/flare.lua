@@ -3,14 +3,14 @@
 ]]
 
 -- Cria um construtor para registrar os métodos e metamétodos
-local main = {}
-main.__index = main
+local methods = {}
+local metatable = {}
 
 -- Cria uma nova seed para o gerador pseudo-random
 randomSeed(os.time())
 
 -- Função construtora que cria um novo objeto 'flare' para ser usado
-function main:__call(first, ...)
+function metatable:__call(first, ...)
 	if self.mode == 1 then
 		for _, func in next, self.tasks do
 			func(first, ...)
@@ -30,11 +30,20 @@ function main:__call(first, ...)
 	return setmetatable({
 		mode = max(0, min(2, first or 1)),
 		tasks = {}
-	}, main)
+	}, metatable)
+end
+
+-- Associa os métodos ao objeto
+function metatable:__index(key)
+	local method = rawget(methods, key)
+
+	if method then
+		return method
+	end
 end
 
 -- Registra um novo callback
-function main:task(func)
+function methods:task(func)
 	local index = tostring(func)
 	local tasks = self.tasks
 	local ret = {}
@@ -49,7 +58,7 @@ function main:task(func)
 end
 
 -- Limpa todos os callbacks atualmente registrados
-function main:flush()
+function methods:flush()
 	for k, v in next, self.tasks do
 		self.tasks[k] = nil
 	end
@@ -58,7 +67,7 @@ function main:flush()
 end
 
 -- Registra o processo
-flare = setmetatable({}, main)
+flare = setmetatable(methods, metatable)
 
 -- Retorna o processo para confirmar que houve a execução sem erros
 return flare

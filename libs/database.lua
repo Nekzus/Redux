@@ -167,7 +167,7 @@ function metatable:__call(path)
 	return result
 end
 
---
+-- Associa os métodos ao objeto
 function metatable:__index(key)
 	local method = rawget(methods, key)
 

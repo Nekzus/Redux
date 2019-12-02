@@ -19,4 +19,4 @@ function newCode()
 	return codeSequence("xxxxxyxxxxxyxxxxxyxxxxxyxxxxx")
 end
 
-return newGuid
+return true

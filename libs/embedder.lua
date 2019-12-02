@@ -3,20 +3,29 @@
 ]]
 
 -- Cria um construtor para registrar os métodos e metamétodos
-local main = {}
-main.__index = main
+local methods = {}
+local metatable = {}
 
 -- Função construtora que cria um novo objeto 'embed' para ser editado
-function main:__call(data)
-	assert(self.embed == nil, "Embed already exists, cannot create a new")
+function metatable:__call(data)
+	assert(self.embed == nil, "Embed already exists, can only use the methods")
 
 	return setmetatable({
 		embed = data or {},
-	}, main)
+	}, metatable)
+end
+
+-- Associa os métodos ao objeto
+function metatable:__index(key)
+	local method = rawget(methods, key)
+
+	if method then
+		return method
+	end
 end
 
 -- Define o nome para o campo autor
-function main:author(text)
+function methods:author(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 	assert(text and type(text), "Text must be a string in author()")
 
@@ -27,7 +36,7 @@ function main:author(text)
 end
 
 -- Define uma imagem miniatura para o autor
-function main:authorImage(text)
+function methods:authorImage(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 	assert(text and type(text), "Text must be a string in authorImage()")
 
@@ -38,7 +47,7 @@ function main:authorImage(text)
 end
 
 -- Define um direcionamento de link ao clicar no nome do autor
-function main:authorUrl(text)
+function methods:authorUrl(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 	assert(text and type(text), "Text must be a string in authorUrl()")
 
@@ -49,7 +58,7 @@ function main:authorUrl(text)
 end
 
 -- Define a cor do tema do embed conforme a cor que for passada em text
-function main:color(r, g, b)
+function methods:color(r, g, b)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	-- Quebra o texto em partes conforme o padrão de cores em config.patterns.colorRGB
@@ -59,7 +68,7 @@ function main:color(r, g, b)
 end
 
 -- Define um novo objeto de imagem miniatura
-function main:thumbnail(text)
+function methods:thumbnail(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.thumbnail = embed.thumbnail or {}
@@ -69,7 +78,7 @@ function main:thumbnail(text)
 end
 
 -- Define um novo objeto de imagem para cobrir o centro
-function main:image(text)
+function methods:image(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.image = embed.image or {}
@@ -79,7 +88,7 @@ function main:image(text)
 end
 
 -- Define um texto para o rodapé
-function main:footer(text)
+function methods:footer(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.footer = embed.footer or {}
@@ -89,7 +98,7 @@ function main:footer(text)
 end
 
 -- Define um icone para o rodapé
-function main:footerIcon(text)
+function methods:footerIcon(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.footer = embed.footer or {}
@@ -99,7 +108,7 @@ function main:footerIcon(text)
 end
 
 -- Define o título do embed
-function main:title(text)
+function methods:title(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.title = text
@@ -108,7 +117,7 @@ function main:title(text)
 end
 
 -- Define o horário do embed
-function main:timestamp(text)
+function methods:timestamp(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.timestamp = text
@@ -117,7 +126,7 @@ function main:timestamp(text)
 end
 
 -- Define uma descrição
-function main:description(text)
+function methods:description(text)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.description = text
@@ -126,7 +135,7 @@ function main:description(text)
 end
 
 -- Define um novo campo dentro do embed
-function main:field(field)
+function methods:field(field)
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	embed.fields = embed.fields or {}
@@ -136,12 +145,12 @@ function main:field(field)
 end
 
 -- Retorna as informações cruas do embed
-function main:raw()
+function methods:raw()
 	return assert(self.embed, "Must create an embed first with constructor")
 end
 
 -- Registra o processo
-newEmbed = setmetatable({}, main)
+newEmbed = setmetatable(methods, metatable)
 
 -- Retorna o processo para confirmar que houve a execução sem erros
 return newEmbed

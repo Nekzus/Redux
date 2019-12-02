@@ -20,8 +20,8 @@
 ]]
 
 -- Cria um construtor para registrar os métodos e metamétodos
-local _cache = {}
-_cache.__index = _cache
+local methods = {}
+local metatable = {}
 
 -- Função para realizar o acesso e a criação dentro do vetor passado
 function access(list, paths, default)
@@ -67,17 +67,27 @@ function access(list, paths, default)
 end
 
 -- Função construtora que retorna ou cria os métodos dentro de uma table
-function _cache:__call(list)
+function metatable:__call(list)
 	assert(self.list == nil, "Thread already exists")
+
 	list = list and type(list) == "table" and list or {}
 
 	return setmetatable({
 		list = list
-	}, _cache)
+	}, metatable)
+end
+
+-- Associa os métodos ao objeto
+function metatable:__index(key)
+	local method = rawget(methods, key)
+
+	if method then
+		return method
+	end
 end
 
 -- Retorna o acesso dentro de uma table após a criação conforme passada a string
-function _cache:get(paths, default)
+function methods:get(paths, default)
 	assert(self.list, "Must create thread first")
 	assert(paths, "Must provide a valid path")
 
@@ -87,7 +97,7 @@ function _cache:get(paths, default)
 		if type(result) == "table" then
 			return setmetatable({
 				list = result,
-			}, _cache)
+			}, metatable)
 		else
 			return result
 		end
@@ -97,23 +107,24 @@ function _cache:get(paths, default)
 end
 
 -- Define uma chave e um valor dentro de uma table durante o acesso
-function _cache:set(key, value)
+function methods:set(key, value)
 	assert(self.list, "Must create thread first")
 	assert(key, "Must provide a valid key")
 
 	self.list[key] = value
+
 	return self.list[key] or value
 end
 
 -- Retorna a table principal que contém os dados modificados do objeto
-function _cache:raw()
+function methods:raw()
 	assert(self.list, "Must create thread first")
 
 	return self.list
 end
 
 -- Registra o processo
-cache = setmetatable({}, _cache)
+cache = setmetatable(methods, metatable)
 
 -- Retorna o processo para confirmar que houve a execução sem erros
 return cache
