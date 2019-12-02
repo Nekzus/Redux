@@ -143,7 +143,7 @@ function append(...)
     return format(rep("%s", #args), ...)
 end
 
-function runDOS(cmd, raw) -- Função para rodar comandos no console e retornar os resultados
+function dos(cmd, raw) -- Função para rodar comandos no console e retornar os resultados
   local func = assert(io.popen(cmd, 'r'))
   local result = assert(func:read('*a'))
 
