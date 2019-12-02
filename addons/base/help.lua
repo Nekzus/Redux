@@ -188,22 +188,22 @@ local _function = function(data)
 		embed:field({
 			name = format("%s %s (base)", baseEmoji.mentionString, localize("${base}", guildLang)),
 			value = localize("${categoryDescBase}", guildLang),
-			inline = true,
+			inline = false,
 		})
 		embed:field({
 			name = format("%s %s (economy)", economyEmoji.mentionString, localize("${economy}", guildLang)),
 			value = localize("${categoryDescEconomy}", guildLang),
-			inline = true,
+			inline = false,
 		})
 		embed:field({
 			name = format("%s %s (fun)", entertainmentEmoji.mentionString, localize("${fun}", guildLang)),
 			value = localize("${categoryDescFun}", guildLang),
-			inline = true,
+			inline = false,
 		})
 		embed:field({
 			name = format("%s %s (moderation)", moderationEmoji.mentionString, localize("${moderation}", guildLang)),
 			value = localize("${categoryDescModeration}", guildLang),
-			inline = true,
+			inline = false,
 		})
 
 		if not decoy then
