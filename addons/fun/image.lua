@@ -59,7 +59,7 @@ local _function = function(data)
 		local embed = newEmbed()
 
 		embed:image(item.link)
-		embed:color(paint("blue"))
+		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 

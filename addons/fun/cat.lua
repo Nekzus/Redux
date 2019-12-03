@@ -21,7 +21,7 @@ local _function = function(data)
 
 	if result then
 		embed:image(result)
-		embed:color(paint("blue"))
+		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -29,7 +29,7 @@ local _function = function(data)
 		return true
 	else
 		embed:description(localize("${couldNotProcess}", guildLang))
-		embed:color(paint("red"))
+		embed:color(paint.error)
 		embed:footerIcon(config.images.error)
 
 		bird:post(nil, embed:raw(), data.channel)

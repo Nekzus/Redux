@@ -243,7 +243,7 @@ client:on("messageCreate",
 				embed:title(localize("${scriptErrorFor}", guildLang, commandName))
 				embed:description(commandError)
 				signFooter(embed, data.author, guildLang)
-				embed:color(paint("red"))
+				embed:color(paint.error)
 				embed:footerIcon(config.images.error)
 
 				bird:post(nil, embed:raw(), data.channel)

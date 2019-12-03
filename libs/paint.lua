@@ -30,4 +30,6 @@ paint.error = {244, 67, 54}
 paint.no = {216, 67, 21}
 paint.info = {33, 150, 243}
 
+paint.robloxRed = {220, 0, 0}
+
 return paint
