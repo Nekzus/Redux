@@ -3,11 +3,11 @@
 ]]
 
 -- Cria um construtor para registrar os métodos e metamétodos
-local main = {}
-main.__index = main
+local methods = {}
+local metatable = {}
 
 -- Função para postar mensagens, age como um construtor que retorna métodos que podem ser utilizados
-function main:post(text, embed, channel)
+function methods:post(text, embed, channel)
 	local reply = {}
 
 	if text then
@@ -22,18 +22,18 @@ function main:post(text, embed, channel)
 
 	return setmetatable({
 		message = channel:send(reply)
-	}, main)
+	}, metatable)
 end
 
 -- Retorna o objeto da mensagem que foi registrada ao chamar o método construtor
-function main:getMessage()
-	assert(self.message, "Must create main context with :post() first")
+function methods:getMessage()
+	assert(self.message, "Must create main context with post first")
 	return self.message
 end
 
 -- Atualiza os itens do conteúdo do objeto que foram postados
-function main:update(content, embed)
-	assert(self.message, "Must create main context with :post() first")
+function methods:update(content, embed)
+	assert(self.message, "Must create main context with post first")
 
 	if embed ~= true then
 		self.message:setEmbed(embed)
@@ -44,53 +44,37 @@ function main:update(content, embed)
 	end
 end
 
---[[
-function main:update(content, embed)
-	assert(self.message, "Must create main context with :post() first")
-
-	local reply = {}
-
-	if embed then
-		assert(type(embed) == "table", "Embed must be a table")
-		reply.embed = embed
-	end
-
-	if text then
-		assert(type(text) == "string", "Text must be a string")
-		reply.content = text
-	end
-
-	print(self.message:update(reply))
-end
-]]
-
 -- Deleta o conteúdo do objeto
-function main:delete()
-	assert(self.message, "Must create main context with :post() first")
+function methods:delete()
+	assert(self.message, "Must create main context with post first")
+
 	return self.message:delete()
 end
 
 -- Adiciona uma reação ao conteúdo do objeto
-function main:addReaction(emoji)
-	assert(self.message, "Must create main context with :post() first")
+function methods:addReaction(emoji)
+	assert(self.message, "Must create main context with post first")
+
 	return self.message:addReaction(emoji)
 end
 
 -- Remove uma reação do conteúdo do objeto
-function main:removeReaction(emoji, userId)
-	assert(self.message, "Must create main context with :post() first")
+function methods:removeReaction(emoji, userId)
+	assert(self.message, "Must create main context with post first")
+
 	return self.message:removeReaction(emoji, userId)
 end
 
 -- Limpa todas as reações que foram adicionadas ao conteúdo do objeto
-function main:clearReacts()
-	assert(self.message, "Must create main context with :post() first")
+function methods:clearReacts()
+	assert(self.message, "Must create main context with post first")
+	
 	return self.message:clearReactions()
 end
 
 -- Fixa a mensagem no canal em que o conteúdo do objeto foi postado
-function main:pin()
-	assert(self.message, "Must create main context with :post() first")
+function methods:pin()
+	assert(self.message, "Must create main context with post first")
 
 	local message = self.message
 	local channel = message.channel
@@ -104,8 +88,8 @@ function main:pin()
 end
 
 -- Remove a mensagem das mensagens fixas no canal que o conteúdo do objeto foi postado
-function main:unpin()
-	assert(self.message, "Must create main context with :post() first")
+function methods:unpin()
+	assert(self.message, "Must create main context with post first")
 
 	local message = self.message
 
@@ -116,8 +100,17 @@ function main:unpin()
 	return true
 end
 
+-- Associa os métodos ao objeto
+function metatable:__index(key)
+	local method = rawget(methods, key)
+
+	if method then
+		return method
+	end
+end
+
 -- Registra o processo
-bird = main
+bird = setmetatable(methods, metatable)
 
 -- Retorna o processo para confirmar que houve a execução sem erros
 return bird

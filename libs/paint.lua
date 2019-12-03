@@ -1,28 +1,33 @@
-local main = {}
-main.__index = main
+local methods = {}
+local metatable = {}
+local pool = {}
 
-main.map = {
-	red = {244, 67, 54},
-	red2 = {216, 67, 21},
-	red3 = {220, 0, 0},
-	green = {76, 175, 80},
-	yellow = {255, 202, 40},
-	blue = {33, 150, 243},
-	grey = {249, 239, 239},
-	grey2 = {177, 177, 177},
-	black = {0, 0, 0},
-}
-
-function main:__call(text)
-	local color = self.map[text]
-
-	if color then
-		return unpack(color)
-	else
-		return unpack(self.map.grey2)
-	end
+function methods:getList()
+	return pool
 end
 
-paint = setmetatable({}, main)
+function metatable:__index(key)
+  return rawget(pool, key)
+end
+
+function metatable:__newindex(key, value)
+  return rawset(pool, key, value)
+end
+
+paint = setmetatable(methods, metatable)
+
+paint.red = {255, 0, 0}
+paint.green = {0, 255, 0}
+paint.blue = {0, 0, 255}
+paint.white = {255, 255, 255}
+paint.black = {0, 0, 0}
+paint.grey = {128, 128, 128}
+paint.yellow = {255, 255, 0}
+
+paint.ok = {76, 175, 80}
+paint.warn = {255, 202, 40}
+paint.error = {244, 67, 54}
+paint.no = {216, 67, 21}
+paint.info = {33, 150, 243}
 
 return paint
