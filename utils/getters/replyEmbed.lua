@@ -5,7 +5,7 @@ function replyEmbed(text, message, method)
 	local guildLang = guildData and guildData:get("lang") or config.defaultGuild.lang
 	local color = paint[method] or paint.grey
 
-	embed:color(unpack(color))
+	embed:color(color)
 	embed:footerIcon(config.images[method] or message.author.avatarURL)
 	signFooter(embed, message.author, guildLang)
 
