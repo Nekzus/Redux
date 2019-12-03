@@ -26,6 +26,7 @@ local _function = function(data)
 	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
 	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 
+	local decoy
 	local firstTime = true
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
 	local searchResult = apiWiki(searchTerms, sub(guildLang, 1, 2))
@@ -34,7 +35,7 @@ local _function = function(data)
 	local page = 1
 	local pages = list and #list or 1
 
-	if not list or list.definition == nil then
+	if list == nil then
 		local text = localize("${couldNotFindTerms}", guildLang, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
@@ -44,7 +45,7 @@ local _function = function(data)
 	end
 
 	local function showPage()
-		local item = list--list[page]
+		local item = list[page]
 
 		if not item then
 			local text = localize("${couldNotFindTerms}", guildLang, searchTerms)
@@ -67,11 +68,43 @@ local _function = function(data)
 			item.definition
 		))
 
-		embed:color(paint("blue"))
+		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
-		bird:post(nil, embed:raw(), data.channel)
+		if decoy then
+			decoy:update(nil, embed:raw())
+		else
+			decoy = bird:post(nil, embed:raw(), data.channel)
+		end
+
+		if firstTime == true then
+			firstTime = false
+			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
+
+			blinker:on(arwDown.id, function()
+				page = min(pages, page + 1)
+
+				if not private then
+					decoy:removeReaction(arwDown, data.user.id)
+				end
+
+				showPage()
+			end)
+
+			blinker:on(arwUp.id, function()
+				page = max(1, page - 1)
+
+				if not private then
+					decoy:removeReaction(arwUp, data.user.id)
+				end
+
+				showPage()
+			end)
+
+			decoy:addReaction(arwDown)
+			decoy:addReaction(arwUp)
+		end
 	end
 
 	showPage()

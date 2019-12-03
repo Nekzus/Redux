@@ -38,7 +38,7 @@ local _function = function(data)
 	-- embed:description(append(unpack(list)))
 	embed:description(format("```%s```", text))
 
-	embed:color(paint("blue"))
+	embed:color(paint.info)
 	embed:footerIcon(config.images.info)
 	signFooter(embed, data.author, guildLang)
 

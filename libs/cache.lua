@@ -66,26 +66,6 @@ function access(list, paths, default)
 	return unpack(result)
 end
 
--- Função construtora que retorna ou cria os métodos dentro de uma table
-function metatable:__call(list)
-	assert(self.list == nil, "Thread already exists")
-
-	list = list and type(list) == "table" and list or {}
-
-	return setmetatable({
-		list = list
-	}, metatable)
-end
-
--- Associa os métodos ao objeto
-function metatable:__index(key)
-	local method = rawget(methods, key)
-
-	if method then
-		return method
-	end
-end
-
 -- Retorna o acesso dentro de uma table após a criação conforme passada a string
 function methods:get(paths, default)
 	assert(self.list, "Must create thread first")
@@ -121,6 +101,26 @@ function methods:raw()
 	assert(self.list, "Must create thread first")
 
 	return self.list
+end
+
+-- Função construtora que retorna ou cria os métodos dentro de uma table
+function metatable:__call(list)
+	assert(self.list == nil, "Thread already exists")
+
+	list = list and type(list) == "table" and list or {}
+
+	return setmetatable({
+		list = list
+	}, metatable)
+end
+
+-- Associa os métodos ao objeto
+function metatable:__index(key)
+	local method = rawget(methods, key)
+
+	if method then
+		return method
+	end
 end
 
 -- Registra o processo

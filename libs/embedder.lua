@@ -58,11 +58,12 @@ function methods:authorUrl(text)
 end
 
 -- Define a cor do tema do embed conforme a cor que for passada em text
-function methods:color(r, g, b)
+function methods:color(list)
+	assert(list and type(list) == "table" and #list == 3, "List must include three elements")
 	local embed = assert(self.embed, "Must create an embed first with constructor")
 
 	-- Quebra o texto em partes conforme o padrão de cores em config.patterns.colorRGB
-	embed.color = discordia.Color.fromRGB(r, g, b).value
+	embed.color = discordia.Color.fromRGB(unpack(list)).value
 
 	return self
 end

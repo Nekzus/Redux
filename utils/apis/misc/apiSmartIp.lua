@@ -1,5 +1,5 @@
 function apiSmartIp(text)
-	local data, request = httpGet("smartIp", {config.apiKeys.smartIpKey, text})
+	local data, request = httpGet("smartIp", {text, config.apiKeys.smartIpKey})
 	local decode = json.decode(request)
 
 	if not decode then

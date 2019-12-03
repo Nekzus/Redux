@@ -14,7 +14,7 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local args = data.args
 
-	if not args[2] then
+	if not (args[2]) then
 		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 

@@ -23,6 +23,7 @@ local _function = function(data)
 		return false
 	end
 
+	local topicEmoji = getEmoji(config.emojis.topic, "name", baseGuild)
 	local arwUp = getEmoji(config.emojis.arwUp, "name", baseGuild)
 	local arwDown = getEmoji(config.emojis.arwDown, "name", baseGuild)
 
@@ -30,9 +31,9 @@ local _function = function(data)
 	local firstTime = true
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
 	local searchResult = apiSmartIp(searchTerms)
-	local list = {}
+	local list = searchResult
 
-	if searchResult == nil or searchResult.list == nil then
+	if list == nil then
 		local text = localize("${couldNotFindTerms}", guildLang, searchTerms)
 		local embed = replyEmbed(text, data.message, "warn")
 
@@ -44,42 +45,42 @@ local _function = function(data)
 	if searchResult["status-code"] == 200 then
 		local geoData = searchResult["geo"]
 		local geoDesc = ""
-		geoDesc = localize("%s\n${latitude}: %s", guildLang, geoDesc, geoData["latitude"])
-		geoDesc = localize("%s\n${longitude}: %s", guildLang, geoDesc, geoData["longitude"])
-		geoDesc = localize("%s\n${zipCode}: %s", guildLang, geoDesc, geoData["zip-code"])
-		geoDesc = localize("%s\n${city}: %s", guildLang, geoDesc, geoData["city"])
-		geoDesc = localize("%s\n${regionCode}: %s", guildLang, geoDesc, geoData["region-code"])
-		geoDesc = localize("%s\n${regionName}: %s", guildLang, geoDesc, geoData["region-name"])
-		geoDesc = localize("%s\n${continentCode}: %s", guildLang, geoDesc, geoData["continent-code"])
-		geoDesc = localize("%s\n${continentName}: %s", guildLang, geoDesc, geoData["continent-name"])
-		geoDesc = localize("%s\n${capital}: %s", guildLang, geoDesc, geoData["capital"])
-		geoDesc = localize("%s\n${countryName}: %s", guildLang, geoDesc, geoData["country-name"])
-		geoDesc = localize("%s\n${countryISOCode}: %s", guildLang, geoDesc, geoData["country-iso-code"])
+		geoDesc = localize("%s\n%s **${latitude}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["latitude"] or "-")
+		geoDesc = localize("%s\n%s **${longitude}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["longitude"] or "-")
+		geoDesc = localize("%s\n%s **${zipCode}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["zip-code"] or "-")
+		geoDesc = localize("%s\n%s **${city}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["city"] or "-")
+		geoDesc = localize("%s\n%s **${regionCode}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["region-code"] or "-")
+		geoDesc = localize("%s\n%s **${regionName}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["region-name"] or "-")
+		geoDesc = localize("%s\n%s **${continentCode}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["continent-code"] or "-")
+		geoDesc = localize("%s\n%s **${continentName}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["continent-name"] or "-")
+		geoDesc = localize("%s\n%s **${capital}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["capital"] or "-")
+		geoDesc = localize("%s\n%s **${countryName}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["country-name"] or "-")
+		geoDesc = localize("%s\n%s **${countryISOCode}:** %s", guildLang, geoDesc, topicEmoji.mentionString, geoData["country-iso-code"] or "-")
 		list[1] = geoDesc
 
 		local asnData = searchResult["asn"]
 		local asnDesc = ""
-		asnDesc = localize("%s\n${name}: %s", guildLang, asnDesc, asnData["name"])
-		asnDesc = localize("%s\n${type}: %s", guildLang, asnDesc, asnData["type"])
-		asnDesc = localize("%s\n${domain}: %s", guildLang, asnDesc, asnData["domain"])
-		asnDesc = localize("%s\n${organization}: %s", guildLang, asnDesc, asnData["organization"])
-		asnDesc = localize("%s\n${asn}: %s", guildLang, asnDesc, asnData["asn"])
+		asnDesc = localize("%s\n%s **${name}:** %s", guildLang, asnDesc, topicEmoji.mentionString, asnData["name"] or "-")
+		asnDesc = localize("%s\n%s **${type}:** %s", guildLang, asnDesc, topicEmoji.mentionString, asnData["type"] or "-")
+		asnDesc = localize("%s\n%s **${domain}:** %s", guildLang, asnDesc, topicEmoji.mentionString, asnData["domain"] or "-")
+		asnDesc = localize("%s\n%s **${organization}:** %s", guildLang, asnDesc, topicEmoji.mentionString, asnData["organization"] or "-")
+		asnDesc = localize("%s\n%s **${asn}:** %s", guildLang, asnDesc, topicEmoji.mentionString, asnData["asn"] or "-")
 		list[2] = asnDesc
 
 		local currencyData = searchResult["currency"]
 		local currencyDesc = ""
-		currencyDesc = localize("%s\n${nativeName}: %s", guildLang, currencyDesc, currencyData["native-name"])
-		currencyDesc = localize("%s\n${code}: %s", guildLang, currencyDesc, currencyData["code"])
-		currencyDesc = localize("%s\n${name}: %s", guildLang, currencyDesc, currencyData["name"])
-		currencyDesc = localize("%s\n${symbol}: %s", guildLang, currencyDesc, currencyData["symbol"])
+		currencyDesc = localize("%s\n%s **${nativeName}:** %s", guildLang, currencyDesc, topicEmoji.mentionString, currencyData["native-name"] or "-")
+		currencyDesc = localize("%s\n%s **${code}:** %s", guildLang, currencyDesc, topicEmoji.mentionString, currencyData["code"] or "-")
+		currencyDesc = localize("%s\n%s **${name}:** %s", guildLang, currencyDesc, topicEmoji.mentionString, currencyData["name"] or "-")
+		currencyDesc = localize("%s\n%s **${symbol}:** %s", guildLang, currencyDesc, topicEmoji.mentionString, currencyData["symbol"] or "-")
 		list[3] = currencyDesc
 
 		local tzData = searchResult["timezone"]
 		local tzDesc = ""
-		tzDesc = localize("%s\n${isDaylightSaving}: %s", guildLang, tzDesc, tzData["is-daylight-saving"])
-		tzDesc = localize("%s\n${gmtOffset}: %s", guildLang, tzDesc, tzData["gmt-offset"])
-		tzDesc = localize("%s\n${microsoftName}: %s", guildLang, tzDesc, tzData["microsoft-name"])
-		tzDesc = localize("%s\n${iana}: %s", guildLang, tzDesc, tzData["iana-name"])
+		tzDesc = localize("%s\n%s **${isDaylightSaving}:** %s", guildLang, tzDesc, topicEmoji.mentionString, tzData["is-daylight-saving"] or "-")
+		tzDesc = localize("%s\n%s **${gmtOffset}:** %s", guildLang, tzDesc, topicEmoji.mentionString, tzData["gmt-offset"] or "-")
+		tzDesc = localize("%s\n%s **${microsoftName}:** %s", guildLang, tzDesc, topicEmoji.mentionString, tzData["microsoft-name"] or "-")
+		tzDesc = localize("%s\n%s **${iana}:** %s", guildLang, tzDesc, topicEmoji.mentionString, tzData["iana-name"] or "-")
 		list[4] = tzDesc
 	end
 
@@ -99,10 +100,10 @@ local _function = function(data)
 		end
 
 		local embed = newEmbed()
-		embed:title(localize("${ipInfo}: %s", guildLang, searchResult["ip"]))
+		embed:title(localize("${ipInfo} (%s/%s): %s", guildLang, page, pages, searchResult["ip"]))
 		embed:description(item)
 
-		embed:color(paint("blue"))
+		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 

@@ -46,7 +46,10 @@ local _function = function(data)
 		active = false
 		counter = counter + 1
 		blinker:clear()
-		decoy:clearReacts()
+
+		if not private then
+			decoy:clearReacts()
+		end
 	end
 
 	renderCategory = function(category)
@@ -82,7 +85,7 @@ local _function = function(data)
 
 			local embed = newEmbed()
 
-			embed:color(paint("blue"))
+			embed:color(paint.info)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
@@ -107,7 +110,7 @@ local _function = function(data)
 			embed:title(localize("${commands} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
 			embed:description(result ~= "" and result or localize("${noResults}", guildLang))
 
-			embed:color(paint("blue"))
+			embed:color(paint.info)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, data.author, guildLang)
 
@@ -181,7 +184,7 @@ local _function = function(data)
 		embed:title(client.user.name)
 		embed:description(localize("${botDesc}", guildLang, client.user.name))
 
-		embed:color(paint("blue"))
+		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
@@ -212,7 +215,9 @@ local _function = function(data)
 			decoy:update(nil, embed:raw())
 		end
 
-		decoy:clearReacts()
+		if not private then
+			decoy:clearReacts()
+		end
 
 		blinker = blinker or blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
@@ -298,7 +303,7 @@ local _function = function(data)
 		embed:title(format("%s", value:lower()))
 		embed:description(format("%s", localize(command.desc, guildLang)))
 
-		embed:color(paint("blue"))
+		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
@@ -322,7 +327,7 @@ local _function = function(data)
 			value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or localize("${none}", guildLang)), inline = true
 		})
 
-		embed:color(paint("blue"))
+		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 

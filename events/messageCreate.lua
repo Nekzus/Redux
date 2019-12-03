@@ -40,7 +40,7 @@ client:on("messageCreate",
 		-- Coleta informações relevantes da guilda
 		local private = data.member == nil
 		local guildData = not private and getGuildData(data.guild)
-		local guildMutes = guildData:get("mutes")
+		local guildMutes = not private and guildData:get("mutes")
 		local guildLang = not private and guildData and guildData:get("lang") or config.defaultGuild.lang
 		local muteData = not private and guildMutes:raw()[data.member.id]
 		local botMember = not private and data.guild:getMember(client.user.id)
@@ -243,7 +243,7 @@ client:on("messageCreate",
 				embed:title(localize("${scriptErrorFor}", guildLang, commandName))
 				embed:description(commandError)
 				signFooter(embed, data.author, guildLang)
-				embed:color(paint("red"))
+				embed:color(paint.error)
 				embed:footerIcon(config.images.error)
 
 				bird:post(nil, embed:raw(), data.channel)
