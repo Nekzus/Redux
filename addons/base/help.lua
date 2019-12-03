@@ -46,7 +46,10 @@ local _function = function(data)
 		active = false
 		counter = counter + 1
 		blinker:clear()
-		decoy:clearReacts()
+
+		if not private then
+			decoy:clearReacts()
+		end
 	end
 
 	renderCategory = function(category)
@@ -212,7 +215,9 @@ local _function = function(data)
 			decoy:update(nil, embed:raw())
 		end
 
-		decoy:clearReacts()
+		if not private then
+			decoy:clearReacts()
+		end
 
 		blinker = blinker or blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
