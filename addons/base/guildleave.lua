@@ -37,8 +37,8 @@ local _function = function(data)
 		local text = localize("${successLeftGuild}", guildLang, guildName)
 		local embed = replyEmbed(text, data.message, "ok")
 
-		mentionedGuild:leave()
 		bird:post(nil, embed:raw(), data.channel)
+		mentionedGuild:leave()
 
 		return true
 	end

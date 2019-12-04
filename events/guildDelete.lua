@@ -7,8 +7,8 @@ client:on("guildDelete",
 	function(guild)
 		-- Remove os dados referentes à guilda
 		for _, data in next, {
-			getGuildData(guild.id),
-			getGuildEconomy(guild.id)
+			getGuildData(guild),
+			getGuildEconomy(guild)
 		} do
 			data:delete()
 		end
