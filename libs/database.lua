@@ -135,6 +135,8 @@ function methods:delete()
 		return false
 	end
 
+	pool[self.path] = nil
+
 	return true
 end
 
@@ -147,12 +149,16 @@ end
 
 -- Cria o construtor do objeto
 function metatable:__call(path)
+	assert(path and type(path) == "string", "Path must be a string")
+
 	if not isFile(path) then
 		writeFile(path, {})
 	end
 
-	if pool[path] then
-		return pool[path]
+	local exists = pool[path]
+
+	if exists then
+		return exists
 	end
 
 	local result = setmetatable({
