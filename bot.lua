@@ -140,6 +140,7 @@ end
 
 function append(...)
     local args = {...}
+	
     return format(rep("%s", #args), ...)
 end
 

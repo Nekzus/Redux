@@ -69,6 +69,8 @@ end
 
 -- Atualiza o último momento de utilização e carrega os dados caso não estiverem carregados
 function methods:update()
+	assert(self.path, "Must create data with constructor first")
+	
 	self.lastUpdate = os.time()
 	self.data = self.data or cache(readFile(self.path))
 end
@@ -100,25 +102,29 @@ function methods:raw()
 	return self.data:raw()
 end
 
+function methods:untrack()
+	if not self.handler:is_closing() then
+		self.handler:close()
+		self.handler = nil
+	end
+end
+
 -- Cria um rastreio para limpar os dados e salvá-los caso o objeto atual estiver
 -- inativo por muito tempo, assim, economizando memória
 function methods:track()
 	self.handler = timer.setTimeout(keepAlive * 1000, function()
+		if (self.path == nil or not isFile(self.path)) and self.handler then
+			self:untrack()
+			return false
+		end
+
 		self:save()
 
 		if ((os.time() - self.lastUpdate) > keepAlive) then
-			if not self.handler:is_closing() then
-				self.handler:close()
-				self.handler = nil
-			end
-
+			self:untrack()
 			self.data = nil
 		else
-			if not self.handler:is_closing() then
-				self.handler:close()
-				self.handler = nil
-			end
-
+			self:untrack()
 			self:track(keepAlive)
 		end
 	end)
@@ -135,6 +141,9 @@ function methods:delete()
 		return false
 	end
 
+	pool[self.path] = nil
+	self.path = nil
+
 	return true
 end
 
@@ -147,12 +156,16 @@ end
 
 -- Cria o construtor do objeto
 function metatable:__call(path)
+	assert(path and type(path) == "string", "Path must be a string")
+
 	if not isFile(path) then
 		writeFile(path, {})
 	end
 
-	if pool[path] then
-		return pool[path]
+	local exists = pool[path]
+
+	if exists then
+		return exists
 	end
 
 	local result = setmetatable({

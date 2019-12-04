@@ -6,8 +6,12 @@
 client:on("guildDelete",
 	function(guild)
 		-- Remove os dados referentes à guilda
-		getGuildData(guild.id):delete()
-		getGuildEconomy(guild.id):delete()
+		for _, data in next, {
+			getGuildData(guild),
+			getGuildEconomy(guild)
+		} do
+			data:delete()
+		end
 
 		printf("Bot has been removed or left guild %s (%s)", guild.id, guild.name)
 	end
