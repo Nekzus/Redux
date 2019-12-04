@@ -196,7 +196,7 @@ end
 @d Hides all embeds for this message.
 ]=]
 function Message:hideEmbeds()
-	local flags = bor(self._flags or 0, messageFlag.suppressEmbed)
+	local flags = bor(self._flags or 0, messageFlag.suppressEmbeds)
 	return self:_modify({flags = flags})
 end
 
@@ -207,8 +207,20 @@ end
 @d Shows all embeds for this message.
 ]=]
 function Message:showEmbeds()
-	local flags = band(self._flags or 0, bnot(messageFlag.suppressEmbed))
+	local flags = band(self._flags or 0, bnot(messageFlag.suppressEmbeds))
 	return self:_modify({flags = flags})
+end
+
+--[=[
+@m hasFlag
+@t mem
+@p flag Message-Flag-Resolvable
+@r boolean
+@d Indicates whether the message has a particular flag set.
+]=]
+function Message:hasFlag(flag)
+	flag = Resolver.messageFlag(flag)
+	return band(self._flags or 0, flag) > 0
 end
 
 --[=[
