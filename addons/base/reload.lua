@@ -29,14 +29,8 @@ local _function = function(data)
 
 	bird:post(nil, embed:raw(), data.channel)
 
-	if isLocal then
-		commands:flushList()
-		loadBot()
-	else
-		dos("start init.bat")
-		client:stop()
-		os.exit(0)
-	end
+	commands:flushList()
+	loadBot()
 
 	return true
 end
