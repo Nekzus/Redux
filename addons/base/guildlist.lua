@@ -47,7 +47,7 @@ local _function = function(data)
 			local guildName = obj.name
 
 			if #guildName > 15 then
-				guildName = format("%s...", sub(guildName, 1, 18))
+				guildName = format("%s...", sub(guildName, 1, 15))
 			end
 
 			result = localize("%s%s **%s**: `%s`", guildLang, result, topicEmoji.mentionString, guildName, obj.id)
