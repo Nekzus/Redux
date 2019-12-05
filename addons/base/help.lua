@@ -303,7 +303,8 @@ local _function = function(data)
 		if command.usage ~= nil and command.usage ~= "" then
 			embed:field({
 				name = localize("${params}", guildLang),
-				value = format("`%s`", localize(command.usage, guildLang)), inline = true
+				value = format("`%s`", localize(command.usage, guildLang)),
+				inline = true
 			})
 		end
 
@@ -312,12 +313,14 @@ local _function = function(data)
 
 		embed:field({
 			name = localize("${level}", guildLang),
-			value = levelParsed, inline = true
+			value = levelParsed,
+			inline = true
 		})
 
 		embed:field({
 			name = localize("${aliases}", guildLang),
-			value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or localize("${none}", guildLang)), inline = true
+			value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or localize("${none}", guildLang)),
+			inline = true
 		})
 
 		embed:color(paint.info)
@@ -327,7 +330,7 @@ local _function = function(data)
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
-		
+
 	elseif category then
 		renderCategory(value)
 	end
