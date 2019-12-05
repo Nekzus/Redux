@@ -2,29 +2,26 @@ function canUseEconomyCommand(command, member, guild)
 	local guild = type(guild) == "string" and client:getGuild(guild) or guild
 	local memberEconomy, guildEconomy = getMemberEconomy(member, guild)
 	local commandsUsed = memberEconomy:get("commandsUsed")
-	local commandData = commands.list[command]
+	local commandData = commands:getCommand(command)
+	local commandName = commandData and commandData.name
 
 	if not commandData then
 		printf("Could not find command '%s'", command)
 		return false
 	end
 
-	if commandData.alias then
-		command = commandData.origin
-		commandData = commands.list[command]
-	end
-
-	commandData = config.defaultEconomy.actions[command] and guildEconomy:get("actions"):raw()[command]
+	commandData = config.defaultEconomy.actions[commandName]
+	and guildEconomy:get("actions"):raw()[commandName]
 
 	if not commandData then
-		printf("Could not find action '%s'", command)
+		printf("Could not find action '%s'", commandName)
 		return false
 	end
 
 	local permit = false
 	local newTime = os.time()
 	local cooldown = commandData.cooldown or 0
-	local commandUsedData = commandsUsed:raw()[command]
+	local commandUsedData = commandsUsed:raw()[commandName]
 	local elapsedTime, lastUse
 
 	if commandUsedData then

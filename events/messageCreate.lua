@@ -103,12 +103,12 @@ client:on("messageCreate",
 		-- Coleta as informações mais relevantes do comando sendo executado
 		local commandPrefix = data.prefix
 		local commandName = data.command:lower():sub(#commandPrefix + 1)
-		local commandData = commandName and commands.list[commandName]
+		local commandData = commandName and commands:getCommand(commandName)
 		local commandCategory = commandData and commandData.category:match("%w+")
 		local commandDataPerms = commandData and commandData.perms
 
 		-- Checa se o comando bate com o que registramos e com o prefixo passado
-		if commandData and (data.command:lower() == format("%s%s", commandPrefix, commandName:lower())) then
+		if commandData and append(commandPrefix, commandName:lower()) == data.command then
 			local userData = saves.temp:get(format("users/%s", data.user.id))
 			local commandPermit, commandPatron = canRunCommand(data)
 

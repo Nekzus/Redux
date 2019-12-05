@@ -18,7 +18,7 @@ local _function = function(data)
 	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
 	local value = args[2] and args[2]:lower()
 
-	local command = value and inList(value, commands.list)
+	local command = value and commands:getCommand(value)
 	local category = value and inList(value, commands.categories)
 
 	local baseEmoji = getEmoji(config.emojis.book, "name", baseGuild)
@@ -57,8 +57,8 @@ local _function = function(data)
 		local listItems = {}
 
 		for commandName, command in pairs(commands.list) do
-			if not command.alias and not isCommandRestrict(command, guildLang) and command.category:match(category) then
-				data.command = format("%s%s", data.prefix, command.name)
+			if not isCommandRestrict(command, guildLang) and command.category:match(category) then
+				data.command = append(data.prefix, command.name)
 
 				local permit, patronCommand = canRunCommand(data)
 
@@ -291,16 +291,9 @@ local _function = function(data)
 	end
 
 	if command then
-		if command.alias then
-			value = command.origin
-			command = commands.list[value]
-		end
-
 		local embed = newEmbed()
 
-		--[[embed:title(client.user.name)
-		embed:description(localize("${botDesc}", guildLang, client.user.name))]]
-		embed:title(format("%s", value:lower()))
+		embed:title(format("%s", command.name:lower()))
 		embed:description(format("%s", localize(command.desc, guildLang)))
 
 		embed:color(paint.info)
@@ -334,6 +327,7 @@ local _function = function(data)
 		bird:post(nil, embed:raw(), data.channel)
 
 		return true
+		
 	elseif category then
 		renderCategory(value)
 	end

@@ -2,20 +2,18 @@ function canUseCommand(command, member)
 	local usersData = saves.temp:get("users")
 	local userData = usersData:get(member.id)
 	local commandsUsed = userData:get("commandsUsed")
-	local commandData = commands.list[command]
+	local commandData = commands:getCommand(command)
+	local commandName = commandData and commandData.name
 
 	if not commandData then
 		printf("Could not find command '%s'", command)
 		return false
-	elseif commandData.alias then
-		command = commandData.origin
-		commandData = commands.list[command]
 	end
 
 	local permit = false
 	local newTime = os.time()
 	local cooldown = commandData.cooldown or 0
-	local commandUsedData = commandsUsed:raw()[command]
+	local commandUsedData = commandsUsed:raw()[commandName]
 	local elapsedTime, lastUse
 
 	if commandUsedData then

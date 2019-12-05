@@ -140,7 +140,7 @@ end
 
 function append(...)
     local args = {...}
-	
+
     return format(rep("%s", #args), ...)
 end
 
@@ -231,11 +231,16 @@ function loadBot()
 					local addon = loadFile(format("./addons/%s/%s", category, file))
 
 					if addon then
-						local aliases = addon.config.aliases
+						local aliases = addon.config.aliases or {}
+						
 						addon.config.category = format("${%s}", category)
 						addon.config.func = addon.func
-						addon.config.aliases = nil
-						commands:create(addon.config):accept(unpack(aliases))
+
+						local command = commands:create(addon.config)
+
+						if #aliases > 0 then
+							command:accept(unpack(aliases))
+						end
 					else
 						printf("Failed to load %s of category %s", file, category)
 					end

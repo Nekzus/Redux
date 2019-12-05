@@ -2,7 +2,8 @@ function updateCommandCooldown(command, member)
 	local usersData = saves.temp:get("users")
 	local userData = usersData:get(member.id)
 	local commandsUsed = userData:get("commandsUsed")
-	local commandData = commands.list[command]
+	local commandData = commands:getCommand(command)
+	local commandName = commandData and commandData.name
 
 	if not commandData then
 		printf("Could not find command '%s'", command)
@@ -11,7 +12,7 @@ function updateCommandCooldown(command, member)
 	end
 
 	if commandData.cooldown then
-		commandsUsed:set(commandData.origin or command, {
+		commandsUsed:set(commandData.origin or commandName, {
 			lastUse = os.time()
 		})
 	end
