@@ -1,4 +1,15 @@
--- Words
+--[[
+	Palavras			(Coisas pequenas, uma única palavra)
+	Permissões			(Relação com a lista de permissões de usuário no Discord)
+	Chaves				(Palavras chave como: [número] por exemplo)
+	Resultados			(Respostas que serão dadas como: Sendo editado por: %usuario%)
+	Erros do Discord	(Erros específicos do Discord (Gateway, 404 e etc))
+	Comando work		(Respostas do comando work)
+
+	Use Ctrl+F nas palavras chaves acima para navegação fácil
+--]]
+
+
 langs = {
 	-- Palavras
 	["unicode"] = {
@@ -939,7 +950,6 @@ langs = {
 		["pt-br"] = "Clique aqui para ativar o compartilhamento",
 	},
 
-	-- Frases e 
 	["guildPrefix"] = {
 		["en-us"] = "My prefix in this guild is: `%s`",
 		["pt-br"] = "Meu prefix nesta guild é: `%s`",
