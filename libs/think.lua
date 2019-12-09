@@ -4,8 +4,8 @@ local directory = "./saves/"
 local extension = ".bin"
 local lifetime = 30
 
-local cache = cache or require("./libs/cache.lua")
-local serpent = serpent or require("./libs/serpent.lua")
+local ant = ant or require("./libs/ant.lua")
+local serpent = serpent or require("./deps/serpent.lua")
 
 local function serialize(data)
 	return serpent.dump(data)
@@ -58,7 +58,7 @@ function methods:update()
 	assert(self.path, "Must create object first")
 
 	self.tick = os.time()
-	self.data = self.data or cache(readFile(self.path))
+	self.data = self.data or ant(readFile(self.path))
 
 	return self.tick
 end
