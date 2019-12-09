@@ -3,7 +3,7 @@ local methods = {}
 local metatable = {}
 local directory = "./test/"
 local extension = ".bin"
-local keepAlive = 30
+local lifetime = 30
 
 -- Extensão para mapear subdiretórios de uma table
 local cache = cache or require("./libs/cache.lua")
@@ -70,7 +70,7 @@ end
 -- Atualiza o último momento de utilização e carrega os dados caso não estiverem carregados
 function methods:update()
 	assert(self.path, "Must create data with constructor first")
-	
+
 	self.lastUpdate = os.time()
 	self.data = self.data or cache(readFile(self.path))
 end
@@ -112,7 +112,7 @@ end
 -- Cria um rastreio para limpar os dados e salvá-los caso o objeto atual estiver
 -- inativo por muito tempo, assim, economizando memória
 function methods:track()
-	self.handler = timer.setTimeout(keepAlive * 1000, function()
+	self.handler = timer.setTimeout(lifetime * 1000, function()
 		if (self.path == nil or not isFile(self.path)) and self.handler then
 			self:untrack()
 			return false
@@ -120,12 +120,12 @@ function methods:track()
 
 		self:save()
 
-		if ((os.time() - self.lastUpdate) > keepAlive) then
+		if ((os.time() - self.lastUpdate) > lifetime) then
 			self:untrack()
 			self.data = nil
 		else
 			self:untrack()
-			self:track(keepAlive)
+			self:track(lifetime)
 		end
 	end)
 end
