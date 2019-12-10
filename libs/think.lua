@@ -5,7 +5,6 @@ local extension = ".bin"
 local lifetime = 30
 
 local ant = ant or require("./libs/ant.lua")
-local serpent = serpent or require("./deps/serpent.lua")
 
 local function serialize(data)
 	return serpent.dump(data)
