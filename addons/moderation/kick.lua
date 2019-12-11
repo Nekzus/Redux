@@ -80,7 +80,7 @@ local _function = function(data)
 		member:kick(localize("[%s]: ${noReason}", guildLang, author.tag))
 	else
 		-- member:send(localize("${beenKicked}", guildLang, data.guild.name, reason))
-		member:kick(format("[%s]: %s", author.tag, reason))
+		member:kick(string.format("[%s]: %s", author.tag, reason))
 	end
 
 	local text = localize("${userKicked}", guildLang, member.tag)

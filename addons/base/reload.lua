@@ -29,7 +29,7 @@ local _function = function(data)
 
 	bird:post(nil, embed:raw(), data.channel)
 
-	commands:flushList()
+	worker:flushList()
 	loadBot()
 
 	return true

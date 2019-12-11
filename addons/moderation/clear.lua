@@ -49,7 +49,7 @@ local _function = function(data)
 	end
 
 	while toDelete > 0 do
-		local take = min(perBulk, toDelete)
+		local take = math.min(perBulk, toDelete)
 
 		toDelete = toDelete - take
 

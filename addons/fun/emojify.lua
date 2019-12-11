@@ -65,7 +65,7 @@ local _function = function(data)
 		local found = replaces[cur]
 
 		if found then
-			result = format("%s%s", result, found)
+			result = string.format("%s%s", result, found)
 		end
 	end
 

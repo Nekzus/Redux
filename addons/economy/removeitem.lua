@@ -28,7 +28,7 @@ local _function = function(data)
 	local value = data.content:sub(#args[1] + 2)
 
 	for itemGuid, item in next, guildStore:raw() do
-		if find(item.itemName:lower(), value:lower()) then
+		if string.find(item.itemName:lower(), value:lower()) then
 			local text = localize("${itemDeletedFromStore}", guildLang)
 			local embed = replyEmbed(text, data.message, "ok")
 

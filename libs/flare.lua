@@ -43,7 +43,7 @@ function metatable:__call(param, ...)
 	end
 
 	return setmetatable({
-		mode = max(0, min(2, param or 1)),
+		mode = math.max(0, math.min(2, param or 1)),
 		tasks = {}
 	}, metatable)
 end

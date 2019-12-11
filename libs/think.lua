@@ -3,6 +3,7 @@ local metatable = {}
 local directory = "./saves/"
 local extension = ".bin"
 local lifetime = 30
+local pool = {}
 
 local ant = ant or require("./libs/ant.lua")
 
@@ -11,7 +12,7 @@ local function serialize(data)
 end
 
 local function deserialize(plain)
-	return loadstring(text)()
+	return loadstring(plain)()
 end
 
 local function isFile(path)
@@ -97,7 +98,7 @@ function methods:track()
 
 		self:save()
 
-		if ((os.time() - self.lastUpdate) > lifetime) then
+		if ((os.time() - self.tick) > lifetime) then
 			self:untrack()
 			self.data = nil
 		else
@@ -157,7 +158,7 @@ function metatable:__call(path)
 	result = setmetatable(result, metatable)
 	pool[path] = result
 	result:update()
-	result:wakeUp()
+	result:track()
 
 	return result
 end

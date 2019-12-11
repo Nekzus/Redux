@@ -19,11 +19,11 @@ local _function = function(data)
 	local listItems = {}
 
 	for userId, obj in pairs(saves.track:get("patrons"):raw()) do
-		insert(listItems, {id = userId, level = obj.level})
+		table.insert(listItems, {id = userId, level = obj.level})
 		listTotal = listTotal + 1
 	end
 
-	sort(listItems, function(a, b)
+	table.sort(listItems, function(a, b)
 		return a.level > b.level
 	end)
 
@@ -46,7 +46,7 @@ local _function = function(data)
 			inPage = inPage + 1
 
 			if result ~= "" then
-				result = format("%s\n", result)
+				result = string.format("%s\n", result)
 			end
 
 			result = localize("%s%s <@!%s>: `${level} %s`", guildLang, result, topicEmoji.mentionString, obj.id, obj.level)
@@ -55,7 +55,7 @@ local _function = function(data)
 		local pages = listTotal / perPage
 
 		if tostring(pages):match("%.%d+") then
-			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
+			pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
 		embed:title(localize("${patrons} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
@@ -80,7 +80,7 @@ local _function = function(data)
 			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
 			blinker:on(arwDown.id, function()
-				page = min(pages, page + 1)
+				page = math.min(pages, page + 1)
 
 				if not private then
 					decoy:removeReaction(arwDown, data.user.id)
@@ -90,7 +90,7 @@ local _function = function(data)
 			end)
 
 			blinker:on(arwUp.id, function()
-				page = max(1, page - 1)
+				page = math.max(1, page - 1)
 
 				if not private then
 					decoy:removeReaction(arwUp, data.user.id)

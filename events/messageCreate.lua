@@ -76,12 +76,12 @@ client:on("messageCreate",
 
 		local commandPrefix = data.prefix
 		local commandName = data.command:lower():sub(#commandPrefix + 1)
-		local commandData = commandName and commands:getCommand(commandName)
+		local commandData = commandName and worker:getCommand(commandName)
 		local commandCategory = commandData and commandData.category:match("%w+")
 		local commandDataPerms = commandData and commandData.perms
 
-		if commandData and append(commandPrefix, commandName:lower()) == data.command then
-			local userData = saves.temp:get(format("users/%s", data.user.id))
+		if commandData and join(commandPrefix, commandName:lower()) == data.command then
+			local userData = saves.temp:get(string.format("users/%s", data.user.id))
 			local commandPermit, commandPatron = canRunCommand(data)
 
 			if not commandPermit then

@@ -1,5 +1,5 @@
 function codeStyle(text)
-	return format('```\n%s```', text)
+	return string.format('```\n%s```', text)
 end
 
 return codeStyle

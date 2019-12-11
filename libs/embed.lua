@@ -104,7 +104,7 @@ function methods:field(field)
 	local embed = assert(self.embed, "Must create object first")
 
 	embed.fields = embed.fields or {}
-	insert(embed.fields, field)
+	table.insert(embed.fields, field)
 
 	return self
 end

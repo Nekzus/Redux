@@ -2,7 +2,7 @@ function canUseCommand(command, member)
 	local usersData = saves.temp:get("users")
 	local userData = usersData:get(member.id)
 	local commandsUsed = userData:get("commandsUsed")
-	local commandData = commands:getCommand(command)
+	local commandData = worker:getCommand(command)
 	local commandName = commandData and commandData.name
 
 	if not commandData then

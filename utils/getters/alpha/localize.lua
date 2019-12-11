@@ -12,9 +12,9 @@ function localize(text, lang, ...)
 
 	for pattern, callback in next, replace do
 		if text:find(pattern) then
-			text = gsub(text, pattern,
+			text = text:gsub(pattern,
 				function(word)
-					local value = langs[sub(word, 3, - 2)]
+					local value = langs[word:sub(3, -2)]
 					value = value and value[lang] or word
 
 					return (callback and callback(value)) or value
@@ -23,7 +23,7 @@ function localize(text, lang, ...)
 		end
 	end
 
-	return (#args > 0 and format(text, unpack(args))) or text
+	return (#args > 0 and string.format(text, unpack(args))) or text
 end
 
 return localize

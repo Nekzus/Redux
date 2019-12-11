@@ -58,9 +58,9 @@ local _function = function(data)
 		end
 
 		if decoy then
-			decoy:update(format(youtubeLink, item.id.videoId), nil)
+			decoy:update(string.format(youtubeLink, item.id.videoId), nil)
 		else
-			decoy = bird:post(format(youtubeLink, item.id.videoId), nil, data.channel)
+			decoy = bird:post(string.format(youtubeLink, item.id.videoId), nil, data.channel)
 		end
 
 		if firstTime == true then
@@ -68,7 +68,7 @@ local _function = function(data)
 			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
 			blinker:on(arwDown.id, function()
-				page = min(pages, page + 1)
+				page = math.min(pages, page + 1)
 
 				if not private then
 					decoy:removeReaction(arwDown, data.user.id)
@@ -78,7 +78,7 @@ local _function = function(data)
 			end)
 
 			blinker:on(arwUp.id, function()
-				page = max(1, page - 1)
+				page = math.max(1, page - 1)
 
 				if not private then
 					decoy:removeReaction(arwUp, data.user.id)

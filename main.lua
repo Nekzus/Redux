@@ -80,7 +80,7 @@ function loadFile(path)
 		return false
 	end
 
-	local code, err = loadstring(file, fileName)
+	local code, err = loadstring(result, fileName)
 
 	if not code then
 		printf("Syntax Error: %s | %s", fileName, err)
@@ -115,9 +115,9 @@ end
 
 function loadBot()
 	local line = string.rep("-", 10)
-	local info = append(line, os.date("%m/%d/%Y %I:%M %p"), line)
+	local info = join(line, os.date("%m/%d/%Y %I:%M %p"), line)
 
-	print(append("\n", info))
+	print(join("\n", info))
 	client:removeAllListeners()
 
 	loadFiles("./config")

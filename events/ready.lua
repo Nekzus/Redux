@@ -2,7 +2,8 @@ client:on("ready",
 	function()
 		client:setGame({
 			type = 2,
-			name = format("%shelp", config.defaultGuild.prefix)
+			name = join(config.defaultGuild.prefix, "help")
+
 		})
 
 		print("\n")

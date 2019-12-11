@@ -18,8 +18,8 @@ local _function = function(data)
 	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
 	local value = args[2] and args[2]:lower()
 
-	local command = value and commands:getCommand(value)
-	local category = value and inList(value, commands.categories)
+	local command = value and worker:getCommand(value)
+	local category = value and inList(value, worker.categories)
 
 	local baseEmoji = getEmoji(config.emojis.book, "name", baseGuild)
 	local economyEmoji = getEmoji(config.emojis.twoMoney, "name", baseGuild)
@@ -56,20 +56,20 @@ local _function = function(data)
 		local listTotal = 0
 		local listItems = {}
 
-		for commandName, command in pairs(commands.list) do
+		for commandName, command in pairs(worker.list) do
 			if not isCommandRestrict(command, guildLang) and command.category:match(category) then
-				data.command = append(data.prefix, command.name)
+				data.command = join(data.prefix, command.name)
 
 				local permit, patronCommand = canRunCommand(data)
 
 				if permit then
-					insert(listItems, {name = commandName, data = command})
+					table.insert(listItems, {name = commandName, data = command})
 					listTotal = listTotal + 1
 				end
 			end
 		end
 
-		sort(listItems, function(a, b)
+		table.sort(listItems, function(a, b)
 			return a.name < b.name
 		end)
 
@@ -93,18 +93,18 @@ local _function = function(data)
 				inPage = inPage + 1
 
 				if result ~= "" then
-					result = format("%s\n", result)
+					result = string.format("%s\n", result)
 				end
 
 				if command.data.usage == "" or command.data.usage == nil then
-					result = format("%s%s**%s** %s", result, topicEmoji.mentionString, command.name, localize(command.data.desc, guildLang))
+					result = string.format("%s%s**%s** %s", result, topicEmoji.mentionString, command.name, localize(command.data.desc, guildLang))
 				else
-					result = format("%s%s**%s** `%s` %s", result, topicEmoji.mentionString, command.name, localize(command.data.usage, guildLang), localize(command.data.desc, guildLang))
+					result = string.format("%s%s**%s** `%s` %s", result, topicEmoji.mentionString, command.name, localize(command.data.usage, guildLang), localize(command.data.desc, guildLang))
 				end
 			end
 
 			if tostring(pages):match("%.%d+") then
-				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
+				pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
 			embed:title(localize("${commands} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
@@ -136,14 +136,14 @@ local _function = function(data)
 		blinker = blinker or blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
 		blinker:on(arwLeft.id, function()
-			page = min(pages, page + 1)
+			page = math.min(pages, page + 1)
 
 			menuSwaping()
 			renderMenu()
 		end)
 
 		blinker:on(arwDown.id, function()
-			page = min(pages, page + 1)
+			page = math.min(pages, page + 1)
 
 			if not private then
 				decoy:removeReaction(arwDown, data.user.id)
@@ -153,7 +153,7 @@ local _function = function(data)
 		end)
 
 		blinker:on(arwUp.id, function()
-			page = max(1, page - 1)
+			page = math.max(1, page - 1)
 
 			if not private then
 				decoy:removeReaction(arwUp, data.user.id)
@@ -189,22 +189,22 @@ local _function = function(data)
 		signFooter(embed, data.author, guildLang)
 
 		embed:field({
-			name = format("%s %s (base)", baseEmoji.mentionString, localize("${base}", guildLang)),
+			name = string.format("%s %s (base)", baseEmoji.mentionString, localize("${base}", guildLang)),
 			value = localize("${categoryDescBase}", guildLang),
 			inline = false,
 		})
 		embed:field({
-			name = format("%s %s (economy)", economyEmoji.mentionString, localize("${economy}", guildLang)),
+			name = string.format("%s %s (economy)", economyEmoji.mentionString, localize("${economy}", guildLang)),
 			value = localize("${categoryDescEconomy}", guildLang),
 			inline = false,
 		})
 		embed:field({
-			name = format("%s %s (fun)", entertainmentEmoji.mentionString, localize("${fun}", guildLang)),
+			name = string.format("%s %s (fun)", entertainmentEmoji.mentionString, localize("${fun}", guildLang)),
 			value = localize("${categoryDescFun}", guildLang),
 			inline = false,
 		})
 		embed:field({
-			name = format("%s %s (moderation)", moderationEmoji.mentionString, localize("${moderation}", guildLang)),
+			name = string.format("%s %s (moderation)", moderationEmoji.mentionString, localize("${moderation}", guildLang)),
 			value = localize("${categoryDescModeration}", guildLang),
 			inline = false,
 		})
@@ -293,8 +293,8 @@ local _function = function(data)
 	if command then
 		local embed = newEmbed()
 
-		embed:title(format("%s", command.name:lower()))
-		embed:description(format("%s", localize(command.desc, guildLang)))
+		embed:title(string.format("%s", command.name:lower()))
+		embed:description(string.format("%s", localize(command.desc, guildLang)))
 
 		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
@@ -303,7 +303,7 @@ local _function = function(data)
 		if command.usage ~= nil and command.usage ~= "" then
 			embed:field({
 				name = localize("${params}", guildLang),
-				value = format("`%s`", localize(command.usage, guildLang)),
+				value = string.format("`%s`", localize(command.usage, guildLang)),
 				inline = true
 			})
 		end
@@ -319,7 +319,7 @@ local _function = function(data)
 
 		embed:field({
 			name = localize("${aliases}", guildLang),
-			value = (command.aliases and #command.aliases > 0 and concat(command.aliases, ", ") or localize("${none}", guildLang)),
+			value = (command.aliases and #command.aliases > 0 and table.concat(command.aliases, ", ") or localize("${none}", guildLang)),
 			inline = true
 		})
 

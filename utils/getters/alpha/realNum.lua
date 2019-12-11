@@ -13,7 +13,7 @@ function realNum(text)
 	local nAffix
 
 	if signal then
-		num = append(signal, num)
+		num = join(signal, num)
 	end
 
 	if num then

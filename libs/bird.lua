@@ -1,7 +1,7 @@
 local methods = {}
 local metatable = {}
 
-function methods:post(content, embed)
+function methods:post(content, embed, channel)
 	local result = {}
 
 	if content then

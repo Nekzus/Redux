@@ -44,7 +44,7 @@ function apiRobloxGetUserLimiteds(id, amount)
 		end
 
 		for _, tab in next, decode.data do
-			insert(result, tab)
+			table.insert(result, tab)
 		end
 
 		if decode.nextPageCursor and amount == 100 then

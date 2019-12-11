@@ -17,7 +17,7 @@ local function filterList(list)
 		end
 
 		if valid then
-			insert(result, packed)
+			table.insert(result, packed)
 		end
 	end
 

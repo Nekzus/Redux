@@ -47,7 +47,7 @@ local _function = function(data)
 			end
 
 			if #ret > 0 then
-				sort(ret, function(a, b)
+				table.sort(ret, function(a, b)
 					return a.createdAt < b.createdAt
 				end)
 
@@ -65,7 +65,7 @@ local _function = function(data)
 
 		embed:author(sentBy)
 		embed:authorImage(targetMessage.author.avatarURL)
-		embed:description(format("%s\n\n%s", targetMessage.content, jumpTo))
+		embed:description(string.format("%s\n\n%s", targetMessage.content, jumpTo))
 		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)

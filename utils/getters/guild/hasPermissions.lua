@@ -5,12 +5,12 @@ function hasPermissions(member, channel, list)
 
 	for perm, value in next, list do
 		if not perms[value] then
-			insert(missing, value)
+			table.insert(missing, value)
 
 			if text ~= "" then
-				text = format("%s, %s", text, format("${%s}", value))
+				text = string.format("%s, %s", text, string.format("${%s}", value))
 			else
-				text = format("${%s}", value)
+				text = string.format("${%s}", value)
 			end
 		end
 	end

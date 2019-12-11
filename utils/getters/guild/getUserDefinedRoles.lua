@@ -18,7 +18,7 @@ function getUserDefinedRoles(member, guild)
 		if roleExists and guildRole then
 			local isPrimary = getPrimaryRoleIndex(guildRole.level, guildRoles) == roleId
 
-			insert(result, {
+			table.insert(result, {
 				id = obj.id,
 				level = guildRole.level,
 				primary = isPrimary,
@@ -28,7 +28,7 @@ function getUserDefinedRoles(member, guild)
 	end
 
 	if #result > 1 then
-		sort(result, function(a, b)
+		table.sort(result, function(a, b)
 			return a.level > b.level or (a.level == b.level and a.added > b.added)
 		end)
 	end

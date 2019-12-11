@@ -1,7 +1,7 @@
 function canRunCommand(data)
 	local commandPrefix = data.prefix
 	local commandName = data.command:lower():sub(#commandPrefix + 1)
-	local commandData = commandName and commands:getCommand(commandName)
+	local commandData = commandName and worker:getCommand(commandName)
 	local commandLevel = commandData and commandData.level
 	local commandPatron = false
 

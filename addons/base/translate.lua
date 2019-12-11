@@ -31,11 +31,11 @@ local _function = function(data)
 		end
 
 		for _, item in pairs(supportedLangs) do
-			insert(listItems, {name = item.name, code = item.language})
+			table.insert(listItems, {name = item.name, code = item.language})
 			listTotal = listTotal + 1
 		end
 
-		sort(listItems, function(a, b)
+		table.sort(listItems, function(a, b)
 			return a.name < b.name
 		end)
 
@@ -57,7 +57,7 @@ local _function = function(data)
 				inPage = inPage + 1
 
 				if result ~= "" then
-					result = format("%s\n", result)
+					result = string.format("%s\n", result)
 				end
 
 				result = localize("%s%s **%s** `%s`", guildLang, result, topicEmoji.mentionString, obj.name, obj.code)
@@ -66,7 +66,7 @@ local _function = function(data)
 			local pages = listTotal / perPage
 
 			if tostring(pages):match("%.%d+") then
-				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
+				pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
 			embed:title(localize("${translationCodes} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
@@ -93,7 +93,7 @@ local _function = function(data)
 				blinker = blink(message, config.timeouts.reaction, {data.user.id})
 
 				blinker:on(arwUp.id, function()
-					page = max(1, page - 1)
+					page = math.max(1, page - 1)
 
 					if not private then
 						message:removeReaction(arwUp, data.user.id)
@@ -103,7 +103,7 @@ local _function = function(data)
 				end)
 
 				blinker:on(arwDown.id, function()
-					page = min(pages, page + 1)
+					page = math.min(pages, page + 1)
 
 					if not private then
 						message:removeReaction(arwDown, data.user.id)
@@ -136,20 +136,20 @@ local _function = function(data)
 
 			for _, item in next, supportedLangs do
 				if item.name:lower() == translateLang or item.language:lower() == translateLang then
-					insert(listItems, {name = item.name, code = item.language})
+					table.insert(listItems, {name = item.name, code = item.language})
 					listTotal = listTotal + 1
 				end
 			end
 		else
 			for _, item in next, supportedLangs do
 				if item.name:lower():find(translateLang) or item.language:lower():find(translateLang) then
-					insert(listItems, {name = item.name, code = item.language})
+					table.insert(listItems, {name = item.name, code = item.language})
 					listTotal = listTotal + 1
 				end
 			end
 		end
 
-		sort(listItems, function(a, b)
+		table.sort(listItems, function(a, b)
 			return a.name < b.name
 		end)
 
@@ -171,7 +171,7 @@ local _function = function(data)
 				inPage = inPage + 1
 
 				if result ~= "" then
-					result = format("%s\n", result)
+					result = string.format("%s\n", result)
 				end
 
 				result = localize("%s%s **%s** `%s`", guildLang, result, topicEmoji.mentionString, obj.name, obj.code)
@@ -180,7 +180,7 @@ local _function = function(data)
 			local pages = listTotal / perPage
 
 			if tostring(pages):match("%.%d+") then
-				pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
+				pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 			end
 
 			embed:title(localize("${translationCodes} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
@@ -209,7 +209,7 @@ local _function = function(data)
 				message:addReaction(arwDown)
 
 				blinker:on(arwUp.id, function()
-					page = max(1, page - 1)
+					page = math.max(1, page - 1)
 
 					if not private then
 						message:removeReaction(arwUp, data.user.id)
@@ -219,7 +219,7 @@ local _function = function(data)
 				end)
 
 				blinker:on(arwDown.id, function()
-					page = min(pages, page + 1)
+					page = math.min(pages, page + 1)
 
 					if not private then
 						message:removeReaction(arwDown, data.user.id)
@@ -260,7 +260,7 @@ local _function = function(data)
 		end
 
 		local arrow = getEmoji(config.emojis.arrowIcon, "name", baseGuild)
-		local reply = format("%s ``%s``%s``%s`` \n```%s```", data.author.mentionString, detectedSourceLanguage, arrow.mentionString,data.args[2], urlDecode(translatedText))
+		local reply = string.format("%s ``%s``%s``%s`` \n```%s```", data.author.mentionString, detectedSourceLanguage, arrow.mentionString,data.args[2], urlDecode(translatedText))
 
 		bird:post(reply, nil, data.channel)
 	end

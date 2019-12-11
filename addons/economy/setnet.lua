@@ -70,7 +70,7 @@ local _function = function(data)
 	local value = realNum(data.args[3])
 
 	if value then
-		local text = localize("${netSetSuccessful}", guildLang, member.tag, format("%s %s", symbol, affixNum(value)))
+		local text = localize("${netSetSuccessful}", guildLang, member.tag, string.format("%s %s", symbol, affixNum(value)))
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)

@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	local memberEconomy, guildEconomy = getMemberEconomy(data.user, data.guild)
 	local memberCash = memberEconomy:get("cash", 0)
@@ -23,7 +23,7 @@ local _function = function(data)
 	local actions = guildEconomy:get("actions")
 	local gameData = actions:raw()[using]
 
-	local value = random(gameData.income.min, gameData.income.max)
+	local value = math.random(gameData.income.min, gameData.income.max)
 
 	memberEconomy:set("cash", memberCash + value)
 
@@ -31,7 +31,7 @@ local _function = function(data)
 
 	for k, v in next, langs do
 		if k:match("workedAs%a+") then
-			insert(responses, v[guildLang])
+			table.insert(responses, v[guildLang])
 		end
 	end
 
@@ -39,7 +39,7 @@ local _function = function(data)
 		print("Responses not found")
 	end
 
-	local text = format(responses[random(#responses)], format("%s %s", symbol, value))
+	local text = string.format(responses[math.random(#responses)], string.format("%s %s", symbol, value))
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)

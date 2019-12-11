@@ -37,7 +37,7 @@ function access(list, paths, default)
 			end
 		end
 
-		insert(result, last)
+		table.insert(result, last)
 	end
 
 	return unpack(result)

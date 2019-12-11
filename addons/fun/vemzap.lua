@@ -373,14 +373,14 @@ local function zappify(text, force)
 		local lowerWord = word:lower()
 		local added = false
 
-		result = format("%s %s", result, word)
+		result = string.format("%s %s", result, word)
 
 		for match, emojis in next, fullMatch do
 			if lowerWord == match then
 				added = true
 
 				for i = 1, force do
-					result = format("%s %s", result, emojis[random(1, #emojis)])
+					result = string.format("%s %s", result, emojis[math.random(1, #emojis)])
 				end
 			end
 		end
@@ -390,7 +390,7 @@ local function zappify(text, force)
 				added = true
 
 				for i = 1, force do
-					result = format("%s %s", result, emojis[random(1, #emojis)])
+					result = string.format("%s %s", result, emojis[math.random(1, #emojis)])
 				end
 			end
 		end
@@ -400,7 +400,7 @@ local function zappify(text, force)
 				added = true
 
 				for i = 1, force do
-					result = format("%s %s", result, emojis[random(1, #emojis)])
+					result = string.format("%s %s", result, emojis[math.random(1, #emojis)])
 				end
 			end
 		end
@@ -409,7 +409,7 @@ local function zappify(text, force)
 			local key, emojis = randomPair(moods)
 
 			for i = 1, force do
-				result = format("%s %s", result, emojis[random(1, #emojis)])
+				result = string.format("%s %s", result, emojis[math.random(1, #emojis)])
 			end
 		end
 	end
@@ -433,7 +433,7 @@ local _function = function(data)
 	end
 
 	local text = data.content:sub(#args[1] + 2)
-	local zaped = zappify(text, random(1, 3))
+	local zaped = zappify(text, math.random(1, 3))
 	-- local embed = replyEmbed(zaped, data.message, "ok")
 
 	bird:post(zaped, nil, data.channel)

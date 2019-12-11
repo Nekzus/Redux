@@ -26,17 +26,17 @@ local _function = function(data)
 	local list = {}
 
 	for _, item in next, args do
-		insert(list, format("\\%s ", item))
+		table.insert(list, string.format("\\%s ", item))
 	end
 
-	remove(list, 1)
+	table.remove(list, 1)
 
 	local text = data.content:sub(#args[1] + 2)
 	local embed = newEmbed()
 
 	embed:title(localize("${unicode}", guildLang))
-	-- embed:description(append(unpack(list)))
-	embed:description(format("```%s```", text))
+	-- embed:description(join(unpack(list)))
+	embed:description(string.format("```%s```", text))
 
 	embed:color(paint.info)
 	embed:footerIcon(config.images.info)
