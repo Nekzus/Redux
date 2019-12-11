@@ -1,6 +1,6 @@
 function getGuildData(guild)
 	local guild = type(guild) == "string" and client:getGuild(guild) or guild
-	local data = think(format("./saves/global/%s.bin", guild.id))
+	local data = think(string.format("./saves/global/%s.bin", guild.id))
 	local roles = data:get("roles")
 	local mutes = data:get("mutes")
 

@@ -1,10 +1,8 @@
 client:on("messageCreate",
 	function(message)
-		if message.author == client.user then
-			return
-		elseif message.author.bot then
-			return
-		elseif not bot.loaded then
+		if message.author == client.user
+		or message.author.bot
+		or not bot.loaded then
 			return
 		end
 
@@ -40,7 +38,7 @@ client:on("messageCreate",
 			data.guildLang = guildLang
 			data.prefix = guildData:raw().prefix
 
-			if not (data.args[2]) then
+			if not data.args[2] then
 				if data.message.mentionedUsers.first == client.user then
 					bird:post(localize("${guildPrefix}", guildLang, data.prefix), nil, data.channel)
 					return true
@@ -124,14 +122,14 @@ client:on("messageCreate",
 
 				if commandDataPerms then
 					for _, perm in next, commandData.perms do
-						insert(permsList, perm)
+						table.insert(permsList, perm)
 					end
 				end
 
 				local hasPerms, permsData = hasPermissions(botMember, data.channel, permsList)
 
 				if not hasPerms then
-					local formatted = localize(format("**%s**", permsData.text), guildLang):lower()
+					local formatted = localize(string.format("**%s**", permsData.text), guildLang):lower()
 					local text = localize("${missingThesePerms}", guildLang, formatted)
 
 					if inList("embedLinks", permsData.list) then

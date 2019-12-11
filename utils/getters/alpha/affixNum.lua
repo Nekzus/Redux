@@ -9,7 +9,7 @@ function affixNum(num)
 
 	local isNeg = false
 
-	if num < 1000 and num > - 1000 then
+	if num > -1000 and num < 1000 then
 		return num
 	end
 
@@ -20,13 +20,19 @@ function affixNum(num)
 
 	num = num - num % 10
 
-	local affix = min(floor(log(abs(num)) / log(1000)), #config.numAffixes)
+	local affix = math.abs(num)
+	affix = math.log(affix)
+	affix = math.floor(affix / math.log(1000))
+	affix = math.min(affix, #config.numAffixes)
 
 	if isNeg then
 		num = num * - 1
 	end
 
-	return format("%02.2f%s", (num / 1000 ^ affix), config.numAffixes[affix].key)
+	local power = num / 1000 ^ affix
+	local key = config.numAffixes[affix].key
+
+	return string.format("%02.2f%s", power, key)
 end
 
 return affixNum

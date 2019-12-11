@@ -1,9 +1,3 @@
---[[
-	Parte responsável por administrar reações sendo adicionadas ou clicadas
-	em uma mensagem. Esse evento irá redirecionar as informações necessárias
-	conforme o que for registrado na table reactionsData
-]]
-
 client:on("reactionAdd",
 	function(reaction, userId)
 		reactionsData = reactionsData or {}

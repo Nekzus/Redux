@@ -1,8 +1,3 @@
---[[
-	Parte responsável por realizar checagens quando um usuário novo
-	entrar em uma guilda
-]]
-
 client:on("memberJoin",
 	function(member)
 		if member.user.bot then
@@ -21,7 +16,7 @@ client:on("memberJoin",
 				member:addRole(role)
 			end
 		end
-		
+
 		local memberRoleId = getPrimaryRoleIndex(0, guildData:get("roles"):raw())
 		local memberRole = memberRoleId and getRole(memberRoleId, "id", guild)
 

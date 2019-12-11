@@ -1,8 +1,3 @@
---[[
-	Parte responsável por realizar a limpeza para quando uma guilda
-	remover	o bot ou o bot sair de uma
-]]
-
 client:on("guildDelete",
 	function(guild)
 		for _, data in next, {

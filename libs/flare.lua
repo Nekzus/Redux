@@ -25,14 +25,14 @@ function methods:flush()
 	self.tasks = {}
 end
 
-function metatable:__call(first, ...)
+function metatable:__call(param, ...)
 	if self.mode == 1 then
 		for _, func in next, self.tasks do
-			func(first, ...)
+			func(param, ...)
 		end
 	elseif self.mode == 2 then
 		for _, func in next, self.tasks do
-			local result = {func(first, ...)}
+			local result = {func(param, ...)}
 
 			if #result > 0 then
 				return unpack(result)
@@ -43,7 +43,7 @@ function metatable:__call(first, ...)
 	end
 
 	return setmetatable({
-		mode = max(0, min(2, first or 1)),
+		mode = max(0, min(2, param or 1)),
 		tasks = {}
 	}, metatable)
 end

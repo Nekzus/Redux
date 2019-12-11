@@ -17,7 +17,7 @@ end
 function methods:close()
 	assert(self.message, "Must create object first")
 
-	pool[message.id] = {}
+	pool[self.message.id] = {}
 end
 
 function methods:raw()

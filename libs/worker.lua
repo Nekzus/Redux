@@ -13,7 +13,7 @@ function methods:create(data)
 	category = category and category:match("%w+")
 
 	if category and not inList(category, pool.categories) then
-		insert(pool.categories, category)
+		table.insert(pool.categories, category)
 	end
 
 	pool.list[name] = data
