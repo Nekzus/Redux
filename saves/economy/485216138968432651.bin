@@ -1,1 +1,1 @@
-do local _={users={["280415970416394253"]={cash=241,bank=0,commandsUsed={work={tick=1574993964}}}},symbol=":dollar:",actions={work={income={min=50,max=500},cooldown=30}},store={}};return _;end
+do local _={users={["280415970416394253"]={cash=241,bank=0,commandsUsed={work={lastUse=1574993964}}}},symbol=":dollar:",actions={work={income={min=50,max=500},cooldown=30}},store={}};return _;end
