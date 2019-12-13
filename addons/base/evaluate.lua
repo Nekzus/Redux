@@ -12,84 +12,84 @@ local function bhaskara(args)
 	local a = args[1]
 	local b = args[2]
 	local c = args[3]
-	local delta = pow(b, 2) - 4 * a * c
+	local delta = math.pow(b, 2) - 4 * a * c
 
 	if delta < 0 then
-		return format("delta = %s", delta)
+		return string.format("delta = %s", delta)
 	else
-		local x1 = (-b + pow(delta, (1 / 2))) / (2 * a)
-		local x2 = (-b - pow(delta, (1 / 2))) / (2 * a)
+		local x1 = (-b + math.pow(delta, (1 / 2))) / (2 * a)
+		local x2 = (-b - math.pow(delta, (1 / 2))) / (2 * a)
 
-		return format("x1 = %s\nx2 = %s\ndelta = %s", x1, x2, delta)
+		return string.format("x1 = %s\nx2 = %s\ndelta = %s", x1, x2, delta)
 	end
 end
 
 local function getCtxDefault()
 	return {
 		-- Variáveis reservadas
-		huge = huge,
-		inf = huge,
-		pi = pi,
+		huge = math.huge,
+		inf = math.huge,
+		pi = math.pi,
 
 		-- Funções reservadas
 		acos = function(args)
-			return acos(args[1])
+			return math.acos(args[1])
 		end,
 
 		atan = function(args)
-			return atan(args[1])
+			return math.atan(args[1])
 		end,
 
 		atan2 = function(args)
-			return atan2(args[1])
+			return math.atan2(args[1])
 		end,
 
 		deg = function(args)
-			return deg(args[1])
+			return math.deg(args[1])
 		end,
 
 		asin = function(args)
-			return asin(args[1])
+			return math.asin(args[1])
 		end,
 
 		clamp = function(args)
-			return max(args[2], min(args[1], args[3]))
+			return math.max(args[2], math.min(args[1], args[3]))
 		end,
 
 		cosh = function(args)
-			return max(args[1])
+			return math.cosh(args[1])
 		end,
 
 		fmod = function(args)
-			return fmod(args[1], args[2])
+			return math.fmod(args[1], args[2])
 		end,
 
 		frexp = function(args)
-			return frexp(args[1])
+			return math.frexp(args[1])
 		end,
 
 		ldexp = function(args)
-			return ldexp(args[1], args[2])
+			return math.ldexp(args[1], args[2])
 		end,
 
 		log10 = function(args)
-			return log10(args[1])
+			return math.log10(args[1])
 		end,
 
 		modf = function(args)
-			return fmod(args[1], args[2])
+			return math.fmod(args[1], args[2])
 		end,
 
 		rad = function(args)
-			return rad(args[1])
+			return math.rad(args[1])
 		end,
 
 		sinh = function(args)
-			return sinh(args[1])
+			return math.sinh(args[1])
 		end,
 
 		tanh = function(args)
-			return tanh(args[1])
+			return math.tanh(args[1])
 		end,
 
 		bhaskara = bhaskara,
@@ -138,12 +138,12 @@ local _function = function(data)
 
 	embed:field({
 		name = localize("${inputResult}", guildLang),
-		value = format("```%s```", input),
+		value = string.format("```%s```", input),
 		inline = true
 	})
 	embed:field({
 		name = localize("${outputResult}", guildLang),
-		value = format("```%s```", err and err.message or result),
+		value = string.format("```%s```", err and err.message or result),
 		inline = true
 	})
 

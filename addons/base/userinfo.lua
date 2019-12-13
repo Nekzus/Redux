@@ -2,7 +2,7 @@ local _config = {
 	name = "userinfo",
 	desc = "${returnsUserInfo}",
 	usage = "${userKey}",
-	aliases = {"whois", "wis", "info"},
+	aliases = {"whois", "wis", "info", "uinfo"},
 	cooldown = 5,
 	level = 0,
 	direct = false,
@@ -26,7 +26,7 @@ local _function = function(data)
 	end
 
 	embed:thumbnail(user.avatarURL)
-	embed:field({name = localize("${name}", guildLang), value = (user.nickname and format("%s (%s)", user.username, user.nickname) or user.username), inline = true})
+	embed:field({name = localize("${name}", guildLang), value = (user.nickname and string.format("%s (%s)", user.username, user.nickname) or user.username), inline = true})
 	embed:field({name = localize("${discrim}", guildLang), value = user.discriminator, inline = true})
 	embed:field({name = localize("${id}", guildLang), value = user.id, inline = true})
 	embed:field({name = localize("${status}", guildLang), value = user.status, inline = true})

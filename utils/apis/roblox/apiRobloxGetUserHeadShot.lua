@@ -24,15 +24,18 @@ function apiRobloxGetUserHeadShot(id, headShot)
 		headShot = "false"
 	end
 
-	local data, request = httpGet("robloxGetUserHeadShot", {headShot, id})
-	local decode = json.decode(request)
+	local data, request = httpGet(
+		"robloxGetUserHeadShot",
+		headShot,
+		id
+	)
 
-	if not decode then
-		print("Unable to decode apiRobloxGetUserHeadShot()")
-		return nil
-	end
+	local decoded = json.decode(request)
 
-	return decode
+	return assert(
+		decoded,
+		"Unable to decode apiRobloxGetUserHeadShot"
+	)
 end
 
 return apiRobloxGetUserHeadShot

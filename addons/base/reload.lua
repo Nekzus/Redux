@@ -18,7 +18,7 @@ local _function = function(data)
 
 	bot.loaded = false
 	client:removeAllListeners()
-	db:saveAllData()
+	think:saveAll()
 
 	if not isLocal then
 		dos("git pull")
@@ -29,7 +29,7 @@ local _function = function(data)
 
 	bird:post(nil, embed:raw(), data.channel)
 
-	commands:flushList()
+	worker:flushList()
 	loadBot()
 
 	return true

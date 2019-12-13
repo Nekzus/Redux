@@ -20,11 +20,11 @@ local _function = function(data)
 	local listItems = {}
 
 	for memberId, memberEconomy in pairs(guildEconomy:get("users"):raw()) do
-		insert(listItems, {id = memberId, cash = memberEconomy.cash or 0, bank = memberEconomy.bank or 0})
+		table.insert(listItems, {id = memberId, cash = memberEconomy.cash or 0, bank = memberEconomy.bank or 0})
 		listTotal = listTotal + 1
 	end
 
-	sort(listItems, function(a, b)
+	table.sort(listItems, function(a, b)
 		return (a.bank + a.cash) > (b.bank + b.cash)
 	end)
 
@@ -47,7 +47,7 @@ local _function = function(data)
 			inPage = inPage + 1
 
 			if result ~= "" then
-				result = format("%s\n", result)
+				result = string.format("%s\n", result)
 			end
 
 			result = localize("%s%s <@!%s>: %s %s", guildLang, result, topicEmoji.mentionString, itemData.id, guildEconomy:get("symbol"), affixNum(itemData.cash + itemData.bank))
@@ -56,7 +56,7 @@ local _function = function(data)
 		local pages = listTotal / perPage
 
 		if tostring(pages):match("%.%d+") then
-			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
+			pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
 		embed:title(localize("${economy} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
@@ -81,7 +81,7 @@ local _function = function(data)
 			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
 			blinker:on(arwDown.id, function()
-				page = min(pages, page + 1)
+				page = math.min(pages, page + 1)
 
 				if not private then
 					decoy:removeReaction(arwDown, data.user.id)
@@ -91,7 +91,7 @@ local _function = function(data)
 			end)
 
 			blinker:on(arwUp.id, function()
-				page = max(1, page - 1)
+				page = math.max(1, page - 1)
 
 				if not private then
 					decoy:removeReaction(arwUp, data.user.id)

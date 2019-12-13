@@ -7,7 +7,7 @@ function isFiltered(text, list)
 		local found = text:find(word:lower())
 
 		if found then
-			insert(result, found)
+			table.insert(result, found)
 		end
 	end
 

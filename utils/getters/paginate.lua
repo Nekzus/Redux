@@ -4,7 +4,7 @@ function paginate(list, perPage, page)
 
 	local sliceTo = (page * perPage)
 	local sliceAt = (sliceTo - (perPage - 1))
-	local result = slice(list, sliceAt, sliceTo, 1)
+	local result = table.slice(list, sliceAt, sliceTo, 1)
 
 	return result
 end

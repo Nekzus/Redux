@@ -42,17 +42,22 @@
 ]]
 
 function apiRobloxGetUserFollowers(id, perPage)
+	assert(id, "Must provide a valid ID")
+
 	perPage = perPage or 18
 
-	local data, request = httpGet("robloxGetUserFollowers", {perPage, id})
-	local decode = json.decode(request)
+	local data, request = httpGet(
+		"robloxGetUserFollowers",
+		perPage,
+		id
+	)
 
-	if not decode then
-		print("Unable to decode apiRobloxGetUserFollowers()")
-		return nil
-	end
+	local decoded = json.decode(request)
 
-	return decode
+	return assert(
+		decoded,
+		"Unable to decode apiRobloxGetUserFollowers"
+	)
 end
 
 return apiRobloxGetUserFollowers

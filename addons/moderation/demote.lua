@@ -80,7 +80,7 @@ local _function = function(data)
 
 		if not nextRoleId then
 			for i = 1, 5 do
-				nextRoleId = getHighestRoleIndex(max(0, currentRoleData.level - i), guildRoles)
+				nextRoleId = getHighestRoleIndex(math.max(0, currentRoleData.level - i), guildRoles)
 
 				if nextRoleId then
 					break

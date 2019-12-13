@@ -32,9 +32,9 @@ local _function = function(data)
 
 	embed:title(data.author.tag)
 	embed:authorImage(data.author:getAvatarURL())
-	embed:field({name = localize("${cash}", guildLang), value = format("%s %s", symbol, affixNum(memberCash or 0)), inline = true})
-	embed:field({name = localize("${bank}", guildLang), value = format("%s %s", symbol, affixNum(memberBank or 0)), inline = true})
-	embed:field({name = localize("${networth}", guildLang), value = format("%s %s", symbol, affixNum((memberCash or 0) + (memberBank or 0))), inline = true})
+	embed:field({name = localize("${cash}", guildLang), value = string.format("%s %s", symbol, affixNum(memberCash or 0)), inline = true})
+	embed:field({name = localize("${bank}", guildLang), value = string.format("%s %s", symbol, affixNum(memberBank or 0)), inline = true})
+	embed:field({name = localize("${networth}", guildLang), value = string.format("%s %s", symbol, affixNum((memberCash or 0) + (memberBank or 0))), inline = true})
 
 	embed:color(paint.info)
 	embed:footerIcon(config.images.info)

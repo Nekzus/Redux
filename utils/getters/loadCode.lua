@@ -20,22 +20,22 @@ function loadCode(code, level, extra)
 	end
 
 	function result.print(...)
-		insert(output, printLine(...))
+		table.insert(output, printLine(...))
 	end
 
 	function result.error(...)
-		insert(output, printLine(...))
+		table.insert(output, printLine(...))
 	end
 
 	function result.warn(...)
-		insert(output, printLine(...))
+		table.insert(output, printLine(...))
 	end
 
 	local func, syntaxError = load(code:gsub('```\n?', ''), 'Sandbox', 't', result)
 	local success, runtimeError = pcall(func)
 
 	if success then
-		response = concat(output, '\n')
+		response = table.concat(output, '\n')
 
 		if #response > 1990 then
 			response = response:sub(1, 1990)

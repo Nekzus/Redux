@@ -22,7 +22,7 @@ local _function = function(data)
 	local listItems = {}
 
 	for itemGuid, item in pairs(guildStore:raw()) do
-		insert(listItems, {
+		table.insert(listItems, {
 			name = item.itemName,
 			desc = item.itemDesc,
 			price = item.itemPrice,
@@ -32,7 +32,7 @@ local _function = function(data)
 		listTotal = listTotal + 1
 	end
 
-	sort(listItems, function(a, b)
+	table.sort(listItems, function(a, b)
 		return a.price > b.price
 	end)
 
@@ -55,10 +55,10 @@ local _function = function(data)
 			inPage = inPage + 1
 
 			if result ~= "" then
-				result = format("%s\n", result)
+				result = string.format("%s\n", result)
 			end
 
-			result = format("%s%s%s %s - **%s** %s", result, topicEmoji.mentionString, symbol, affixNum(obj.price), localize(obj.name, guildLang), localize(obj.desc, guildLang))
+			result = string.format("%s%s%s %s - **%s** %s", result, topicEmoji.mentionString, symbol, affixNum(obj.price), localize(obj.name, guildLang), localize(obj.desc, guildLang))
 		end
 
 		local pages = listTotal / perPage
@@ -93,7 +93,7 @@ local _function = function(data)
 			decoy:addReaction(arwUp)
 
 			blinker:on(arwDown.id, function()
-				page = min(pages, page + 1)
+				page = math.min(pages, page + 1)
 
 				if not private then
 					decoy:removeReaction(arwDown, data.user.id)
@@ -103,7 +103,7 @@ local _function = function(data)
 			end)
 
 			blinker:on(arwUp.id, function()
-				page = max(1, page - 1)
+				page = math.max(1, page - 1)
 
 				if not private then
 					decoy:removeReaction(arwUp, data.user.id)

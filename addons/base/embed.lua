@@ -41,12 +41,12 @@ local _function = function(data)
 		end
 
 		if lastData.guild.id ~= data.guild.id then
-			local finishCommand = format("%s done", data.command)
+			local finishCommand = string.format("%s done", data.command)
 			local editLostMessage = localize("${userEmbedEditLost} ${embedFinishTip2}", guildLang, data.user.username, finishCommand)
 			local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, botEmbed:getMessage().link)
 			local embed = newEmbed()
 
-			embed:description(format("%s\n\n%s", editLostMessage, jumpTo))
+			embed:description(string.format("%s\n\n%s", editLostMessage, jumpTo))
 			embed:color(paint.info)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, lastData.author, guildLang)
@@ -79,11 +79,11 @@ local _function = function(data)
 		embedBuilderData[data.author.id].botEmbed = botEmbed
 	end
 
-	if match(sentence, config.patterns.keyValue.base) then
+	if sentence:match(config.patterns.keyValue.base) then
 		local success, err = pcall(function()
 			for _, text in next, sentence:split("&&")
 			do
-				local key, value = match(text, config.patterns.keyValue.capture)
+				local key, value = text:match(config.patterns.keyValue.capture)
 
 				key = key:lower()
 
@@ -116,11 +116,11 @@ local _function = function(data)
 			if err and type(err) == "string" then
 				local errPath, errFileLine = err:match("(%a*)/(%a*.lua%p%d*)")
 
-				err = gsub(err, "%a%:%/", "")
-				err = gsub(err, "%a+%/", "")
+				err = string.gsub(err, "%a%:%/", "")
+				err = string.gsub(err, "%a+%/", "")
 
 				if errPath and errFileLine then
-					err = gsub(err, errFileLine, format("..%s/%s", errPath, errFileLine))
+					err = string.gsub(err, errFileLine, string.format("..%s/%s", errPath, errFileLine))
 				end
 			end
 
@@ -133,7 +133,7 @@ local _function = function(data)
 	end
 
 	if botEmbed then
-		local finishCommand = format("%s done", data.command)
+		local finishCommand = string.format("%s done", data.command)
 
 		botEmbed:update(localize("${editModeResult}; ${embedFinishTip}", guildLang, data.author.tag, finishCommand), embed:raw())
 		embedBuilderData[data.author.id].botEmbed = botEmbed

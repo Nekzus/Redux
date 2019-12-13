@@ -25,7 +25,7 @@ local _function = function(data)
 		if roleExists then
 			local isPrimary = getPrimaryRoleIndex(obj.level, guildRoles:raw()) == roleId
 
-			insert(listItems, {
+			table.insert(listItems, {
 				id = roleId,
 				level = obj.level,
 				primary = isPrimary,
@@ -35,7 +35,7 @@ local _function = function(data)
 		end
 	end
 
-	sort(listItems, function(a, b)
+	table.sort(listItems, function(a, b)
 		return a.level > b.level or (a.level == b.level and a.added > b.added)
 	end)
 
@@ -63,13 +63,13 @@ local _function = function(data)
 
 			local roleTitle = getMatchingRoleTitle(obj.level)
 
-			result = format("%s%s %s@%s: `%s`", result, topicEmoji.mentionString, obj.primary and localize("**[${initial}]** ", guildLang) or "", getRole(obj.id, "id", data.guild).name, (obj.level and roleTitle and localize(roleTitle, guildLang)))
+			result = string.format("%s%s %s@%s: `%s`", result, topicEmoji.mentionString, obj.primary and localize("**[${initial}]** ", guildLang) or "", getRole(obj.id, "id", data.guild).name, (obj.level and roleTitle and localize(roleTitle, guildLang)))
 		end
 
 		local pages = listTotal / perPage
 
 		if tostring(pages):match("%.%d+") then
-			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
+			pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
 		embed:title(localize("${roles} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
@@ -94,7 +94,7 @@ local _function = function(data)
 			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
 			blinker:on(arwDown.id, function()
-				page = min(pages, page + 1)
+				page = math.min(pages, page + 1)
 
 				if not private then
 					decoy:removeReaction(arwDown, data.user.id)
@@ -104,7 +104,7 @@ local _function = function(data)
 			end)
 
 			blinker:on(arwUp.id, function()
-				page = max(1, page - 1)
+				page = math.max(1, page - 1)
 
 				if not private then
 					decoy:removeReaction(arwUp, data.user.id)

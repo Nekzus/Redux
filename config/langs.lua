@@ -1390,6 +1390,11 @@ langs = {
 		["pt-br"] = "**%s** foi rebaixado para **%s**",
 	},
 
+	["userDemotedFrom"] = {
+		["en-us"] = "**%s** has been demoted from **%s**",
+		["pt-br"] = "**%s** foi debaixado de **%s**",
+	},
+
 	["noDefinedRoleFound"] = {
 		["en-us"] = "Could not find any pre-defined role",
 		["pt-br"] = "Nenhum cargo pré-definido pôde ser encontrado",

@@ -68,7 +68,7 @@ local _function = function(data)
 	local alreadyMuted = {}
 
 	local muteTime = data.content:match("%w+$")
-	muteTime = muteTime and clamp(interpTime(muteTime), timeUnit.second * 5, timeUnit.month)
+	muteTime = muteTime and math.clamp(interpTime(muteTime), timeUnit.second * 5, timeUnit.month)
 	or timeUnit.hour
 
 	local formalMuteTime = localize(timeLong(muteTime), guildLang)
@@ -80,7 +80,7 @@ local _function = function(data)
 
 		if not user or not member then
 			canMute = false
-			insert(notMuted, member.name)
+			table.insert(notMuted, member.name)
 		end
 
 		local tempMutes = saves.temp:get("mutes")
@@ -89,7 +89,7 @@ local _function = function(data)
 		if muteData then
 			if member:hasRole(role) then
 				canMute = false
-				insert(alreadyMuted, member.name)
+				table.insert(alreadyMuted, member.name)
 			else
 				if tempMutes:raw()[muteData.guid] then
 					tempMutes:set(muteData.guid, nil)
@@ -102,7 +102,7 @@ local _function = function(data)
 		if member.highestRole.position >= data.guild.me.highestRole.position
 		or member.highestRole.position >= author.highestRole.position then
 			canMute = false
-			insert(notMuted, member.name)
+			table.insert(notMuted, member.name)
 		end
 
 		if canMute then
@@ -123,44 +123,44 @@ local _function = function(data)
 			guildData:get("mutes"):set(member.id, muteData)
 			handleMuteData(muteData)
 			member:addRole(role)
-			insert(muted, member.name)
+			table.insert(muted, member.name)
 		end
 	end
 
 	local text = ""
 
 	if #muted > 0 then
-		text = text ~= "" and format("%s\n", text) or text
-		text = format(
+		text = text ~= "" and string.format("%s\n", text) or text
+		text = string.format(
 			"%s%s",
 			text,
 			localize(
 				(#muted == 1 and "${followingUserBeenMuted}") or "${followingUsersBeenMuted}",
-				guildLang, concat(muted, ", "), formalMuteTime
+				guildLang, table.concat(muted, ", "), formalMuteTime
 			)
 		)
 	end
 
 	if #alreadyMuted > 0 then
-		text = text ~= "" and format("%s\n", text) or text
-		text = format(
+		text = text ~= "" and string.format("%s\n", text) or text
+		text = string.format(
 			"%s%s",
 			text,
 			localize(
 				(#alreadyMuted == 1 and "${followingUserAlreadyMuted}") or "${followingUsersAlreadyMuted}",
-				guildLang, concat(alreadyMuted, ", ")
+				guildLang, table.concat(alreadyMuted, ", ")
 			)
 		)
 	end
 
 	if #notMuted > 0 then
-		text = text ~= "" and format("%s\n", text) or text
-		text = format(
+		text = text ~= "" and string.format("%s\n", text) or text
+		text = string.format(
 			"%s%s",
 			text,
 			localize(
 				(#notMuted == 1 and "${followingUserCannotMute}") or "${followingUsersCannotMute}",
-				guildLang, concat(notMuted, ", ")
+				guildLang, table.concat(notMuted, ", ")
 			)
 		)
 	end

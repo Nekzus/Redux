@@ -1,3 +1,3 @@
 @echo off
-.\luvit.exe bot.lua
+.\luvit.exe main.lua
 pause > nul

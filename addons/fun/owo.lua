@@ -29,7 +29,7 @@ local _function = function(data)
 		["ay"] = "yay",
 		["o"] = "w",
 		["uta"] = "wuta",
-		["!"] = " " .. increment[random(#increment)]
+		["!"] = " " .. increment[math.random(#increment)]
 	}
 
 	if isFiltered(text, {"http://", "https://"}) then
@@ -43,7 +43,7 @@ local _function = function(data)
 
 	for word, replace in pairs(replaces) do
 		text = text:gsub(word, replace)
-		replaces["!"] = " " .. increment[random(#increment)]
+		replaces["!"] = " " .. increment[math.random(#increment)]
 	end
 
 	--local embed = replyEmbed(text, data.message, "ok")

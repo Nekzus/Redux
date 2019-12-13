@@ -17,7 +17,7 @@ local function filterList(list)
 		end
 
 		if valid then
-			insert(result, packed)
+			table.insert(result, packed)
 		end
 	end
 
@@ -26,16 +26,19 @@ end
 
 
 function apiWiki(text, lang)
-	local data, request = httpGet("wikipedia", {lang or "en", text})
-	local decode = json.decode(request)
+	local data, request = httpGet(
+		"wikipedia",
+		lang or "en",
+		text
+	)
 
-	if not decode then
-		print("Unable to decode apiWiki()")
+	local decoded = json.decode(request)
+	local list = decoded and filterList(decoded)
 
-		return nil
-	end
-
-	return filterList(decode)
+	return assert(
+		list,
+		"Unable to decode apiWiki"
+	)
 end
 
 return apiWiki

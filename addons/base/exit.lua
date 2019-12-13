@@ -15,7 +15,7 @@ local _function = function(data)
 	local args = data.args
 
 	client:removeAllListeners()
-	db:saveAllData()
+	think:saveAllData()
 
 	client:setGame {
 		type = 2,
@@ -23,7 +23,7 @@ local _function = function(data)
 	}
 
 	dos("git add --all")
-	dos(format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
+	dos(string.format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
 	dos("git push")
 
 	local text = localize("${botDataSaved}", guildLang)

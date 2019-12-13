@@ -94,7 +94,7 @@ local _function = function(data)
 			memberEconomy:set("cash", memberCash - value)
 			targetEconomy:set("bank", targetBank + value)
 
-			local text = localize("${userPaidSuccess}", guildLang, format("%s %s", guildEconomy:get("symbol"), affixNum(value)), target.tag)
+			local text = localize("${userPaidSuccess}", guildLang, string.format("%s %s", guildEconomy:get("symbol"), affixNum(value)), target.tag)
 			local embed = replyEmbed(text, data.message, "ok")
 
 			bird:post(nil, embed:raw(), data.channel)

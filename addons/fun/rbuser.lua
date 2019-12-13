@@ -24,7 +24,7 @@ local _function = function(data)
 	end
 
 	local sentence = data.content:sub(#args[1] + 2)
-	local name = trim(sentence:match("%S+"))
+	local name = string.trim(sentence:match("%S+"))
 
 	-- Informações base
 	local user = apiRobloxGetUser(name, "name")
@@ -73,9 +73,9 @@ local _function = function(data)
 		embed:thumbnail(headShot)
 	end
 
-	embed:author(format("%s (%s)", user.Username, user.Id))
+	embed:author(string.format("%s (%s)", user.Username, user.Id))
 	embed:authorImage(config.images.robloxLogo)
-	embed:authorUrl(format("https://www.roblox.com/users/%s/profile", user.Id))
+	embed:authorUrl(string.format("https://www.roblox.com/users/%s/profile", user.Id))
 	embed:description(status)
 	embed:field({
 		name = localize("%s ${createdIn}", guildLang, ":date:"),

@@ -44,15 +44,17 @@
 function apiRobloxGetUserFriends(id, perPage)
 	perPage = perPage or 18
 
-	local data, request = httpGet("robloxGetUserFriends", {perPage, id})
-	local decode = json.decode(request)
+	local data, request = httpGet("robloxGetUserFriends",
+		perPage,
+		id
+	)
 
-	if not decode then
-		print("Unable to decode apiRobloxGetUserFriends()")
-		return nil
-	end
+	local decoded = json.decode(request)
 
-	return decode
+	return assert(
+		decoded,
+		"Unable to decode apiRobloxGetUserFriends"
+	)
 end
 
 return apiRobloxGetUserFriends

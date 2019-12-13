@@ -1,12 +1,15 @@
 function apiDog()
-	local data, request = httpGet("dogImage")
-	local decode = json.decode(request)
+	local data, request = httpGet(
+		"dogImage"
+	)
 
-	if not decode then
-		return nil, print("Unable to decode apiDog()")
-	end
+	local decoded = json.decode(request)
+	local message = decoded and decoded.message
 
-	return json.decode(request).message
+	return assert(
+		message,
+		"Unable to decode apiDog"
+	)
 end
 
 return apiDog

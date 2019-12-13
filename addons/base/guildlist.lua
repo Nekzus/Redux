@@ -33,7 +33,7 @@ local _function = function(data)
 		local rList = client.guilds:toArray()
 		local nCount = #rList
 
-		sort(rList, function(a, b)
+		table.sort(rList, function(a, b)
 			return a.name < b.name
 		end)
 
@@ -41,13 +41,13 @@ local _function = function(data)
 			count = count + 1
 
 			if result ~= "" then
-				result = format("%s\n", result)
+				result = string.format("%s\n", result)
 			end
 
 			local guildName = obj.name
 
 			if #guildName > 15 then
-				guildName = format("%s...", sub(guildName, 1, 15))
+				guildName = string.format("%s...", guildName:sub(1, 15))
 			end
 
 			result = localize("%s%s **%s**: `%s`", guildLang, result, topicEmoji.mentionString, guildName, obj.id)
@@ -56,7 +56,7 @@ local _function = function(data)
 		local pages = nCount / perPage
 
 		if tostring(pages):match("%.%d+") then
-			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
+			pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
 		embed:title(localize("${guilds} (%s/%s) [${page} %s/%s]", guildLang, count, nCount, page, pages))
@@ -78,7 +78,7 @@ local _function = function(data)
 			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
 			blinker:on(arwDown.id, function()
-				page = min(pages, page + 1)
+				page = math.min(pages, page + 1)
 
 				if not private then
 					decoy:removeReaction(arwDown, data.user.id)
@@ -88,7 +88,7 @@ local _function = function(data)
 			end)
 
 			blinker:on(arwUp.id, function()
-				page = max(1, page - 1)
+				page = math.max(1, page - 1)
 
 				if not private then
 					decoy:removeReaction(arwUp, data.user.id)

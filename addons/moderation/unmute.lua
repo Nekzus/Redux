@@ -75,7 +75,7 @@ local _function = function(data)
 		local canUnmute = true
 
 		if not muteData then
-			insert(alreadyUnmuted, member.name)
+			table.insert(alreadyUnmuted, member.name)
 		else
 			local tempMutes = saves.temp:get("mutes")
 			local timerProcess = muteTimers[muteData.guid]
@@ -92,32 +92,32 @@ local _function = function(data)
 				member:removeRole(role)
 			end
 
-			insert(unmuted, member.name)
+			table.insert(unmuted, member.name)
 		end
 	end
 
 	local text = ""
 
 	if #unmuted > 0 then
-		text = text ~= "" and format("%s\n", text) or text
-		text = format(
+		text = text ~= "" and string.format("%s\n", text) or text
+		text = string.format(
 			"%s%s",
 			text,
 			localize(
 				(#unmuted == 1 and "${followingUserBeenUnmuted}") or "${followingUsersBeenUnmuted}",
-				guildLang, concat(unmuted, ", ")
+				guildLang, table.concat(unmuted, ", ")
 			)
 		)
 	end
 
 	if #alreadyUnmuted > 0 then
-		text = text ~= "" and format("%s\n", text) or text
-		text = format(
+		text = text ~= "" and string.format("%s\n", text) or text
+		text = string.format(
 			"%s%s",
 			text,
 			localize(
 				(#alreadyUnmuted == 1 and "${followingUserNotMuted}") or "${followingUsersNotMuted}",
-				guildLang, concat(alreadyUnmuted, ", ")
+				guildLang, table.concat(alreadyUnmuted, ", ")
 			)
 		)
 	end

@@ -83,7 +83,7 @@ local _function = function(data)
 	end
 
 	if buyTotal > memberTotal then
-		local text = localize("${storeItemCashNeeded}", guildLang, format("%s %s", symbol, affixNum(buyTotal - memberTotal)))
+		local text = localize("${storeItemCashNeeded}", guildLang, string.format("%s %s", symbol, affixNum(buyTotal - memberTotal)))
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
@@ -116,7 +116,7 @@ local _function = function(data)
 	end
 
 	if itemStock ~= -1 then
-		itemData.itemStock = max(0, itemData.itemStock - buyAmount)
+		itemData.itemStock = math.max(0, itemData.itemStock - buyAmount)
 	end
 
 	local memberInventory = memberEconomy:get("inventory")

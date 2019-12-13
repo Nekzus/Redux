@@ -38,7 +38,7 @@ local _function = function(data)
 		if ban.user.tag:lower():match(args[2]) then
 			count = count + 1
 			lastTag = ban.user.tag
-			ban:delete(format("[%s]: %s", data.author.tag, reason))
+			ban:delete(string.format("[%s]: %s", data.author.tag, reason))
 		end
 	end
 

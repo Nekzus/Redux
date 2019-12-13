@@ -27,7 +27,7 @@ local _function = function(data)
 		if not itemData or (item and item.itemAmount and item.itemAmount <= 0) then
 			memberInventory:set(itemGuid, nil)
 		else
-			insert(listItems, {
+			table.insert(listItems, {
 				name = itemData.itemName,
 				desc = itemData.itemDesc,
 				price = itemData.itemPrice,
@@ -37,7 +37,7 @@ local _function = function(data)
 		end
 	end
 
-	sort(listItems, function(a, b)
+	table.sort(listItems, function(a, b)
 		return a.price > b.price
 	end)
 
@@ -69,7 +69,7 @@ local _function = function(data)
 		local pages = listTotal / perPage
 
 		if tostring(pages):match("%.%d+") then
-			pages = max(1, tonumber(tostring(pages):match("%d+") + 1))
+			pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
 		embed:title(localize("${inventory} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
@@ -94,7 +94,7 @@ local _function = function(data)
 			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
 
 			blinker:on(arwDown.id, function()
-				page = min(pages, page + 1)
+				page = math.min(pages, page + 1)
 
 				if not private then
 					decoy:removeReaction(arwDown, data.user.id)
@@ -104,7 +104,7 @@ local _function = function(data)
 			end)
 
 			blinker:on(arwUp.id, function()
-				page = max(1, page - 1)
+				page = math.max(1, page - 1)
 
 				if not private then
 					decoy:removeReaction(arwUp, data.user.id)

@@ -12,7 +12,7 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	storeTempData = storeTempData or {}
 
@@ -49,10 +49,10 @@ local _function = function(data)
 				if value.required == true then
 					if not itemData[key] then
 						if missingValues ~= "" then
-							missingValues = format("%s, ", missingValues)
+							missingValues = string.format("%s, ", missingValues)
 						end
 
-						missingValues = format("%s%s", missingValues, key)
+						missingValues = string.format("%s%s", missingValues, key)
 					end
 				end
 			end
@@ -84,12 +84,12 @@ local _function = function(data)
 		end
 
 		if lastData.guild.id ~= data.guild.id then
-			local finishCommand = format("%s cancel", data.command)
+			local finishCommand = string.format("%s cancel", data.command)
 			local editLostMessage = localize("${userItemEditLost} ${itemFinishTip2}", guildLang, data.user.username, finishCommand)
 			local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, decoy.message.link)
 			local embed = newEmbed()
 
-			embed:description(format("%s\n\n%s", editLostMessage, jumpTo))
+			embed:description(string.format("%s\n\n%s", editLostMessage, jumpTo))
 			embed:color(paint.info)
 			embed:footerIcon(config.images.info)
 			signFooter(embed, lastData.author, guildLang)
@@ -102,7 +102,6 @@ local _function = function(data)
 		lastData = data
 		itemData = {createDate = os.time()}
 		tempData = {
-			-- Base definition of the current item
 			itemName = {
 				required = true,
 				default = "${noNameSpecified}",
@@ -124,7 +123,6 @@ local _function = function(data)
 				title = "$<storeItemStock>",
 			},
 
-			-- Awards that will be granted once the current item is utilized
 			giveRole = {
 				required = false,
 				default = "",
@@ -141,8 +139,6 @@ local _function = function(data)
 				title = "$<storeItemReplyUsed>",
 			},
 
-			-- picked items that will not be consumed but must be present to
-			-- allow the usage of the current item
 			reqRole = {
 				required = false,
 				default = "",
@@ -156,7 +152,7 @@ local _function = function(data)
 			if fillData then
 				itemData[fill] = fillData.default
 			else
-				printf("Information not found in itemData for %s", fill)
+				printf("Instring.formation not found in itemData for %s", fill)
 			end
 		end
 
@@ -168,10 +164,10 @@ local _function = function(data)
 		}
 	end
 
-	if match(sentence, config.patterns.keyValue.base) then
+	if sentence:match(config.patterns.keyValue.base) then
 		for _, text in next, sentence:split("&&")
 		do
-			local key, value = match(text, config.patterns.keyValue.capture)
+			local key, value = text:match(config.patterns.keyValue.capture)
 
 			key = key:lower()
 
@@ -204,7 +200,7 @@ local _function = function(data)
 					return false
 				end
 
-				itemData.itemPrice = max(0, price)
+				itemData.itemPrice = math.max(0, price)
 
 			elseif inList(key, {"stock", "itemstock", "item stock", "s"}) then
 				local stock = realNum(value)
@@ -278,7 +274,7 @@ local _function = function(data)
 		itemName = itemName and localize(itemName, guildLang) or "-"
 
 		--[[if #itemName > charLimit then
-			itemName = format("%s...", itemName:sub(1, charLimit))
+			itemName = string.format("%s...", itemName:sub(1, charLimit))
 		end]]
 
 		embed:field({
@@ -291,7 +287,7 @@ local _function = function(data)
 		itemDesc = itemDesc and localize(itemDesc, guildLang) or "-"
 
 		--[[if #itemDesc > charLimit then
-			itemDesc = format("%s...", itemDesc:sub(1, charLimit))
+			itemDesc = string.format("%s...", itemDesc:sub(1, charLimit))
 		end]]
 
 		embed:field({
@@ -335,7 +331,6 @@ local _function = function(data)
 			inline = true,
 		})
 
-		-- Required attributes
 		local reqRole = getRole(itemData.reqRole, "id", lastData.guild)
 
 		embed:field({
@@ -347,8 +342,8 @@ local _function = function(data)
 		return embed
 	end
 
-	local finishCommand = format("%s done", data.command)
-	local cancelCommand = format("%s cancel", data.command)
+	local finishCommand = string.format("%s done", data.command)
+	local cancelCommand = string.format("%s cancel", data.command)
 	local tipText = localize("${editModeResult}; ${itemFinishTip}", guildLang, data.author.tag, finishCommand, cancelCommand)
 
 	if decoy == nil then

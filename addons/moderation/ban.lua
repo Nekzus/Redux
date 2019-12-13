@@ -80,7 +80,7 @@ local _function = function(data)
 		member:ban(localize("[%s]: ${noReason}", guildLang, author.tag))
 	else
 		-- member:send(localize("${beenBanned}", guildLang, data.guild.name, reason))
-		member:ban(format("[%s]: %s", author.tag, reason))
+		member:ban(string.format("[%s]: %s", author.tag, reason))
 	end
 
 	local text = localize("${userBanned}", guildLang, member.tag)

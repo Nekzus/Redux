@@ -47,7 +47,7 @@ local _function = function(data)
 
 	if value and type(value) == "number" then
 		if value <= memberCash then
-			local text = localize("${cashDeposited}", guildLang, format("%s %s", symbol, affixNum(value)))
+			local text = localize("${cashDeposited}", guildLang, string.format("%s %s", symbol, affixNum(value)))
 			local embed = replyEmbed(text, data.message, "ok")
 
 			bird:post(nil, embed:raw(), data.channel)
@@ -56,7 +56,7 @@ local _function = function(data)
 
 			return true
 		else
-			local text = localize("${insufficientFunds}; ${currentCashAmount}", guildLang, format("%s %s", symbol, memberBank))
+			local text = localize("${insufficientFunds}; ${currentCashAmount}", guildLang, string.format("%s %s", symbol, memberBank))
 			local embed = replyEmbed(text, data.message, "error")
 
 			bird:post(nil, embed:raw(), data.channel)

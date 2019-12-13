@@ -7,7 +7,8 @@ function methods:getList()
 end
 
 function metatable:__index(key)
-  return rawget(pool, key)
+  return rawget(methods, key)
+  or rawget(pool, key)
 end
 
 function metatable:__newindex(key, value)
