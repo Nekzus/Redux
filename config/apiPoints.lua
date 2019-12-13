@@ -8,8 +8,6 @@ config.apiPoints = {
 	googleSearchImage = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&searchType=image&q=%s",
 	googleTranslate = "https://translation.googleapis.com/language/translate/v2?key=%s&target=%s&format=text&q=%s",
 	googleTranslateLangs = "https://translation.googleapis.com/language/translate/v2/languages?key=%s&target=%s",
-	truthYesNo = "https://yesno.wtf/api",
-	truthYesNoForce = "https://yesno.wtf/api?force=%s",
 	discordScreenshare = "https://discordapp.com/channels/%s/%s",
 	exchangeRate = "https://api.exchangeratesapi.io/latest?base=%s",
 	wikipedia = "https://%s.wikipedia.org/w/api.php?action=opensearch&search=%s&limit=50&format=json",

@@ -61,7 +61,7 @@ local _function = function(data)
 	local result = ""
 
 	for i = 1, #text do
-		local cur = sub(text, i, i)
+		local cur = text:sub(i, i)
 		local found = replaces[cur]
 
 		if found then

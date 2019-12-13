@@ -18,7 +18,7 @@ local _function = function(data)
 
 	bot.loaded = false
 	client:removeAllListeners()
-	think:saveAllData()
+	think:saveAll()
 
 	if not isLocal then
 		dos("git pull")

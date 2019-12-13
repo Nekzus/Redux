@@ -73,7 +73,7 @@ local _function = function(data)
 		local listItems = {}
 
 		for userId, muteData in pairs(tempMutes:raw()) do
-			insert(listItems, muteData)
+			table.insert(listItems, muteData)
 			listTotal = listTotal + 1
 		end
 

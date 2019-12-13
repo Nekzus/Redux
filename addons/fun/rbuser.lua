@@ -24,7 +24,7 @@ local _function = function(data)
 	end
 
 	local sentence = data.content:sub(#args[1] + 2)
-	local name = trim(sentence:match("%S+"))
+	local name = string.trim(sentence:match("%S+"))
 
 	-- Informações base
 	local user = apiRobloxGetUser(name, "name")

@@ -31,6 +31,8 @@
 ]]
 
 function apiRobloxGetUserAccessories(id, amount)
+	assert(id, "Must provide a valid ID")
+
 	local result = {}
 	local nextPage = ""
 
@@ -40,11 +42,18 @@ function apiRobloxGetUserAccessories(id, amount)
 
 	for _, assetType in next, assetTypes do
 		while true do
-			local data, request = httpGet("robloxGetUserAccessories", {id, assetType, amount, nextPage})
+			local data, request = httpGet(
+				"robloxGetUserAccessories",
+				id,
+				assetType,
+				amount,
+				nextPage
+			)
+
 			local decode = json.decode(request)
 
 			if not decode then
-				print("Unable to decode apiRobloxGetUserAccessories()")
+				print("Unable to decode apiRobloxGetUserAccessories")
 				break
 			elseif not decode.data then
 				break

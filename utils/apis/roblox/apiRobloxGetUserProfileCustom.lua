@@ -26,10 +26,13 @@ local function parsed(text)
 end
 
 function apiRobloxGetUserProfileCustom(id)
-	local data, request = httpGet("robloxGetUserProfile", {id})
+	local data, request = httpGet(
+		"robloxGetUserProfile",
+		id
+	)
 
 	if not request then
-		print("Unable to decode apiRobloxGetUserProfileCustom()")
+		print("Unable to decode apiRobloxGetUserProfileCustom")
 		return nil
 	end
 

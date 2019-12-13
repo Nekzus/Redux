@@ -1,28 +1,26 @@
 client:on("reactionAdd",
 	function(reaction, userId)
-		reactionsData = reactionsData or {}
-
 		local message = reaction.message
-		local blinkData = message and reactionsData[message.id]
-		local active = blinkData and blinkData:raw()
+		local blinkList = blink:raw()
+		local blinkData = blinkList and blinkList[message.id]
 
-		if not active then
+		if not blinkData then
 			return
 		elseif not inList(userId, blinkData.whitelist) then
 			return
 		end
 
-		for emojiId, callback in next, active do
+		for emojiId, callback in next, blinkData.active do
 			if emojiId == reaction.emojiId then
-				local timeout = blinkData.timeout
-				local lastUse = blinkData.lastUse
+				local lifetime = blinkData.lifetime
+				local tick = blinkData.tick
 				local now = os.time()
 
-				if (now - lastUse) <= timeout then
-					blinkData.lastUse = os.time()
+				if (now - tick) <= lifetime then
+					blinkData.tick = os.time()
 					callback(userId)
 				else
-					reactionsData[message.id] = {}
+					blinkList[message.id] = nil
 				end
 			end
 		end

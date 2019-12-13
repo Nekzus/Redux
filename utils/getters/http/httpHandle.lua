@@ -1,6 +1,9 @@
-function httpHandle(method, link, ...)
+function httpHandle(method, point, ...)
+	assert(method, "Must provide a valid method (GET or POST)")
+	assert(point, "Must provide a valid point")
+
 	local args = {...}
-	local link = config.apiPoints[apiName] or point
+	local link = config.apiPoints[point] or point
 
 	if args[1] then
 		link = string.format(link, ...)

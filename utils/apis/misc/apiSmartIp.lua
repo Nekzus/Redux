@@ -1,14 +1,16 @@
 function apiSmartIp(text)
-	local data, request = httpGet("smartIp", {text, config.apiKeys.smartIpKey})
-	local decode = json.decode(request)
+	local data, request = httpGet(
+		"smartIp",
+		text,
+		config.apiKeys.smartIpKey
+	)
 
-	if not decode then
-		print("Unable to decode apiSmartIp()")
+	local decoded = json.decode(request)
 
-		return nil
-	end
-
-	return json.decode(request)
+	return assert(
+		decoded,
+		"Unable to decode apiSmartIp"
+	)
 end
 
 return apiSmartIp

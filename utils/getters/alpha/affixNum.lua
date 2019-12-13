@@ -23,7 +23,7 @@ function affixNum(num)
 	local affix = math.abs(num)
 	affix = math.log(affix)
 	affix = math.floor(affix / math.log(1000))
-	affix = math.math.min(affix, #config.numAffixes)
+	affix = math.min(affix, #config.numAffixes)
 
 	if isNeg then
 		num = num * - 1

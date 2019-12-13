@@ -131,7 +131,7 @@ local _function = function(data)
 			return false
 		end
 
-		if sub(translateLang, 1, 1) == "\"" or sub(translateLang, 1,1) == "'" then
+		if translateLang:sub(1, 1) == "\"" or translateLang:sub(translateLang, 1, 1) == "'" then
 			translateLang = translateLang:match("%w+")
 
 			for _, item in next, supportedLangs do
@@ -234,7 +234,7 @@ local _function = function(data)
 
 		showPage()
 	else
-		local translateResult = apiGoogleTranslate(translateLang, urlEncode(translateTerms))
+		local translateResult = apiGoogleTranslate(translateLang, query.urlencode(translateTerms))
 
 		if translateResult == nil or translateResult.data == nil then
 			local text = localize("${couldNotFindTerms}", guildLang, translateLang)
@@ -260,7 +260,7 @@ local _function = function(data)
 		end
 
 		local arrow = getEmoji(config.emojis.arrowIcon, "name", baseGuild)
-		local reply = string.format("%s ``%s``%s``%s`` \n```%s```", data.author.mentionString, detectedSourceLanguage, arrow.mentionString,data.args[2], urlDecode(translatedText))
+		local reply = string.format("%s `%s`%s`%s` \n```%s```", data.author.mentionString, detectedSourceLanguage, arrow.mentionString,data.args[2], query.urldecode(translatedText))
 
 		bird:post(reply, nil, data.channel)
 	end

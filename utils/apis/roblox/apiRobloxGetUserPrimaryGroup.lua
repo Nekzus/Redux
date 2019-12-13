@@ -9,16 +9,16 @@
 ]]
 
 function apiRobloxGetUserPrimaryGroup(value)
-	local data, request = httpGet("robloxGetUserPrimaryGroup", {value})
-	local decode = json.decode(request)
+	local data, request = httpGet(
+		"robloxGetUserPrimaryGroup",
+		value
+	)
 
-	if not decode then
-		print("Unable to decode apiRobloxGetUserPrimaryGroup()")
+	local decoded = json.decode(request)
 
-		return nil
-	end
+	assert(decoded, "Unable to decode apiRobloxGetUserPrimaryGroup")
 
-	return decode and decode.group or false
+	return decoded and decoded.group or false
 end
 
 return apiRobloxGetUserPrimaryGroup

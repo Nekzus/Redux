@@ -21,7 +21,7 @@ function methods:close()
 end
 
 function methods:raw()
-	return self.active or pool
+	return self.active and self or pool
 end
 
 function metatable:__call(message, lifetime, whitelist)
