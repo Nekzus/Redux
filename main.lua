@@ -117,7 +117,7 @@ function loadBot()
 	local line = string.rep("-", 10)
 	local info = join(line, os.date("%m/%d/%Y %I:%M %p"), line)
 
-	print(join("\n ", info, " \n"))
+	print(join("\n", info, "\n"))
 	client:removeAllListeners()
 
 	loadFiles("./config")
