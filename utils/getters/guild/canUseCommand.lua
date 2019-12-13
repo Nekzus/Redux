@@ -14,13 +14,13 @@ function canUseCommand(command, member)
 	local newTime = os.time()
 	local cooldown = commandData.cooldown or 0
 	local commandUsedData = commandsUsed:raw()[commandName]
-	local elapsedTime, lastUse
+	local elapsedTime, tick
 
 	if commandUsedData then
-		lastUse = commandUsedData.lastUse
-		elapsedTime = newTime - lastUse
+		tick = commandUsedData.tick
+		elapsedTime = newTime - tick
 
-		if not lastUse then
+		if not tick then
 			permit = true
 		elseif elapsedTime >= cooldown then
 			permit = true

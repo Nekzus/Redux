@@ -29,10 +29,10 @@ client:on("ready",
 					while wait(config.cleaner.delay) do
 						for messageId, blinkData in next, reactionsData do
 							local timeout = blinkData.timeout
-							local lastUse = blinkData.lastUse
+							local tick = blinkData.tick
 							local now = os.time()
 
-							if (now - lastUse) > timeout then
+							if (now - tick) > timeout then
 								reactionsData[messageId] = nil
 							end
 						end

@@ -15,7 +15,7 @@ function updateEconomyCommandCooldown(command, member, guild)
 
 	local commandUsedData = commandsUsed:get(commandName)
 
-	commandUsedData:set("lastUse", os.time())
+	commandUsedData:set("tick", os.time())
 	clearEconomyCommandsUsed(member, guild)
 end
 

@@ -13,7 +13,7 @@ function updateCommandCooldown(command, member)
 
 	if commandData.cooldown then
 		commandsUsed:set(commandData.origin or commandName, {
-			lastUse = os.time()
+			tick = os.time()
 		})
 	end
 
