@@ -1,7 +1,7 @@
 client:on("messageCreate",
 	function(message)
 		if message.author == client.user
-		or message.author.bot
+		--or message.author.bot
 		or not bot.loaded then
 			return
 		end
@@ -38,27 +38,27 @@ client:on("messageCreate",
 			data.guildLang = guildLang
 			data.prefix = guildData:raw().prefix
 
-			if not data.args[2] then
-				if data.message.mentionedUsers.first == client.user then
-					bird:post(localize("${guildPrefix}", guildLang, data.prefix), nil, data.channel)
-					return true
-				end
-			end
-
 			if muteData then
 				local roleId = getPrimaryRoleIndex(-1, guildData:get("roles"):raw())
 				local role = roleId and getRole(roleId, "id", data.guild)
 
 				if role and not data.member:hasRole(role) then
-					if hasPermissions(data.member, nil, {"manageRoles"}) then
+					if hasPermissions(botMember, nil, {"manageRoles"}) then
 						data.member:addRole(role)
 					end
 
-					if hasPermissions(data.member, nil, {"manageMessages"}) then
+					if hasPermissions(botMember, nil, {"manageMessages"}) then
 						data.message:delete()
 					end
 
 					return false
+				end
+			end
+
+			if not data.args[2] then
+				if data.message.mentionedUsers.first == client.user then
+					bird:post(localize("${guildPrefix}", guildLang, data.prefix), nil, data.channel)
+					return true
 				end
 			end
 

@@ -3,6 +3,10 @@ function hasPermissions(member, channel, list)
 	local missing = {}
 	local text = ""
 
+	if inList("administrator", perms) then
+		return true
+	end
+
 	for perm, value in next, list do
 		if not perms[value] then
 			table.insert(missing, value)

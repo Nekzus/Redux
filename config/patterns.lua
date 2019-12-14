@@ -22,8 +22,8 @@ config.patterns = {
 		capture = "<#(%d+)>",
 	},
 	time = {
-		base = "%d+%a",
-		capture = "(%d+)(%a)",
+		base = "%d+%a*",
+		capture = "(%d+)(%a*)",
 	},
 	quotes = {
 		base = "[\"'].-[\"']",
