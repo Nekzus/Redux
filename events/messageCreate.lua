@@ -1,7 +1,7 @@
 client:on("messageCreate",
 	function(message)
 		if message.author == client.user
-		--or message.author.bot
+		or message.author.bot
 		or not bot.loaded then
 			return
 		end

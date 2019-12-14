@@ -68,7 +68,7 @@ local _function = function(data)
 	local alreadyMuted = {}
 
 	local muteTime = data.content:match("%w+$")
-	muteTime = muteTime and math.clamp(interpTime(muteTime), timeUnit.second * 5, timeUnit.century)
+	muteTime = muteTime and math.clamp(interpTime(muteTime), timeUnit.second * 5, timeUnit.month)
 	or timeUnit.hour
 
 	local formalMuteTime = localize(timeLong(muteTime), guildLang)

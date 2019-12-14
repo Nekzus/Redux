@@ -29,7 +29,7 @@ local _function = function(data)
 	local decoy
 	local firstTime = true
 	local searchTerms = data.content:sub(#args[1] + 2):gsub(" ", "+")
-	local searchResult = apiWiki(searchTerms, sub(guildLang, 1, 2))
+	local searchResult = apiWiki(searchTerms, guildLang:sub(1, 2))
 	local list = searchResult
 
 	local page = 1

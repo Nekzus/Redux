@@ -5,8 +5,8 @@ function canRunCommand(data)
 	local commandLevel = commandData and commandData.level
 	local commandPatron = false
 
-	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
 	local private = data.member == nil
+	local userLevel = not private and getMemberLevel(data.user, data.guild) or 0
 
 	if inList(data.user.id, config.main.ownerList) then
 		userLevel = 5
