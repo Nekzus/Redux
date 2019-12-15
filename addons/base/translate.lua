@@ -131,7 +131,7 @@ local _function = function(data)
 			return false
 		end
 
-		if translateLang:sub(1, 1) == "\"" or translateLang:sub(translateLang, 1, 1) == "'" then
+		if translateLang:sub(1, 1) == "\"" or translateLang:sub(1, 1) == "'" then
 			translateLang = translateLang:match("%w+")
 
 			for _, item in next, supportedLangs do

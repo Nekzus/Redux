@@ -23,7 +23,7 @@ local _function = function(data)
 	local isNum = tonumber(terms)
 	local targetMessage
 
-	if isNum and #terms == 18 then
+	if isNum and #terms == 18 and tonumber(terms) then
 		targetMessage = data.channel:getMessage(terms)
 	else
 		local lastMessage = data.message
@@ -36,22 +36,22 @@ local _function = function(data)
 
 			lastChecked = lastMessage
 			local messagesCache = data.channel:getMessagesBefore(lastMessage.id, 100)
-			local ret = {}
+			local result = {}
 
 			for message in messagesCache:iter() do
 				lastMessage = message
 
 				if message.content:lower():match(terms) then
-					ret[#ret + 1] = message
+					result[#result + 1] = message
 				end
 			end
 
-			if #ret > 0 then
-				table.sort(ret, function(a, b)
+			if #result > 0 then
+				table.sort(result, function(a, b)
 					return a.createdAt < b.createdAt
 				end)
 
-				targetMessage = ret[#ret]
+				targetMessage = result[#result]
 
 				break
 			end

@@ -44,13 +44,14 @@ function handleMuteData(muteData)
 	-- :stop() :close()
 	local process = timer.setTimeout((muteData.duration - elapsedTime) * 1000, function()
 		coroutine.wrap(function()
-		guildData:get("mutes"):set(member.id, nil)
-		tempMutes:set(muteData.guid, nil)
+			guildData:get("mutes"):set(member.id, nil)
+			tempMutes:set(muteData.guid, nil)
 
-		if role and member:hasRole(roleId) then
-			member:removeRole(role)
-		end
-	end)() end)
+			if role and member:hasRole(roleId) then
+				member:removeRole(role)
+			end
+		end)()
+	end)
 
 	muteTimers[muteData.guid] = process
 
