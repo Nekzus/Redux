@@ -1,5 +1,5 @@
-function httpGet(link, ...)
-	return httpHandle("GET", link, ...)
+function httpGet(...)
+	return httpHandle("GET", ...)
 end
 
 return httpGet

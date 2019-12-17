@@ -1,5 +1,5 @@
-function httpPost(link, ...)
-	return httpHandle("POST", link, ...)
+function httpPost(...)
+	return httpHandle("POST", ...)
 end
 
 return httpPost
