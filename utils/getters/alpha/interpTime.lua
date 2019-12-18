@@ -1,7 +1,6 @@
 function interpTime(text)
 	text = type(text) == "string" and text
 	or type(text) == "number" and tostring(text)
-	or nil
 
 	assert(text, "Text must be a number or string!")
 
