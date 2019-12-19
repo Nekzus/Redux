@@ -15,7 +15,7 @@ function affixNum(num)
 
 	if num < 0 then
 		isNeg = true
-		num = num * - 1
+		num = num * -1
 	end
 
 	num = num - num % 10
@@ -26,7 +26,7 @@ function affixNum(num)
 	affix = math.min(affix, #config.numAffixes)
 
 	if isNeg then
-		num = num * - 1
+		num = num * -1
 	end
 
 	local power = num / 1000 ^ affix

@@ -1,29 +1,20 @@
 function interpTime(text)
 	text = type(text) == "string" and text
 	or type(text) == "number" and tostring(text)
-	or nil
 
 	assert(text, "Text must be a number or string!")
 
 	local totalTime = 0
-	local ordered = {}
 
-	for name, value in next, timeUnit do
-		table.insert(ordered, {
-			name = name,
-			value = value
-		})
-	end
+	for formula in text:gmatch(config.patterns.time.base) do
+		local num, key = formula:match(config.patterns.time.capture)
 
-	table.sort(ordered, function(a, b)
-		return a.value < b.value
-	end)
-
-	for value, name in text:gmatch(config.patterns.time.capture) do
-		for _, item in next, ordered do
-			if item.name:find(name:lower()) then
-				totalTime = totalTime + value * item.value
-				break
+		if key then
+			for timeKey, timeNum in next, timeUnit do
+				if timeKey:sub(1, #key) == key then
+					totalTime = totalTime + num * timeNum
+					break
+				end
 			end
 		end
 	end
