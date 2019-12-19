@@ -71,9 +71,9 @@ function dos(cmd, raw)
 end
 
 function upload()
-	dos("git add --all")
-	dos("git commit -am \"Base de dados\"")
-	dos("git push")
+	dos("git add --all --quiet")
+	dos("git commit -am \"Base de dados\" --quiet")
+	dos("git push --quiet")
 end
 
 function loadFile(path)
