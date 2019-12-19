@@ -70,6 +70,12 @@ function dos(cmd, raw)
 	:gsub("[\n\r]+", " ")
 end
 
+function upload()
+	dos("git add --all")
+	dos("git commit -am \"Base de dados\"")
+	dos("git push")
+end
+
 function loadFile(path)
 	assert(type(path) == "string", "Path must be a string")
 

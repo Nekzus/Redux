@@ -15,6 +15,9 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local args = data.args
 
+	local listItems = client.guilds:toArray() --{}
+	local listTotal = #listItems
+
 	local perPage = 10
 	local page = tonumber(args[2]) or 1
 
@@ -27,48 +30,48 @@ local _function = function(data)
 
 	local function showPage()
 		local embed = newEmbed()
-		local count = 0
+		local inPage = 0
 		local result = ""
 
-		local rList = client.guilds:toArray()
-		local nCount = #rList
-
-		table.sort(rList, function(a, b)
-			return a.name < b.name
+		table.sort(listItems, function(a, b)
+			return #a.members < #b.members
 		end)
 
-		for _, obj in next, paginate(rList, perPage, page) do
-			count = count + 1
+		for _, obj in next, paginate(listItems, perPage, page) do
+			inPage = inPage + 1
 
 			if result ~= "" then
 				result = string.format("%s\n", result)
 			end
 
-			local guildName = obj.name
+			local guildName = obj.name:gsub("[\128-\255]", "")
 
 			if #guildName > 15 then
-				guildName = string.format("%s...", guildName:sub(1, 15))
+				guildName = string.format("%s...", guildName:sub(1, 12))
 			end
 
 			result = localize("%s%s **%s**: `%s`", guildLang, result, topicEmoji.mentionString, guildName, obj.id)
 		end
 
-		local pages = nCount / perPage
+		local pages = listTotal / perPage
 
 		if tostring(pages):match("%.%d+") then
 			pages = math.max(1, tonumber(tostring(pages):match("%d+") + 1))
 		end
 
-		embed:title(localize("${guilds} (%s/%s) [${page} %s/%s]", guildLang, count, nCount, page, pages))
+		embed:title(localize("${guilds} (%s/%s) [${page} %s/%s]", guildLang, inPage, listTotal, page, pages))
 		embed:description(result ~= "" and result or localize("${noResults}", guildLang))
 
 		embed:color(paint.info)
 		embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
-		if nCount <= perPage then
-			decoy = decoy == nil and bird:post(nil, embed:raw(), data.channel)
-			or decoy:update(nil, embed:raw())
+		if listTotal <= perPage then
+			if decoy == nil then
+				decoy = bird:post(nil, embed:raw(), data.channel)
+			else
+				decoy:update(nil, embed:raw())
+			end
 
 			return true
 		end

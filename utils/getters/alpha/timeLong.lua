@@ -11,7 +11,7 @@ function timeLong(seconds)
 		result = join(
 			result,
 			tostring(days),
-			days == 1 and "$<day>, " or "$<days>, "
+			days == 1 and " $<day>, " or " $<days>, "
 		)
 	end
 
@@ -19,7 +19,7 @@ function timeLong(seconds)
 		result = join(
 			result,
 			tostring(hours),
-			hours == 1 and "$<hour>, " or "$<hours>, "
+			hours == 1 and " $<hour>, " or " $<hours>, "
 		)
 	end
 
@@ -27,7 +27,7 @@ function timeLong(seconds)
 		result = join(
 			result,
 			tostring(minutes),
-			minutes == 1 and "$<minute>, " or "$<minutes>, "
+			minutes == 1 and " $<minute>, " or " $<minutes>, "
 		)
 	end
 
@@ -35,7 +35,7 @@ function timeLong(seconds)
 		result = join(
 			result,
 			tostring(seconds),
-			seconds == 1 and "$<second>, " or "$<seconds>, "
+			seconds == 1 and " $<second>, " or " $<seconds>, "
 		)
 	end
 
