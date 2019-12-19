@@ -6,8 +6,7 @@ function updateCommandCooldown(command, member)
 	local commandName = commandData and commandData.name
 
 	if not commandData then
-		printf("Could not find command '%s'", command)
-
+		client:error("Could not find command '%s'", command)
 		return false
 	end
 

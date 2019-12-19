@@ -78,14 +78,14 @@ function loadFile(path)
 	local fileName = last(path:split("/"))
 
 	if not file then
-		printf("Load Error: %s | %s", fileName or path)
+		client:error("Load Error: %s | %s", fileName or path)
 		return false
 	end
 
 	local code, err = loadstring(result, fileName)
 
 	if not code then
-		printf("Syntax Error: %s | %s", fileName, err)
+		client:error("Syntax Error: %s | %s", fileName, err)
 		return false
 	end
 
@@ -96,7 +96,7 @@ function loadFile(path)
 	if success then
 		return result
 	else
-		printf("Runtime Error: %s | %s", fileName, result)
+		client:error("Runtime Error: %s | %s", fileName, result)
 		return false
 	end
 end
@@ -136,7 +136,7 @@ function loadBot()
 					local addon = loadFile(join(path, "/", category, "/", file))
 
 					if not addon then
-						printf("Failed to load %s from %s", file, category)
+						client:error("Failed to load %s from %s", file, category)
 					end
 
 					local aliases = addon.config.aliases or {}

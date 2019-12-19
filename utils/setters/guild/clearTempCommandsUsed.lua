@@ -4,7 +4,9 @@ function clearTempCommandsUsed(member)
 	local commandsUsed = userData:get("commandsUsed")
 
 	for command, _ in next, commandsUsed:raw() do
-		if canUseCommand(command, member) then
+		local canUse = canUseCommand(command, member)
+
+		if canUse == true or canUse == nil then
 			commandsUsed:set(command, nil)
 		end
 	end

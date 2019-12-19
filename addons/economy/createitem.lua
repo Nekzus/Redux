@@ -152,7 +152,7 @@ local _function = function(data)
 			if fillData then
 				itemData[fill] = fillData.default
 			else
-				printf("Instring.formation not found in itemData for %s", fill)
+				client:warning("Information not found in itemData for %s", fill)
 			end
 		end
 

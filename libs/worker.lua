@@ -32,7 +32,7 @@ function methods:accept(...)
 		local exists = pool.aliases[alias]
 
 		if exists then
-			printf("Alias %s already exists for command %s", alias, exists.name)
+			client:warning("Alias %s already exists for command %s", alias, exists.name)
 			return false
 		end
 

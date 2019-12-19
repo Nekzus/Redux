@@ -23,7 +23,9 @@ local _function = function(data)
 		return false
 	end
 
-	client:setGame(data.content:sub(#args[1] + 2))
+	local text = data.content:sub(#args[1] + 2)
+
+	client:setGame(text)
 
 	local text = localize("${playingStatusSet}", guildLang, text)
 	local embed = replyEmbed(text, data.message, "ok")

@@ -36,7 +36,8 @@ local _function = function(data)
 	end
 
 	if #responses <= 0 then
-		print("Responses not found")
+		client:error("Responses not found")
+		return false
 	end
 
 	local text = string.format(responses[math.random(#responses)], string.format("%s %s", symbol, value))

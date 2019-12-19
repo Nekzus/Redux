@@ -3,8 +3,7 @@ function getGuildDefinedRoles(guild)
 	local guildData = getGuildData(guild)
 
 	if not guildData then
-		printf("Could not find guildData for guild '%s'", guild.name)
-
+		client:error("Could not find guildData for guild '%s'", guild.name)
 		return false
 	end
 

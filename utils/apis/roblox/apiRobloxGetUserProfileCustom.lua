@@ -32,7 +32,7 @@ function apiRobloxGetUserProfileCustom(id)
 	)
 
 	if not request then
-		print("Unable to decode apiRobloxGetUserProfileCustom")
+		client:error("Unable to decode apiRobloxGetUserProfileCustom")
 		return nil
 	end
 

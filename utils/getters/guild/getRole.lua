@@ -1,6 +1,6 @@
 function getRole(value, key, guild)
 	if not (guild and guild.roles) then
-		print("Invalid guild object passed on getRole()")
+		client:error("Invalid guild object passed on getRole()")
 		return nil
 	end
 

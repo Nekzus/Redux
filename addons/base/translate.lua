@@ -25,7 +25,7 @@ local _function = function(data)
 		local supportedLangs = apiGoogleTranslateLangs(guildLang)
 
 		if not supportedLangs then
-			print("Could not find languages list")
+			client:warning("Could not find languages list")
 
 			return false
 		end
@@ -127,7 +127,7 @@ local _function = function(data)
 		local supportedLangs = apiGoogleTranslateLangs(guildLang)
 
 		if not supportedLangs then
-			print("Could not find languages list")
+			client:warning("Could not find languages list")
 			return false
 		end
 

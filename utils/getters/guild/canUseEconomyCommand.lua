@@ -6,7 +6,7 @@ function canUseEconomyCommand(command, member, guild)
 	local commandName = commandData and commandData.name
 
 	if not commandData then
-		printf("Could not find command '%s'", command)
+		client:error("Could not find command '%s'", command)
 		return false
 	end
 
@@ -14,7 +14,7 @@ function canUseEconomyCommand(command, member, guild)
 	and guildEconomy:get("actions"):raw()[commandName]
 
 	if not commandData then
-		printf("Could not find action '%s'", commandName)
+		client:error("Could not find action '%s'", commandName)
 		return false
 	end
 

@@ -43,7 +43,7 @@ function apiRobloxGetUserLimiteds(id, amount)
 		local decode = json.decode(request)
 
 		if not decode then
-			print("Unable to decode apiRobloxGetUserLimiteds")
+			client:error("Unable to decode apiRobloxGetUserLimiteds")
 			break
 		elseif not decode.data then
 			break

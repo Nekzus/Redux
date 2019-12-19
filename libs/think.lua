@@ -123,7 +123,7 @@ function methods:delete()
 	local success, err = os.remove(self.path)
 
 	if not success then
-		printf("Could not delete file at path %s: %s", self.path, err)
+		client:error("Could not delete file at path %s: %s", self.path, err)
 		return false
 	end
 

@@ -3,15 +3,13 @@ client:on("ready",
 		client:setGame({
 			type = 2,
 			name = join(config.defaultGuild.prefix, "help")
-
 		})
 
-		print("\n")
-		print("Framework and modules ready")
+		client:info("Framework and modules ready")
 
 		coroutine.wrap(
 			function()
-				print("Persistent mutes enabled")
+				client:info("Persistent mutes enabled")
 
 				for _, muteData in next, saves.temp:get("mutes"):raw() do
 					handleMuteData(muteData)
@@ -22,7 +20,7 @@ client:on("ready",
 		coroutine.wrap(
 			function()
 				if config.cleaner.enabled then
-					print("Cleanser routine enabled")
+					client:info("Cleanser routine enabled")
 
 					reactionsData = reactionsData or {}
 
@@ -38,11 +36,9 @@ client:on("ready",
 						end
 					end
 				else
-					print("Cleanser routine disabled")
+					client:warning("Cleanser routine disabled")
 				end
 			end
 		)()
-
-		print("\n")
 	end
 )

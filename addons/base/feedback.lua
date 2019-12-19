@@ -28,7 +28,7 @@ local _function = function(data)
 	local channel = guild and client:getChannel(config.main.guilds.home.channels.feedback)
 
 	if not channel then
-		print("Could not find feedback channel")
+		client:warning("Could not find feedback channel")
 		return false
 	end
 

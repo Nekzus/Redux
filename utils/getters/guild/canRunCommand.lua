@@ -13,8 +13,7 @@ function canRunCommand(data)
 	end
 
 	if not (userLevel and commandData and data) then
-		print("Missing arguments on canRunCommand()")
-
+		client:warning("Missing arguments on canRunCommand()")
 		return false
 	end
 

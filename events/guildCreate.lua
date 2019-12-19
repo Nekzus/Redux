@@ -1,6 +1,6 @@
 client:on("guildCreate",
 	function(guild)
-		printf("New guild available %s (%s)", guild.id, guild.name)
+		client:info("New guild available %s (%s)", guild.id, guild.name)
 
 		local guildData = getGuildData(guild)
 		local regions = {

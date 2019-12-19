@@ -9,7 +9,7 @@ function updateEconomyCommandCooldown(command, member, guild)
 	and guildEconomy:get("actions"):raw()[commandName]
 
 	if not commandData then
-		printf("Could not find command '%s'", command)
+		client:error("Could not find command '%s'", command)
 		return false
 	end
 

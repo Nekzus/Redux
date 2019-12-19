@@ -53,7 +53,7 @@ function apiRobloxGetUserAccessories(id, amount)
 			local decode = json.decode(request)
 
 			if not decode then
-				print("Unable to decode apiRobloxGetUserAccessories")
+				client:error("Unable to decode apiRobloxGetUserAccessories")
 				break
 			elseif not decode.data then
 				break

@@ -7,6 +7,6 @@ client:on("guildDelete",
 			data:delete()
 		end
 
-		printf("Bot left or was removed from guild %s (%s)", guild.id, guild.name)
+		client:info("Bot left or was removed from guild %s (%s)", guild.id, guild.name)
 	end
 )

@@ -191,13 +191,11 @@ client:on("messageCreate",
 
 				bird:post(nil, embed:raw(), data.channel)
 
-				printf(
-					"\nCommand Error: %s | %s\nInformation: %s",
-					commandName,
-					commandError,
-					data.author.tag,
-					data.message.content
-				)
+				client:error(join(
+					"Command Error: ", commandName,
+					"| ", commandError,
+					"\nInformation: ", data.author.tag, " ", data.message.content
+				))
 			end
 		end
 	end
