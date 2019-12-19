@@ -13,7 +13,6 @@ local _function = function(data)
 	local guildData = data.guildData
 	local guildLang = data.guildLang
 	local args = data.args
-	local ata = data.content:sub(#args[1] + 2)
 
 	if not (args[2]) then
 		local text = localize("${missingArg}", guildLang)
@@ -24,51 +23,21 @@ local _function = function(data)
 		return false
 	end
 
-	if getRole(ata, "name", data.guild) then
+	local text = data.content:sub(#args[1] + 2)
+	local role = getRole(text, "name", data.guild) or getRole(text, "id", data.guild)
+
+	if role then
 		local embed = newEmbed()
-		local role = getRole(ata, "name", data.guild)
 
 		embed:field({name = localize("${roleName}", guildLang), value = role.name, inline = true})
-		embed:field({name = "ID", value = role.id, inline = true})
+		embed:field({name = localize("${id}", guildLang), value = role.id, inline = true})
 		embed:field({name = localize("${roleUsers}", guildLang), value = #role.members:toArray(), inline = true})
-		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z"), inline = true})
-		embed:field({name = localize("${roleColor}", guildLang), value = string.format("%s, %s, %s", role:getColor():toRGB()), inline = true})
+		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toString("%m/%d/%Y %I:%M %p"), inline = true})
+		embed:field({name = localize("${roleColor}", guildLang), value = role:getColor():toHex(), inline = true})
 		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
 		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
-		embed:color(paint.info)
-		embed:footerIcon(config.images.info)
-		signFooter(embed, data.author, guildLang)
-
-		data.channel:send{embed = embed:raw()}
-	elseif getRole(args[2], "name", data.guild) then
-		local embed = newEmbed()
-		local role = getRole(args[2], "name", data.guild)
-
-		embed:field({name = localize("${roleName}", guildLang), value = role.name, inline = true})
-		embed:field({name = "ID", value = role.id, inline = true})
-		embed:field({name = localize("${roleUsers}", guildLang), value = #role.members:toArray(), inline = true})
-		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z"), inline = true})
-		embed:field({name = localize("${roleColor}", guildLang), value = string.format("%s, %s, %s", role:getColor():toRGB()), inline = true})
-		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
-		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
-		embed:color(paint.info)
-		embed:footerIcon(config.images.info)
-		signFooter(embed, data.author, guildLang)
-
-		data.channel:send{embed = embed:raw()}
-	elseif getRole(args[2], "id", data.guild) then
-		local embed = newEmbed()
-		local role = getRole(args[2], "id", data.guild)
-
-		embed:field({name = localize("${roleName}", guildLang), value = role.name, inline = true})
-		embed:field({name = "ID", value = role.id, inline = true})
-		embed:field({name = localize("${roleUsers}", guildLang), value = #role.members:toArray(), inline = true})
-		embed:field({name = localize("${roleCreatedAt}", guildLang), value = discordia.Date.fromSnowflake(role.id):toISO("T", "Z"), inline = true})
-		embed:field({name = localize("${roleColor}", guildLang), value = string.format("%s, %s, %s", role:getColor():toRGB()), inline = true})
-		embed:field({name = localize("${roleMentionable}", guildLang), value = role.mentionable, inline = true})
-		embed:field({name = localize("${roleHoisted}", guildLang), value = role.hoisted, inline = true})
-		embed:color(paint.info)
-		embed:footerIcon(config.images.info)
+		embed:color({role:getColor():toRGB()}) --paint.info
+		--embed:footerIcon(config.images.info)
 		signFooter(embed, data.author, guildLang)
 
 		data.channel:send{embed = embed:raw()}

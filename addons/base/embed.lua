@@ -70,7 +70,7 @@ local _function = function(data)
 		end
 	else
 		embed = newEmbed() --replyEmbed(nil, data.message, "info")
-		embed:timestamp(discordia.Date():toISO("T", "Z"))
+		embed:timestamp(discordia.Date():toString("%m/%d/%Y %I:%M %p"))
 		embedBuilderData[data.author.id] = {embed = embed, data = data}
 
 		local text = localize("${editModeResult}", guildLang, data.author.tag)

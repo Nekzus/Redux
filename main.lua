@@ -137,17 +137,17 @@ function loadBot()
 
 					if not addon then
 						client:error("Failed to load %s from %s", file, category)
-					end
+					else
+						local aliases = addon.config.aliases or {}
 
-					local aliases = addon.config.aliases or {}
+						addon.config.category = string.format("${%s}", category)
+						addon.config.func = addon.func
 
-					addon.config.category = string.format("${%s}", category)
-					addon.config.func = addon.func
+						local command = worker:create(addon.config)
 
-					local command = worker:create(addon.config)
-
-					if #aliases > 0 then
-						command:accept(unpack(aliases))
+						if #aliases > 0 then
+							command:accept(unpack(aliases))
+						end
 					end
 				end
 			end
