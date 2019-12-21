@@ -1,3 +1,16 @@
+local orderedTime = {}
+
+for timeKey, timeNum in next, timeUnit do
+	table.insert(orderedTime, {
+		prefix = timeKey,
+		value = timeNum,
+	})
+end
+
+table.sort(orderedTime, function(a, b)
+	return a.value < b.value
+end)
+
 function interpTime(text)
 	text = type(text) == "string" and text
 	or type(text) == "number" and tostring(text)
@@ -10,9 +23,9 @@ function interpTime(text)
 		local num, key = formula:match(config.patterns.time.capture)
 
 		if key then
-			for timeKey, timeNum in next, timeUnit do
-				if timeKey:sub(1, #key) == key then
-					totalTime = totalTime + num * timeNum
+			for _, item in next, orderedTime do
+				if item.prefix:sub(1, #key) == key then
+					totalTime = totalTime + num * item.value
 					break
 				end
 			end
