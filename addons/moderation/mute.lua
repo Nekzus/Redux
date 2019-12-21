@@ -67,7 +67,8 @@ local _function = function(data)
 	local notMuted = {}
 	local alreadyMuted = {}
 
-	local muteTime = data.content:match("%s%d[%a]*%s")	
+	local content = data.content
+	local muteTime = content:match("%s%d+%a") or content:match("%s%d+")
 	muteTime = muteTime and math.clamp(interpTime(muteTime), timeUnit.second * 5, timeUnit.month)
 	or timeUnit.hour
 
