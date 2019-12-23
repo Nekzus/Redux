@@ -1,0 +1,1 @@
+do local _={mutes={},roles={["657988105621733388"]={level=-1,added=1576947962},["657230921896034349"]={level=3,added=1576947970}},prefix=".",lang="pt-br"};return _;end
