@@ -39,7 +39,9 @@ local _function = function(data)
 		}
 	)
 
-	bird:post(response, nil, data.channel)
+	if response then
+		bird:post(response, nil, data.channel)
+	end
 
 	return true
 end
