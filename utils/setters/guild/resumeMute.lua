@@ -16,6 +16,7 @@ function resumeMute(guid)
 	if not guildMute then
 		client:error("Could not find guildMute in resumeMute, clearing stored data")
 		tempMutes:set(guid, nil)
+		saves.temp:save()
 		return false
 	end
 
@@ -25,6 +26,7 @@ function resumeMute(guid)
 	if not guild then
 		client:error("Could not find guild in resumeMute, clearing stored data")
 		tempMutes:set(guid, nil)
+		saves.temp:save()
 		return false
 	end
 
@@ -35,13 +37,14 @@ function resumeMute(guid)
 	if not role then
 		tempMutes:set(guid, nil)
 		guildMutes:set(userId, nil)
+		saves.temp:save()
+		guildData:save()
 		return false
 	end
 
 	if elapsedTime >= guildMute.duration then
 		tempMutes:set(guid, nil)
 		guildMutes:set(userId, nil)
-
 		saves.temp:save()
 		guildData:save()
 
@@ -65,6 +68,8 @@ function resumeMute(guid)
 		coroutine.wrap(function()
 			tempMutes:set(guid, nil)
 			guildMutes:set(userId, nil)
+			saves.temp:save()
+			guildData:save()
 
 			role = getRole(roleId, "id", guild)
 
