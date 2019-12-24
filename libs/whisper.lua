@@ -174,19 +174,19 @@ local function decrypt(cipher, key)
     return table.concat(resultCharacters)
 end
 
-function methods:enc(text)
+function methods:encrypt(text)
 	assert(self.key, "Must create object first")
 
 	return encrypt(text, self.key)
 end
 
-function methods:dec(text)
+function methods:decrypt(text)
 	assert(self.key, "Must create object first")
 
 	return decrypt(text, self.key)
 end
 
-function methods:set(text)
+function methods:setKey(text)
 	assert(self.key, "Must create object first")
 
 	self.key = text
