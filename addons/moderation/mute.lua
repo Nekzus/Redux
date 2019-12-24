@@ -1,7 +1,7 @@
 local _config = {
 	name = "mute",
 	desc = "${mutesUser}",
-	usage = "${userKey} \"${reasonKey}\" ${numKey}",
+	usage = "${userKey} ${numKey} \"${reasonKey}\"",
 	aliases = {"mt"},
 	cooldown = 0,
 	level = 1,
@@ -69,7 +69,9 @@ local _function = function(data)
 
 	local content = data.content
 	local muteTime = content:match("%s%d+%a") or content:match("%s%d+")
-	muteTime = muteTime and math.clamp(interpTime(muteTime), timeUnit.second * 5, timeUnit.month)
+
+	muteTime = muteTime
+	and math.clamp(interpTime(muteTime), timeUnit.second * 5, timeUnit.month)
 	or timeUnit.hour
 
 	local formalMuteTime = localize(timeLong(muteTime), guildLang)
@@ -79,26 +81,25 @@ local _function = function(data)
 		local member = user and data.guild:getMember(user.id)
 		local canMute = true
 
-		if not user or not member then
+		if not member then
 			canMute = false
 			table.insert(notMuted, member.name)
 		end
 
 		local tempMutes = saves.temp:get("mutes")
-		local muteData = guildData:get("mutes"):raw()[member.id]
+		local guildMutes = guildData:get("mutes")
+		local guildMute = guildMutes:raw()[member.id]
 
-		if muteData then
-			if member:hasRole(role) then
+		if guildMute then
+			if tempMutes:raw()[member.id]
+			or guildMutes:raw()[member.id]
+			or member:hasRole(role) then
 				canMute = false
 				table.insert(alreadyMuted, member.name)
-			else
-				if tempMutes:raw()[muteData.guid] then
-					tempMutes:set(muteData.guid, nil)
-				end
 			end
 		end
 
-		local author = data.guild:getMember(data.author)
+		local author = data.member
 
 		if member.highestRole.position >= data.guild.me.highestRole.position
 		or member.highestRole.position >= author.highestRole.position then
@@ -108,22 +109,30 @@ local _function = function(data)
 
 		if canMute then
 			local guid = newGuid()
-			local tempMutes = saves.temp:get("mutes")
-
-			local muteData = {
-				added = os.time(),
-				duration = muteTime,
-				reason = reason,
-				moderator = author.id,
-				userId = member.id,
-				guild = data.guild.id,
+			local guildMute = {
 				guid = guid,
+
+				tick = os.time(),
+				reason = reason,
+				duration = muteTime,
+
+				modId = author.id,
+				userId = member.id,
+				guildId = data.guild.id,
 			}
 
-			tempMutes:set(guid, muteData)
-			guildData:get("mutes"):set(member.id, muteData)
-			handleMuteData(muteData)
+			tempMutes:set(guid, {
+				userId = member.id,
+				guildId = data.guild.id,
+			})
+			guildMutes:set(member.id, guildMute)
+
+			saves.temp:save()
+			guildData:save()
+
 			member:addRole(role)
+			resumeMute(guid)
+
 			table.insert(muted, member.name)
 		end
 	end

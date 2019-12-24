@@ -41,7 +41,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -53,7 +52,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -62,7 +60,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -71,24 +68,35 @@ local _function = function(data)
 
 	for _, user in next, data.message.mentionedUsers:toArray() do
 		local member = user and data.guild:getMember(user)
-		local muteData = guildData:get("mutes"):raw()[member.id]
 		local canUnmute = true
 
-		if not muteData then
+		if not member then
+			canUnmute = false
+			table.insert(alreadyUnmuted, member.name)
+		end
+
+		local tempMutes = saves.temp:get("mutes")
+		local guildMutes = guildData:get("mutes")
+		local guildMute = guildMutes:raw()[member.id]
+		local tempMute = guildMute and tempMutes:raw(guildMute.guid)
+
+		if not (guildMute and tempMute) then
 			table.insert(alreadyUnmuted, member.name)
 		else
-			local tempMutes = saves.temp:get("mutes")
-			local timerProcess = muteTimers[muteData.guid]
+			local process = bot.muteTimers[guildMute.guid]
 
-			if timerProcess then
-				timerProcess:stop()
-				timerProcess:close()
+			if process and not process:is_closing() then
+				process:close()
+				process = nil
 			end
 
-			guildData:get("mutes"):set(member.id, nil)
-			tempMutes:set(muteData.guid, nil)
+			tempMutes:set(guildMute.guid, nil)
+			guildMutes:set(member.id, nil)
 
-			if role and member:hasRole(roleId) then
+			saves.temp:save()
+			guildData:save()
+
+			if role and member:hasRole(role) then
 				member:removeRole(role)
 			end
 

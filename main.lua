@@ -23,7 +23,9 @@ unpack = table.unpack
 first = function(list) return list[1] end
 last = function(list) return list[#list] end
 
-bot = {}
+bot = {
+	muteTimers = {}
+}
 saves = {}
 config = {}
 

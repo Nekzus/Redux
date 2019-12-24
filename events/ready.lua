@@ -11,8 +11,8 @@ client:on("ready",
 			function()
 				client:info("Persistent mutes enabled")
 
-				for _, muteData in next, saves.temp:get("mutes"):raw() do
-					handleMuteData(muteData)
+				for guid,_ in next, saves.temp:get("mutes"):raw() do
+					resumeMute(guid)
 				end
 			end
 		)()

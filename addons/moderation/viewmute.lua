@@ -2,7 +2,7 @@ local _config = {
 	name = "viewmute",
 	desc = "${showsMutes}",
 	usage = "${userKey}",
-	aliases = {"viewmutes", "mutes", "vmt", "viewmt", "vmute", "vmutes", "mts"},
+	aliases = {"viewmutes", "mutes", "mts"},
 	cooldown = 2,
 	level = 1,
 	direct = false,
@@ -14,8 +14,6 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local args = data.args
 
-	local tempMutes = guildData:get("mutes")
-
 	local mentioned = data.message.mentionedUsers.first
 	local user
 
@@ -23,41 +21,39 @@ local _function = function(data)
 		user = data.guild:getMember(mentioned.id)
 	end
 
-	if user then
-		local muteData = guildData:get("mutes"):raw()[user.id]
+	local tempMutes = saves.temp:get("mutes")
+	local guildMutes = guildData:get("mutes")
 
-		if not muteData then
+	if user then
+		local guildMute = guildMutes:raw()[user.id]
+		local tempMute = guildMute and tempMutes:raw()[guildMute.guid]
+		
+		if not (guildMute and tempMute) then
 			local text = localize("${followingUserNotMuted}", guildLang, user.name)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
-
 			return false
 		end
 
 		local embed = newEmbed()
-
-		local newTime = os.time()
-		local elapsedTime = newTime - muteData.added
-		local formalMuteTime = localize(timeLong(muteData.duration - elapsedTime), guildLang)
+		local elapsedTime = os.time() - guildMute.tick
+		local formalMuteTime = localize(timeLong(guildMute.duration - elapsedTime), guildLang)
 
 		embed:title(mentioned.tag)
-
 		embed:field({
 			name = localize("${timeLeft}", guildLang),
 			value = formalMuteTime,
 			inline = true
 		})
-
 		embed:field({
 			name = localize("${mod}", guildLang),
-			value = string.format("<@!%s>", muteData.moderator),
+			value = string.format("<@!%s>", guildMute.modId),
 			inline = true
 		})
-
 		embed:field({
 			name = localize("${reason}", guildLang),
-			value = muteData.reason or localize("${noReason}", guildLang),
+			value = guildMute.reason or localize("${noReason}", guildLang),
 			inline = true
 		})
 
@@ -72,8 +68,8 @@ local _function = function(data)
 		local listTotal = 0
 		local listItems = {}
 
-		for userId, muteData in pairs(tempMutes:raw()) do
-			table.insert(listItems, muteData)
+		for userId, guildMute in pairs(guildMutes:raw()) do
+			table.insert(listItems, guildMute)
 			listTotal = listTotal + 1
 		end
 
@@ -104,7 +100,7 @@ local _function = function(data)
 				end
 
 				local newTime = os.time()
-				local elapsedTime = newTime - obj.added
+				local elapsedTime = newTime - obj.tick
 				local formalMuteTime = localize(timeLong(obj.duration - elapsedTime), guildLang)
 
 				result = localize("%s%s <@!%s>: %s", guildLang, result, topicEmoji.mentionString, obj.userId, formalMuteTime)
