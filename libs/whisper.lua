@@ -174,24 +174,16 @@ local function decrypt(cipher, key)
     return table.concat(resultCharacters)
 end
 
-function methods:encrypt(text)
+function methods:enc(text)
 	assert(self.key, "Must create object first")
 
 	return encrypt(text, self.key)
 end
 
-function methods:decrypt(text)
+function methods:dec(text)
 	assert(self.key, "Must create object first")
 
 	return decrypt(text, self.key)
-end
-
-function methods:setKey(text)
-	assert(self.key, "Must create object first")
-
-	self.key = text
-
-	return self
 end
 
 whisper = setmetatable(methods, metatable)
