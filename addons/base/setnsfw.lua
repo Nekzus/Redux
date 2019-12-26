@@ -27,9 +27,9 @@ local _function = function(data)
 	local bool
 	local v = args[2]:lower()
 
-	if isFiltered(v, config.terms.yes) then
+	if inList(v, config.terms.yes) then
 		bool = true
-	elseif isFiltered(v, config.terms.no) then
+	elseif inList(v, config.terms.no) then
 		bool = false
 	end
 

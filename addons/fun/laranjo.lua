@@ -85,7 +85,7 @@ local _function = function(data)
 		["boa"] = "poa",
 	}
 
-	if isFiltered(text, {"http://", "https://"}) then
+	if inList(text, {"http://", "https://"}) then
 		local text = localize("${linksNotSupported}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 

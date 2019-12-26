@@ -1,5 +1,5 @@
 function paginate(list, perPage, page)
-	perPage = perPage or 8
+	perPage = perPage or 10
 	page = page or 1
 
 	local sliceTo = (page * perPage)
