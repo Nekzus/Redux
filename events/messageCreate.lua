@@ -46,13 +46,13 @@ client:on("messageCreate",
 					if hasPermissions(botMember, nil, {"manageRoles"}) then
 						data.member:addRole(role)
 					end
-
-					if hasPermissions(botMember, nil, {"manageMessages"}) then
-						data.message:delete()
-					end
-
-					return false
 				end
+
+				if hasPermissions(botMember, nil, {"manageMessages"}) then
+					data.message:delete()
+				end
+
+				return false
 			end
 
 			if not data.args[2] then

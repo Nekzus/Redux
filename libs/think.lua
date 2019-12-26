@@ -2,7 +2,7 @@ local methods = {}
 local metatable = {}
 local directory = "./saves/"
 local extension = ".bin"
-local lifetime = 30
+local lifetime = config.timeouts.saver.value
 local pool = {}
 
 local ant = ant or require("./libs/ant.lua")
