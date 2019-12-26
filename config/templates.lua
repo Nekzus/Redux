@@ -3,7 +3,7 @@ config.templates = {
 		prefix = ".",
 		lang = "en-us",
 	},
-	
+
 	economy = {
 		symbol = ":dollar:",
 		users = {},
@@ -14,5 +14,5 @@ config.templates = {
 				income = {min = 50, max = 500},
 			},
 		},
-	}
+	},
 }
