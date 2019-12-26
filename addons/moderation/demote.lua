@@ -99,7 +99,7 @@ local _function = function(data)
 			return false
 		end
 
-		local text = localize("${userDemoted}", guildLang, targetMember.tag, (nextRole and nextRole.name) or (localize("${targetMember}", guildLang)))
+		local text = localize("${userDemoted}", guildLang, targetMember.tag, (nextRole and nextRole.name) or localize("${member}", guildLang))
 		local embed = replyEmbed(text, data.message, "ok")
 
 		bird:post(nil, embed:raw(), data.channel)

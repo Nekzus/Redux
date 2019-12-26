@@ -72,7 +72,6 @@ local _function = function(data)
 
 		if not member then
 			canUnmute = false
-			table.insert(alreadyUnmuted, member.name)
 		end
 
 		local tempMutes = saves.temp:get("mutes")
