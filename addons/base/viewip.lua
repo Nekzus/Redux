@@ -107,7 +107,7 @@ local _function = function(data)
 			return false
 		end
 
-		local embed = newEmbed()
+		local embed = enrich()
 		embed:title(localize("${ipInfo} (%s/%s): %s", guildLang, page, pages, searchResult["ip"]))
 		embed:description(item)
 

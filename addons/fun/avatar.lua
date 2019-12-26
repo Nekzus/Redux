@@ -17,7 +17,7 @@ local _function = function(data)
 	local user = data.message.mentionedUsers.first
 	local member = user and data.guild:getMember(user)
 
-	local embed = newEmbed()
+	local embed = enrich()
 
 	if specifiesUser(data.message) then
 		embed:title(localize("${avatarFor}", guildLang, member.tag))

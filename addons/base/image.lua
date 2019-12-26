@@ -56,7 +56,7 @@ local _function = function(data)
 			return false
 		end
 
-		local embed = newEmbed()
+		local embed = enrich()
 
 		embed:image(item.link)
 		embed:color(paint.info)

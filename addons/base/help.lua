@@ -79,11 +79,11 @@ local _function = function(data)
 		local message
 
 		local function showPage()
-			local embed = newEmbed()
+			local embed = enrich()
 			local inPage = 0
 			local result = ""
 
-			local embed = newEmbed()
+			local embed = enrich()
 
 			embed:color(paint.info)
 			embed:footerIcon(config.images.info)
@@ -179,7 +179,7 @@ local _function = function(data)
 	end
 
 	renderMenu = function()
-		local embed = newEmbed()
+		local embed = enrich()
 
 		embed:title(client.user.name)
 		embed:description(localize("${botDesc}", guildLang, client.user.name))
@@ -291,7 +291,7 @@ local _function = function(data)
 	end
 
 	if command then
-		local embed = newEmbed()
+		local embed = enrich()
 
 		embed:title(string.format("%s", command.name:lower()))
 		embed:description(string.format("%s", localize(command.desc, guildLang)))

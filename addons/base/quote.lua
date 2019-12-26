@@ -61,7 +61,7 @@ local _function = function(data)
 	if targetMessage then
 		local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, targetMessage.link)
 		local sentBy = localize("${messageSentBy}", guildLang, targetMessage.author.tag)
-		local embed = newEmbed()
+		local embed = enrich()
 
 		embed:author(sentBy)
 		embed:authorImage(targetMessage.author.avatarURL)

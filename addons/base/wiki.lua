@@ -56,7 +56,7 @@ local _function = function(data)
 			return false
 		end
 
-		local embed = newEmbed()
+		local embed = enrich()
 		embed:author(localize("${wikipedia}", guildLang))
 		embed:authorImage(config.images.wikipediaLogo)
 		embed:authorUrl(item.link)

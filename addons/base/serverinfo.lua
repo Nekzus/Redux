@@ -15,7 +15,7 @@ local _function = function(data)
 	local args = data.args
 
 	local guild
-	local embed = newEmbed()
+	local embed = enrich()
 
 	if inList(data.user.id, config.main.ownerList)
 	and args[2]

@@ -27,7 +27,7 @@ local _function = function(data)
 	local role = getRole(text, "name", data.guild) or getRole(text, "id", data.guild)
 
 	if role then
-		local embed = newEmbed()
+		local embed = enrich()
 
 		embed:field({name = localize("${roleName}", guildLang), value = role.name, inline = true})
 		embed:field({name = localize("${id}", guildLang), value = role.id, inline = true})

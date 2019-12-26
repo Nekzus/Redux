@@ -28,7 +28,7 @@ local _function = function(data)
 	local memberBank = memberEconomy:get("bank", 0)
 	local symbol = guildEconomy:get("symbol")
 
-	local embed = newEmbed()
+	local embed = enrich()
 
 	embed:title(data.author.tag)
 	embed:authorImage(data.author:getAvatarURL())

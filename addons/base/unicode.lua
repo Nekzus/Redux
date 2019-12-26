@@ -32,7 +32,7 @@ local _function = function(data)
 	table.remove(list, 1)
 
 	local text = data.content:sub(#args[1] + 2)
-	local embed = newEmbed()
+	local embed = enrich()
 
 	embed:title(localize("${unicode}", guildLang))
 	-- embed:description(join(unpack(list)))

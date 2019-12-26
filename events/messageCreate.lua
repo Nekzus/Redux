@@ -181,7 +181,7 @@ client:on("messageCreate",
 			local success, commandError = pcall(commandData.func, data)
 
 			if not success then
-				local embed = newEmbed()
+				local embed = enrich()
 
 				embed:title(localize("${scriptErrorFor}", guildLang, commandName))
 				embed:description(commandError)

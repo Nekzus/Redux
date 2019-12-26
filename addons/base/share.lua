@@ -29,7 +29,7 @@ local _function = function(data)
 	local embed = replyEmbed(text, data.message, "info")
 	local screenLink = apiScreenshare(data.guild.id, voice.id)
 
-	local embed = newEmbed()
+	local embed = enrich()
 
 	embed:title(localize("${shareLinkForVoice}", guildLang, voice.name))
 	embed:description(localize("[${clickHereScreenshare}](%s)", guildLang, screenLink))

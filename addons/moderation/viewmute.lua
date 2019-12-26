@@ -36,7 +36,7 @@ local _function = function(data)
 			return false
 		end
 
-		local embed = newEmbed()
+		local embed = enrich()
 		local elapsedTime = os.time() - guildMute.tick
 		local formalMuteTime = localize(timeLong(guildMute.duration - elapsedTime), guildLang)
 
@@ -88,7 +88,7 @@ local _function = function(data)
 		local message
 
 		local function showPage()
-			local embed = newEmbed()
+			local embed = enrich()
 			local inPage = 0
 			local result = ""
 

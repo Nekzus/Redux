@@ -15,7 +15,7 @@ local _function = function(data)
 	local args = data.args
 
 	local guild = data.guild
-	local embed = newEmbed()
+	local embed = enrich()
 	local mentioned = data.message.mentionedUsers.first
 	local user
 

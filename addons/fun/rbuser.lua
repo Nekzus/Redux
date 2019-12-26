@@ -64,7 +64,7 @@ local _function = function(data)
 		end
 	end
 
-	local embed = newEmbed()
+	local embed = enrich()
 	local robloxLogo = getEmoji(config.emojis.robloxLogo, "name", baseGuild)
 	local robux = getEmoji(config.emojis.robuxIcon, "name", baseGuild)
 	local social = getEmoji(config.emojis.socialIcon, "name", baseGuild)

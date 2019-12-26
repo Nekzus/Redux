@@ -1,5 +1,5 @@
 function botReply(text, method, lang, ...)
-	local embed = newEmbed()
+	local embed = enrich()
 	
 end
 

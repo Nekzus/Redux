@@ -87,7 +87,7 @@ local _function = function(data)
 			local finishCommand = string.format("%s cancel", data.command)
 			local editLostMessage = localize("${userItemEditLost} ${itemFinishTip2}", guildLang, data.user.username, finishCommand)
 			local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, decoy.message.link)
-			local embed = newEmbed()
+			local embed = enrich()
 
 			embed:description(string.format("%s\n\n%s", editLostMessage, jumpTo))
 			embed:color(paint.info)
@@ -263,7 +263,7 @@ local _function = function(data)
 
 	local function renderItemPreviewEmbed()
 		local charLimit = 15
-		local embed = newEmbed()
+		local embed = enrich()
 
 		embed:color(paint.info)
 		embed:footerIcon(config.images.info)

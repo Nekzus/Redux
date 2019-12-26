@@ -1,5 +1,5 @@
 function replyEmbed(text, message, method)
-	local embed = newEmbed()
+	local embed = enrich()
 	local private = isPrivateChannel(message.channel)
 	local guildData = not private and getGuildData(message.guild)
 	local guildLang = guildData and guildData:get("lang") or config.templates.guild.lang

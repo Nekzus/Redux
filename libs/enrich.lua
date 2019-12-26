@@ -125,6 +125,6 @@ function metatable:__index(key)
 	return rawget(methods, key)
 end
 
-newEmbed = setmetatable(methods, metatable)
+enrich = setmetatable(methods, metatable)
 
-return newEmbed
+return enrich

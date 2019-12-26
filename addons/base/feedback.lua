@@ -32,7 +32,7 @@ local _function = function(data)
 		return false
 	end
 
-	local embed = newEmbed()
+	local embed = enrich()
 
 	embed:author(data.author.tag)
 	embed:authorImage(data.author.avatarURL)

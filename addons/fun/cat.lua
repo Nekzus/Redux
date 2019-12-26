@@ -15,7 +15,7 @@ local _function = function(data)
 	local args = data.args
 
 	local result, err = apiCat()
-	local embed = newEmbed()
+	local embed = enrich()
 
 	signFooter(embed, data.author, guildLang)
 

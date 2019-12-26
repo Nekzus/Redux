@@ -44,7 +44,7 @@ local _function = function(data)
 			local finishCommand = string.format("%s done", data.command)
 			local editLostMessage = localize("${userEmbedEditLost} ${embedFinishTip2}", guildLang, data.user.username, finishCommand)
 			local jumpTo = localize("[${jumpToMessage}](%s)", guildLang, botEmbed:getMessage().link)
-			local embed = newEmbed()
+			local embed = enrich()
 
 			embed:description(string.format("%s\n\n%s", editLostMessage, jumpTo))
 			embed:color(paint.info)
@@ -69,7 +69,7 @@ local _function = function(data)
 			errorEmbed:delete()
 		end
 	else
-		embed = newEmbed() --replyEmbed(nil, data.message, "info")
+		embed = enrich() --replyEmbed(nil, data.message, "info")
 		embed:timestamp(discordia.Date():toString("%m/%d/%Y %I:%M %p"))
 		embedBuilderData[data.author.id] = {embed = embed, data = data}
 
