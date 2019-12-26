@@ -90,7 +90,7 @@ local _function = function(data)
 				firstTime = false
 				decoy:update(nil, embed:raw())
 				message = decoy.message
-				blinker = blink(message, config.timeouts.reaction, {data.user.id})
+				blinker = blink(message, config.timeouts.reaction.value, {data.user.id})
 
 				blinker:on(arwUp.id, function()
 					page = math.max(1, page - 1)
@@ -203,7 +203,7 @@ local _function = function(data)
 				firstTime = false
 				decoy:update(nil, embed:raw())
 				message = decoy.message
-				blinker = blink(message, config.timeouts.reaction, {data.user.id})
+				blinker = blink(message, config.timeouts.reaction.value, {data.user.id})
 
 				message:addReaction(arwUp)
 				message:addReaction(arwDown)

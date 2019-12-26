@@ -1,27 +1,22 @@
--- Dicionário de termos reconhecidos como palavras chaves
-
 config.terms = {
 	done = {
-		"done", "d",
-		"finish", "finished", "f",
+		"d", "done",
+		"f", "finish", "finished",
 	},
+
 	cancel = {
-		"cancel", "c",
-		"stop", "s",
-		"end", "e",
+		"c", "cancel",
+		"s", "stop",
+		"e", "end",
 	},
+
 	yes = {
-		"yes", "y",
-		"on",
-		"true",
-		"+",
-		"1",
+		"y", "yes",
+		"true", "on", "1",
 	},
+
 	no = {
-		"no", "n",
-		"off",
-		"false",
-		"-",
-		"0",
+		"n", "no",
+		"false", "off", "0"
 	}
 }

@@ -1,5 +1,3 @@
--- Configuração de emojis
-
 config.emojis = {
 	robloxLogo = "RobloxLogo",
 	loading = "FourCirclesLoading",
@@ -8,7 +6,7 @@ config.emojis = {
 	arwRight = "ArrowRight",
 	arwUp = "ArrowUp",
 	arwDown = "ArrowDown",
-	arrowIcon = "ArrowIcon", -- Usado no comando de translate
+	arrowIcon = "ArrowIcon",
 	twoMoney = "TwoMoney",
 	book = "Book",
 	balloons = "Balloons",

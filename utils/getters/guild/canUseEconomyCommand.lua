@@ -10,7 +10,7 @@ function canUseEconomyCommand(command, member, guild)
 		return false
 	end
 
-	commandData = config.defaultEconomy.actions[commandName]
+	commandData = config.templates.economy.actions[commandName]
 	and guildEconomy:get("actions"):raw()[commandName]
 
 	if not commandData then

@@ -26,13 +26,13 @@ client:on("messageCreate",
 		local private = data.member == nil
 		local guildData = not private and getGuildData(data.guild)
 		local guildMutes = not private and guildData:get("mutes")
-		local guildLang = not private and guildData and guildData:get("lang") or config.defaultGuild.lang
+		local guildLang = not private and guildData and guildData:get("lang") or config.templates.guild.lang
 		local muteData = not private and guildMutes:raw()[data.member.id]
 		local botMember = not private and data.guild:getMember(client.user.id)
 
 		if private then
-			data.guildLang = config.defaultGuild.lang
-			data.prefix = config.defaultGuild.prefix
+			data.guildLang = config.templates.guild.lang
+			data.prefix = config.templates.guild.prefix
 		else
 			data.guildData = guildData
 			data.guildLang = guildLang
@@ -144,7 +144,7 @@ client:on("messageCreate",
 
 			if commandCategory then
 				if commandCategory == "economy" then
-					if config.defaultEconomy.actions[commandName] then
+					if config.templates.economy.actions[commandName] then
 						local canUse, timeLeft = canUseEconomyCommand(commandName, data.user, data.guild)
 
 						if timeLeft then

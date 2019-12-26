@@ -30,7 +30,7 @@ function metatable:__call(message, lifetime, whitelist)
 	local result = setmetatable({
 		tick = os.time(),
 		message = message,
-		lifetime = lifetime or config.timeouts.reaction,
+		lifetime = lifetime or config.timeouts.reaction.value,
 		whitelist = whitelist or {},
 		active = {},
 	}, metatable)

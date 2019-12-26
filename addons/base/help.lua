@@ -133,7 +133,7 @@ local _function = function(data)
 
 		showPage()
 
-		blinker = blinker or blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
+		blinker = blinker or blink(decoy:getMessage(), config.timeouts.reaction.value, {data.user.id})
 
 		blinker:on(arwLeft.id, function()
 			page = math.min(pages, page + 1)
@@ -219,7 +219,7 @@ local _function = function(data)
 			decoy:clearReacts()
 		end
 
-		blinker = blinker or blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
+		blinker = blinker or blink(decoy:getMessage(), config.timeouts.reaction.value, {data.user.id})
 
 		blinker:on(baseEmoji.id,
 			function()

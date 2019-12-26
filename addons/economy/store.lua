@@ -87,7 +87,7 @@ local _function = function(data)
 
 		if decoy == nil then
 			decoy = bird:post(nil, embed:raw(), data.channel)
-			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
+			blinker = blink(decoy:getMessage(), config.timeouts.reaction.value, {data.user.id})
 
 			decoy:addReaction(arwDown)
 			decoy:addReaction(arwUp)

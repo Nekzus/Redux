@@ -131,7 +131,7 @@ local _function = function(data)
 
 			if decoy == nil then
 				decoy = bird:post(nil, embed:raw(), data.channel)
-				blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
+				blinker = blink(decoy:getMessage(), config.timeouts.reaction.value, {data.user.id})
 
 				blinker:on(arwDown.id, function()
 					page = math.min(pages, page + 1)

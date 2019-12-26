@@ -5,7 +5,7 @@ function updateEconomyCommandCooldown(command, member, guild)
 	local commandData = worker:getCommand(command)
 	local commandName = commandData and commandData.name
 
-	commandData = config.defaultEconomy.actions[commandName]
+	commandData = config.templates.economy.actions[commandName]
 	and guildEconomy:get("actions"):raw()[commandName]
 
 	if not commandData then

@@ -1,5 +1,3 @@
--- Configurações principais do bot
-
 config.main = {
 	ownerList = {
 		"280415970416394253",

@@ -4,7 +4,7 @@ function getGuildData(guild)
 	local roles = data:get("roles")
 	local mutes = data:get("mutes")
 
-	for property, value in next, config.defaultGuild do
+	for property, value in next, config.templates.guild do
 		data:get(property, value)
 	end
 

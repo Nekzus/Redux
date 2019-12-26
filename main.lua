@@ -169,3 +169,4 @@ end
 
 loadBot()
 client:run(join("Bot ", config.main.botToken))
+config.main.botToken = nil

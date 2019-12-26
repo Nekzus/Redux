@@ -71,7 +71,7 @@ local _function = function(data)
 
 		if firstTime == true then
 			firstTime = false
-			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
+			blinker = blink(decoy:getMessage(), config.timeouts.reaction.value, {data.user.id})
 
 			blinker:on(arwDown.id, function()
 				page = math.min(pages, page + 1)

@@ -3,7 +3,7 @@ function getGuildEconomy(guild)
 	local data = think(string.format("./saves/economy/%s.bin", guild.id))
 
 	-- Cria os valores padrões que não estiverem presentes
-	for property, value in next, config.defaultEconomy do
+	for property, value in next, config.templates.economy do
 		data:get(property, value)
 	end
 

@@ -1,5 +1,3 @@
--- Links das imagens hosteadas para a utilização
-
 config.images = {
 	ok = "https://cdn.discordapp.com/attachments/605826739842711562/605826801385603083/Ok.png",
 	warn = "https://cdn.discordapp.com/attachments/605826739842711562/605826803721961492/Attention.png",

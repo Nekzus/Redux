@@ -123,7 +123,7 @@ local _function = function(data)
 
 		if firstTime == true then
 			firstTime = false
-			blinker = blink(decoy:getMessage(), config.timeouts.reaction, {data.user.id})
+			blinker = blink(decoy:getMessage(), config.timeouts.reaction.value, {data.user.id})
 
 			decoy:addReaction(arwDown)
 			decoy:addReaction(arwUp)

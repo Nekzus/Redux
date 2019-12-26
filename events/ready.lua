@@ -2,7 +2,7 @@ client:on("ready",
 	function()
 		client:setGame({
 			type = 2,
-			name = join(config.defaultGuild.prefix, "help")
+			name = join(config.templates.guild.prefix, "help")
 		})
 
 		client:info("Framework and modules ready")
@@ -19,12 +19,12 @@ client:on("ready",
 
 		coroutine.wrap(
 			function()
-				if config.cleaner.enabled then
+				if config.timeouts.cleaner.enabled then
 					client:info("Cleanser routine enabled")
 
 					reactionsData = reactionsData or {}
 
-					while wait(config.cleaner.delay) do
+					while wait(config.timeouts.cleaner.value) do
 						for messageId, blinkData in next, reactionsData do
 							local timeout = blinkData.timeout
 							local tick = blinkData.tick
