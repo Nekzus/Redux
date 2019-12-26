@@ -1,3 +1,3 @@
 @echo off
 .\luvit.exe main.lua
-pause > nul
+timeout 60 /nobreak
