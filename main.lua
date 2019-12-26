@@ -74,7 +74,7 @@ end
 
 function upload()
 	dos("git add --all")
-	dos("git commit -am \"Base de dados\" --quiet")
+	dos(string.format("git commit -m \"Upload automático (%s)\" --quiet", os.date("%m/%d/%Y %I:%M %p")))
 	dos("git push --quiet")
 end
 

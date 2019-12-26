@@ -22,9 +22,7 @@ local _function = function(data)
 		name = "Shutting down..."
 	}
 
-	dos("git add --all")
-	dos(string.format("git commit -m \"Upload da base de dados (%s)\"", os.date("%m/%d/%Y %I:%M %p")))
-	dos("git push")
+	upload()
 
 	local text = localize("${botDataSaved}", guildLang)
 	local embed = replyEmbed(text, data.message, "ok")

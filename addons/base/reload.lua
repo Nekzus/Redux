@@ -14,13 +14,15 @@ local _function = function(data)
 	local guildLang = data.guildLang
 	local args = data.args
 
-	local isLocal = (args[2] and inList(args[2], {"local", "nogit", "l"}))
+	local isGit = args[2]
+	and inList(args[2], {"pull", "git", "g", "update", "up", "get"})
 
 	bot.loaded = false
 	client:removeAllListeners()
 	think:saveAll()
 
-	if not isLocal then
+	if isGit then
+		upload()
 		dos("git pull")
 	end
 
@@ -28,7 +30,6 @@ local _function = function(data)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)
-
 	worker:flushList()
 	loadBot()
 
