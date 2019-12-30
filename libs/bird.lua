@@ -87,8 +87,12 @@ function methods:unpin()
 	return true
 end
 
-function metatable:__index(key)
-	return rawget(methods, key)
+function metatable:__index(...)
+	return rawget(methods, ...)
+end
+
+function metatable:__newindex(...)
+	return rawset(methods, ...)
 end
 
 bird = setmetatable(methods, metatable)

@@ -40,9 +40,9 @@ function metatable:__call(message, lifetime, whitelist)
 	return result
 end
 
-function metatable:__index(key)
-	return rawget(methods, key)
-	or rawget(pool, key)
+function metatable:__index(...)
+	return rawget(methods, ...)
+	or rawget(pool, ...)
 end
 
 blink = setmetatable(methods, metatable)

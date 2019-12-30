@@ -121,8 +121,8 @@ function metatable:__call(data)
 	}, metatable)
 end
 
-function metatable:__index(key)
-	return rawget(methods, key)
+function metatable:__index(...)
+	return rawget(methods, ...)
 end
 
 enrich = setmetatable(methods, metatable)

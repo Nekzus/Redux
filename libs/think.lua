@@ -163,9 +163,9 @@ function metatable:__call(path)
 	return result
 end
 
-function metatable:__index(key)
-	return rawget(methods, key)
-	or rawget(pool, key)
+function metatable:__index(...)
+	return rawget(methods, ...)
+	or rawget(pool, ...)
 end
 
 think = setmetatable(methods, metatable)

@@ -53,9 +53,9 @@ function methods:flushList()
 	end
 end
 
-function metatable:__index(key)
-	return rawget(methods, key)
-	or rawget(pool, key)
+function metatable:__index(...)
+	return rawget(methods, ...)
+	or rawget(pool, ...)
 end
 
 worker = setmetatable(methods, metatable)

@@ -87,8 +87,12 @@ function metatable:__call(list)
 	}, metatable)
 end
 
-function metatable:__index(key)
-	return rawget(methods, key)
+function metatable:__index(...)
+	return rawget(methods, ...)
+end
+
+function metatable:__newindex(...)
+	return rawset(methods, ...)
 end
 
 ant = setmetatable(methods, metatable)

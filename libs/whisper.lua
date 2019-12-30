@@ -1,8 +1,8 @@
 local methods = {}
 local metatable = {}
 
-function metatable:__index(key)
-	return rawget(methods, key)
+function metatable:__index(...)
+	return rawget(methods, ...)
 end
 
 function metatable:__call(key)

@@ -6,13 +6,13 @@ function methods:getList()
 	return pool
 end
 
-function metatable:__index(key)
-  return rawget(methods, key)
-  or rawget(pool, key)
+function metatable:__index(...)
+  return rawget(methods, ...)
+  or rawget(pool, ...)
 end
 
-function metatable:__newindex(key, value)
-  return rawset(pool, key, value)
+function metatable:__newindex(...)
+  return rawset(pool, ...)
 end
 
 paint = setmetatable(methods, metatable)
