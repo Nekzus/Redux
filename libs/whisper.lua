@@ -37,7 +37,7 @@ local function encrypt(text, key)
 
     for keyIndex = 1, keyLength do
         randomSeed = (randomSeed + keyBytes[keyIndex] * keyIndex) * 1103515245 + 12345
-        randomSeed = (randomSeed - randomSeed % 65536) / 65536% 4294967296
+        randomSeed = (randomSeed - randomSeed % 65536) / 65536 % 4294967296
     end
 
     for textIndex = 1, textLength do
