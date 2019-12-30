@@ -79,11 +79,10 @@ end
 function loadFile(path)
 	assert(type(path) == "string", "Path must be a string")
 
-	local file = io.open(path, "rb")
-	local result = file and file:read("*a")
+	local result = fs.readFileSync(path)
 	local fileName = last(path:split("/"))
 
-	if not file then
+	if not result then
 		client:error("Load Error: %s | %s", fileName or path)
 		return false
 	end
