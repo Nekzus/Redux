@@ -18,21 +18,32 @@ end
 local function isFile(path)
 	assert(type(path) == "string", "Path must be a string")
 
-	local file = io.open(path, "rb")
-
-	return file and file:close() and true or false
+	return fs.existsSync(path)
 end
 
 local function readFile(path)
+	assert(type(path) == "string", "Path must be a string")
+
+	return fs.readFileSync(path)
+end
+
+--[[local function readFile(path)
 	assert(type(path) == "string", "Path must be a string")
 
 	local file = io.open(path, "rb")
 	local result = file and file:read("*a")
 
 	return file and file:close() and deserialize(result) or nil
-end
+end]]
 
 local function writeFile(path, data)
+	assert(type(path) == "string", "Path must be a string")
+	assert(type(data) == "table", "Data must be a table")
+
+	return fs.writeFileSync(serialize(data))
+end
+
+--[[local function writeFile(path, data)
 	assert(type(path) == "string", "Path must be a string")
 	assert(type(data) == "table", "Data must be a table")
 
@@ -40,7 +51,7 @@ local function writeFile(path, data)
 	local data = file and serialize(data)
 
 	return file and file:write(data) and file:close() and true or false
-end
+end]]
 
 function methods:save()
 	assert(self.path, "Must create object first")
@@ -120,6 +131,16 @@ end
 function methods:delete()
 	assert(self.path, "Must create object first")
 
+	fs.unlinkSync(self.path)
+	pool[self.path] = nil
+	self.path = nil
+
+	return true
+end
+
+--[[function methods:delete()
+	assert(self.path, "Must create object first")
+
 	local success, err = os.remove(self.path)
 
 	if not success then
@@ -131,7 +152,7 @@ function methods:delete()
 	self.path = nil
 
 	return true
-end
+end]]
 
 function methods:saveAll()
 	for _, data in next, pool do
