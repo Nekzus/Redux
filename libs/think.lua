@@ -24,34 +24,15 @@ end
 local function readFile(path)
 	assert(type(path) == "string", "Path must be a string")
 
-	return fs.readFileSync(path)
+	return deserialize(fs.readFileSync(path))
 end
-
---[[local function readFile(path)
-	assert(type(path) == "string", "Path must be a string")
-
-	local file = io.open(path, "rb")
-	local result = file and file:read("*a")
-
-	return file and file:close() and deserialize(result) or nil
-end]]
 
 local function writeFile(path, data)
 	assert(type(path) == "string", "Path must be a string")
 	assert(type(data) == "table", "Data must be a table")
 
-	return fs.writeFileSync(serialize(data))
+	return fs.writeFileSync(path, serialize(data))
 end
-
---[[local function writeFile(path, data)
-	assert(type(path) == "string", "Path must be a string")
-	assert(type(data) == "table", "Data must be a table")
-
-	local file = io.open(path, "wb")
-	local data = file and serialize(data)
-
-	return file and file:write(data) and file:close() and true or false
-end]]
 
 function methods:save()
 	assert(self.path, "Must create object first")
@@ -137,22 +118,6 @@ function methods:delete()
 
 	return true
 end
-
---[[function methods:delete()
-	assert(self.path, "Must create object first")
-
-	local success, err = os.remove(self.path)
-
-	if not success then
-		client:error("Could not delete file at path %s: %s", self.path, err)
-		return false
-	end
-
-	pool[self.path] = nil
-	self.path = nil
-
-	return true
-end]]
 
 function methods:saveAll()
 	for _, data in next, pool do
