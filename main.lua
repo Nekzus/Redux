@@ -73,9 +73,7 @@ function dos(cmd, raw)
 end
 
 function upload()
-	dos("git add --all")
-	dos(string.format("git commit -m \"Upload automático (%s)\" --quiet", os.date("%m/%d/%Y %I:%M %p")))
-	dos("git push --quiet")
+	dos("start upload.bat")
 end
 
 function loadFile(path)
