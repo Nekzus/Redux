@@ -39,7 +39,6 @@ local _function = function(data)
 			local embed = replyEmbed(text, data.message, "info")
 
 			decoy:update(nil, embed:raw())
-
 			return true
 
 		elseif inList(args[2], config.terms.done) then
@@ -77,7 +76,6 @@ local _function = function(data)
 
 			decoy:update(nil, embed:raw())
 			guildStore:set(guid, itemData)
-
 			return true
 		end
 
@@ -93,7 +91,6 @@ local _function = function(data)
 			signFooter(embed, lastData.author, guildLang)
 
 			bird:post(nil, embed:raw(), data.channel)
-
 			return false
 		end
 	else
@@ -104,7 +101,6 @@ local _function = function(data)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
-
 			return false
 		end
 
@@ -189,7 +185,6 @@ local _function = function(data)
 						local embed = replyEmbed(text, data.message, "warn")
 
 						bird:post(nil, embed:raw(), data.channel)
-
 						return false
 					end
 				end
@@ -207,11 +202,10 @@ local _function = function(data)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
-
 					return false
 				end
 
-				itemData.itemPrice = math.math.max(0, price)
+				itemData.itemPrice = math.floor(math.max(0, price))
 
 			elseif inList(key, {"stock", "itemstock", "item stock", "s"}) then
 				local stock = realNum(value)
@@ -221,11 +215,10 @@ local _function = function(data)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
-
 					return false
 				end
 
-				itemData.itemStock = max(-1, stock)
+				itemData.itemStock = math.floor(math.max(-1, stock))
 
 			elseif inList(key, {"giverole", "give role", "gr"}) then -- Attributes that will be given
 				local role = getRole(value, "name", lastData.guild)
@@ -235,7 +228,6 @@ local _function = function(data)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
-
 					return false
 				end
 
@@ -249,11 +241,10 @@ local _function = function(data)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
-
 					return false
 				end
 
-				itemData.giveCash = value
+				itemData.giveCash = math.floor(value)
 
 			elseif inList(key, {"reqrole", "requiredrole", "req role", "required role", "rr"}) then
 				local role = getRole(value, "name", lastData.guild)
@@ -263,7 +254,6 @@ local _function = function(data)
 					local embed = replyEmbed(text, data.message, "error")
 
 					bird:post(nil, embed:raw(), data.channel)
-
 					return false
 				end
 

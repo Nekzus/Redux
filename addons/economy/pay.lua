@@ -12,14 +12,13 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	if not (args[2] and args[3]) then
 		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -28,35 +27,30 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	elseif mentionsOwner(data.message) then
 		local text = localize("${noExecuteOwner}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	elseif mentionsBot(data.message) then
 		local text = localize("${noExecuteBot}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	elseif mentionsSelf(data.message) then
 		local text = localize("${noExecuteSelf}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	elseif mentionsOtherBot(data.message) then
 		local text = localize("${noExecuteOtherBot}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -69,12 +63,13 @@ local _function = function(data)
 	local value = abbrevNum(args[3], (memberCash + memberBank))
 
 	if value then
+		value = math.floor(value)
+
 		if value < 1 then
 			local text = localize("${invalidAmount}", guildLang)
 			local embed = replyEmbed(text, data.message, "error")
 
 			bird:post(nil, embed:raw(), data.channel)
-
 			return false
 		end
 
@@ -98,14 +93,12 @@ local _function = function(data)
 			local embed = replyEmbed(text, data.message, "ok")
 
 			bird:post(nil, embed:raw(), data.channel)
-
 			return true
 		else
 			local text = localize("${notEnoughCash}", guildLang)
 			local embed = replyEmbed(text, data.message, "error")
 
 			bird:post(nil, embed:raw(), data.channel)
-
 			return false
 		end
 	else
@@ -113,7 +106,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 end

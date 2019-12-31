@@ -12,14 +12,13 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	if mentionsOtherBot(data.message) then
 		local text = localize("${noExecuteOtherBot}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -41,7 +40,6 @@ local _function = function(data)
 	signFooter(embed, data.author, guildLang)
 
 	bird:post(nil, embed:raw(), data.channel)
-
 	return true
 end
 

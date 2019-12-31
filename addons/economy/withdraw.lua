@@ -12,14 +12,13 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
 	if not args[2] then
 		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -46,6 +45,8 @@ local _function = function(data)
 	end
 
 	if value and type(value) == "number" then
+		value = math.floor(value)
+
 		if value <= memberBank then
 			local text = localize("${cashWithdrawn}", guildLang, string.format("%s %s", symbol, affixNum(value)))
 			local embed = replyEmbed(text, data.message, "ok")
@@ -53,14 +54,12 @@ local _function = function(data)
 			bird:post(nil, embed:raw(), data.channel)
 			memberBank = memberEconomy:set("bank", memberBank - value)
 			memberCash = memberEconomy:set("cash", memberCash + value)
-
 			return true
 		else
 			local text = localize("${insufficientFunds}; ${currentBankAmount}", guildLang, string.format("%s %s", symbol, memberBank))
 			local embed = replyEmbed(text, data.message, "error")
 
 			bird:post(nil, embed:raw(), data.channel)
-
 			return false
 		end
 	else
@@ -68,7 +67,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 end

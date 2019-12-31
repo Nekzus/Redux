@@ -12,14 +12,13 @@ local _function = function(data)
 	local private = data.member == nil
 	local guildData = data.guildData
 	local guildLang = data.guildLang
-		local args = data.args
+	local args = data.args
 
-	if not (args[2]) then
+	if not args[2] then
 		local text = localize("${missingArg}", guildLang)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -34,7 +33,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "error")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	else
 		itemName = data.content:sub(#args[1] + #args[2] + 3)
@@ -47,7 +45,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -69,7 +66,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	elseif itemStock ~= -1 then
 		if buyAmount > itemStock then
@@ -77,7 +73,6 @@ local _function = function(data)
 			local embed = replyEmbed(text, data.message, "warn")
 
 			bird:post(nil, embed:raw(), data.channel)
-
 			return false
 		end
 	end
@@ -87,7 +82,6 @@ local _function = function(data)
 		local embed = replyEmbed(text, data.message, "warn")
 
 		bird:post(nil, embed:raw(), data.channel)
-
 		return false
 	end
 
@@ -138,7 +132,6 @@ local _function = function(data)
 	local embed = replyEmbed(text, data.message, "ok")
 
 	bird:post(nil, embed:raw(), data.channel)
-
 	return true
 end
 
