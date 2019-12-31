@@ -84,6 +84,18 @@ function methods:render()
 	return paginate(self.list, self.perPage, self.page)
 end
 
+function methods:getPage()
+	return self.page
+end
+
+function methods:getPages()
+	return self.pages
+end
+
+function methods:getList()
+	return self.list
+end
+
 book = setmetatable(methods, metatable)
 
 return book
