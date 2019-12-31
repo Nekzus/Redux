@@ -12,6 +12,11 @@
 
 langs = {
 	-- Palavras
+	["and"] = {
+		["en-us"] = "and",
+		["pt-br"] = "e",
+	},
+
 	["unicode"] = {
 		["en-us"] = "Unicode",
 		["pt-br"] = "Unicode",

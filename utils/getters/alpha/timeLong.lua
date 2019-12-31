@@ -42,7 +42,15 @@ function timeLong(seconds)
 	if result == "" then
 		return "0 $<seconds>"
 	else
-		return result:sub(1, -3)
+		result = result:sub(1, -3)
+
+		local match = result:match("%p%s%d*%s%$<%a*>$")
+
+		if match then
+			result = result:gsub(match, match:gsub(",", " %$<and>"))
+		end
+
+		return result
 	end
 end
 
