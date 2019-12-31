@@ -15,12 +15,12 @@ local function updatePages(list, perPage)
 	or count / perPage
 end
 
-function metatable:__call(list)
+function metatable:__call(list, page, perPage)
 	return setmetatable({
 		list = list or {},
-		page = 1,
+		page = page or 1,
 		pages = list and updatePages(list) or 1,
-		perPage = 10,
+		perPage = perPage or 10,
 	}, metatable)
 end
 
