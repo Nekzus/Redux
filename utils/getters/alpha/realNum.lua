@@ -20,18 +20,14 @@ function realNum(text)
 		return num
 	end
 
-	for affixKey, affixData in next, config.numAffixes do
+	for affixIndex, affixData in next, config.numAffixes do
 		if affix:lower() == affixData.key:lower() then
-			index = affixKey
+			index = affixIndex
 			break
 		end
 	end
-
-	if not index then
-		return false
-	end
-
-	return num * (1000 ^ index)
+	
+	return index and num * (1000 ^ index) or num
 end
 
 return realNum
