@@ -396,7 +396,7 @@ local function zappify(text, force)
 		end
 
 		for match, emojis in next, partialMatchAny do
-			if startsWith(lowerWord, match) then
+			if string.startswith(lowerWord, match) then
 				added = true
 
 				for i = 1, force do
@@ -406,7 +406,7 @@ local function zappify(text, force)
 		end
 
 		if not added then
-			local key, emojis = randomPair(moods)
+			local key, emojis = table.randompair(moods)
 
 			for i = 1, force do
 				result = string.format("%s %s", result, emojis[math.random(1, #emojis)])
