@@ -895,6 +895,16 @@ langs = {
 	},
 
 	-- Resultados
+	["notAllowedAccessTargetChannel"] = {
+		["en-us"] = "You are not allowed to send messages in that channel",
+		["pt-br"] = "Você não tem permissão de enviar mensagens naquele canal"
+	},
+
+	["everyoneNotSupported"] = {
+		["en-us"] = "It is not permitted to mention everyone in commands",
+		["pt-br"] = "Não é permitido mencionar todos nos comandos"
+	},
+
 	["inputResult"] = {
 		["en-us"] = "Input: ",
 		["pt-br"] = "Entrada: ",

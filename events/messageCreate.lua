@@ -62,6 +62,27 @@ client:on("messageCreate",
 				end
 			end
 
+			local mentionsCheck = {"@everyone", "@here"}
+			local mentionsEveryone = message.mentionsEveryone
+
+			if not mentionsEveryone then
+				for _, word in next, mentionsCheck do
+					if message.content:find(word) then
+						mentionsEveryone = true
+						break
+					end
+				end
+			end
+
+			if mentionsEveryone then
+				local text = localize("${everyoneNotSupported}", guildLang)
+				local embed = replyEmbed(text, message, "no")
+
+				bird:post(nil, embed:raw(), data.channel)
+
+				return false
+			end
+
 			local memberRoles = getUserDefinedRoles(data.member, data.guild)
 
 			if #memberRoles == 0 then

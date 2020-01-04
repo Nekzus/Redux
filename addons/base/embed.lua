@@ -34,15 +34,25 @@ local _function = function(data)
 
 	if inList(args[2], config.terms.done) then
 		local channel = args[3] and getTextChannel(args[3], "name", data.guild)
-
-		embedBuilderData[data.user.id] = nil
+		local hasPerm = channel and hasPermissions(data.member, channel, {"sendMessages"})
 
 		if channel then
+			if not hasPerm then
+				local text = localize("${notAllowedAccessTargetChannel}", guildLang)
+				local embed = replyEmbed(text, data.message, "no")
+
+				bird:post(nil, embed:raw(), data.channel)
+
+				return false
+			end
+
 			bird:post(nil, lastEmbed:raw(), channel)
 			lastDecoy:delete()
 		else
 			lastDecoy:update(nil, lastEmbed:raw())
 		end
+
+		embedBuilderData[data.user.id] = nil
 
 		return true
 	end
@@ -81,7 +91,7 @@ local _function = function(data)
 
 				if inList(key, {"title", "t"}) then
 					lastEmbed:title(value)
-					
+
 				elseif inList(key, {"color", "col", "clr", "c"}) then
 					lastEmbed:color({value:match("(%d+)%s(%d+)%s(%d+)")})
 
