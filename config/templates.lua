@@ -10,7 +10,7 @@ config.templates = {
 		store = {},
 		actions = {
 			work = {
-				cooldown = 30 * timeUnit.second,
+				cooldown = 30,
 				income = {min = 50, max = 500},
 			},
 		},

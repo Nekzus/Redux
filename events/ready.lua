@@ -5,40 +5,16 @@ client:on("ready",
 			name = join(config.templates.guild.prefix, "help")
 		})
 
-		client:info("Framework and modules ready")
-
 		coroutine.wrap(
 			function()
-				client:info("Persistent mutes enabled")
-
 				for guid,_ in next, saves.temp:get("mutes"):raw() do
 					resumeMute(guid)
 				end
+
+				client:info("Resumed previous mutes")
 			end
 		)()
 
-		coroutine.wrap(
-			function()
-				if config.timeouts.cleaner.enabled then
-					client:info("Cleanser routine enabled")
-
-					reactionsData = reactionsData or {}
-
-					while wait(config.timeouts.cleaner.value) do
-						for messageId, blinkData in next, reactionsData do
-							local timeout = blinkData.timeout
-							local tick = blinkData.tick
-							local now = os.time()
-
-							if (now - tick) > timeout then
-								reactionsData[messageId] = nil
-							end
-						end
-					end
-				else
-					client:warning("Cleanser routine disabled")
-				end
-			end
-		)()
+		client:info("Framework and modules ready")
 	end
 )

@@ -21,7 +21,34 @@ function methods:close()
 end
 
 function methods:raw()
-	return self.active and self or pool
+	return self.message and self or pool
+end
+
+local function untrack(self)
+	assert(self.message, "Must create object first")
+
+	if self.handler and not self.handler:is_closing() then
+		self.handler:close()
+		self.handler = nil
+	end
+end
+
+local function track(self)
+	assert(self.message, "Must create object first")
+
+	if self.handler then
+		untrack(self)
+	end
+
+	self.handler = timer.setTimeout(config.timeouts.cleaner.value * 1000, function()
+		if ((os.time() - self.tick) > self.lifetime) then
+			untrack(self)
+			pool[self.message.id] = nil
+		else
+			untrack(self)
+			track(self)
+		end
+	end)
 end
 
 function metatable:__call(message, lifetime, whitelist)
@@ -36,6 +63,7 @@ function metatable:__call(message, lifetime, whitelist)
 	}, metatable)
 
 	pool[message.id] = result
+	track(result)
 
 	return result
 end

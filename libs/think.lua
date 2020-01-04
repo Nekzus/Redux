@@ -79,34 +79,38 @@ function methods:raw()
 	return self.data:raw()
 end
 
-function methods:track()
+local function untrack(self)
 	assert(self.path, "Must create object first")
+
+	if self.handler and not self.handler:is_closing() then
+		self.handler:close()
+		self.handler = nil
+	end
+end
+
+local function track(self)
+	assert(self.path, "Must create object first")
+
+	if self.handler then
+		untrack(self)
+	end
 
 	self.handler = timer.setTimeout(lifetime * 1000, function()
 		if (self.path == nil or not isFile(self.path)) and self.handler then
-			self:untrack()
+			untrack(self)
 			return false
 		end
 
 		self:save()
 
 		if ((os.time() - self.tick) > lifetime) then
-			self:untrack()
+			untrack(self)
 			self.data = nil
 		else
-			self:untrack()
-			self:track(lifetime)
+			untrack(self)
+			track(self)
 		end
 	end)
-end
-
-function methods:untrack()
-	assert(self.path, "Must create object first")
-
-	if not self.handler:is_closing() then
-		self.handler:close()
-		self.handler = nil
-	end
 end
 
 function methods:delete()
@@ -144,7 +148,7 @@ function metatable:__call(path)
 	result = setmetatable(result, metatable)
 	pool[path] = result
 	result:update()
-	result:track()
+	track(result)
 
 	return result
 end
