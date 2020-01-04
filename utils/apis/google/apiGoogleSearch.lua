@@ -3,7 +3,7 @@ function apiGoogleSearch(text)
 		"googleSearch",
 		config.apiKeys.googleSearchKey,
 		config.apiKeys.googleSearchCx,
-		text
+		query.urlencode(text)
 	)
 	local decoded = json.decode(request)
 

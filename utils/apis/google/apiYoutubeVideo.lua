@@ -2,7 +2,7 @@ function apiYoutubeVideo(text)
 	local data, request = httpGet(
 		"youtubeSearch",
 		config.apiKeys.youtubeVideoKey,
-		text
+		query.urlencode(text)
 	)
 
 	local decoded = json.decode(request)

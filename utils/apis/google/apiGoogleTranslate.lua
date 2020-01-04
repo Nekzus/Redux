@@ -3,7 +3,7 @@ function apiGoogleTranslate(lang, text)
 		"googleTranslate",
 		config.apiKeys.googleTranslateKey,
 		lang,
-		text
+		query.urlencode(text)
 	)
 
 	local decoded = json.decode(request)

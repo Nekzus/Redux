@@ -1,7 +1,7 @@
 function apiSmartIp(text)
 	local data, request = httpGet(
 		"smartIp",
-		text,
+		query.urlencode(text),
 		config.apiKeys.smartIpKey
 	)
 

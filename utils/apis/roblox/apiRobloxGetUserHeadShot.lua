@@ -26,8 +26,8 @@ function apiRobloxGetUserHeadShot(id, headShot)
 
 	local data, request = httpGet(
 		"robloxGetUserHeadShot",
-		headShot,
-		id
+		query.urlencode(headShot),
+		query.urlencode(id)
 	)
 
 	local decoded = json.decode(request)

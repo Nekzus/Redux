@@ -14,12 +14,12 @@ function apiRobloxGetUser(value, method)
 	if method == "name" then
 		data, request = httpGet(
 			"robloxGetUserFromName",
-			value
+			query.urlencode(value)
 		)
 	elseif method == "id" then
 		data, request = httpGet(
 			"robloxGetUserFromId",
-			value
+			query.urlencode(value)
 		)
 	end
 

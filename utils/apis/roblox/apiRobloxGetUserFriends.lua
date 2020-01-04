@@ -45,8 +45,8 @@ function apiRobloxGetUserFriends(id, perPage)
 	perPage = perPage or 18
 
 	local data, request = httpGet("robloxGetUserFriends",
-		perPage,
-		id
+		query.urlencode(perPage),
+		query.urlencode(id)
 	)
 
 	local decoded = json.decode(request)

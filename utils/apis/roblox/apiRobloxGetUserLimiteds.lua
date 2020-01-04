@@ -35,9 +35,9 @@ function apiRobloxGetUserLimiteds(id, amount)
 	while true do
 		local data, request = httpGet(
 			"robloxGetUserCollectibles",
-			id,
-			amount,
-			nextPage
+			query.urlencode(id),
+			query.urlencode(amount),
+			query.urlencode(nextPage)
 		)
 
 		local decode = json.decode(request)

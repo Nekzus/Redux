@@ -28,7 +28,7 @@ end
 function apiRobloxGetUserProfileCustom(id)
 	local data, request = httpGet(
 		"robloxGetUserProfile",
-		id
+		query.urlencode(id)
 	)
 
 	if not request then

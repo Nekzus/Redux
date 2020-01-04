@@ -44,10 +44,10 @@ function apiRobloxGetUserAccessories(id, amount)
 		while true do
 			local data, request = httpGet(
 				"robloxGetUserAccessories",
-				id,
-				assetType,
-				amount,
-				nextPage
+				query.urlencode(id),
+				query.urlencode(assetType),
+				query.urlencode(amount),
+				query.urlencode(nextPage)
 			)
 
 			local decode = json.decode(request)

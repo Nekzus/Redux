@@ -46,8 +46,8 @@ function apiRobloxGetUserFollowings(id, perPage)
 
 	local data, request = httpGet(
 		"robloxGetUserFollowings",
-		perPage,
-		id
+		query.urlencode(perPage),
+		query.urlencode(id)
 	)
 
 	local decoded = json.decode(request)

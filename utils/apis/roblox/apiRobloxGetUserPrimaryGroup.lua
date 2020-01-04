@@ -11,7 +11,7 @@
 function apiRobloxGetUserPrimaryGroup(value)
 	local data, request = httpGet(
 		"robloxGetUserPrimaryGroup",
-		value
+		query.urlencode(value)
 	)
 
 	local decoded = json.decode(request)
