@@ -57,30 +57,12 @@ client:on("messageCreate",
 
 			if not data.args[2] then
 				if data.message.mentionedUsers.first == client.user then
-					bird:post(localize("${guildPrefix}", guildLang, data.prefix), nil, data.channel)
+					local text = localize("${guildPrefix}", guildLang, data.prefix)
+
+					bird:post(text, nil, data.channel)
+					
 					return true
 				end
-			end
-
-			local mentionsCheck = {"@everyone", "@here"}
-			local mentionsEveryone = message.mentionsEveryone
-
-			if not mentionsEveryone then
-				for _, word in next, mentionsCheck do
-					if message.content:find(word) then
-						mentionsEveryone = true
-						break
-					end
-				end
-			end
-
-			if mentionsEveryone then
-				local text = localize("${everyoneNotSupported}", guildLang)
-				local embed = replyEmbed(text, message, "no")
-
-				bird:post(nil, embed:raw(), data.channel)
-
-				return false
 			end
 
 			local memberRoles = getUserDefinedRoles(data.member, data.guild)
@@ -102,6 +84,27 @@ client:on("messageCreate",
 		local commandDataPerms = commandData and commandData.perms
 
 		if commandData and join(commandPrefix, commandName:lower()) == data.command then
+			local mentionsCheck = {"@everyone", "@here"}
+			local mentionsEveryone = message.mentionsEveryone
+
+			if not mentionsEveryone then
+				for _, word in next, mentionsCheck do
+					if message.content:find(word) then
+						mentionsEveryone = true
+						break
+					end
+				end
+			end
+
+			if mentionsEveryone then
+				local text = localize("${everyoneNotSupported}", guildLang)
+				local embed = replyEmbed(text, message, "no")
+
+				bird:post(nil, embed:raw(), data.channel)
+
+				return false
+			end
+
 			local userData = saves.temp:get(string.format("users/%s", data.user.id))
 			local commandPermit, commandPatron = canRunCommand(data)
 
