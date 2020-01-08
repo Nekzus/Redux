@@ -1,7 +1,23 @@
 local replace = {
-	["($%b{})"] = function(text) return text end,
-	["($%b<>)"] = function(text) return string.lower(text) end,
-	["($%b[])"] = function(text) return string.upper(text) end,
+	["($%b{})"] = function(text)
+		return text
+	end,
+
+	["($%b<>)"] = function(text)
+		return string.lower(text)
+	end,
+
+	["($%b[])"] = function(text)
+		return string.upper(text)
+	end,
+
+	["($%b^^)"] = function(text)
+		return text:gsub("%a", function(c)
+			return math.random(1, 2) == 1
+			and c:upper()
+			or c:lower()
+		end)
+	end
 }
 
 function localize(text, lang, ...)
