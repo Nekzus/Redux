@@ -1,0 +1,1 @@
+do local _={lang="pt-br",prefix=".",roles={},mutes={}};return _;end
