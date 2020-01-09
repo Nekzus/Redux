@@ -80,7 +80,7 @@ function methods:raw()
 end
 
 local function untrack(self)
-	assert(self.path, "Must create object first")
+	assert(self.handler, "Must create object first")
 
 	if self.handler and not self.handler:is_closing() then
 		self.handler:close()
