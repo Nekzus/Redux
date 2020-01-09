@@ -4,6 +4,7 @@
 	Chaves				(Palavras chave como: [número] por exemplo)
 	Resultados			(Respostas que serão dadas como: Sendo editado por: %usuario%)
 	Erros do Discord	(Erros específicos do Discord (Gateway, 404 e etc))
+	Descrições			(explicação sobre os comandos)
 	Comando work		(Respostas do comando work)
 
 	Use Ctrl+F nas palavras chaves acima para navegação fácil
@@ -1776,7 +1777,12 @@ langs = {
 		["pt-br"] = "Você só pode eliminar mensagens com menos de 14 dias.",
 	},
 
-	-- Descrições de Comandos
+	-- Descrições
+	["createsAsciiText"] = {
+		["en-us"] = "creates ASCII text.",
+		["pt-br"] = "cria o texto em ASCII.",
+	},
+
 	["editsStoreItem"] = {
 		["en-us"] = "edits an item from the store.",
 		["pt-br"] = "edita um item da loja.",

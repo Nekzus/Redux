@@ -10,6 +10,8 @@ config.apiPoints = {
 	exchangeRate = "https://api.exchangeratesapi.io/latest?base=%s",
 	wikipedia = "https://%s.wikipedia.org/w/api.php?action=opensearch&search=%s&limit=50&format=json",
 	smartIp = "https://api.smartip.io/%s?api_key=%s",
+	asciiMake = "http://artii.herokuapp.com/make?text=%s&font=%s",
+	asciiList = "http://artii.herokuapp.com/fonts_list",
 
 	robloxGetUserHeadShot = "https://www.roblox.com/search/users/avatar?isHeadshot=%s&userIds=%s",
 	robloxGetUserFriends = "https://www.roblox.com/users/friends/list-json?friendsType=AllFriends&pageSize=%s&userId=%s",
